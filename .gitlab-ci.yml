@@ -1,0 +1,27 @@
+image: node:10.13
+
+.docker_dind_tag_definition: &docker_dind_tag_definition
+  tags:
+    - docker-dind
+
+
+before_script:
+  - yarn
+
+pages:
+  cache:
+    paths:
+      - node_modules/
+  only:
+    - master
+  <<: *docker_dind_tag_definition
+  stage: deploy
+  script:
+    - yarn build-storybook
+    - rm -rf ./public/*
+    - cp -R ./storybook-static/* ./public
+    - ls ./
+    - ls ./public
+  artifacts:
+    paths:
+      - public

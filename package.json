@@ -1,20 +1,35 @@
 {
-  "name": "playground-storybook",
+  "name": "admin-toolkit",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
+    "@material-ui/core": "^4.9.0",
+    "@material-ui/icons": "^4.5.1",
+    "@material-ui/lab": "^4.0.0-alpha.41",
+    "@material-ui/pickers": "^3.2.10",
+    "craco": "^0.0.3",
+    "craco-alias": "^2.1.1",
+    "history": "^4.10.1",
+    "mobx": "^5.15.4",
+    "mobx-react": "^6.1.8",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.1"
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "3.4.1",
+    "typescript": "^3.8.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public",
+    "build-lib": "rm -rf ./dist && tsc --project build.tsconfig.json && tscpaths -p build.tsconfig.json -s ./src -o ./dist",
+    "prebuild-lib": "npm run copyright",
+    "copyright": "copyright-header --fix --copyrightHolder \"IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license.\" -i \"src\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -30,5 +45,42 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": [
+        "copyright-header --copyrightHolder \"IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license.\" -i \"src\"",
+        "lint-staged"
+      ]
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+      "prettier --write"
+    ]
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "^5.3.17",
+    "@storybook/addon-info": "^5.3.17",
+    "@storybook/addon-links": "^5.3.17",
+    "@storybook/addons": "^5.3.17",
+    "@storybook/preset-create-react-app": "^2.1.0",
+    "@storybook/react": "^5.3.17",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
+    "@types/jest": "^25.1.4",
+    "@types/react": "^16.9.25",
+    "@types/react-router-dom": "^5.1.3",
+    "babel-preset-mobx": "^2.0.0",
+    "copyright-header": "^0.4.6",
+    "husky": "^4.2.3",
+    "jest": "^24.9.0",
+    "lint-staged": "^10.0.9",
+    "prettier": "^2.0.2",
+    "react-docgen-typescript-loader": "^3.7.1",
+    "ts-jest": "^25.2.1",
+    "ts-loader": "^6.2.2",
+    "tscpaths": "^0.0.9"
   }
 }
