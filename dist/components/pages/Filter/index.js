@@ -3,7 +3,7 @@ var _a;
 import React, { useCallback, Fragment, useMemo } from 'react';
 import { withStyles, FormControl, InputLabel, Select, MenuItem, IconButton, } from '@material-ui/core';
 import styles from './styles';
-import { ENTITY_FILTER_TYPES } from '../../../types/entity';
+import { ENTITY_FILTER_TYPES } from '../../../application/types/entity';
 import { FilterText } from '../FilterText';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';

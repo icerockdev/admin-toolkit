@@ -57,15 +57,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import React from 'react';
-import { ENTITY_ERRORS } from '../../../types/entity';
-import { Page } from '../Page';
-import { EntityList } from '../EntityList';
-import { EntityHead } from '../EntityHead';
-import { EntityFooter } from '../EntityFooter';
+import { ENTITY_ERRORS } from '../../../application/types/entity';
+import { Page } from '../../../application';
+import { EntityList } from '../../../containers/pages/EntityList';
+import { EntityHead } from '../../../containers/pages/EntityHead';
+import { EntityFooter } from '../../../containers/pages/EntityFooter';
 import { computed, observable, action, reaction, flow } from 'mobx';
 import { Switch, Route } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { EntityViewer } from '../EntityViewer';
+import { EntityViewer } from '../../../containers/pages/EntityViewer';
 var Entity = /** @class */ (function (_super) {
     __extends(Entity, _super);
     function Entity(fields) {

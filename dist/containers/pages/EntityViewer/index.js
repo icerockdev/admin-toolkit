@@ -13,7 +13,7 @@ var __assign = (this && this.__assign) || function () {
 import React, { useMemo, createElement, useState, useCallback } from 'react';
 import { Breadcrumbs, Typography, withStyles, Link, Paper, Grid, Button, } from '@material-ui/core';
 import styles from './styles';
-import { getEntityFieldRenderer } from '../../../types/entity';
+import { getEntityFieldRenderer } from '../../../application';
 import { observer } from 'mobx-react';
 import { Link as RouterLink } from 'react-router-dom';
 import { toJS } from 'mobx';

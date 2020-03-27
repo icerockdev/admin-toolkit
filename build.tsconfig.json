@@ -1,9 +1,6 @@
 {
   "extends": "./tsconfig",
-  "sourceRoot": "/path/to/sources",
-  "sources": [
-    "main.ts"
-  ],
+  "source": "src/application/index.ts",
   "exclude": [
     "test/**/*.js"
   ],
