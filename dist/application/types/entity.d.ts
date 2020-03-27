@@ -1,3 +1,5 @@
+/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+
 /// <reference types="react" />
 /// <reference types="@emotion/core" />
 /// <reference types="styled-jsx" />
@@ -92,6 +94,8 @@ export interface IEntityFetchFunctionProps {
         name?: string;
         value?: any;
     } | null;
+    sortBy: string;
+    sortDir: string;
     count?: number;
 }
 export interface IEntityFetchFunctionResult {

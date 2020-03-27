@@ -138,6 +138,8 @@ var Entity = /** @class */ (function (_super) {
                                     filter: filter,
                                     page: this.page,
                                     count: this.items,
+                                    sortBy: this.sortBy,
+                                    sortDir: this.sortDir,
                                 })];
                         case 2:
                             result = _j.sent();

@@ -1,6 +1,10 @@
-import { FC } from 'react';
+/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+
+import React from 'react';
+import { WithStyles } from '@material-ui/core';
 import { IEntityField } from '../../../application';
-interface IProps {
+import styles from './styles';
+declare type IProps = WithStyles<typeof styles> & {
     isLoading: boolean;
     fields: IEntityField[];
     data: Record<string, string>[];
@@ -10,6 +14,6 @@ interface IProps {
     canView: boolean;
     canEdit: boolean;
     onSortChange: (field: string) => void;
-}
-declare const EntityList: FC<IProps>;
+};
+declare const EntityList: React.ComponentType<Pick<IProps, "data" | "isLoading" | "url" | "onSortChange" | "fields" | "sortBy" | "sortDir" | "canView" | "canEdit"> & import("@material-ui/core").StyledComponentProps<"loader">>;
 export { EntityList };
