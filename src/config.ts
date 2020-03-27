@@ -26,14 +26,6 @@ export default new Config({
       }),
   }),
   pages: [
-    new Page({
-      title: 'Sample page',
-      menu: {
-        enabled: true,
-        url: '/test',
-        label: 'Sample page',
-      },
-    }),
     new Entity({
       title: 'Sample entity',
       editable: true,
@@ -71,6 +63,12 @@ export default new Config({
           type: 'string',
         },
         {
+          name: 'phone',
+          label: 'Телефон',
+          sortable: true,
+          type: 'phone',
+        },
+        {
           name: 'title',
           label: 'Заголовок',
           sortable: true,
@@ -99,6 +97,7 @@ export default new Config({
                 {
                   id: 2,
                   type: 'text',
+                  phone: '+7 000 000 000',
                   title: 'First one',
                   created: new Date().toISOString(),
                   visible: true,
@@ -106,6 +105,7 @@ export default new Config({
                 {
                   id: 3,
                   type: 'text',
+                  phone: '+7 000 000 000',
                   title: 'Second one',
                   created: new Date().toISOString(),
                   visible: true,
@@ -122,6 +122,14 @@ export default new Config({
       createItemsFn: ({ data }: IEntityCreateFunctionProps) => {
         console.log('create', { data });
         return Promise.resolve({ error: '', data });
+      },
+    }),
+    new Page({
+      title: 'Sample page',
+      menu: {
+        enabled: true,
+        url: '/test',
+        label: 'Sample page',
       },
     }),
   ],

@@ -3,9 +3,11 @@
 import { IPageProps } from './page';
 import { EntityFieldString } from '~/components/pages/EntityFieldString';
 import { EntityFieldBoolean } from '~/components/pages/EntityFieldBoolean';
+import { EntityFieldDate } from '~/components/pages/EntityFieldDate';
 
 export const ENTITY_FIELD_RENDERS = {
   string: EntityFieldString,
+  date: EntityFieldDate,
   boolean: EntityFieldBoolean,
 };
 
