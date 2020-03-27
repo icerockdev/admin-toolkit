@@ -115,6 +115,8 @@ export class Entity extends Page {
             filter,
             page: this.page,
             count: this.items,
+            sortBy: this.sortBy,
+            sortDir: this.sortDir,
           }
         );
 

@@ -87,6 +87,8 @@ export interface IEntityFetchFunctionProps {
   url: string;
   page?: number;
   filter?: { name?: string; value?: any } | null;
+  sortBy: string;
+  sortDir: string;
   count?: number;
 }
 

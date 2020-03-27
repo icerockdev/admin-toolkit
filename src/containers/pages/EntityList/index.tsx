@@ -1,6 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { FC, createElement } from 'react';
+import React, { createElement } from 'react';
 import {
   TableContainer,
   Table,
@@ -12,14 +12,17 @@ import {
   CircularProgress,
   Button,
   ButtonGroup,
+  withStyles,
+  WithStyles,
 } from '@material-ui/core';
 import { IEntityField, getEntityFieldRenderer } from '~/application/';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink } from 'react-router-dom';
 import { EntityHeadSortable } from '~/components/pages/EntityHeadSortable';
+import styles from './styles';
 
-interface IProps {
+type IProps = WithStyles<typeof styles> & {
   isLoading: boolean;
   fields: IEntityField[];
   data: Record<string, string>[];
@@ -29,54 +32,58 @@ interface IProps {
   canView: boolean;
   canEdit: boolean;
   onSortChange: (field: string) => void;
-}
+};
 
-const EntityList: FC<IProps> = ({
-  isLoading,
-  fields,
-  data,
-  url,
-  sortBy,
-  sortDir,
-  canView,
-  canEdit,
-  onSortChange,
-}) => {
-  return (
-    <Paper>
-      <TableContainer>
-        <Table>
-          <TableHead>
-            <TableRow>
-              {fields.map((field) =>
-                field.sortable ? (
-                  <EntityHeadSortable
-                    active={sortBy === field.name}
-                    direction={sortDir}
-                    key={field.name}
-                    field={field.name}
-                    onSortChange={onSortChange}
-                  >
-                    <span>{field.label || field.name}</span>
-                  </EntityHeadSortable>
-                ) : (
-                  <TableCell key={field.name}>
-                    {field.label || field.name}
-                  </TableCell>
-                )
-              )}
-              {(canView || canEdit) && <TableCell />}
-            </TableRow>
-          </TableHead>
-          {isLoading ? (
-            <TableBody>
+const EntityList = withStyles(styles)(
+  ({
+    classes,
+    isLoading,
+    fields,
+    data,
+    url,
+    sortBy,
+    sortDir,
+    canView,
+    canEdit,
+    onSortChange,
+  }: IProps) => {
+    if (isLoading) {
+      return (
+        <Paper>
+          <div className={classes.loader}>
+            <CircularProgress />
+          </div>
+        </Paper>
+      );
+    }
+
+    return (
+      <Paper>
+        <TableContainer>
+          <Table>
+            <TableHead>
               <TableRow>
-                <TableCell colSpan={fields.length} align="center">
-                  <CircularProgress />
-                </TableCell>
+                {fields.map((field) =>
+                  field.sortable ? (
+                    <EntityHeadSortable
+                      active={sortBy === field.name}
+                      direction={sortDir}
+                      key={field.name}
+                      field={field.name}
+                      onSortChange={onSortChange}
+                    >
+                      <span>{field.label || field.name}</span>
+                    </EntityHeadSortable>
+                  ) : (
+                    <TableCell key={field.name}>
+                      {field.label || field.name}
+                    </TableCell>
+                  )
+                )}
+                {(canView || canEdit) && <TableCell />}
               </TableRow>
-            </TableBody>
-          ) : (
+            </TableHead>
+
             <TableBody>
               {data.map((entry, i) => (
                 <TableRow key={i}>
@@ -117,11 +124,11 @@ const EntityList: FC<IProps> = ({
                 </TableRow>
               ))}
             </TableBody>
-          )}
-        </Table>
-      </TableContainer>
-    </Paper>
-  );
-};
+          </Table>
+        </TableContainer>
+      </Paper>
+    );
+  }
+);
 
 export { EntityList };
