@@ -92,6 +92,8 @@ var Entity = /** @class */ (function (_super) {
         _this.totalCount = 0;
         _this.page = 0;
         _this.data = [];
+        _this.sortBy = '';
+        _this.sortDir = 'asc';
         _this.setFilters = function (filters) {
             _this.filters = filters;
         };
@@ -127,10 +129,10 @@ var Entity = /** @class */ (function (_super) {
                                 })];
                         case 2:
                             result = _j.sent();
-                            if (result.error)
-                                throw new Error(result.error);
+                            if (!result || result.error)
+                                throw new Error((result === null || result === void 0 ? void 0 : result.error) || ENTITY_ERRORS.CANT_LOAD_ITEMS);
                             this.data = ((_g = result === null || result === void 0 ? void 0 : result.data) === null || _g === void 0 ? void 0 : _g.list) || [];
-                            this.totalCount = ((_h = result === null || result === void 0 ? void 0 : result.data) === null || _h === void 0 ? void 0 : _h.totalPages) || 0;
+                            this.totalCount = ((_h = result === null || result === void 0 ? void 0 : result.data) === null || _h === void 0 ? void 0 : _h.totalCount) || 0;
                             this.isLoading = false;
                             return [3 /*break*/, 4];
                         case 3:
@@ -168,8 +170,8 @@ var Entity = /** @class */ (function (_super) {
                                 })];
                         case 2:
                             result_1 = _h.sent();
-                            if (result_1.error)
-                                throw new Error(result_1.error);
+                            if (!result_1 || result_1.error)
+                                throw new Error((result_1 === null || result_1 === void 0 ? void 0 : result_1.error) || ENTITY_ERRORS.CANT_LOAD_ITEMS);
                             if (result_1.data.id) {
                                 this.data = this.data.map(function (item) {
                                     return item.id === result_1.data.id ? __assign(__assign({}, item), result_1.data) : item;
@@ -208,8 +210,8 @@ var Entity = /** @class */ (function (_super) {
                                 })];
                         case 2:
                             result_2 = _h.sent();
-                            if (result_2.error)
-                                throw new Error(result_2.error);
+                            if (!result_2 || result_2.error)
+                                throw new Error((result_2 === null || result_2 === void 0 ? void 0 : result_2.error) || ENTITY_ERRORS.CANT_LOAD_ITEMS);
                             if (result_2.data.id) {
                                 this.data = this.data.map(function (item) {
                                     return item.id === result_2.data.id ? __assign(__assign({}, item), result_2.data) : item;
@@ -365,6 +367,12 @@ var Entity = /** @class */ (function (_super) {
     __decorate([
         observable
     ], Entity.prototype, "error", void 0);
+    __decorate([
+        observable
+    ], Entity.prototype, "sortBy", void 0);
+    __decorate([
+        observable
+    ], Entity.prototype, "sortDir", void 0);
     __decorate([
         action
     ], Entity.prototype, "setFilters", void 0);

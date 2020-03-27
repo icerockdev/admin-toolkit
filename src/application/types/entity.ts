@@ -45,6 +45,7 @@ export interface IEntityField {
   sortable?: boolean;
   editor?: {
     enabled?: boolean;
+    required?: boolean;
   };
   viewer?: {
     enabled?: boolean;
@@ -87,7 +88,7 @@ export interface IEntityFetchFunctionProps {
 export interface IEntityFetchFunctionResult {
   data: {
     list: Record<string, any>[];
-    totalPages?: number;
+    totalCount?: number;
   };
   error?: string;
 }

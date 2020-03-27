@@ -21,6 +21,8 @@ export declare class Entity extends Page {
     page: number;
     data: Record<string, any>[];
     error?: string | null;
+    sortBy: string;
+    sortDir: string;
     constructor(fields?: Partial<IEntityProps>);
     setFilters: (filters: {
         current: string;

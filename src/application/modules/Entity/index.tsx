@@ -11,6 +11,7 @@ import { CancellablePromise } from 'mobx/lib/api/flow';
 import { Switch, Route, RouteComponentProps } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { EntityViewer } from '../../../containers/pages/EntityViewer';
+import { Unwrap } from '~/application/types/common';
 
 export class Entity extends Page {
   // Props
@@ -37,6 +38,8 @@ export class Entity extends Page {
   @observable page: number = 0;
   @observable data: Record<string, any>[] = [];
   @observable error?: string | null;
+  @observable sortBy: string = '';
+  @observable sortDir: string = 'asc';
 
   constructor(fields?: Partial<IEntityProps>) {
     super();
@@ -82,17 +85,21 @@ export class Entity extends Page {
             ? { name: this.filters.current, value: this.filters.value }
             : null;
 
-        const result = yield this.parent?.auth?.withToken(this.fetchItemsFn, {
-          url: this.api?.list?.url || '',
-          filter,
-          page: this.page,
-          count: this.items,
-        });
+        const result: Unwrap<typeof this.fetchItemsFn> = yield this.parent?.auth?.withToken(
+          this.fetchItemsFn,
+          {
+            url: this.api?.list?.url || '',
+            filter,
+            page: this.page,
+            count: this.items,
+          }
+        );
 
-        if (result.error) throw new Error(result.error);
+        if (!result || result.error)
+          throw new Error(result?.error || ENTITY_ERRORS.CANT_LOAD_ITEMS);
 
         this.data = result?.data?.list || [];
-        this.totalCount = result?.data?.totalPages || 0;
+        this.totalCount = result?.data?.totalCount || 0;
         this.isLoading = false;
       } catch (e) {
         this.error = e;
@@ -119,12 +126,16 @@ export class Entity extends Page {
           throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
         }
 
-        const result = yield this.parent?.auth?.withToken(this.updateItemsFn, {
-          url: this.api?.update?.url || '',
-          data,
-        });
+        const result: Unwrap<typeof this.updateItemsFn> = yield this.parent?.auth?.withToken(
+          this.updateItemsFn,
+          {
+            url: this.api?.update?.url || '',
+            data,
+          }
+        );
 
-        if (result.error) throw new Error(result.error);
+        if (!result || result.error)
+          throw new Error(result?.error || ENTITY_ERRORS.CANT_LOAD_ITEMS);
 
         if (result.data.id) {
           this.data = this.data.map((item) =>
@@ -152,12 +163,16 @@ export class Entity extends Page {
           throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
         }
 
-        const result = yield this.parent?.auth?.withToken(this.createItemsFn, {
-          url: this.api?.create?.url || '',
-          data,
-        });
+        const result: Unwrap<typeof this.createItemsFn> = yield this.parent?.auth?.withToken(
+          this.createItemsFn,
+          {
+            url: this.api?.create?.url || '',
+            data,
+          }
+        );
 
-        if (result.error) throw new Error(result.error);
+        if (!result || result.error)
+          throw new Error(result?.error || ENTITY_ERRORS.CANT_LOAD_ITEMS);
 
         if (result.data.id) {
           this.data = this.data.map((item) =>
