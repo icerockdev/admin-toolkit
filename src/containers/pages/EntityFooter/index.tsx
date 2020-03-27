@@ -21,25 +21,23 @@ const EntityFooter: FC<IProps> = ({
   setPerPage,
 }) => {
   const onChangeRowsPerPage = useCallback(
-    event => setPerPage(parseInt(event.target.value)),
+    (event) => setPerPage(parseInt(event.target.value)),
     [setPerPage]
   );
 
   const onChangePage = useCallback((_, newPage) => setPage(newPage), [setPage]);
 
   return (
-    <Paper>
-      <TablePagination
-        rowsPerPageOptions={itemsPerPage}
-        component="div"
-        count={totalCount}
-        labelRowsPerPage="На странице:"
-        rowsPerPage={items}
-        page={page}
-        onChangePage={onChangePage}
-        onChangeRowsPerPage={onChangeRowsPerPage}
-      />
-    </Paper>
+    <TablePagination
+      rowsPerPageOptions={itemsPerPage}
+      component="div"
+      count={totalCount}
+      labelRowsPerPage="На странице:"
+      rowsPerPage={items}
+      page={page}
+      onChangePage={onChangePage}
+      onChangeRowsPerPage={onChangeRowsPerPage}
+    />
   );
 };
 

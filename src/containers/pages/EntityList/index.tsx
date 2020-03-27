@@ -49,11 +49,9 @@ const EntityList = withStyles(styles)(
   }: IProps) => {
     if (isLoading) {
       return (
-        <Paper>
-          <div className={classes.loader}>
-            <CircularProgress />
-          </div>
-        </Paper>
+        <div className={classes.loader}>
+          <CircularProgress />
+        </div>
       );
     }
 
