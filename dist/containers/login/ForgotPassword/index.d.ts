@@ -1,3 +1,5 @@
+/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+
 import React, { ChangeEventHandler, FormEventHandler } from 'react';
 import { WithStyles } from '@material-ui/core';
 import styles from '../styles';
