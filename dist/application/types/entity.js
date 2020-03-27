@@ -13,6 +13,10 @@ export var getEntityFieldRenderer = function (type) {
         : 'string';
     return ENTITY_FIELD_RENDERS[key];
 };
+export var ENTITY_SORT_DIRS = {
+    ASC: 'asc',
+    DESC: 'desc',
+};
 export var ENTITY_FILTER_TYPES = {
     TEXT: 'TEXT',
     SELECT: 'SELECT',

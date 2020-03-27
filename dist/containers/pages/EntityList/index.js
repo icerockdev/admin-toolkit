@@ -5,15 +5,17 @@ import { getEntityFieldRenderer } from '../../../application';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink } from 'react-router-dom';
+import { EntityHeadSortable } from '../../../components/pages/EntityHeadSortable';
 var EntityList = function (_a) {
-    var isLoading = _a.isLoading, fields = _a.fields, data = _a.data, url = _a.url, canView = _a.canView, canEdit = _a.canEdit;
+    var isLoading = _a.isLoading, fields = _a.fields, data = _a.data, url = _a.url, sortBy = _a.sortBy, sortDir = _a.sortDir, canView = _a.canView, canEdit = _a.canEdit, onSortChange = _a.onSortChange;
     return (React.createElement(Paper, null,
         React.createElement(TableContainer, null,
             React.createElement(Table, null,
                 React.createElement(TableHead, null,
                     React.createElement(TableRow, null,
                         fields.map(function (field) {
-                            return field.sortable ? (React.createElement(TableCell, { key: field.name }, field.label || field.name)) : (React.createElement(TableCell, { key: field.name }, field.label || field.name));
+                            return field.sortable ? (React.createElement(EntityHeadSortable, { active: sortBy === field.name, direction: sortDir, key: field.name, field: field.name, onSortChange: onSortChange },
+                                React.createElement("span", null, field.label || field.name))) : (React.createElement(TableCell, { key: field.name }, field.label || field.name));
                         }),
                         (canView || canEdit) && React.createElement(TableCell, null))),
                 isLoading ? (React.createElement(TableBody, null,

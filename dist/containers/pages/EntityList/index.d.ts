@@ -1,5 +1,3 @@
-/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
-
 import { FC } from 'react';
 import { IEntityField } from '../../../application';
 interface IProps {
@@ -7,8 +5,11 @@ interface IProps {
     fields: IEntityField[];
     data: Record<string, string>[];
     url: string;
+    sortBy: string;
+    sortDir: 'asc' | 'desc';
     canView: boolean;
     canEdit: boolean;
+    onSortChange: (field: string) => void;
 }
 declare const EntityList: FC<IProps>;
 export { EntityList };

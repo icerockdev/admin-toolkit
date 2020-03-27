@@ -1,5 +1,3 @@
-/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
-
 /// <reference types="react" />
 /// <reference types="@emotion/core" />
 /// <reference types="styled-jsx" />
@@ -29,6 +27,7 @@ export declare const getEntityFieldRenderer: (type?: string) => import("react").
     handler?: ((val: any) => void) | undefined;
     onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
 } & Record<string, any>>;
+export declare const ENTITY_SORT_DIRS: Record<string, 'asc' | 'desc'>;
 export declare const ENTITY_FILTER_TYPES: {
     TEXT: string;
     SELECT: string;

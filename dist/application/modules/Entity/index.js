@@ -57,7 +57,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import React from 'react';
-import { ENTITY_ERRORS } from '../../types/entity';
+import { ENTITY_ERRORS, ENTITY_SORT_DIRS, } from '../../types/entity';
 import { Page } from '../Page';
 import { EntityList } from '../../../containers/pages/EntityList';
 import { EntityHead } from '../../../containers/pages/EntityHead';
@@ -93,7 +93,7 @@ var Entity = /** @class */ (function (_super) {
         _this.page = 0;
         _this.data = [];
         _this.sortBy = '';
-        _this.sortDir = 'asc';
+        _this.sortDir = ENTITY_SORT_DIRS.ASC;
         _this.setFilters = function (filters) {
             _this.filters = filters;
         };
@@ -102,6 +102,18 @@ var Entity = /** @class */ (function (_super) {
         };
         _this.setPerPage = function (items) {
             _this.items = items;
+        };
+        _this.setSort = function (field) {
+            if (field !== _this.sortBy && _this.sortDir !== ENTITY_SORT_DIRS.ASC) {
+                _this.sortDir = ENTITY_SORT_DIRS.ASC;
+            }
+            if (field === _this.sortBy) {
+                _this.sortDir =
+                    _this.sortDir === ENTITY_SORT_DIRS.ASC
+                        ? ENTITY_SORT_DIRS.DESC
+                        : ENTITY_SORT_DIRS.ASC;
+            }
+            _this.sortBy = field;
         };
         _this.fetchItems = function () {
             _this.fetchItemsCancel();
@@ -239,7 +251,7 @@ var Entity = /** @class */ (function (_super) {
         if (fields) {
             Object.assign(_this, fields);
         }
-        reaction(function () { return [_this.page, _this.items]; }, _this.fetchItems);
+        reaction(function () { return [_this.page, _this.items, _this.sortBy, _this.sortDir]; }, _this.fetchItems);
         return _this;
     }
     Object.defineProperty(Entity.prototype, "ListHead", {
@@ -253,7 +265,7 @@ var Entity = /** @class */ (function (_super) {
     Object.defineProperty(Entity.prototype, "ListBody", {
         get: function () {
             var _this = this;
-            return observer(function () { return (React.createElement(EntityList, { fields: _this.fields, data: _this.data, isLoading: _this.isLoading, url: _this.menu.url, canView: _this.viewable, canEdit: _this.editable })); });
+            return observer(function () { return (React.createElement(EntityList, { fields: _this.fields, data: _this.data, isLoading: _this.isLoading, url: _this.menu.url, sortBy: _this.sortBy, sortDir: _this.sortDir, onSortChange: _this.setSort, canView: _this.viewable, canEdit: _this.editable })); });
         },
         enumerable: true,
         configurable: true
@@ -382,6 +394,9 @@ var Entity = /** @class */ (function (_super) {
     __decorate([
         action
     ], Entity.prototype, "setPerPage", void 0);
+    __decorate([
+        action
+    ], Entity.prototype, "setSort", void 0);
     __decorate([
         action
     ], Entity.prototype, "fetchItems", void 0);
