@@ -1,8 +1,11 @@
 ## Admin Toolkit
 This is a tool for building admin panels, that can be installed as npm dependency.
+[DEMO](https://icerockdev.github.io/admin-toolkit/ "DEMO")
 
 ### Installation
-```yarn add icerockdev/admin-toolkit#master``` or ```npm i -S icerockdev/admin-toolkit#master```
+```yarn add icerockdev/admin-toolkit#master``` 
+or 
+```npm i -S icerockdev/admin-toolkit#master```
 
 ### Usage
 ```
