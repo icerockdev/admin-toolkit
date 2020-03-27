@@ -15,16 +15,20 @@ import {
 } from '@material-ui/core';
 import { IEntityField, getEntityFieldRenderer } from '~/application/';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import EditIcon from '@material-ui/icons/Edit'; 
+import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink } from 'react-router-dom';
+import { EntityHeadSortable } from '~/components/pages/EntityHeadSortable';
 
 interface IProps {
   isLoading: boolean;
   fields: IEntityField[];
   data: Record<string, string>[];
   url: string;
+  sortBy: string;
+  sortDir: 'asc' | 'desc';
   canView: boolean;
   canEdit: boolean;
+  onSortChange: (field: string) => void;
 }
 
 const EntityList: FC<IProps> = ({
@@ -32,8 +36,11 @@ const EntityList: FC<IProps> = ({
   fields,
   data,
   url,
+  sortBy,
+  sortDir,
   canView,
   canEdit,
+  onSortChange,
 }) => {
   return (
     <Paper>
@@ -41,11 +48,17 @@ const EntityList: FC<IProps> = ({
         <Table>
           <TableHead>
             <TableRow>
-              {fields.map(field =>
+              {fields.map((field) =>
                 field.sortable ? (
-                  <TableCell key={field.name}>
-                    {field.label || field.name}
-                  </TableCell>
+                  <EntityHeadSortable
+                    active={sortBy === field.name}
+                    direction={sortDir}
+                    key={field.name}
+                    field={field.name}
+                    onSortChange={onSortChange}
+                  >
+                    <span>{field.label || field.name}</span>
+                  </EntityHeadSortable>
                 ) : (
                   <TableCell key={field.name}>
                     {field.label || field.name}
@@ -67,7 +80,7 @@ const EntityList: FC<IProps> = ({
             <TableBody>
               {data.map((entry, i) => (
                 <TableRow key={i}>
-                  {fields.map(field => (
+                  {fields.map((field) => (
                     <TableCell key={field.name}>
                       {createElement(
                         getEntityFieldRenderer(

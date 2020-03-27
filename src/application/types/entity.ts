@@ -18,6 +18,11 @@ export const getEntityFieldRenderer = (type: string = 'string') => {
   return ENTITY_FIELD_RENDERS[key as keyof typeof ENTITY_FIELD_RENDERS];
 };
 
+export const ENTITY_SORT_DIRS: Record<string, 'asc' | 'desc'> = {
+  ASC: 'asc',
+  DESC: 'desc',
+};
+
 export const ENTITY_FILTER_TYPES = {
   TEXT: 'TEXT',
   SELECT: 'SELECT',

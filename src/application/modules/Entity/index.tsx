@@ -1,7 +1,11 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React from 'react';
-import { IEntityProps, ENTITY_ERRORS } from '~/application/types/entity';
+import {
+  IEntityProps,
+  ENTITY_ERRORS,
+  ENTITY_SORT_DIRS,
+} from '~/application/types/entity';
 import { Page } from '~/application/modules/Page';
 import { EntityList } from '../../../containers/pages/EntityList';
 import { EntityHead } from '../../../containers/pages/EntityHead';
@@ -39,7 +43,7 @@ export class Entity extends Page {
   @observable data: Record<string, any>[] = [];
   @observable error?: string | null;
   @observable sortBy: string = '';
-  @observable sortDir: string = 'asc';
+  @observable sortDir: 'asc' | 'desc' = ENTITY_SORT_DIRS.ASC;
 
   constructor(fields?: Partial<IEntityProps>) {
     super();
@@ -48,7 +52,10 @@ export class Entity extends Page {
       Object.assign(this, fields);
     }
 
-    reaction(() => [this.page, this.items], this.fetchItems);
+    reaction(
+      () => [this.page, this.items, this.sortBy, this.sortDir],
+      this.fetchItems
+    );
   }
 
   @action
@@ -64,6 +71,22 @@ export class Entity extends Page {
   @action
   setPerPage = (items: number) => {
     this.items = items;
+  };
+
+  @action
+  setSort = (field: string) => {
+    if (field !== this.sortBy && this.sortDir !== ENTITY_SORT_DIRS.ASC) {
+      this.sortDir = ENTITY_SORT_DIRS.ASC;
+    }
+
+    if (field === this.sortBy) {
+      this.sortDir =
+        this.sortDir === ENTITY_SORT_DIRS.ASC
+          ? ENTITY_SORT_DIRS.DESC
+          : ENTITY_SORT_DIRS.ASC;
+    }
+
+    this.sortBy = field;
   };
 
   fetchItemsInstance?: CancellablePromise<any>;
@@ -222,6 +245,9 @@ export class Entity extends Page {
         data={this.data}
         isLoading={this.isLoading}
         url={this.menu.url}
+        sortBy={this.sortBy}
+        sortDir={this.sortDir}
+        onSortChange={this.setSort}
         canView={this.viewable}
         canEdit={this.editable}
       />
