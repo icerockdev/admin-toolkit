@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { IEntityProps, ENTITY_ERRORS } from '~/application/types/entity';
-import { Page } from '~/application';
+import { Page } from '~/application/modules/Page';
 import { EntityList } from '../../../containers/pages/EntityList';
 import { EntityHead } from '../../../containers/pages/EntityHead';
 import { EntityFooter } from '../../../containers/pages/EntityFooter';

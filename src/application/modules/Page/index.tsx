@@ -1,7 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React from 'react';
-import { IPageProps } from '~/types/page';
+import { IPageProps } from '~/application/types/page';
 import { observable, computed, action } from 'mobx';
 import { observer } from 'mobx-react';
 

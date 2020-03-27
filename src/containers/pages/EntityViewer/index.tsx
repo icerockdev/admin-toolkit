@@ -14,7 +14,7 @@ import {
 } from '@material-ui/core';
 
 import styles from './styles';
-import { IEntityField, getEntityFieldRenderer } from '~/types/entity';
+import { IEntityField, getEntityFieldRenderer } from '~/application';
 import { observer } from 'mobx-react';
 import { Link as RouterLink } from 'react-router-dom';
 import { toJS } from 'mobx';

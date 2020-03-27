@@ -1,7 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React from 'react';
-import { IConfigProps } from '~/types/config';
+import { IConfigProps } from '~/application/types/config';
 import { Theme } from '@material-ui/core';
 import { computed } from 'mobx';
 import { createBrowserHistory } from 'history';

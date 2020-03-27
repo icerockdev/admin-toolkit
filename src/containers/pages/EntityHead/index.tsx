@@ -10,7 +10,7 @@ import {
 } from '@material-ui/core';
 import styles from './styles';
 import { Link as RouterLink } from 'react-router-dom';
-import { IEntityProps } from '~/types/entity';
+import { IEntityProps } from '~/application';
 import { Filter } from '~/components/pages/Filter';
 
 type IProps = WithStyles<typeof styles> & {

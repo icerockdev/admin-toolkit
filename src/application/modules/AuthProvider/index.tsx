@@ -1,7 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 // import React from 'react';
-import { EMPTY_USER, IAuthProviderProps } from '~/types/auth';
+import { EMPTY_USER, IAuthProviderProps } from '~/application/types/auth';
 import { computed, observable, action } from 'mobx';
 import { flow } from 'mobx';
 import { CancellablePromise } from 'mobx/lib/api/flow';

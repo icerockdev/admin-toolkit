@@ -4,7 +4,7 @@ export const EMPTY_USER: IAuthProviderProps['user'] = {
   email: '',
   username: '',
   role: '',
-  token: 'SAMPLE_TOKEN',
+  token: '',
 };
 
 export interface IAuthProviderProps {

@@ -13,9 +13,9 @@ import {
   Button,
   ButtonGroup,
 } from '@material-ui/core';
-import { IEntityField, getEntityFieldRenderer } from '~/types/entity';
+import { IEntityField, getEntityFieldRenderer } from '~/application/';
 import VisibilityIcon from '@material-ui/icons/Visibility';
-import EditIcon from '@material-ui/icons/Edit';
+import EditIcon from '@material-ui/icons/Edit'; 
 import { Link as RouterLink } from 'react-router-dom';
 
 interface IProps {
