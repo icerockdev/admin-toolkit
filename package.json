@@ -49,7 +49,7 @@
   "husky": {
     "hooks": {
       "pre-commit": [
-        "copyright-header --copyrightHolder \"IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license.\" -i \"src\"",
+        "copyright-header --copyrightHolder \"IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license.\" -i \"src|dist\"",
         "lint-staged"
       ]
     }
