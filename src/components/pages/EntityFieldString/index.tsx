@@ -20,7 +20,7 @@ const EntityFieldString: FC<IProps> = ({
     (event) => {
       if (!handler) return;
 
-      handler(!value);
+      handler(event.target.value);
     },
     [value, handler]
   );

@@ -6,7 +6,7 @@ var EntityFieldString = function (_a) {
     var onChange = useCallback(function (event) {
         if (!handler)
             return;
-        handler(!value);
+        handler(event.target.value);
     }, [value, handler]);
     return isEditing ? (React.createElement("div", null,
         React.createElement(TextField, { value: value || '', onChange: onChange }))) : (React.createElement("div", { onClick: onClick }, String(value)));
