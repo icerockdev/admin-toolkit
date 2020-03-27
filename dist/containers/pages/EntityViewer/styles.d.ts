@@ -7,9 +7,9 @@ declare const _default: (theme: Theme) => {
     };
     field: {
         color: string;
-        fontFamily: string;
         fontSize: string;
         fontWeight: number;
+        fontFamily: string | undefined;
         padding: string;
         borderBottom: string;
         '& > .label': {

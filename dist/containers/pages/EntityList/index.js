@@ -10,9 +10,8 @@ import styles from './styles';
 var EntityList = withStyles(styles)(function (_a) {
     var classes = _a.classes, isLoading = _a.isLoading, fields = _a.fields, data = _a.data, url = _a.url, sortBy = _a.sortBy, sortDir = _a.sortDir, canView = _a.canView, canEdit = _a.canEdit, onSortChange = _a.onSortChange;
     if (isLoading) {
-        return (React.createElement(Paper, null,
-            React.createElement("div", { className: classes.loader },
-                React.createElement(CircularProgress, null))));
+        return (React.createElement("div", { className: classes.loader },
+            React.createElement(CircularProgress, null)));
     }
     return (React.createElement(Paper, null,
         React.createElement(TableContainer, null,

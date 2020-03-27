@@ -1,8 +1,10 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 import { EntityFieldString } from '../../components/pages/EntityFieldString';
 import { EntityFieldBoolean } from '../../components/pages/EntityFieldBoolean';
+import { EntityFieldDate } from '../../components/pages/EntityFieldDate';
 export var ENTITY_FIELD_RENDERS = {
     string: EntityFieldString,
+    date: EntityFieldDate,
     boolean: EntityFieldBoolean,
 };
 // getFieldRenderer returns field-type specific renderer

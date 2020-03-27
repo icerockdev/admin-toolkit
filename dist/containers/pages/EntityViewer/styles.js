@@ -5,9 +5,9 @@ export default (function (theme) { return ({
     },
     field: {
         color: '#282f36',
-        fontFamily: 'Roboto',
         fontSize: '17px',
         fontWeight: 400,
+        fontFamily: theme.typography.fontFamily,
         padding: theme.spacing(4) + "px " + theme.spacing(3) + "px",
         borderBottom: '1px solid #e1e8ee',
         '& > .label': {

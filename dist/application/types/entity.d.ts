@@ -1,11 +1,17 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 /// <reference types="react" />
-/// <reference types="@emotion/core" />
 /// <reference types="styled-jsx" />
+/// <reference types="@emotion/core" />
 import { IPageProps } from './page';
 export declare const ENTITY_FIELD_RENDERS: {
     string: import("react").FC<{
+        value: any;
+        isEditing?: boolean | undefined;
+        handler?: ((val: any) => void) | undefined;
+        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
+    } & Record<string, any>>;
+    date: import("react").FC<{
         value: any;
         isEditing?: boolean | undefined;
         handler?: ((val: any) => void) | undefined;
@@ -19,6 +25,11 @@ export declare const ENTITY_FIELD_RENDERS: {
     } & Record<string, any>>;
 };
 export declare const getEntityFieldRenderer: (type?: string) => import("react").FC<{
+    value: any;
+    isEditing?: boolean | undefined;
+    handler?: ((val: any) => void) | undefined;
+    onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
+} & Record<string, any>> | import("react").FC<{
     value: any;
     isEditing?: boolean | undefined;
     handler?: ((val: any) => void) | undefined;
