@@ -6,6 +6,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 import { Checkbox } from '@material-ui/core';
 
 type IProps = {
+  label: string;
   value: any;
   isEditing?: boolean;
   error?: string;
@@ -16,7 +17,7 @@ type IProps = {
 const EntityFieldBoolean: FC<IProps> = ({
   value,
   handler,
-  error,
+  label,
   isEditing,
   onClick,
 }) => {

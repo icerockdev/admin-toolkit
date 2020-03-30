@@ -4,6 +4,7 @@ import React, { FC, MouseEventHandler, useCallback } from 'react';
 import { TextField } from '@material-ui/core';
 
 type IProps = {
+  label: string;
   value: any;
   isEditing?: boolean;
   handler?: (val: any) => void;
@@ -12,6 +13,7 @@ type IProps = {
 } & Record<string, any>;
 
 const EntityFieldString: FC<IProps> = ({
+  label,
   value,
   handler,
   error,
@@ -30,10 +32,12 @@ const EntityFieldString: FC<IProps> = ({
   return isEditing ? (
     <div>
       <TextField
+        label={label}
         value={value || ''}
         onChange={onChange}
         error={!!error}
         helperText={error}
+        variant="outlined"
       />
     </div>
   ) : (

@@ -6,6 +6,7 @@ import format from 'date-fns/format';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 type IProps = {
+  label: string;
   value: any;
   isEditing?: boolean;
   error?: string;
@@ -36,6 +37,7 @@ const EntityFieldDate: FC<IProps> = ({
         format="dd.MM.yyyy"
         error={!!error}
         helperText={error}
+        inputVariant="outlined"
       />
     </div>
   ) : (

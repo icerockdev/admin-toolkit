@@ -154,10 +154,12 @@ const EntityViewer = withStyles(styles)(
               <Paper>
                 {visibleFields.map((field) => (
                   <div className={classes.field} key={field.name}>
-                    <div className="label">
-                      {field.label || field.name}
-                      {isEditing && field.required && <span>{` *`}</span>}
-                    </div>
+                    {!isEditing && (
+                      <div className="label">
+                        {field.label || field.name}
+                        {isEditing && field.required && <span>{` *`}</span>}
+                      </div>
+                    )}
                     <div className="field">
                       {createElement(
                         getEntityFieldRenderer(
@@ -170,6 +172,7 @@ const EntityViewer = withStyles(styles)(
                           )
                             ? data[field.name]
                             : null,
+                          label: field.label || field.name,
                           error: errors[field.name],
                           isEditing,
                           handler: onFieldChange(field.name),
