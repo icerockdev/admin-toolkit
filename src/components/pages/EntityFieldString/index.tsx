@@ -7,12 +7,14 @@ type IProps = {
   value: any;
   isEditing?: boolean;
   handler?: (val: any) => void;
+  error?: string;
   onClick?: MouseEventHandler<HTMLDivElement>;
 } & Record<string, any>;
 
 const EntityFieldString: FC<IProps> = ({
   value,
   handler,
+  error,
   isEditing,
   onClick,
 }) => {
@@ -27,7 +29,12 @@ const EntityFieldString: FC<IProps> = ({
 
   return isEditing ? (
     <div>
-      <TextField value={value || ''} onChange={onChange} />
+      <TextField
+        value={value || ''}
+        onChange={onChange}
+        error={!!error}
+        helperText={error}
+      />
     </div>
   ) : (
     <div onClick={onClick}>{String(value)}</div>

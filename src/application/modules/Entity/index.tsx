@@ -44,6 +44,7 @@ export class Entity extends Page {
   @observable error?: string | null;
   @observable sortBy: string = '';
   @observable sortDir: 'asc' | 'desc' = ENTITY_SORT_DIRS.ASC;
+  @observable submitFieldsErrors: Record<string, string> = {};
 
   constructor(fields?: Partial<IEntityProps>) {
     super();
@@ -147,6 +148,10 @@ export class Entity extends Page {
       this.isLoading = true;
 
       try {
+        if (!this.validateSubmitFields(data)) {
+          return;
+        }
+
         if (!this.api?.update?.url || !this.updateItemsFn) {
           throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
         }
@@ -184,6 +189,10 @@ export class Entity extends Page {
       this.isLoading = true;
 
       try {
+        if (!this.validateSubmitFields(data)) {
+          return;
+        }
+
         if (!this.api?.create?.url || !this.createItemsFn) {
           throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
         }
@@ -213,6 +222,23 @@ export class Entity extends Page {
         this.isLoading = false;
       }
     }).bind(this)();
+  };
+
+  @action
+  validateSubmitFields = (data: Record<string, any>): boolean => {
+    this.submitFieldsErrors = this.fields.reduce(
+      (obj, field) =>
+        (!field.required || field.type === 'boolean' || !!data[field.name]) &&
+        (!field.validator || field.validator(data[field.name]))
+          ? obj
+          : {
+              ...obj,
+              [field.name]: ENTITY_ERRORS.FIELD_IS_REQUIRED,
+            },
+      {}
+    );
+
+    return Object.keys(this.submitFieldsErrors).length === 0;
   };
 
   @action
@@ -295,6 +321,7 @@ export class Entity extends Page {
           id={id}
           fields={this.fields}
           url={this.menu.url}
+          errors={this.submitFieldsErrors}
           onSave={console.log}
           isEditing={false}
         />
@@ -315,6 +342,7 @@ export class Entity extends Page {
           entities={this.data}
           id={id}
           fields={this.fields}
+          errors={this.submitFieldsErrors}
           url={this.menu.url}
           onSave={this.updateItem}
           isEditing
@@ -335,6 +363,7 @@ export class Entity extends Page {
           entityName={this.title}
           entities={this.data}
           fields={this.fields}
+          errors={this.submitFieldsErrors}
           url={this.menu.url}
           isEditing
           onSave={this.createItem}

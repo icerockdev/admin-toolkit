@@ -42,6 +42,7 @@ export const ENTITY_ACTIONS = {
 
 export const ENTITY_ERRORS = {
   CANT_LOAD_ITEMS: `Can't load items`,
+  FIELD_IS_REQUIRED: 'Обязательное поле',
 };
 
 export interface IEntityField {
@@ -51,6 +52,7 @@ export interface IEntityField {
   type: string;
   sortable?: boolean;
   required?: boolean;
+  validator?: (val: any) => boolean;
 }
 
 export interface IEntityFilterField {

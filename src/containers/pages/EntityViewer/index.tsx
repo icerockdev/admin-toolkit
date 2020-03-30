@@ -25,6 +25,7 @@ type IProps = WithStyles<typeof styles> & {
   entities: Record<string, any>[];
   id?: string;
   fields: IEntityField[];
+  errors: Record<string, string>;
   isEditing: boolean;
   onSave: (data: Record<string, any>) => void;
 };
@@ -36,6 +37,7 @@ const EntityViewer = withStyles(styles)(
       entities,
       id,
       fields,
+      errors,
       url,
       isEditing,
       entityName,
@@ -142,6 +144,7 @@ const EntityViewer = withStyles(styles)(
                           )
                             ? data[field.name]
                             : null,
+                          error: errors[field.name],
                           isEditing,
                           handler: onFieldChange(field.name),
                         }

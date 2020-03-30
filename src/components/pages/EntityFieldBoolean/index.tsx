@@ -8,6 +8,7 @@ import { Checkbox } from '@material-ui/core';
 type IProps = {
   value: any;
   isEditing?: boolean;
+  error?: string;
   handler?: (val: any) => void;
   onClick?: MouseEventHandler<HTMLDivElement>;
 } & Record<string, any>;
@@ -15,6 +16,7 @@ type IProps = {
 const EntityFieldBoolean: FC<IProps> = ({
   value,
   handler,
+  error,
   isEditing,
   onClick,
 }) => {

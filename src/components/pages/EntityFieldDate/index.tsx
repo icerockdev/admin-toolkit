@@ -8,6 +8,7 @@ import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 type IProps = {
   value: any;
   isEditing?: boolean;
+  error?: string;
   handler?: (val: any) => void;
   onClick?: MouseEventHandler<HTMLDivElement>;
 } & Record<string, any>;
@@ -15,6 +16,7 @@ type IProps = {
 const EntityFieldDate: FC<IProps> = ({
   value,
   handler,
+  error,
   isEditing,
   onClick,
 }) => {
@@ -33,6 +35,8 @@ const EntityFieldDate: FC<IProps> = ({
         value={value ? new Date(value) : null}
         onChange={onChange}
         format="dd.MM.yyyy"
+        error={!!error}
+        helperText={error}
       />
     </div>
   ) : (
