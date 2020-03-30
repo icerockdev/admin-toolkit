@@ -36,9 +36,13 @@ const EntityHeadUnstyled: FC<IProps> = ({
 }) => {
   const setFilterCurrent = useCallback(
     (current: string) => {
-      setFilters({ ...filters, current });
+      setFilters({ ...filters, current, value: null });
+
+      if (current === '') {
+        applyFilter();
+      }
     },
-    [setFilters, filters]
+    [setFilters, applyFilter, filters]
   );
 
   const setFilterValue = useCallback(

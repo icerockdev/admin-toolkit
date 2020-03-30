@@ -2,6 +2,7 @@
 
 import { Page } from '~/application/modules/Page';
 import { AuthProvider } from '~/application/modules/AuthProvider';
+import { Theme } from '@material-ui/core';
 
 export interface IConfigProps {
   logo: string;
@@ -9,4 +10,5 @@ export interface IConfigProps {
   name: string;
   pages: Page[];
   auth: AuthProvider;
+  theme?: Theme;
 }

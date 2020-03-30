@@ -1,9 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React from 'react';
 import { IConfigProps } from '~/application/types/config';
-import { Theme } from '@material-ui/core';
-import { computed } from 'mobx';
+import { Theme, createMuiTheme } from '@material-ui/core';
 import { createBrowserHistory } from 'history';
 import { Notifications } from '../Notification';
 
@@ -13,7 +11,7 @@ export class Config {
   auth?: IConfigProps['auth'];
   logo?: IConfigProps['logo'];
   title?: IConfigProps['title'];
-  theme?: Theme;
+  theme: Theme = createMuiTheme({});
   history = createBrowserHistory();
   notifications = new Notifications();
 

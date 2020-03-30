@@ -12,6 +12,7 @@ import {
   WithStyles,
   withStyles,
   CssBaseline,
+  ThemeProvider,
 } from '@material-ui/core';
 import styles from './styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
@@ -51,35 +52,37 @@ const Application = withStyles(styles)(
     }
 
     return (
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <CssBaseline />
+      <ThemeProvider theme={config.theme}>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <CssBaseline />
 
-        <Router history={config.history}>
-          <Navigation
-            links={links}
-            logo={{ url: config.logo, title: config.title }}
-            account={config.auth?.user}
-            onLogout={config.auth?.logout}
-          />
+          <Router history={config.history}>
+            <Navigation
+              links={links}
+              logo={{ url: config.logo, title: config.title }}
+              account={config.auth?.user}
+              onLogout={config.auth?.logout}
+            />
 
-          <Container maxWidth="xl" className={classes.wrapper}>
-            <Switch>
-              {config.pages
-                .filter((page) => page?.menu?.url)
-                .map((page) => (
-                  <Route
-                    path={page.menu.url}
-                    render={() => <PageRenderer page={page} />}
-                    key={page.menu.url}
-                  />
-                ))}
-              {links.length > 0 && <Redirect to={links[0].url} />}
-            </Switch>
-          </Container>
-        </Router>
+            <Container maxWidth="xl" className={classes.wrapper}>
+              <Switch>
+                {config.pages
+                  .filter((page) => page?.menu?.url)
+                  .map((page) => (
+                    <Route
+                      path={page.menu.url}
+                      render={() => <PageRenderer page={page} />}
+                      key={page.menu.url}
+                    />
+                  ))}
+                {links.length > 0 && <Redirect to={links[0].url} />}
+              </Switch>
+            </Container>
+          </Router>
 
-        <config.notifications.Output />
-      </MuiPickersUtilsProvider>
+          <config.notifications.Output />
+        </MuiPickersUtilsProvider>
+      </ThemeProvider>
     );
   })
 );
