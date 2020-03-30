@@ -188,7 +188,7 @@ export default new Entity({
     },
     {
       name: 'description',
-      type: 'string',
+      type: 'richtext',
       label: 'Описание',
       required: true,
       hideInList: true,

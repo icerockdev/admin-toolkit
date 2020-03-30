@@ -6,6 +6,7 @@ import { EntityFieldBoolean } from '~/components/pages/EntityFieldBoolean';
 import { EntityFieldDate } from '~/components/pages/EntityFieldDate';
 import { EntityFieldSelect } from '~/components/pages/EntityFieldSelect';
 import { EntityFieldPhone } from '~/components/pages/EntityFieldPhone';
+import { EntityFieldRichText } from '~/components/pages/EntityFieldRichText';
 
 export const ENTITY_FIELD_RENDERS = {
   string: EntityFieldString,
@@ -13,6 +14,7 @@ export const ENTITY_FIELD_RENDERS = {
   boolean: EntityFieldBoolean,
   select: EntityFieldSelect,
   phone: EntityFieldPhone,
+  richtext: EntityFieldRichText,
 };
 
 // getFieldRenderer returns field-type specific renderer

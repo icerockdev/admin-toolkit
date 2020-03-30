@@ -2029,13 +2029,20 @@
   resolved "https://registry.yarnpkg.com/@types/color-name/-/color-name-1.1.1.tgz#1c1261bbeaa10a8055bbc5d8ab84b7b2afc846a0"
   integrity sha512-rr+OQyAjxze7GgWrSaJwydHStIhHq2lvY3BOC2Mj7KnzI7XK0Uw1TOOdI9lDoajEbSWLiYgoo4f1R51erQfhPQ==
 
-"@types/draft-js@^0.10.36":
+"@types/draft-js@*", "@types/draft-js@^0.10.36":
   version "0.10.38"
   resolved "https://registry.yarnpkg.com/@types/draft-js/-/draft-js-0.10.38.tgz#19a37d97e696df5749754f8bbd7761a4d56b16b0"
   integrity sha512-iDg8fJATjGVfQVv/dysAMMcPwORyJix2AyAm8OdwseteYh1jV+Xwlz+1HddoCWxQWqzWf/MDkNQH5sLYG47e0w==
   dependencies:
     "@types/react" "*"
     immutable "~3.7.4"
+
+"@types/draftjs-to-html@^0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@types/draftjs-to-html/-/draftjs-to-html-0.8.0.tgz#17b1c3f19847710e52367277578a6c50e311c87a"
+  integrity sha512-XiuzaCE088fhtlDi4GM6w2lzqAe2ZHjc7AqenU3LS6/j0Kmhgx7Gfw9NBVsp9KEG1beBqcFLaRbzjZsF15/rBA==
+  dependencies:
+    "@types/draft-js" "*"
 
 "@types/eslint-visitor-keys@^1.0.0":
   version "1.0.0"
@@ -5111,6 +5118,11 @@ draft-js@^0.11.1:
     fbjs "^1.0.0"
     immutable "~3.7.4"
     object-assign "^4.1.1"
+
+draftjs-to-html@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.yarnpkg.com/draftjs-to-html/-/draftjs-to-html-0.9.1.tgz#1c870fbb588d2390204cb4d0ee7e04ad0c709969"
+  integrity sha512-fFstE6+IayaVFBEvaFt/wN8vdj8FsTRzij7dy7LI9QIwf5LgfHFi9zSpvCg+feJ2tbYVqHxUkjcibwpsTpgFVQ==
 
 duplexer@^0.1.1:
   version "0.1.1"
