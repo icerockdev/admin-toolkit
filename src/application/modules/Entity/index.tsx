@@ -43,7 +43,8 @@ export class Entity extends Page {
   @observable data: Record<string, any>[] = [];
   @observable error?: string | null;
   @observable sortBy: string = '';
-  @observable sortDir: 'asc' | 'desc' = ENTITY_SORT_DIRS.ASC;
+  @observable sortDir: typeof ENTITY_SORT_DIRS[keyof typeof ENTITY_SORT_DIRS] =
+    ENTITY_SORT_DIRS.ASC;
   @observable editorFieldErrors: Record<string, string> = {};
   @observable editorData: Record<string, any> = {};
 

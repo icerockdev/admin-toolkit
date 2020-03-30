@@ -17,11 +17,12 @@ const fetchItemsFn: IEntityFetchFunction = async ({
   page,
   count: limit,
   sortBy,
-  sortDir: orderBy,
+  sortDir,
   filter,
 }) => {
   try {
     const offset = (page && limit && page * limit) || 0;
+    const orderBy = sortDir.toUpperCase();
     const result = await axios
       .get(url, {
         headers: { Authorization: token },
@@ -163,7 +164,6 @@ export default new Entity({
       name: 'type',
       type: 'select',
       label: 'Тип',
-      sortable: true,
       required: true,
       filterable: true,
       availableVariants: {
@@ -204,6 +204,7 @@ export default new Entity({
       name: 'visible',
       type: 'boolean',
       label: 'Видимость',
+      sortable: true,
     },
   ],
   fetchItemsFn,

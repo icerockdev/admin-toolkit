@@ -2,11 +2,12 @@
 
 import React, { FC, HTMLAttributes, useCallback } from 'react';
 import { TableCell, TableSortLabel } from '@material-ui/core';
+import { ENTITY_SORT_DIRS } from '~/application';
 
 type IProps = HTMLAttributes<HTMLDivElement> & {
   field: string;
   active?: boolean;
-  direction?: 'desc' | 'asc';
+  direction?: typeof ENTITY_SORT_DIRS[keyof typeof ENTITY_SORT_DIRS];
   onSortChange: (field: string) => void;
 };
 

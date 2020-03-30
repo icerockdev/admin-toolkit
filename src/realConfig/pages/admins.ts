@@ -21,11 +21,12 @@ const fetchItemsFn: IEntityFetchFunction = async ({
   page,
   count: limit,
   sortBy,
-  sortDir: orderBy,
+  sortDir,
   filter,
 }) => {
   try {
     const offset = (page && limit && page * limit) || 0;
+    const orderBy = sortDir.toUpperCase();
     const result = await axios
       .get(url, {
         headers: { Authorization: token },

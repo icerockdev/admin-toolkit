@@ -15,7 +15,11 @@ import {
   withStyles,
   WithStyles,
 } from '@material-ui/core';
-import { IEntityField, getEntityFieldRenderer } from '~/application/';
+import {
+  IEntityField,
+  getEntityFieldRenderer,
+  ENTITY_SORT_DIRS,
+} from '~/application/';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink } from 'react-router-dom';
@@ -28,7 +32,7 @@ type IProps = WithStyles<typeof styles> & {
   data: Record<string, string>[];
   url: string;
   sortBy: string;
-  sortDir: 'asc' | 'desc';
+  sortDir: typeof ENTITY_SORT_DIRS[keyof typeof ENTITY_SORT_DIRS];
   canView: boolean;
   canEdit: boolean;
   onSortChange: (field: string) => void;
