@@ -83,7 +83,7 @@ export class JWTAuthProvider extends AuthProvider {
 
   @observable
   withToken = (req: any, args: any) => {
-    return req({ ...args, token: this.tokens.access });
+    return req({ ...args, token: `Bearer ${this.tokens.access}` });
   };
 
   @computed

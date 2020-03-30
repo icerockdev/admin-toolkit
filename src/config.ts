@@ -87,7 +87,7 @@ export default new Config({
           name: 'phone',
           label: 'Телефон',
           sortable: true,
-          type: 'phone',
+          type: 'string',
         },
         {
           name: 'title',

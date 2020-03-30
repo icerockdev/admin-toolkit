@@ -61,6 +61,11 @@ const EntityViewer = withStyles(styles)(
         return data && field && field.name ? data[field.name] : id;
       }, [data, fields, id]);
 
+      const visibleFields = useMemo(
+        () => fields.filter((field) => !field.hideInEdit),
+        [fields]
+      );
+
       const onFieldChange = useCallback(
         (f) => (value: any) => {
           if (errors[f]) {
@@ -147,7 +152,7 @@ const EntityViewer = withStyles(styles)(
           {data && (
             <form onSubmit={onSubmit}>
               <Paper>
-                {fields.map((field) => (
+                {visibleFields.map((field) => (
                   <div className={classes.field} key={field.name}>
                     <div className="label">
                       {field.label || field.name}

@@ -50,10 +50,14 @@ export interface IEntityField {
   name: string;
   label?: string;
   title?: boolean;
-  type: string;
+  type: 'string' | 'date' | 'boolean' | 'select';
   sortable?: boolean;
   required?: boolean;
   validator?: (val: any) => boolean;
+  availableVariants?: Record<any, any>;
+
+  hideInList?: boolean;
+  hideInEdit?: boolean;
 }
 
 export interface IEntityFilterField {
@@ -90,6 +94,7 @@ export interface IEntityFetchFunctionProps {
   sortBy: string;
   sortDir: string;
   count?: number;
+  token?: string;
 }
 
 export interface IEntityFetchFunctionResult {

@@ -1,6 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { createElement } from 'react';
+import React, { createElement, useMemo } from 'react';
 import {
   TableContainer,
   Table,
@@ -47,6 +47,11 @@ const EntityList = withStyles(styles)(
     canEdit,
     onSortChange,
   }: IProps) => {
+    const visibleFields = useMemo(
+      () => fields.filter((field) => !field.hideInList),
+      [fields]
+    );
+
     if (isLoading) {
       return (
         <div className={classes.loader}>
@@ -61,7 +66,7 @@ const EntityList = withStyles(styles)(
           <Table>
             <TableHead>
               <TableRow>
-                {fields.map((field) =>
+                {visibleFields.map((field) =>
                   field.sortable ? (
                     <EntityHeadSortable
                       active={sortBy === field.name}
@@ -85,7 +90,7 @@ const EntityList = withStyles(styles)(
             <TableBody>
               {data.map((entry, i) => (
                 <TableRow key={i}>
-                  {fields.map((field) => (
+                  {visibleFields.map((field) => (
                     <TableCell key={field.name}>
                       {createElement(
                         getEntityFieldRenderer(
