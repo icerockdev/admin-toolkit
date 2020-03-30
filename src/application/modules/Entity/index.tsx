@@ -288,6 +288,11 @@ export class Entity extends Page {
   };
 
   @action
+  createEmptyItem = () => {
+    this.editorData = {};
+  };
+
+  @action
   onMount = () => {
     this.fetchItems();
   };
@@ -426,7 +431,7 @@ export class Entity extends Page {
           isLoading={this.isLoading}
           setEditorData={this.setEditorData}
           data={this.editorData}
-          getItem={this.getItem}
+          getItem={this.createEmptyItem}
           cancelGetItem={this.getItemsCancel}
         />
       )

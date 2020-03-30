@@ -23,7 +23,6 @@ const EntityFieldDate: FC<IProps> = ({
   const onChange = useCallback(
     (value: MaterialUiPickersDate) => {
       if (!handler) return;
-      console.log({ value });
       handler(value?.toISOString());
     },
     [value, handler]
