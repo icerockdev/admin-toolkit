@@ -2,12 +2,11 @@ import axios from 'axios';
 import {
   Entity,
   ENTITY_FILTER_TYPES,
-  IEntityUpdateFunctionProps,
-  IEntityCreateFunctionProps,
-  IEntityGetFunctionProps,
   IEntityFetchFunction,
   ENTITY_ERRORS,
   IEntityGetFunction,
+  IEntityUpdateFunction,
+  IEntityCreateFunction,
 } from '~/application';
 
 export const CUSTOMER_STATUS_ACTIVE = 10;
@@ -68,6 +67,54 @@ const getItemsFn: IEntityGetFunction = async ({ url, token, id }) => {
     if (!result.data || !result.data.success) {
       throw new Error(
         result.response?.data?.message || ENTITY_ERRORS.CANT_LOAD_ITEMS
+      );
+    }
+
+    return Promise.resolve({
+      data: result.data.data,
+      error: '',
+    });
+  } catch (error) {
+    return {
+      data: {},
+      error: error.message,
+    };
+  }
+};
+
+const updateItemsFn: IEntityUpdateFunction = async ({ url, token, data }) => {
+  try {
+    const result = await axios
+      .put(`${url}/${data.id}`, data, { headers: { Authorization: token } })
+      .catch((e) => e);
+
+    if (!result.data || !result.data.success) {
+      throw new Error(
+        result.response?.data?.message || ENTITY_ERRORS.CANT_UPDATE_ITEM
+      );
+    }
+
+    return Promise.resolve({
+      data: result.data.data,
+      error: '',
+    });
+  } catch (error) {
+    return {
+      data: {},
+      error: error.message,
+    };
+  }
+};
+
+const createItemsFn: IEntityCreateFunction = async ({ url, token, data }) => {
+  try {
+    const result = await axios
+      .post(`${url}`, data, { headers: { Authorization: token } })
+      .catch((e) => e);
+
+    if (!result.data || !result.data.success) {
+      throw new Error(
+        result.response?.data?.message || ENTITY_ERRORS.CANT_UPDATE_ITEM
       );
     }
 
@@ -179,12 +226,6 @@ export default new Entity({
   ],
   fetchItemsFn,
   getItemsFn,
-  updateItemsFn: ({ data }: IEntityUpdateFunctionProps) => {
-    console.log('update', { data });
-    return Promise.resolve({ error: '', data });
-  },
-  createItemsFn: ({ data }: IEntityCreateFunctionProps) => {
-    console.log('create', { data });
-    return Promise.resolve({ error: '', data });
-  },
+  updateItemsFn,
+  createItemsFn,
 });

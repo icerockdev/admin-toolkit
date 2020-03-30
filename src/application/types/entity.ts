@@ -41,6 +41,7 @@ export const ENTITY_ACTIONS = {
 };
 
 export const ENTITY_ERRORS = {
+  CANT_UPDATE_ITEM: `Can't update item`,
   CANT_LOAD_ITEMS: `Can't load items`,
   FIELD_IS_REQUIRED: 'This field is required',
   INCORRECT_INPUT: 'Check all inputs',

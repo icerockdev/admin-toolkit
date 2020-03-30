@@ -26,6 +26,7 @@ export class Notifications {
 
   @action
   showError = (message: INotification['message']) => {
+    console.log('INSIDE', message);
     this.notification.show = true;
     this.notification.message = message;
     this.notification.type = 'error';

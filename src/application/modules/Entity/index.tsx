@@ -131,7 +131,7 @@ export class Entity extends Page {
         this.totalCount = result?.data?.totalCount || 0;
         this.isLoading = false;
       } catch (e) {
-        this.error = e;
+        this.parent?.notifications.showError(e.message);
         this.isLoading = false;
       }
     }).bind(this)();
@@ -176,7 +176,7 @@ export class Entity extends Page {
         this.fetchItems();
         this.parent?.history.push(this.menu.url);
       } catch (e) {
-        this.error = e;
+        this.parent?.notifications.showError(e.message);
         this.isLoading = false;
       }
     }).bind(this)();
@@ -214,6 +214,7 @@ export class Entity extends Page {
         this.parent?.history.push(this.menu.url);
       } catch (e) {
         this.error = e;
+        this.parent?.notifications.showError(e.message);
         this.isLoading = false;
       }
     }).bind(this)();
@@ -269,7 +270,7 @@ export class Entity extends Page {
         this.editorData = result.data;
         this.isLoading = false;
       } catch (e) {
-        this.error = e;
+        this.parent?.notifications.showError(e.message);
         this.parent?.history.push(this.menu.url);
         this.isLoading = false;
       }

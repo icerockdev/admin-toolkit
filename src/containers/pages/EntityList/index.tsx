@@ -75,11 +75,11 @@ const EntityList = withStyles(styles)(
                       field={field.name}
                       onSortChange={onSortChange}
                     >
-                      <span>{field.label || field.name}</span>
+                      <b>{field.label || field.name}</b>
                     </EntityHeadSortable>
                   ) : (
                     <TableCell key={field.name}>
-                      {field.label || field.name}
+                      <b>{field.label || field.name}</b>
                     </TableCell>
                   )
                 )}
