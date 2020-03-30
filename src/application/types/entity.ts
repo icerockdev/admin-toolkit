@@ -5,12 +5,14 @@ import { EntityFieldString } from '~/components/pages/EntityFieldString';
 import { EntityFieldBoolean } from '~/components/pages/EntityFieldBoolean';
 import { EntityFieldDate } from '~/components/pages/EntityFieldDate';
 import { EntityFieldSelect } from '~/components/pages/EntityFieldSelect';
+import { EntityFieldPhone } from '~/components/pages/EntityFieldPhone';
 
 export const ENTITY_FIELD_RENDERS = {
   string: EntityFieldString,
   date: EntityFieldDate,
   boolean: EntityFieldBoolean,
   select: EntityFieldSelect,
+  phone: EntityFieldPhone,
 };
 
 // getFieldRenderer returns field-type specific renderer
@@ -53,7 +55,7 @@ export interface IEntityField {
   name: string;
   label?: string;
   title?: boolean;
-  type: 'string' | 'date' | 'boolean' | 'select';
+  type: keyof typeof ENTITY_FIELD_RENDERS;
   sortable?: boolean;
   filterable?: boolean;
   required?: boolean;

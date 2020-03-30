@@ -184,14 +184,14 @@ export default new Entity({
     },
     {
       name: 'phone',
-      type: 'string',
+      type: 'phone',
       label: 'Рабочий тел.',
       required: true,
       filterable: true,
     },
     {
       name: 'personalPhone',
-      type: 'string',
+      type: 'phone',
       label: 'Личный тел.',
       required: true,
       hideInList: true,

@@ -1,7 +1,13 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React, { FC, MouseEventHandler, useCallback } from 'react';
-import { TextField, Select, MenuItem } from '@material-ui/core';
+import {
+  TextField,
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+} from '@material-ui/core';
 
 type IProps = {
   label: string;
@@ -32,11 +38,14 @@ const EntityFieldSelect: FC<IProps> = ({
   );
 
   return isEditing ? (
-    <div>
+    <FormControl variant="outlined">
+      <InputLabel htmlFor="field">{label}</InputLabel>
+
       <Select
         variant="outlined"
         id="field"
         name="field"
+        label={label}
         value={value}
         onChange={onChange}
         error={!!error}
@@ -51,7 +60,7 @@ const EntityFieldSelect: FC<IProps> = ({
             </MenuItem>
           ))}
       </Select>
-    </div>
+    </FormControl>
   ) : (
     <div onClick={onClick}>{availableVariants && availableVariants[value]}</div>
   );

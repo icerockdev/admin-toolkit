@@ -90,6 +90,7 @@ const Filter = withStyles(styles)(
             variant="outlined"
             id="field"
             name="field"
+            label="Фильтр"
             value={current}
             onChange={onChangeField}
             className={classes.select}
