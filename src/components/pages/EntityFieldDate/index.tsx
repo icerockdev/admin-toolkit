@@ -18,8 +18,6 @@ const EntityFieldDate: FC<IProps> = ({
   isEditing,
   onClick,
 }) => {
-  console.log('VAL', value ? new Date(value) : new Date());
-
   const onChange = useCallback(
     (value: MaterialUiPickersDate) => {
       if (!handler) return;
@@ -31,7 +29,11 @@ const EntityFieldDate: FC<IProps> = ({
 
   return isEditing ? (
     <div>
-      <DatePicker value={value ? new Date(value) : null} onChange={onChange} />
+      <DatePicker
+        value={value ? new Date(value) : null}
+        onChange={onChange}
+        format="dd.MM.yyyy"
+      />
     </div>
   ) : (
     <div onClick={onClick}>{format(new Date(value), 'dd.MM.yyyy')}</div>

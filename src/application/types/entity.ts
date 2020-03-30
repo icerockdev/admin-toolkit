@@ -50,13 +50,7 @@ export interface IEntityField {
   title?: boolean;
   type: string;
   sortable?: boolean;
-  editor?: {
-    enabled?: boolean;
-    required?: boolean;
-  };
-  viewer?: {
-    enabled?: boolean;
-  };
+  required?: boolean;
 }
 
 export interface IEntityFilterField {

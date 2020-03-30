@@ -61,6 +61,7 @@ export default new Config({
           label: 'Тип',
           sortable: true,
           type: 'string',
+          required: true,
         },
         {
           name: 'phone',

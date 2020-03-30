@@ -126,7 +126,10 @@ const EntityViewer = withStyles(styles)(
               <Paper>
                 {fields.map((field) => (
                   <div className={classes.field} key={field.name}>
-                    <div className="label">{field.label || field.name}</div>
+                    <div className="label">
+                      {field.label || field.name}
+                      {isEditing && field.required && <span>{` *`}</span>}
+                    </div>
                     <div className="field">
                       {createElement(
                         getEntityFieldRenderer(
