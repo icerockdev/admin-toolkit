@@ -106,7 +106,7 @@ const EntityViewer = withStyles(styles)(
                     </Link>
                   )}
 
-                  {isEditing && !isCreating && (
+                  {isEditing && !isCreating && !!title && (
                     <Link
                       color="inherit"
                       to={`${url}/${id}`}
