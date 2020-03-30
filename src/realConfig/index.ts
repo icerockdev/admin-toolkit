@@ -4,6 +4,7 @@ import { Config, JWTAuthProvider } from '~/application';
 import { authRequestFn } from './auth';
 import admins from './pages/admins';
 import theme from './theme';
+import news from './pages/news';
 
 export default new Config({
   logo:
@@ -11,6 +12,6 @@ export default new Config({
   auth: new JWTAuthProvider({
     authRequestFn,
   }),
-  pages: [admins],
+  pages: [news, admins],
   theme,
 });

@@ -8,12 +8,8 @@ import {
   IEntityCreateFunction,
 } from '~/application';
 
-export const CUSTOMER_STATUS_ACTIVE = 10;
-export const CUSTOMER_STATUS_BLOCKED = 20;
-
-export const ADMIN_ROLE_ADMIN = 10;
-export const ADMIN_ROLE_MANAGER = 20;
-export const ADMIN_ROLE_EDITOR = 30;
+export const TYPE_OFFER = 10;
+export const TYPE_NEWS = 20;
 
 const fetchItemsFn: IEntityFetchFunction = async ({
   url,
@@ -132,31 +128,31 @@ const createItemsFn: IEntityCreateFunction = async ({ url, token, data }) => {
 };
 
 export default new Entity({
-  title: 'Администраторы',
+  title: 'Акции/Новости',
   editable: true,
   viewable: true,
   api: {
     list: {
-      url: 'http://localhost:8080/admin/v1/user',
+      url: 'http://localhost:8080/admin/v1/news',
       method: 'get',
     },
     update: {
-      url: 'http://localhost:8080/admin/v1/user',
+      url: 'http://localhost:8080/admin/v1/news',
       method: 'put',
     },
     create: {
-      url: 'http://localhost:8080/admin/v1/user',
+      url: 'http://localhost:8080/admin/v1/news',
       method: 'post',
     },
     get: {
-      url: 'http://localhost:8080/admin/v1/user',
+      url: 'http://localhost:8080/admin/v1/news',
       method: 'get',
     },
   },
   menu: {
     enabled: true,
-    label: 'Администраторы',
-    url: '/user',
+    label: 'Акции/Новости',
+    url: '/news',
   },
   filters: {
     current: '',
@@ -164,58 +160,50 @@ export default new Entity({
   },
   fields: [
     {
-      name: 'name',
+      name: 'type',
+      type: 'select',
+      label: 'Тип',
+      sortable: true,
+      required: true,
+      filterable: true,
+      availableVariants: {
+        [TYPE_OFFER]: 'Акция',
+        [TYPE_NEWS]: 'Новость',
+      },
+    },
+    {
+      name: 'title',
       type: 'string',
-      label: 'Ф.И.О.',
+      label: 'Заголовок',
       required: true,
       title: true,
       filterable: true,
     },
     {
-      name: 'status',
-      type: 'select',
-      label: 'Статус',
+      name: 'date',
+      type: 'date',
+      label: 'Дата публикации',
       sortable: true,
-      filterable: true,
       hideInEdit: true,
-      availableVariants: {
-        [CUSTOMER_STATUS_ACTIVE]: 'Активен',
-        [CUSTOMER_STATUS_BLOCKED]: 'Заблокирован',
-      },
     },
     {
-      name: 'phone',
-      type: 'phone',
-      label: 'Рабочий тел.',
-      required: true,
-      filterable: true,
-    },
-    {
-      name: 'personalPhone',
-      type: 'phone',
-      label: 'Личный тел.',
-      required: true,
-      hideInList: true,
-    },
-    {
-      name: 'role',
-      type: 'select',
-      label: 'Роль',
-      sortable: true,
-      required: true,
-      filterable: true,
-      availableVariants: {
-        [ADMIN_ROLE_ADMIN]: 'Главный Администратор',
-        [ADMIN_ROLE_EDITOR]: 'Редактор Контента',
-        [ADMIN_ROLE_MANAGER]: 'Менеджер Заявок',
-      },
-    },
-    {
-      name: 'email',
+      name: 'description',
       type: 'string',
-      label: 'E-mail',
+      label: 'Описание',
       required: true,
       hideInList: true,
+    },
+    {
+      name: 'img',
+      type: 'string',
+      label: 'Изображение',
+      required: false,
+      hideInList: true,
+    },
+    {
+      name: 'visible',
+      type: 'boolean',
+      label: 'Видимость',
     },
   ],
   fetchItemsFn,

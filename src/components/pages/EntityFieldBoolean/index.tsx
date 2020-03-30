@@ -3,7 +3,7 @@
 import React, { FC, MouseEventHandler, useCallback } from 'react';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
-import { Checkbox } from '@material-ui/core';
+import { Checkbox, FormControlLabel } from '@material-ui/core';
 
 type IProps = {
   label: string;
@@ -28,9 +28,10 @@ const EntityFieldBoolean: FC<IProps> = ({
   }, [value, handler]);
 
   return isEditing ? (
-    <div>
-      <Checkbox onChange={onChange} checked={value || false} />
-    </div>
+    <FormControlLabel
+      control={<Checkbox onChange={onChange} checked={value || false} />}
+      label={label}
+    />
   ) : (
     <div onClick={onClick}>{!!value ? <CheckIcon /> : <ClearIcon />}</div>
   );
