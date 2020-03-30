@@ -34,4 +34,6 @@ export var ENTITY_ACTIONS = {
 };
 export var ENTITY_ERRORS = {
     CANT_LOAD_ITEMS: "Can't load items",
+    FIELD_IS_REQUIRED: 'This field is required',
+    INCORRECT_INPUT: 'Check all inputs',
 };

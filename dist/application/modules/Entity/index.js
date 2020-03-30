@@ -62,7 +62,7 @@ import { Page } from '../Page';
 import { EntityList } from '../../../containers/pages/EntityList';
 import { EntityHead } from '../../../containers/pages/EntityHead';
 import { EntityFooter } from '../../../containers/pages/EntityFooter';
-import { computed, observable, action, reaction, flow } from 'mobx';
+import { computed, observable, action, reaction, flow, toJS } from 'mobx';
 import { Switch, Route } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { EntityViewer } from '../../../containers/pages/EntityViewer';
@@ -85,6 +85,7 @@ var Entity = /** @class */ (function (_super) {
         _this.fetchItemsFn = undefined;
         _this.updateItemsFn = undefined;
         _this.createItemsFn = undefined;
+        _this.getItemsFn = undefined;
         // Built-in
         _this.isLoading = true;
         _this.itemsPerPage = [5, 10, 15, 25, 50];
@@ -94,6 +95,8 @@ var Entity = /** @class */ (function (_super) {
         _this.data = [];
         _this.sortBy = '';
         _this.sortDir = ENTITY_SORT_DIRS.ASC;
+        _this.editorFieldErrors = {};
+        _this.editorData = {};
         _this.setFilters = function (filters) {
             _this.filters = filters;
         };
@@ -124,6 +127,7 @@ var Entity = /** @class */ (function (_super) {
                     switch (_j.label) {
                         case 0:
                             this.isLoading = true;
+                            this.error = '';
                             _j.label = 1;
                         case 1:
                             _j.trys.push([1, 3, , 4]);
@@ -164,17 +168,22 @@ var Entity = /** @class */ (function (_super) {
                 _this.fetchItemsInstance.cancel();
             }
         };
-        _this.updateItem = function (data) {
+        _this.updateItem = function () {
             _this.updateItemInstance = flow(function () {
-                var result_1, e_2;
+                var data, result, e_2;
                 var _a, _b, _c, _d, _e, _f, _g;
                 return __generator(this, function (_h) {
                     switch (_h.label) {
                         case 0:
                             this.isLoading = true;
+                            this.error = '';
                             _h.label = 1;
                         case 1:
                             _h.trys.push([1, 3, , 4]);
+                            data = toJS(this.editorData);
+                            if (!this.validateSubmitFields(data)) {
+                                throw new Error(ENTITY_ERRORS.INCORRECT_INPUT);
+                            }
                             if (!((_b = (_a = this.api) === null || _a === void 0 ? void 0 : _a.update) === null || _b === void 0 ? void 0 : _b.url) || !this.updateItemsFn) {
                                 throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
                             }
@@ -183,16 +192,11 @@ var Entity = /** @class */ (function (_super) {
                                     data: data,
                                 })];
                         case 2:
-                            result_1 = _h.sent();
-                            if (!result_1 || result_1.error)
-                                throw new Error((result_1 === null || result_1 === void 0 ? void 0 : result_1.error) || ENTITY_ERRORS.CANT_LOAD_ITEMS);
-                            if (result_1.data.id) {
-                                this.data = this.data.map(function (item) {
-                                    return item.id === result_1.data.id ? __assign(__assign({}, item), result_1.data) : item;
-                                });
-                            }
+                            result = _h.sent();
+                            if (!result || result.error)
+                                throw new Error((result === null || result === void 0 ? void 0 : result.error) || ENTITY_ERRORS.CANT_LOAD_ITEMS);
+                            this.fetchItems();
                             (_g = this.parent) === null || _g === void 0 ? void 0 : _g.history.push(this.menu.url);
-                            this.isLoading = false;
                             return [3 /*break*/, 4];
                         case 3:
                             e_2 = _h.sent();
@@ -204,17 +208,22 @@ var Entity = /** @class */ (function (_super) {
                 });
             }).bind(_this)();
         };
-        _this.createItem = function (data) {
+        _this.createItem = function () {
             _this.updateItemInstance = flow(function () {
-                var result_2, e_3;
+                var data, result, e_3;
                 var _a, _b, _c, _d, _e, _f, _g;
                 return __generator(this, function (_h) {
                     switch (_h.label) {
                         case 0:
                             this.isLoading = true;
+                            this.error = '';
                             _h.label = 1;
                         case 1:
                             _h.trys.push([1, 3, , 4]);
+                            data = toJS(this.editorData);
+                            if (!this.validateSubmitFields(data)) {
+                                throw new Error(ENTITY_ERRORS.INCORRECT_INPUT);
+                            }
                             if (!((_b = (_a = this.api) === null || _a === void 0 ? void 0 : _a.create) === null || _b === void 0 ? void 0 : _b.url) || !this.createItemsFn) {
                                 throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
                             }
@@ -223,16 +232,11 @@ var Entity = /** @class */ (function (_super) {
                                     data: data,
                                 })];
                         case 2:
-                            result_2 = _h.sent();
-                            if (!result_2 || result_2.error)
-                                throw new Error((result_2 === null || result_2 === void 0 ? void 0 : result_2.error) || ENTITY_ERRORS.CANT_LOAD_ITEMS);
-                            if (result_2.data.id) {
-                                this.data = this.data.map(function (item) {
-                                    return item.id === result_2.data.id ? __assign(__assign({}, item), result_2.data) : item;
-                                });
-                            }
+                            result = _h.sent();
+                            if (!result || result.error)
+                                throw new Error((result === null || result === void 0 ? void 0 : result.error) || ENTITY_ERRORS.CANT_LOAD_ITEMS);
+                            this.fetchItems();
                             (_g = this.parent) === null || _g === void 0 ? void 0 : _g.history.push(this.menu.url);
-                            this.isLoading = false;
                             return [3 /*break*/, 4];
                         case 3:
                             e_3 = _h.sent();
@@ -243,6 +247,67 @@ var Entity = /** @class */ (function (_super) {
                     }
                 });
             }).bind(_this)();
+        };
+        _this.resetFieldError = function (field) {
+            delete _this.editorFieldErrors[field];
+        };
+        _this.validateSubmitFields = function (data) {
+            _this.editorFieldErrors = _this.fields.reduce(function (obj, field) {
+                var _a;
+                return (!field.required || field.type === 'boolean' || !!data[field.name]) &&
+                    (!field.validator || field.validator(data[field.name]))
+                    ? obj
+                    : __assign(__assign({}, obj), (_a = {}, _a[field.name] = ENTITY_ERRORS.FIELD_IS_REQUIRED, _a));
+            }, {});
+            return Object.keys(_this.editorFieldErrors).length === 0;
+        };
+        _this.getItem = function (id) {
+            _this.getItemsInstance = flow(function () {
+                var result, e_4;
+                var _a, _b, _c, _d, _e, _f, _g;
+                return __generator(this, function (_h) {
+                    switch (_h.label) {
+                        case 0:
+                            this.isLoading = true;
+                            this.error = '';
+                            _h.label = 1;
+                        case 1:
+                            _h.trys.push([1, 3, , 4]);
+                            if (!((_b = (_a = this.api) === null || _a === void 0 ? void 0 : _a.get) === null || _b === void 0 ? void 0 : _b.url) || !this.getItemsFn) {
+                                throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
+                            }
+                            return [4 /*yield*/, (_d = (_c = this.parent) === null || _c === void 0 ? void 0 : _c.auth) === null || _d === void 0 ? void 0 : _d.withToken(this.getItemsFn, {
+                                    id: id,
+                                    url: (_f = (_e = this.api) === null || _e === void 0 ? void 0 : _e.get) === null || _f === void 0 ? void 0 : _f.url,
+                                })];
+                        case 2:
+                            result = _h.sent();
+                            if (!result || result.error)
+                                throw new Error((result === null || result === void 0 ? void 0 : result.error) || ENTITY_ERRORS.CANT_LOAD_ITEMS);
+                            this.editorData = result.data;
+                            this.isLoading = false;
+                            return [3 /*break*/, 4];
+                        case 3:
+                            e_4 = _h.sent();
+                            this.error = e_4;
+                            (_g = this.parent) === null || _g === void 0 ? void 0 : _g.history.push(this.menu.url);
+                            this.isLoading = false;
+                            return [3 /*break*/, 4];
+                        case 4: return [2 /*return*/];
+                    }
+                });
+            }).bind(_this)();
+        };
+        _this.getItemsCancel = function () {
+            if (_this.getItemsInstance && _this.getItemsInstance.cancel) {
+                _this.getItemsInstance.cancel();
+            }
+        };
+        _this.setEditorData = function (data) {
+            _this.editorData = data;
+        };
+        _this.createEmptyItem = function () {
+            _this.editorData = {};
         };
         _this.onMount = function () {
             _this.fetchItems();
@@ -296,7 +361,7 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function (_a) {
                 var id = _a.match.params.id;
-                return (React.createElement(EntityViewer, { entityName: _this.title, entities: _this.data, id: id, fields: _this.fields, url: _this.menu.url, onSave: console.log, isEditing: false }));
+                return (React.createElement(EntityViewer, { entityName: _this.title, id: id, fields: _this.fields, url: _this.menu.url, errors: _this.editorFieldErrors, onSave: console.log, onResetFieldError: _this.resetFieldError, isEditing: false, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel }));
             });
         },
         enumerable: true,
@@ -307,7 +372,7 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function (_a) {
                 var id = _a.match.params.id;
-                return (React.createElement(EntityViewer, { entityName: _this.title, entities: _this.data, id: id, fields: _this.fields, url: _this.menu.url, onSave: _this.updateItem, isEditing: true }));
+                return (React.createElement(EntityViewer, { entityName: _this.title, id: id, fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.updateItem, onResetFieldError: _this.resetFieldError, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, isEditing: true }));
             });
         },
         enumerable: true,
@@ -318,7 +383,7 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function (_a) {
                 var id = _a.match.params.id;
-                return (React.createElement(EntityViewer, { entityName: _this.title, entities: _this.data, fields: _this.fields, url: _this.menu.url, isEditing: true, onSave: _this.createItem }));
+                return (React.createElement(EntityViewer, { entityName: _this.title, fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.createItem, onResetFieldError: _this.resetFieldError, isEditing: true, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.createEmptyItem, cancelGetItem: _this.getItemsCancel }));
             });
         },
         enumerable: true,
@@ -362,6 +427,9 @@ var Entity = /** @class */ (function (_super) {
     ], Entity.prototype, "createItemsFn", void 0);
     __decorate([
         observable
+    ], Entity.prototype, "getItemsFn", void 0);
+    __decorate([
+        observable
     ], Entity.prototype, "isLoading", void 0);
     __decorate([
         observable
@@ -388,6 +456,12 @@ var Entity = /** @class */ (function (_super) {
         observable
     ], Entity.prototype, "sortDir", void 0);
     __decorate([
+        observable
+    ], Entity.prototype, "editorFieldErrors", void 0);
+    __decorate([
+        observable
+    ], Entity.prototype, "editorData", void 0);
+    __decorate([
         action
     ], Entity.prototype, "setFilters", void 0);
     __decorate([
@@ -408,6 +482,24 @@ var Entity = /** @class */ (function (_super) {
     __decorate([
         action
     ], Entity.prototype, "createItem", void 0);
+    __decorate([
+        action
+    ], Entity.prototype, "resetFieldError", void 0);
+    __decorate([
+        action
+    ], Entity.prototype, "validateSubmitFields", void 0);
+    __decorate([
+        observable
+    ], Entity.prototype, "getItemsInstance", void 0);
+    __decorate([
+        action
+    ], Entity.prototype, "getItem", void 0);
+    __decorate([
+        action
+    ], Entity.prototype, "setEditorData", void 0);
+    __decorate([
+        action
+    ], Entity.prototype, "createEmptyItem", void 0);
     __decorate([
         action
     ], Entity.prototype, "onMount", void 0);

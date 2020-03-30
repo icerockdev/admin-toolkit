@@ -5,6 +5,7 @@ declare type IProps = {
     value: any;
     isEditing?: boolean;
     handler?: (val: any) => void;
+    error?: string;
     onClick?: MouseEventHandler<HTMLDivElement>;
 } & Record<string, any>;
 declare const EntityFieldString: FC<IProps>;

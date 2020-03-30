@@ -26,4 +26,10 @@ export default (function (theme) { return ({
         alignItems: 'center',
         display: 'flex',
     },
+    loader: {
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        minHeight: 200,
+    },
 }); });

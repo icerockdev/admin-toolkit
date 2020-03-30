@@ -4,7 +4,7 @@ import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import { Checkbox } from '@material-ui/core';
 var EntityFieldBoolean = function (_a) {
-    var value = _a.value, handler = _a.handler, isEditing = _a.isEditing, onClick = _a.onClick;
+    var value = _a.value, handler = _a.handler, error = _a.error, isEditing = _a.isEditing, onClick = _a.onClick;
     var onChange = useCallback(function () {
         if (!handler)
             return;

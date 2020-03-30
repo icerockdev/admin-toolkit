@@ -14,6 +14,7 @@ export declare class Entity extends Page {
     fetchItemsFn: IEntityProps['fetchItemsFn'];
     updateItemsFn: IEntityProps['updateItemsFn'];
     createItemsFn: IEntityProps['createItemsFn'];
+    getItemsFn: IEntityProps['getItemsFn'];
     isLoading: boolean;
     itemsPerPage: number[];
     items: number;
@@ -23,6 +24,8 @@ export declare class Entity extends Page {
     error?: string | null;
     sortBy: string;
     sortDir: 'asc' | 'desc';
+    editorFieldErrors: Record<string, string>;
+    editorData: Record<string, any>;
     constructor(fields?: Partial<IEntityProps>);
     setFilters: (filters: {
         current: string;
@@ -36,8 +39,15 @@ export declare class Entity extends Page {
     fetchItems: () => void;
     fetchItemsCancel: () => void;
     updateItemInstance?: CancellablePromise<any>;
-    updateItem: (data: Record<string, any>) => void;
-    createItem: (data: Record<string, any>) => void;
+    updateItem: () => void;
+    createItem: () => void;
+    resetFieldError: (field: string) => void;
+    validateSubmitFields: (data: Record<string, any>) => boolean;
+    getItemsInstance?: CancellablePromise<any>;
+    getItem: (id: any) => void;
+    getItemsCancel: () => void;
+    setEditorData: (data: Record<string, any>) => void;
+    createEmptyItem: () => void;
     onMount: () => void;
     onUnmount: () => void;
     get ListHead(): () => JSX.Element;

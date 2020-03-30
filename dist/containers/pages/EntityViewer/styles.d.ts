@@ -28,5 +28,11 @@ declare const _default: (theme: Theme) => {
         alignItems: string;
         display: string;
     };
+    loader: {
+        display: string;
+        alignItems: string;
+        justifyContent: string;
+        minHeight: number;
+    };
 };
 export default _default;

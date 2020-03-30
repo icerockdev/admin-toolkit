@@ -9,17 +9,20 @@ export declare const ENTITY_FIELD_RENDERS: {
         value: any;
         isEditing?: boolean | undefined;
         handler?: ((val: any) => void) | undefined;
+        error?: string | undefined;
         onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
     } & Record<string, any>>;
     date: import("react").FC<{
         value: any;
         isEditing?: boolean | undefined;
+        error?: string | undefined;
         handler?: ((val: any) => void) | undefined;
         onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
     } & Record<string, any>>;
     boolean: import("react").FC<{
         value: any;
         isEditing?: boolean | undefined;
+        error?: string | undefined;
         handler?: ((val: any) => void) | undefined;
         onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
     } & Record<string, any>>;
@@ -28,15 +31,18 @@ export declare const getEntityFieldRenderer: (type?: string) => import("react").
     value: any;
     isEditing?: boolean | undefined;
     handler?: ((val: any) => void) | undefined;
+    error?: string | undefined;
     onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
 } & Record<string, any>> | import("react").FC<{
     value: any;
     isEditing?: boolean | undefined;
+    error?: string | undefined;
     handler?: ((val: any) => void) | undefined;
     onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
 } & Record<string, any>> | import("react").FC<{
     value: any;
     isEditing?: boolean | undefined;
+    error?: string | undefined;
     handler?: ((val: any) => void) | undefined;
     onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
 } & Record<string, any>>;
@@ -56,6 +62,8 @@ export declare const ENTITY_ACTIONS: {
 };
 export declare const ENTITY_ERRORS: {
     CANT_LOAD_ITEMS: string;
+    FIELD_IS_REQUIRED: string;
+    INCORRECT_INPUT: string;
 };
 export interface IEntityField {
     name: string;
@@ -63,13 +71,8 @@ export interface IEntityField {
     title?: boolean;
     type: string;
     sortable?: boolean;
-    editor?: {
-        enabled?: boolean;
-        required?: boolean;
-    };
-    viewer?: {
-        enabled?: boolean;
-    };
+    required?: boolean;
+    validator?: (val: any) => boolean;
 }
 export interface IEntityFilterField {
     name: string;
@@ -97,6 +100,7 @@ export interface IEntityProps extends IPageProps {
     fetchItemsFn?: IEntityFetchFunction;
     updateItemsFn?: IEntityUpdateFunction;
     createItemsFn?: IEntityCreateFunction;
+    getItemsFn?: IEntityGetFunction;
 }
 export interface IEntityFetchFunctionProps {
     url: string;
@@ -120,6 +124,7 @@ export declare type IEntityFetchFunction = (props: IEntityFetchFunctionProps) =>
 export interface IEntityUpdateFunctionProps {
     url: string;
     id: any;
+    token?: string;
     data: Record<string, any>;
 }
 export interface IEntityUpdateFunctionResult {
@@ -130,10 +135,21 @@ export declare type IEntityUpdateFunction = (props: IEntityUpdateFunctionProps) 
 export interface IEntityCreateFunctionProps {
     url: string;
     id: any;
+    token?: string;
     data: Record<string, any>;
 }
 export interface IEntityCreateFunctionResult {
     data: Record<string, any>;
     error?: string;
 }
-export declare type IEntityCreateFunction = (props: IEntityUpdateFunctionProps) => Promise<IEntityUpdateFunctionResult>;
+export declare type IEntityCreateFunction = (props: IEntityCreateFunctionProps) => Promise<IEntityCreateFunctionResult>;
+export interface IEntityGetFunctionProps {
+    url: string;
+    token?: string;
+    id: any;
+}
+export interface IEntityGetFunctionResult {
+    data: Record<string, any>;
+    error?: string;
+}
+export declare type IEntityGetFunction = (props: IEntityGetFunctionProps) => Promise<IEntityGetFunctionResult>;

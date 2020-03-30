@@ -1,6 +1,22 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 import { Config, AuthProvider, Page, Entity, ENTITY_FILTER_TYPES, } from './application';
 import logo from './assets/logo512.png';
+var SAMPLE_ENTITY_1 = {
+    id: 1,
+    type: 'text',
+    phone: '+7 000 000 000',
+    title: 'First one',
+    created: new Date().toISOString(),
+    visible: true,
+};
+var SAMPLE_ENTITY_2 = {
+    id: 2,
+    type: 'text',
+    phone: '+7 000 000 000',
+    title: 'First one',
+    created: new Date().toISOString(),
+    visible: true,
+};
 export default new Config({
     logo: logo,
     auth: new AuthProvider({
@@ -25,6 +41,7 @@ export default new Config({
                 list: { url: '/list', method: 'get' },
                 update: { url: '/update', method: 'patch' },
                 create: { url: '/create', method: 'post' },
+                get: { url: '/get', method: 'get' },
             },
             menu: {
                 enabled: true,
@@ -52,6 +69,7 @@ export default new Config({
                     label: 'Тип',
                     sortable: true,
                     type: 'string',
+                    required: true,
                 },
                 {
                     name: 'phone',
@@ -88,24 +106,7 @@ export default new Config({
                     console.log('Fetching items', props);
                     setTimeout(resolve, 500, {
                         data: {
-                            list: [
-                                {
-                                    id: 2,
-                                    type: 'text',
-                                    phone: '+7 000 000 000',
-                                    title: 'First one',
-                                    created: new Date().toISOString(),
-                                    visible: true,
-                                },
-                                {
-                                    id: 3,
-                                    type: 'text',
-                                    phone: '+7 000 000 000',
-                                    title: 'Second one',
-                                    created: new Date().toISOString(),
-                                    visible: true,
-                                },
-                            ],
+                            list: [SAMPLE_ENTITY_1, SAMPLE_ENTITY_2],
                             totalPages: 10,
                         },
                     });
@@ -120,6 +121,15 @@ export default new Config({
                 var data = _a.data;
                 console.log('create', { data: data });
                 return Promise.resolve({ error: '', data: data });
+            },
+            getItemsFn: function (_a) {
+                var id = _a.id;
+                console.log('get', { id: id });
+                return new Promise(function (resolve) {
+                    return setTimeout(resolve, 500, {
+                        data: SAMPLE_ENTITY_2,
+                    });
+                });
             },
         }),
         new Page({

@@ -3,5 +3,5 @@ export var EMPTY_USER = {
     email: '',
     username: '',
     role: '',
-    token: '',
+    token: 'SAMPLE_TOKEN',
 };
