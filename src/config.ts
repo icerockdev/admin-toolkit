@@ -8,8 +8,27 @@ import {
   ENTITY_FILTER_TYPES,
   IEntityUpdateFunctionProps,
   IEntityCreateFunctionProps,
+  IEntityGetFunctionProps,
 } from './application';
 import logo from '~/assets/logo512.png';
+
+const SAMPLE_ENTITY_1 = {
+  id: 1,
+  type: 'text',
+  phone: '+7 000 000 000',
+  title: 'First one',
+  created: new Date().toISOString(),
+  visible: true,
+};
+
+const SAMPLE_ENTITY_2 = {
+  id: 2,
+  type: 'text',
+  phone: '+7 000 000 000',
+  title: 'First one',
+  created: new Date().toISOString(),
+  visible: true,
+};
 
 export default new Config({
   logo,
@@ -34,6 +53,7 @@ export default new Config({
         list: { url: '/list', method: 'get' },
         update: { url: '/update', method: 'patch' },
         create: { url: '/create', method: 'post' },
+        get: { url: '/get', method: 'get' },
       },
       menu: {
         enabled: true,
@@ -94,24 +114,7 @@ export default new Config({
           console.log('Fetching items', props);
           setTimeout(resolve, 500, {
             data: {
-              list: [
-                {
-                  id: 2,
-                  type: 'text',
-                  phone: '+7 000 000 000',
-                  title: 'First one',
-                  created: new Date().toISOString(),
-                  visible: true,
-                },
-                {
-                  id: 3,
-                  type: 'text',
-                  phone: '+7 000 000 000',
-                  title: 'Second one',
-                  created: new Date().toISOString(),
-                  visible: true,
-                },
-              ],
+              list: [SAMPLE_ENTITY_1, SAMPLE_ENTITY_2],
               totalPages: 10,
             },
           });
@@ -123,6 +126,14 @@ export default new Config({
       createItemsFn: ({ data }: IEntityCreateFunctionProps) => {
         console.log('create', { data });
         return Promise.resolve({ error: '', data });
+      },
+      getItemsFn: ({ id }: IEntityGetFunctionProps) => {
+        console.log('get', { id });
+        return new Promise((resolve) =>
+          setTimeout(resolve, 500, {
+            data: SAMPLE_ENTITY_2,
+          })
+        );
       },
     }),
     new Page({

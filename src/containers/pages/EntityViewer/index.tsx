@@ -1,6 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { useMemo, createElement, useState, useCallback } from 'react';
+import React, { useMemo, createElement, useEffect, useCallback } from 'react';
 
 import {
   Breadcrumbs,
@@ -11,23 +11,28 @@ import {
   Paper,
   Grid,
   Button,
+  CircularProgress,
 } from '@material-ui/core';
 
 import styles from './styles';
 import { IEntityField, getEntityFieldRenderer } from '~/application';
 import { observer } from 'mobx-react';
 import { Link as RouterLink } from 'react-router-dom';
-import { toJS } from 'mobx';
 
 type IProps = WithStyles<typeof styles> & {
   url: string;
   entityName: string;
-  entities: Record<string, any>[];
   id?: string;
   fields: IEntityField[];
   errors: Record<string, string>;
   isEditing: boolean;
-  onSave: (data: Record<string, any>) => void;
+  isLoading: boolean;
+  data: Record<string, any>;
+
+  setEditorData: (data: Record<string, any>) => void;
+  getItem: (id: any) => void;
+  cancelGetItem: () => void;
+  onSave: () => void;
   onResetFieldError: (field: string) => void;
 };
 
@@ -35,7 +40,6 @@ const EntityViewer = withStyles(styles)(
   observer(
     ({
       classes,
-      entities,
       id,
       fields,
       errors,
@@ -44,23 +48,18 @@ const EntityViewer = withStyles(styles)(
       entityName,
       onSave,
       onResetFieldError,
+      isLoading,
+      data,
+      setEditorData,
+      getItem,
+      cancelGetItem,
     }: IProps) => {
       const isCreating = useMemo(() => typeof id === 'undefined', [id]);
 
-      const entity = useMemo(
-        () =>
-          isCreating
-            ? {}
-            : entities.find((entry) => String(entry.id) === String(id)) || {},
-        [entities, id]
-      );
-
       const title = useMemo(() => {
         const field = fields.find((f) => f.title);
-        return entity && field && field.name ? entity[field.name] : id;
-      }, [entity, fields, id]);
-
-      const [data, setData] = useState(toJS(entity));
+        return data && field && field.name ? data[field.name] : id;
+      }, [data, fields, id]);
 
       const onFieldChange = useCallback(
         (f) => (value: any) => {
@@ -68,18 +67,32 @@ const EntityViewer = withStyles(styles)(
             onResetFieldError(f);
           }
 
-          setData({ ...data, [f]: value });
+          setEditorData({ ...data, [f]: value });
         },
-        [data, setData, errors]
+        [data, setEditorData, errors]
       );
 
       const onSubmit = useCallback(
         (event) => {
           event.preventDefault();
-          onSave(data);
+          onSave();
         },
-        [onSave, data]
+        [onSave]
       );
+
+      useEffect(() => {
+        getItem(id);
+
+        return () => cancelGetItem();
+      }, [id]);
+
+      if (isLoading) {
+        return (
+          <div className={classes.loader}>
+            <CircularProgress />
+          </div>
+        );
+      }
 
       return (
         <div className={classes.wrap}>

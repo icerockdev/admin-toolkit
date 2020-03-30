@@ -29,4 +29,10 @@ export default (theme: Theme) => ({
     alignItems: 'center',
     display: 'flex',
   },
+  loader: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: 200,
+  },
 });

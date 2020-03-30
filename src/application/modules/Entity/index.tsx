@@ -10,7 +10,7 @@ import { Page } from '~/application/modules/Page';
 import { EntityList } from '../../../containers/pages/EntityList';
 import { EntityHead } from '../../../containers/pages/EntityHead';
 import { EntityFooter } from '../../../containers/pages/EntityFooter';
-import { computed, observable, action, reaction, flow } from 'mobx';
+import { computed, observable, action, reaction, flow, toJS } from 'mobx';
 import { CancellablePromise } from 'mobx/lib/api/flow';
 import { Switch, Route, RouteComponentProps } from 'react-router-dom';
 import { observer } from 'mobx-react';
@@ -33,6 +33,7 @@ export class Entity extends Page {
   @observable fetchItemsFn: IEntityProps['fetchItemsFn'] = undefined;
   @observable updateItemsFn: IEntityProps['updateItemsFn'] = undefined;
   @observable createItemsFn: IEntityProps['createItemsFn'] = undefined;
+  @observable getItemsFn: IEntityProps['getItemsFn'] = undefined;
 
   // Built-in
   @observable isLoading: boolean = true;
@@ -44,7 +45,8 @@ export class Entity extends Page {
   @observable error?: string | null;
   @observable sortBy: string = '';
   @observable sortDir: 'asc' | 'desc' = ENTITY_SORT_DIRS.ASC;
-  @observable submitFieldsErrors: Record<string, string> = {};
+  @observable editorFieldErrors: Record<string, string> = {};
+  @observable editorData: Record<string, any> = {};
 
   constructor(fields?: Partial<IEntityProps>) {
     super();
@@ -98,6 +100,7 @@ export class Entity extends Page {
 
     this.fetchItemsInstance = flow(function* (this: Entity) {
       this.isLoading = true;
+      this.error = '';
 
       try {
         if (!this.api?.list?.url || !this.fetchItemsFn) {
@@ -143,13 +146,16 @@ export class Entity extends Page {
   updateItemInstance?: CancellablePromise<any>;
 
   @action
-  updateItem = (data: Record<string, any>) => {
+  updateItem = () => {
     this.updateItemInstance = flow(function* (this: Entity) {
       this.isLoading = true;
+      this.error = '';
 
       try {
+        const data = toJS(this.editorData);
+
         if (!this.validateSubmitFields(data)) {
-          return;
+          throw new Error(ENTITY_ERRORS.INCORRECT_INPUT);
         }
 
         if (!this.api?.update?.url || !this.updateItemsFn) {
@@ -167,15 +173,8 @@ export class Entity extends Page {
         if (!result || result.error)
           throw new Error(result?.error || ENTITY_ERRORS.CANT_LOAD_ITEMS);
 
-        if (result.data.id) {
-          this.data = this.data.map((item) =>
-            item.id === result.data.id ? { ...item, ...result.data } : item
-          );
-        }
-
+        this.fetchItems();
         this.parent?.history.push(this.menu.url);
-
-        this.isLoading = false;
       } catch (e) {
         this.error = e;
         this.isLoading = false;
@@ -184,13 +183,16 @@ export class Entity extends Page {
   };
 
   @action
-  createItem = (data: Record<string, any>) => {
+  createItem = () => {
     this.updateItemInstance = flow(function* (this: Entity) {
       this.isLoading = true;
+      this.error = '';
 
       try {
+        const data = toJS(this.editorData);
+
         if (!this.validateSubmitFields(data)) {
-          return;
+          throw new Error(ENTITY_ERRORS.INCORRECT_INPUT);
         }
 
         if (!this.api?.create?.url || !this.createItemsFn) {
@@ -208,15 +210,8 @@ export class Entity extends Page {
         if (!result || result.error)
           throw new Error(result?.error || ENTITY_ERRORS.CANT_LOAD_ITEMS);
 
-        if (result.data.id) {
-          this.data = this.data.map((item) =>
-            item.id === result.data.id ? { ...item, ...result.data } : item
-          );
-        }
-
+        this.fetchItems();
         this.parent?.history.push(this.menu.url);
-
-        this.isLoading = false;
       } catch (e) {
         this.error = e;
         this.isLoading = false;
@@ -226,12 +221,12 @@ export class Entity extends Page {
 
   @action
   resetFieldError = (field: string) => {
-    delete this.submitFieldsErrors[field];
+    delete this.editorFieldErrors[field];
   };
 
   @action
   validateSubmitFields = (data: Record<string, any>): boolean => {
-    this.submitFieldsErrors = this.fields.reduce(
+    this.editorFieldErrors = this.fields.reduce(
       (obj, field) =>
         (!field.required || field.type === 'boolean' || !!data[field.name]) &&
         (!field.validator || field.validator(data[field.name]))
@@ -243,7 +238,53 @@ export class Entity extends Page {
       {}
     );
 
-    return Object.keys(this.submitFieldsErrors).length === 0;
+    return Object.keys(this.editorFieldErrors).length === 0;
+  };
+
+  @observable
+  getItemsInstance?: CancellablePromise<any>;
+
+  @action
+  getItem = (id: any) => {
+    this.getItemsInstance = flow(function* (this: Entity) {
+      this.isLoading = true;
+      this.error = '';
+
+      try {
+        if (!this.api?.get?.url || !this.getItemsFn) {
+          throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
+        }
+
+        const result: Unwrap<typeof this.createItemsFn> = yield this.parent?.auth?.withToken(
+          this.getItemsFn,
+          {
+            id,
+            url: this.api?.get?.url,
+          }
+        );
+
+        if (!result || result.error)
+          throw new Error(result?.error || ENTITY_ERRORS.CANT_LOAD_ITEMS);
+
+        this.editorData = result.data;
+        this.isLoading = false;
+      } catch (e) {
+        this.error = e;
+        this.parent?.history.push(this.menu.url);
+        this.isLoading = false;
+      }
+    }).bind(this)();
+  };
+
+  getItemsCancel = () => {
+    if (this.getItemsInstance && this.getItemsInstance.cancel) {
+      this.getItemsInstance.cancel();
+    }
+  };
+
+  @action
+  setEditorData = (data: Record<string, any>) => {
+    this.editorData = data;
   };
 
   @action
@@ -322,14 +363,18 @@ export class Entity extends Page {
       }: RouteComponentProps<{ id: string }>) => (
         <EntityViewer
           entityName={this.title}
-          entities={this.data}
           id={id}
           fields={this.fields}
           url={this.menu.url}
-          errors={this.submitFieldsErrors}
+          errors={this.editorFieldErrors}
           onSave={console.log}
           onResetFieldError={this.resetFieldError}
           isEditing={false}
+          isLoading={this.isLoading}
+          setEditorData={this.setEditorData}
+          data={this.editorData}
+          getItem={this.getItem}
+          cancelGetItem={this.getItemsCancel}
         />
       )
     );
@@ -345,13 +390,17 @@ export class Entity extends Page {
       }: RouteComponentProps<{ id: string }>) => (
         <EntityViewer
           entityName={this.title}
-          entities={this.data}
           id={id}
           fields={this.fields}
-          errors={this.submitFieldsErrors}
+          errors={this.editorFieldErrors}
           url={this.menu.url}
           onSave={this.updateItem}
           onResetFieldError={this.resetFieldError}
+          isLoading={this.isLoading}
+          setEditorData={this.setEditorData}
+          data={this.editorData}
+          getItem={this.getItem}
+          cancelGetItem={this.getItemsCancel}
           isEditing
         />
       )
@@ -368,13 +417,17 @@ export class Entity extends Page {
       }: RouteComponentProps<{ id: string }>) => (
         <EntityViewer
           entityName={this.title}
-          entities={this.data}
           fields={this.fields}
-          errors={this.submitFieldsErrors}
+          errors={this.editorFieldErrors}
           url={this.menu.url}
           onSave={this.createItem}
           onResetFieldError={this.resetFieldError}
           isEditing
+          isLoading={this.isLoading}
+          setEditorData={this.setEditorData}
+          data={this.editorData}
+          getItem={this.getItem}
+          cancelGetItem={this.getItemsCancel}
         />
       )
     );

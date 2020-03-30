@@ -42,7 +42,8 @@ export const ENTITY_ACTIONS = {
 
 export const ENTITY_ERRORS = {
   CANT_LOAD_ITEMS: `Can't load items`,
-  FIELD_IS_REQUIRED: 'Обязательное поле',
+  FIELD_IS_REQUIRED: 'This field is required',
+  INCORRECT_INPUT: 'Check all inputs',
 };
 
 export interface IEntityField {
@@ -79,6 +80,7 @@ export interface IEntityProps extends IPageProps {
   fetchItemsFn?: IEntityFetchFunction;
   updateItemsFn?: IEntityUpdateFunction;
   createItemsFn?: IEntityCreateFunction;
+  getItemsFn?: IEntityGetFunction;
 }
 
 export interface IEntityFetchFunctionProps {
@@ -105,6 +107,7 @@ export type IEntityFetchFunction = (
 export interface IEntityUpdateFunctionProps {
   url: string;
   id: any;
+  token?: string;
   data: Record<string, any>;
 }
 
@@ -120,6 +123,7 @@ export type IEntityUpdateFunction = (
 export interface IEntityCreateFunctionProps {
   url: string;
   id: any;
+  token?: string;
   data: Record<string, any>;
 }
 
@@ -129,5 +133,20 @@ export interface IEntityCreateFunctionResult {
 }
 
 export type IEntityCreateFunction = (
-  props: IEntityUpdateFunctionProps
-) => Promise<IEntityUpdateFunctionResult>;
+  props: IEntityCreateFunctionProps
+) => Promise<IEntityCreateFunctionResult>;
+
+export interface IEntityGetFunctionProps {
+  url: string;
+  token?: string;
+  id: any;
+}
+
+export interface IEntityGetFunctionResult {
+  data: Record<string, any>;
+  error?: string;
+}
+
+export type IEntityGetFunction = (
+  props: IEntityGetFunctionProps
+) => Promise<IEntityGetFunctionResult>;
