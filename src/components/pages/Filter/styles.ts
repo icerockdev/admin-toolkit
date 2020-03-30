@@ -17,6 +17,9 @@ export default (theme: Theme) => ({
     },
   },
   input: {
+    '& .select': {
+      padding: '10px 34px 7px 14px',
+    },
     '& input': {
       padding: '10px 14px 7px',
     },

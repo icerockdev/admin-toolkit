@@ -99,6 +99,7 @@ const EntityList = withStyles(styles)(
                         {
                           label: field.label || field.name,
                           value: entry[field.name],
+                          availableVariants: field.availableVariants || {},
                         }
                       )}
                     </TableCell>

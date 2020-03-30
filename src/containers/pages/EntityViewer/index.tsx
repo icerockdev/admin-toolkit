@@ -176,7 +176,7 @@ const EntityViewer = withStyles(styles)(
                           error: errors[field.name],
                           isEditing,
                           handler: onFieldChange(field.name),
-                          selectVariants: field.availableVariants || {},
+                          availableVariants: field.availableVariants || {},
                         }
                       )}
                     </div>
