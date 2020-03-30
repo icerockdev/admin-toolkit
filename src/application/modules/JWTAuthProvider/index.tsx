@@ -11,7 +11,11 @@ import { flow } from 'mobx';
 import { AuthProvider } from '../AuthProvider';
 import { Unwrap } from '~/application/types/common';
 
-const EMPTY_TOKENS = { access: '', refresh: '' };
+const EMPTY_TOKENS = {
+  access:
+    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImF1ZCI6ImFsbGlhbmNlLWF1ZGllbmNlIiwicm9sZSI6MTAsImlzcyI6Imh0dHA6Ly8wLjAuMC4wOjgwIiwiaWQiOjEsInVzZXJUeXBlIjoxMCwidHlwZSI6IkFDQ0VTUyIsImV4cCI6MTU4NTU4OTc5OCwiaWF0IjoxNTg1NTUzNzk4fQ.BTcx11KuscqDU2XRHJ9aD8od7gtsgpIEOffJxtWQV52yCAn_UCgQ9WaPQFE36_hAar6yTifQCgjtuKWidUeh1A',
+  refresh: '',
+};
 
 export class JWTAuthProvider extends AuthProvider {
   @observable tokens: Record<string, string> = EMPTY_TOKENS;

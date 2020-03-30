@@ -53,19 +53,13 @@ export interface IEntityField {
   title?: boolean;
   type: 'string' | 'date' | 'boolean' | 'select';
   sortable?: boolean;
+  filterable?: boolean;
   required?: boolean;
   validator?: (val: any) => boolean;
   availableVariants?: Record<any, any>;
 
   hideInList?: boolean;
   hideInEdit?: boolean;
-}
-
-export interface IEntityFilterField {
-  name: string;
-  label?: string;
-  type: typeof ENTITY_FILTER_TYPES[keyof typeof ENTITY_FILTER_TYPES];
-  variants?: { label: string | number; value: string }[];
 }
 
 export interface IEntityProps extends IPageProps {
@@ -76,7 +70,6 @@ export interface IEntityProps extends IPageProps {
   filters: {
     current: string;
     value: any;
-    fields: IEntityFilterField[];
   };
   api?: Record<
     typeof ENTITY_ACTIONS[keyof typeof ENTITY_ACTIONS],

@@ -160,17 +160,6 @@ export default new Entity({
   filters: {
     current: '',
     value: '',
-    fields: [
-      {
-        name: 'type',
-        label: 'Тип',
-        type: ENTITY_FILTER_TYPES.SELECT,
-        variants: [
-          { value: 'news', label: 'Новость' },
-          { value: 'article', label: 'Статья' },
-        ],
-      },
-    ],
   },
   fields: [
     {
@@ -179,12 +168,14 @@ export default new Entity({
       label: 'Ф.И.О.',
       required: true,
       title: true,
+      filterable: true,
     },
     {
       name: 'status',
       type: 'select',
       label: 'Статус',
       sortable: true,
+      filterable: true,
       hideInEdit: true,
       availableVariants: {
         [CUSTOMER_STATUS_ACTIVE]: 'Активен',
@@ -196,6 +187,7 @@ export default new Entity({
       type: 'string',
       label: 'Рабочий тел.',
       required: true,
+      filterable: true,
     },
     {
       name: 'personalPhone',
@@ -210,6 +202,7 @@ export default new Entity({
       label: 'Роль',
       sortable: true,
       required: true,
+      filterable: true,
       availableVariants: {
         [ADMIN_ROLE_ADMIN]: 'Главный Администратор',
         [ADMIN_ROLE_EDITOR]: 'Редактор Контента',

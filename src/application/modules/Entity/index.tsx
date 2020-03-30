@@ -26,7 +26,6 @@ export class Entity extends Page {
   @observable filters: IEntityProps['filters'] = {
     current: '',
     value: '',
-    fields: [],
   };
   @observable editable: IEntityProps['editable'] = false;
   @observable viewable: IEntityProps['viewable'] = false;
@@ -309,6 +308,7 @@ export class Entity extends Page {
       <EntityHead
         title={this.title}
         filters={this.filters}
+        fields={this.fields}
         setFilters={this.setFilters}
         url={this.menu.url}
         applyFilter={this.fetchItems}

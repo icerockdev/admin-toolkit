@@ -97,6 +97,7 @@ const EntityList = withStyles(styles)(
                           field.type || typeof entry[field.name]
                         ),
                         {
+                          label: field.label || field.name,
                           value: entry[field.name],
                         }
                       )}

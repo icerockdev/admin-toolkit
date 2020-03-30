@@ -18,6 +18,7 @@ type IProps = WithStyles<typeof styles> & {
   canCreate: boolean;
   url: string;
   filters: IEntityProps['filters'];
+  fields: IEntityProps['fields'];
   setFilters: (filters: IEntityProps['filters']) => void;
   applyFilter: () => void;
 };
@@ -26,6 +27,7 @@ const EntityHeadUnstyled: FC<IProps> = ({
   classes,
   title,
   filters,
+  fields,
   canCreate,
   url,
 
@@ -64,7 +66,7 @@ const EntityHeadUnstyled: FC<IProps> = ({
         <Filter
           current={filters.current}
           value={filters.value}
-          fields={filters.fields}
+          fields={fields}
           clearFilter={clearFilter}
           setFilterCurrent={setFilterCurrent}
           setFilterValue={setFilterValue}

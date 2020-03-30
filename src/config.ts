@@ -63,17 +63,6 @@ export default new Config({
       filters: {
         current: '',
         value: '',
-        fields: [
-          {
-            name: 'type',
-            label: 'Тип',
-            type: ENTITY_FILTER_TYPES.SELECT,
-            variants: [
-              { value: 'news', label: 'Новость' },
-              { value: 'article', label: 'Статья' },
-            ],
-          },
-        ],
       },
       fields: [
         {

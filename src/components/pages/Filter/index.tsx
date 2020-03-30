@@ -1,6 +1,12 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { ChangeEvent, useCallback, Fragment, useMemo } from 'react';
+import React, {
+  ChangeEvent,
+  useCallback,
+  Fragment,
+  useMemo,
+  createElement,
+} from 'react';
 
 import {
   withStyles,
@@ -13,7 +19,11 @@ import {
 } from '@material-ui/core';
 
 import styles from './styles';
-import { ENTITY_FILTER_TYPES } from '~/application/types/entity';
+import {
+  ENTITY_FILTER_TYPES,
+  IEntityProps,
+  getEntityFieldRenderer,
+} from '~/application/types/entity';
 import { FilterText } from '../FilterText';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -21,12 +31,7 @@ import ClearIcon from '@material-ui/icons/Clear';
 type IProps = WithStyles<typeof styles> & {
   current: string;
   value: any;
-  fields: {
-    name: string;
-    label?: string;
-    type: string;
-    variants?: { label: string | number; value: string }[];
-  }[];
+  fields: IEntityProps['fields'];
 
   clearFilter: () => void;
   applyFilter: () => void;
@@ -61,9 +66,18 @@ const Filter = withStyles(styles)(
     }, [clearFilter]);
 
     const field = useMemo(
-      () => (current && fields.find(field => field.name === current)) || null,
+      () => (current && fields.find((field) => field.name === current)) || null,
       [fields, current]
     );
+
+    const filterableFields = useMemo(
+      () => fields.filter((field) => field.filterable),
+      [fields]
+    );
+
+    if (!filterableFields.length) {
+      return null;
+    }
 
     return (
       <div className={classes.wrapper}>
@@ -82,7 +96,7 @@ const Filter = withStyles(styles)(
           >
             <MenuItem value="">...</MenuItem>
 
-            {fields.map(field => (
+            {filterableFields.map((field) => (
               <MenuItem key={field.name} value={field.name}>
                 {field.label || field.name}
               </MenuItem>
@@ -92,12 +106,15 @@ const Filter = withStyles(styles)(
 
         {field && (
           <Fragment>
-            {React.createElement(FILTER_RENDERERS[field.type] || FilterText, {
-              label: field.label || field.name,
-              value,
-              variants: field.variants || [],
-              onChange: setFilterValue,
-            })}
+            <div className={classes.input}>
+              {createElement(getEntityFieldRenderer(field.type), {
+                value,
+                label: field.label || field.name,
+                isEditing: true,
+                handler: setFilterValue,
+                selectVariants: field.availableVariants || {},
+              })}
+            </div>
 
             <IconButton
               color="secondary"
