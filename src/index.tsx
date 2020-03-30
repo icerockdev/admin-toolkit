@@ -3,6 +3,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Application } from '~/application';
-import config from './config';
+// import config from './config';
+import realConfig from './realConfig';
 
-ReactDOM.render(<Application config={config} />, document.getElementById('root'));
+ReactDOM.render(
+  <Application config={realConfig} />,
+  document.getElementById('root')
+);

@@ -5,6 +5,7 @@ import { IConfigProps } from '~/application/types/config';
 import { Theme } from '@material-ui/core';
 import { computed } from 'mobx';
 import { createBrowserHistory } from 'history';
+import { Notifications } from '../Notification';
 
 export class Config {
   name: IConfigProps['name'] = '';
@@ -14,6 +15,7 @@ export class Config {
   title?: IConfigProps['title'];
   theme?: Theme;
   history = createBrowserHistory();
+  notifications = new Notifications();
 
   constructor(fields?: Partial<IConfigProps>) {
     if (fields) {
@@ -21,14 +23,13 @@ export class Config {
     }
 
     if (this.pages.length) {
-      this.pages.forEach(page => {
+      this.pages.forEach((page) => {
         page.parent = this;
       });
     }
-  }
 
-  @computed
-  get Layout() {
-    return <div>LAYOUT</div>
+    if (this.auth) {
+      this.auth.parent = this;
+    }
   }
 }

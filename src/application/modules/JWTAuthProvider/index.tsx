@@ -1,29 +1,32 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 // import React from 'react';
-import { EMPTY_USER, IAuthProviderProps } from '~/application/types/auth';
+import {
+  EMPTY_USER,
+  IAuthProviderProps,
+  AUTH_ERRORS,
+} from '~/application/types/auth';
 import { computed, observable, action } from 'mobx';
 import { flow } from 'mobx';
-import { CancellablePromise } from 'mobx/lib/api/flow';
-import { Config } from '../Config';
+import { AuthProvider } from '../AuthProvider';
+import { Unwrap } from '~/application/types/common';
 
-export class AuthProvider {
-  // From props
-  @observable parent?: Config;
-  @observable user: IAuthProviderProps['user'] = EMPTY_USER;
-  @observable authRequestFn?: IAuthProviderProps['authRequestFn'];
+const EMPTY_TOKENS = { access: '', refresh: '' };
+
+export class JWTAuthProvider extends AuthProvider {
+  @observable tokens: Record<string, string> = EMPTY_TOKENS;
+  @observable authRequestFn?: (
+    email: string,
+    password: string
+  ) => Promise<{
+    user: IAuthProviderProps['user'];
+    tokens: Record<string, string>;
+    error: string;
+  }>;
 
   constructor(fields?: Partial<IAuthProviderProps>) {
-    if (fields) {
-      Object.assign(this, fields);
-    }
+    super(fields);
   }
-
-  // Built-in
-  @observable isLoading: boolean = false;
-  @observable error: string = '';
-
-  sendAuthRequestInstance?: CancellablePromise<any>;
 
   @action
   sendAuthRequest = ({
@@ -36,22 +39,28 @@ export class AuthProvider {
     this.sendAuthRequestCancel();
 
     this.sendAuthRequestInstance = flow(function* sendAuthRequest(
-      this: AuthProvider
+      this: JWTAuthProvider
     ) {
       if (!this.authRequestFn) return;
 
       this.isLoading = true;
 
       try {
-        const response = yield this.authRequestFn(email, password).catch(
-          () => null
+        const response: Unwrap<typeof this.authRequestFn> = yield this.authRequestFn(
+          email,
+          password
         );
 
         if (!response || response.error) {
-          throw new Error(response.error);
+          this.parent?.notifications.showError(
+            response?.error || AUTH_ERRORS.CANT_LOGIN
+          );
+          throw new Error(response?.error);
         }
 
+        this.parent?.notifications.hideNotification();
         this.user = response.user;
+        this.tokens = response.tokens;
       } catch (e) {
         this.error = e;
       } finally {
@@ -69,15 +78,16 @@ export class AuthProvider {
   @action
   logout = () => {
     this.user = EMPTY_USER;
+    this.tokens = EMPTY_TOKENS;
   };
 
   @observable
   withToken = (req: any, args: any) => {
-    return req({ ...args, token: this.user.token });
+    return req({ ...args, token: this.tokens.access });
   };
 
   @computed
   get isLogged() {
-    return !!this.user.token;
+    return !!this.tokens.access;
   }
 }

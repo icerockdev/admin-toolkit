@@ -1,16 +1,22 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { useMemo } from 'react';
+import React, { useMemo, Fragment } from 'react';
 import { Config } from '../Config';
 import { observer } from 'mobx-react';
 import { Switch, Route, Redirect, Router } from 'react-router-dom';
 import { SignIn } from '~/containers/login/SignIn';
 import { Navigation } from '~/containers/layout/Navigation';
 import { PageRenderer } from '../PageRenderer';
-import { Container, WithStyles, withStyles } from '@material-ui/core';
+import {
+  Container,
+  WithStyles,
+  withStyles,
+  CssBaseline,
+} from '@material-ui/core';
 import styles from './styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import { Notifications } from '../Notification';
 
 type IProps = WithStyles<typeof styles> & {
   config: Config;
@@ -31,15 +37,23 @@ const Application = withStyles(styles)(
 
     if (!config.auth?.isLogged && config.auth?.sendAuthRequest) {
       return (
-        <SignIn
-          onSubmit={config.auth.sendAuthRequest}
-          onForgotScreenClick={console.log}
-        />
+        <Fragment>
+          <CssBaseline />
+
+          <SignIn
+            onSubmit={config.auth.sendAuthRequest}
+            onForgotScreenClick={console.log}
+          />
+
+          <config.notifications.Output />
+        </Fragment>
       );
     }
 
     return (
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <CssBaseline />
+
         <Router history={config.history}>
           <Navigation
             links={links}
@@ -63,6 +77,8 @@ const Application = withStyles(styles)(
             </Switch>
           </Container>
         </Router>
+
+        <config.notifications.Output />
       </MuiPickersUtilsProvider>
     );
   })
