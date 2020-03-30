@@ -78,7 +78,6 @@ var Entity = /** @class */ (function (_super) {
         _this.filters = {
             current: '',
             value: '',
-            fields: [],
         };
         _this.editable = false;
         _this.viewable = false;
@@ -122,15 +121,15 @@ var Entity = /** @class */ (function (_super) {
             _this.fetchItemsCancel();
             _this.fetchItemsInstance = flow(function () {
                 var filter, result, e_1;
-                var _a, _b, _c, _d, _e, _f, _g, _h;
-                return __generator(this, function (_j) {
-                    switch (_j.label) {
+                var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+                return __generator(this, function (_k) {
+                    switch (_k.label) {
                         case 0:
                             this.isLoading = true;
                             this.error = '';
-                            _j.label = 1;
+                            _k.label = 1;
                         case 1:
-                            _j.trys.push([1, 3, , 4]);
+                            _k.trys.push([1, 3, , 4]);
                             if (!((_b = (_a = this.api) === null || _a === void 0 ? void 0 : _a.list) === null || _b === void 0 ? void 0 : _b.url) || !this.fetchItemsFn) {
                                 throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
                             }
@@ -146,7 +145,7 @@ var Entity = /** @class */ (function (_super) {
                                     sortDir: this.sortDir,
                                 })];
                         case 2:
-                            result = _j.sent();
+                            result = _k.sent();
                             if (!result || result.error)
                                 throw new Error((result === null || result === void 0 ? void 0 : result.error) || ENTITY_ERRORS.CANT_LOAD_ITEMS);
                             this.data = ((_g = result === null || result === void 0 ? void 0 : result.data) === null || _g === void 0 ? void 0 : _g.list) || [];
@@ -154,8 +153,8 @@ var Entity = /** @class */ (function (_super) {
                             this.isLoading = false;
                             return [3 /*break*/, 4];
                         case 3:
-                            e_1 = _j.sent();
-                            this.error = e_1;
+                            e_1 = _k.sent();
+                            (_j = this.parent) === null || _j === void 0 ? void 0 : _j.notifications.showError(e_1.message);
                             this.isLoading = false;
                             return [3 /*break*/, 4];
                         case 4: return [2 /*return*/];
@@ -171,15 +170,15 @@ var Entity = /** @class */ (function (_super) {
         _this.updateItem = function () {
             _this.updateItemInstance = flow(function () {
                 var data, result, e_2;
-                var _a, _b, _c, _d, _e, _f, _g;
-                return __generator(this, function (_h) {
-                    switch (_h.label) {
+                var _a, _b, _c, _d, _e, _f, _g, _h;
+                return __generator(this, function (_j) {
+                    switch (_j.label) {
                         case 0:
                             this.isLoading = true;
                             this.error = '';
-                            _h.label = 1;
+                            _j.label = 1;
                         case 1:
-                            _h.trys.push([1, 3, , 4]);
+                            _j.trys.push([1, 3, , 4]);
                             data = toJS(this.editorData);
                             if (!this.validateSubmitFields(data)) {
                                 throw new Error(ENTITY_ERRORS.INCORRECT_INPUT);
@@ -192,15 +191,15 @@ var Entity = /** @class */ (function (_super) {
                                     data: data,
                                 })];
                         case 2:
-                            result = _h.sent();
+                            result = _j.sent();
                             if (!result || result.error)
                                 throw new Error((result === null || result === void 0 ? void 0 : result.error) || ENTITY_ERRORS.CANT_LOAD_ITEMS);
                             this.fetchItems();
                             (_g = this.parent) === null || _g === void 0 ? void 0 : _g.history.push(this.menu.url);
                             return [3 /*break*/, 4];
                         case 3:
-                            e_2 = _h.sent();
-                            this.error = e_2;
+                            e_2 = _j.sent();
+                            (_h = this.parent) === null || _h === void 0 ? void 0 : _h.notifications.showError(e_2.message);
                             this.isLoading = false;
                             return [3 /*break*/, 4];
                         case 4: return [2 /*return*/];
@@ -211,15 +210,15 @@ var Entity = /** @class */ (function (_super) {
         _this.createItem = function () {
             _this.updateItemInstance = flow(function () {
                 var data, result, e_3;
-                var _a, _b, _c, _d, _e, _f, _g;
-                return __generator(this, function (_h) {
-                    switch (_h.label) {
+                var _a, _b, _c, _d, _e, _f, _g, _h;
+                return __generator(this, function (_j) {
+                    switch (_j.label) {
                         case 0:
                             this.isLoading = true;
                             this.error = '';
-                            _h.label = 1;
+                            _j.label = 1;
                         case 1:
-                            _h.trys.push([1, 3, , 4]);
+                            _j.trys.push([1, 3, , 4]);
                             data = toJS(this.editorData);
                             if (!this.validateSubmitFields(data)) {
                                 throw new Error(ENTITY_ERRORS.INCORRECT_INPUT);
@@ -232,15 +231,16 @@ var Entity = /** @class */ (function (_super) {
                                     data: data,
                                 })];
                         case 2:
-                            result = _h.sent();
+                            result = _j.sent();
                             if (!result || result.error)
                                 throw new Error((result === null || result === void 0 ? void 0 : result.error) || ENTITY_ERRORS.CANT_LOAD_ITEMS);
                             this.fetchItems();
                             (_g = this.parent) === null || _g === void 0 ? void 0 : _g.history.push(this.menu.url);
                             return [3 /*break*/, 4];
                         case 3:
-                            e_3 = _h.sent();
+                            e_3 = _j.sent();
                             this.error = e_3;
+                            (_h = this.parent) === null || _h === void 0 ? void 0 : _h.notifications.showError(e_3.message);
                             this.isLoading = false;
                             return [3 /*break*/, 4];
                         case 4: return [2 /*return*/];
@@ -264,15 +264,15 @@ var Entity = /** @class */ (function (_super) {
         _this.getItem = function (id) {
             _this.getItemsInstance = flow(function () {
                 var result, e_4;
-                var _a, _b, _c, _d, _e, _f, _g;
-                return __generator(this, function (_h) {
-                    switch (_h.label) {
+                var _a, _b, _c, _d, _e, _f, _g, _h;
+                return __generator(this, function (_j) {
+                    switch (_j.label) {
                         case 0:
                             this.isLoading = true;
                             this.error = '';
-                            _h.label = 1;
+                            _j.label = 1;
                         case 1:
-                            _h.trys.push([1, 3, , 4]);
+                            _j.trys.push([1, 3, , 4]);
                             if (!((_b = (_a = this.api) === null || _a === void 0 ? void 0 : _a.get) === null || _b === void 0 ? void 0 : _b.url) || !this.getItemsFn) {
                                 throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
                             }
@@ -281,16 +281,16 @@ var Entity = /** @class */ (function (_super) {
                                     url: (_f = (_e = this.api) === null || _e === void 0 ? void 0 : _e.get) === null || _f === void 0 ? void 0 : _f.url,
                                 })];
                         case 2:
-                            result = _h.sent();
+                            result = _j.sent();
                             if (!result || result.error)
                                 throw new Error((result === null || result === void 0 ? void 0 : result.error) || ENTITY_ERRORS.CANT_LOAD_ITEMS);
                             this.editorData = result.data;
                             this.isLoading = false;
                             return [3 /*break*/, 4];
                         case 3:
-                            e_4 = _h.sent();
-                            this.error = e_4;
-                            (_g = this.parent) === null || _g === void 0 ? void 0 : _g.history.push(this.menu.url);
+                            e_4 = _j.sent();
+                            (_g = this.parent) === null || _g === void 0 ? void 0 : _g.notifications.showError(e_4.message);
+                            (_h = this.parent) === null || _h === void 0 ? void 0 : _h.history.push(this.menu.url);
                             this.isLoading = false;
                             return [3 /*break*/, 4];
                         case 4: return [2 /*return*/];
@@ -324,7 +324,7 @@ var Entity = /** @class */ (function (_super) {
     Object.defineProperty(Entity.prototype, "ListHead", {
         get: function () {
             var _this = this;
-            return observer(function () { return (React.createElement(EntityHead, { title: _this.title, filters: _this.filters, setFilters: _this.setFilters, url: _this.menu.url, applyFilter: _this.fetchItems, canCreate: _this.editable })); });
+            return observer(function () { return (React.createElement(EntityHead, { title: _this.title, filters: _this.filters, fields: _this.fields, setFilters: _this.setFilters, url: _this.menu.url, applyFilter: _this.fetchItems, canCreate: _this.editable })); });
         },
         enumerable: true,
         configurable: true

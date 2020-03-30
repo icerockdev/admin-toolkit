@@ -50,7 +50,6 @@ import { flow } from 'mobx';
 var AuthProvider = /** @class */ (function () {
     function AuthProvider(fields) {
         var _this = this;
-        // From props
         this.user = EMPTY_USER;
         // Built-in
         this.isLoading = false;
@@ -111,6 +110,9 @@ var AuthProvider = /** @class */ (function () {
         enumerable: true,
         configurable: true
     });
+    __decorate([
+        observable
+    ], AuthProvider.prototype, "parent", void 0);
     __decorate([
         observable
     ], AuthProvider.prototype, "user", void 0);

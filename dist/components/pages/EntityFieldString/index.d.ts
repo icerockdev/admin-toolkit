@@ -2,6 +2,7 @@
 
 import { FC, MouseEventHandler } from 'react';
 declare type IProps = {
+    label: string;
     value: any;
     isEditing?: boolean;
     handler?: (val: any) => void;

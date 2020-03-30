@@ -10,5 +10,5 @@ declare type IProps = WithStyles<typeof styles> & {
         password: string;
     }) => void;
 };
-declare const SignIn: React.ComponentType<Pick<React.PropsWithChildren<IProps>, "children" | "onForgotScreenClick" | "onSubmit"> & import("@material-ui/core").StyledComponentProps<"header" | "wrap" | "marginTop" | "paper" | "forgot">>;
+declare const SignIn: React.ComponentType<Pick<React.PropsWithChildren<IProps>, "children" | "onSubmit" | "onForgotScreenClick"> & import("@material-ui/core").StyledComponentProps<"header" | "wrap" | "marginTop" | "paper" | "forgot">>;
 export { SignIn };

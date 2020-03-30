@@ -9,8 +9,9 @@ declare type IProps = WithStyles<typeof styles> & {
     canCreate: boolean;
     url: string;
     filters: IEntityProps['filters'];
+    fields: IEntityProps['fields'];
     setFilters: (filters: IEntityProps['filters']) => void;
     applyFilter: () => void;
 };
-declare const EntityHead: React.ComponentType<Pick<React.PropsWithChildren<IProps>, "title" | "children" | "url" | "applyFilter" | "filters" | "canCreate" | "setFilters"> & import("@material-ui/core").StyledComponentProps<"title" | "header">>;
+declare const EntityHead: React.ComponentType<Pick<React.PropsWithChildren<IProps>, "title" | "children" | "url" | "fields" | "applyFilter" | "filters" | "canCreate" | "setFilters"> & import("@material-ui/core").StyledComponentProps<"title" | "header">>;
 export { EntityHead };

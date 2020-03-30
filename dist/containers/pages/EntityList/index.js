@@ -1,7 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
-import React, { createElement } from 'react';
+import React, { createElement, useMemo } from 'react';
 import { TableContainer, Table, TableCell, TableHead, TableRow, TableBody, Paper, CircularProgress, Button, ButtonGroup, withStyles, } from '@material-ui/core';
-import { getEntityFieldRenderer } from '../../../application';
+import { getEntityFieldRenderer, } from '../../../application';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink } from 'react-router-dom';
@@ -9,6 +9,7 @@ import { EntityHeadSortable } from '../../../components/pages/EntityHeadSortable
 import styles from './styles';
 var EntityList = withStyles(styles)(function (_a) {
     var classes = _a.classes, isLoading = _a.isLoading, fields = _a.fields, data = _a.data, url = _a.url, sortBy = _a.sortBy, sortDir = _a.sortDir, canView = _a.canView, canEdit = _a.canEdit, onSortChange = _a.onSortChange;
+    var visibleFields = useMemo(function () { return fields.filter(function (field) { return !field.hideInList; }); }, [fields]);
     if (isLoading) {
         return (React.createElement("div", { className: classes.loader },
             React.createElement(CircularProgress, null)));
@@ -18,14 +19,17 @@ var EntityList = withStyles(styles)(function (_a) {
             React.createElement(Table, null,
                 React.createElement(TableHead, null,
                     React.createElement(TableRow, null,
-                        fields.map(function (field) {
+                        visibleFields.map(function (field) {
                             return field.sortable ? (React.createElement(EntityHeadSortable, { active: sortBy === field.name, direction: sortDir, key: field.name, field: field.name, onSortChange: onSortChange },
-                                React.createElement("span", null, field.label || field.name))) : (React.createElement(TableCell, { key: field.name }, field.label || field.name));
+                                React.createElement("b", null, field.label || field.name))) : (React.createElement(TableCell, { key: field.name },
+                                React.createElement("b", null, field.label || field.name)));
                         }),
                         (canView || canEdit) && React.createElement(TableCell, null))),
                 React.createElement(TableBody, null, data.map(function (entry, i) { return (React.createElement(TableRow, { key: i },
-                    fields.map(function (field) { return (React.createElement(TableCell, { key: field.name }, createElement(getEntityFieldRenderer(field.type || typeof entry[field.name]), {
+                    visibleFields.map(function (field) { return (React.createElement(TableCell, { key: field.name }, createElement(getEntityFieldRenderer(field.type || typeof entry[field.name]), {
+                        label: field.label || field.name,
                         value: entry[field.name],
+                        availableVariants: field.availableVariants || {},
                     }))); }),
                     (canEdit || canView) && (React.createElement(TableCell, { size: "small", align: "right" },
                         React.createElement(ButtonGroup, { variant: "text" },

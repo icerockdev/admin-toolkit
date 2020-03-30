@@ -1,5 +1,5 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
-import { Config, AuthProvider, Page, Entity, ENTITY_FILTER_TYPES, } from './application';
+import { Config, AuthProvider, Page, Entity, } from './application';
 import logo from './assets/logo512.png';
 var SAMPLE_ENTITY_1 = {
     id: 1,
@@ -51,17 +51,6 @@ export default new Config({
             filters: {
                 current: '',
                 value: '',
-                fields: [
-                    {
-                        name: 'type',
-                        label: 'Тип',
-                        type: ENTITY_FILTER_TYPES.SELECT,
-                        variants: [
-                            { value: 'news', label: 'Новость' },
-                            { value: 'article', label: 'Статья' },
-                        ],
-                    },
-                ],
             },
             fields: [
                 {
@@ -75,7 +64,7 @@ export default new Config({
                     name: 'phone',
                     label: 'Телефон',
                     sortable: true,
-                    type: 'phone',
+                    type: 'string',
                 },
                 {
                     name: 'title',

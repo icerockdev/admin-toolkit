@@ -16,6 +16,9 @@ declare const _default: (theme: Theme) => {
         };
     };
     input: {
+        '& .select': {
+            padding: string;
+        };
         '& input': {
             padding: string;
         };

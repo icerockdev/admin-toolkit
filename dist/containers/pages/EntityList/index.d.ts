@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { WithStyles } from '@material-ui/core';
-import { IEntityField } from '../../../application';
+import { IEntityField, ENTITY_SORT_DIRS } from '../../../application';
 import styles from './styles';
 declare type IProps = WithStyles<typeof styles> & {
     isLoading: boolean;
@@ -10,7 +10,7 @@ declare type IProps = WithStyles<typeof styles> & {
     data: Record<string, string>[];
     url: string;
     sortBy: string;
-    sortDir: 'asc' | 'desc';
+    sortDir: typeof ENTITY_SORT_DIRS[keyof typeof ENTITY_SORT_DIRS];
     canView: boolean;
     canEdit: boolean;
     onSortChange: (field: string) => void;

@@ -1,12 +1,16 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
+export declare const AUTH_ERRORS: {
+    CANT_LOGIN: string;
+};
 export declare const EMPTY_USER: IAuthProviderProps['user'];
 export interface IAuthProviderProps {
     user: {
-        email: string;
-        username: string;
-        role: string;
-        token: string;
+        id?: number;
+        email?: string;
+        username?: string;
+        role?: string;
+        token?: string;
     };
     api: Record<string, {
         url: string;

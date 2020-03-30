@@ -2,9 +2,11 @@
 
 import { IAuthProviderProps } from '../../types/auth';
 import { CancellablePromise } from 'mobx/lib/api/flow';
+import { Config } from '../Config';
 export declare class AuthProvider {
+    parent?: Config;
     user: IAuthProviderProps['user'];
-    authRequestFn: IAuthProviderProps['authRequestFn'];
+    authRequestFn?: IAuthProviderProps['authRequestFn'];
     constructor(fields?: Partial<IAuthProviderProps>);
     isLoading: boolean;
     error: string;

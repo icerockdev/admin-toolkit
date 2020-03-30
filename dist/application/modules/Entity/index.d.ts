@@ -1,7 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 /// <reference types="react" />
-import { IEntityProps } from '../../types/entity';
+import { IEntityProps, ENTITY_SORT_DIRS } from '../../types/entity';
 import { Page } from '../Page';
 import { CancellablePromise } from 'mobx/lib/api/flow';
 import { RouteComponentProps } from 'react-router-dom';
@@ -23,14 +23,13 @@ export declare class Entity extends Page {
     data: Record<string, any>[];
     error?: string | null;
     sortBy: string;
-    sortDir: 'asc' | 'desc';
+    sortDir: typeof ENTITY_SORT_DIRS[keyof typeof ENTITY_SORT_DIRS];
     editorFieldErrors: Record<string, string>;
     editorData: Record<string, any>;
     constructor(fields?: Partial<IEntityProps>);
     setFilters: (filters: {
         current: string;
         value: any;
-        fields: import("../../types/entity").IEntityFilterField[];
     }) => void;
     setPage: (page: number) => void;
     setPerPage: (items: number) => void;

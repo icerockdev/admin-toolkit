@@ -23,6 +23,7 @@ var EntityViewer = withStyles(styles)(observer(function (_a) {
         var field = fields.find(function (f) { return f.title; });
         return data && field && field.name ? data[field.name] : id;
     }, [data, fields, id]);
+    var visibleFields = useMemo(function () { return fields.filter(function (field) { return !field.hideInEdit; }); }, [fields]);
     var onFieldChange = useCallback(function (f) { return function (value) {
         var _a;
         if (errors[f]) {
@@ -48,24 +49,26 @@ var EntityViewer = withStyles(styles)(observer(function (_a) {
                 React.createElement(Grid, { style: { flex: 1 } },
                     React.createElement(Breadcrumbs, { "aria-label": "breadcrumb" },
                         entityName && (React.createElement(Link, { color: "inherit", to: url, component: RouterLink }, entityName)),
-                        isEditing && !isCreating && (React.createElement(Link, { color: "inherit", to: url + "/" + id, component: RouterLink }, title)),
+                        isEditing && !isCreating && !!title && (React.createElement(Link, { color: "inherit", to: url + "/" + id, component: RouterLink }, title)),
                         !isEditing && !isCreating && (React.createElement(Typography, { color: "textPrimary" }, title)),
                         isEditing && !isCreating && (React.createElement(Typography, { color: "textPrimary" }, "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u043D\u0438\u0435")),
                         isEditing && isCreating && (React.createElement(Typography, { color: "textPrimary" }, "\u0421\u043E\u0437\u0434\u0430\u043D\u0438\u0435")))),
                 !isEditing && (React.createElement(Button, { to: url + "/" + id + "/edit", component: RouterLink, variant: "contained", color: "primary", type: "button" }, "\u0420\u0435\u0434\u0430\u043A\u0442\u0438\u0440\u043E\u0432\u0430\u0442\u044C")))),
         data && (React.createElement("form", { onSubmit: onSubmit },
             React.createElement(Paper, null,
-                fields.map(function (field) { return (React.createElement("div", { className: classes.field, key: field.name },
-                    React.createElement("div", { className: "label" },
+                visibleFields.map(function (field) { return (React.createElement("div", { className: classes.field, key: field.name },
+                    !isEditing && (React.createElement("div", { className: "label" },
                         field.label || field.name,
-                        isEditing && field.required && React.createElement("span", null, " *")),
+                        isEditing && field.required && React.createElement("span", null, " *"))),
                     React.createElement("div", { className: "field" }, createElement(getEntityFieldRenderer(field.type || typeof data[field.name]), {
                         value: Object.prototype.hasOwnProperty.call(data, field.name)
                             ? data[field.name]
                             : null,
+                        label: field.label || field.name,
                         error: errors[field.name],
                         isEditing: isEditing,
                         handler: onFieldChange(field.name),
+                        availableVariants: field.availableVariants || {},
                     })))); }),
                 isEditing && (React.createElement("div", { className: classes.field },
                     React.createElement(Grid, { container: true, spacing: 1 },

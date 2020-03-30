@@ -1,9 +1,9 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 var _a;
-import React, { useCallback, Fragment, useMemo } from 'react';
+import React, { useCallback, Fragment, useMemo, createElement, } from 'react';
 import { withStyles, FormControl, InputLabel, Select, MenuItem, IconButton, } from '@material-ui/core';
 import styles from './styles';
-import { ENTITY_FILTER_TYPES } from '../../../application/types/entity';
+import { ENTITY_FILTER_TYPES, getEntityFieldRenderer, } from '../../../application/types/entity';
 import { FilterText } from '../FilterText';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
@@ -19,19 +19,24 @@ var Filter = withStyles(styles)(function (_a) {
         clearFilter();
     }, [clearFilter]);
     var field = useMemo(function () { return (current && fields.find(function (field) { return field.name === current; })) || null; }, [fields, current]);
+    var filterableFields = useMemo(function () { return fields.filter(function (field) { return field.filterable; }); }, [fields]);
+    if (!filterableFields.length) {
+        return null;
+    }
     return (React.createElement("div", { className: classes.wrapper },
         React.createElement(FormControl, { variant: "outlined", className: classes.formControl },
             React.createElement(InputLabel, { htmlFor: "field", className: classes.label }, "\u0424\u0438\u043B\u044C\u0442\u0440"),
-            React.createElement(Select, { variant: "outlined", id: "field", name: "field", value: current, onChange: onChangeField, className: classes.select },
+            React.createElement(Select, { variant: "outlined", id: "field", name: "field", label: "\u0424\u0438\u043B\u044C\u0442\u0440", value: current, onChange: onChangeField, className: classes.select },
                 React.createElement(MenuItem, { value: "" }, "..."),
-                fields.map(function (field) { return (React.createElement(MenuItem, { key: field.name, value: field.name }, field.label || field.name)); }))),
+                filterableFields.map(function (field) { return (React.createElement(MenuItem, { key: field.name, value: field.name }, field.label || field.name)); }))),
         field && (React.createElement(Fragment, null,
-            React.createElement(FILTER_RENDERERS[field.type] || FilterText, {
-                label: field.label || field.name,
+            React.createElement("div", { className: classes.input }, createElement(getEntityFieldRenderer(field.type), {
                 value: value,
-                variants: field.variants || [],
-                onChange: setFilterValue,
-            }),
+                label: field.label || field.name,
+                isEditing: true,
+                handler: setFilterValue,
+                availableVariants: field.availableVariants || {},
+            })),
             React.createElement(IconButton, { color: "secondary", onClick: onResetFilter, className: classes.iconButton },
                 React.createElement(ClearIcon, null)),
             React.createElement(IconButton, { disabled: !value, color: "primary", onClick: applyFilter, className: classes.iconButton },

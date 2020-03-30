@@ -2,10 +2,16 @@
 import { EntityFieldString } from '../../components/pages/EntityFieldString';
 import { EntityFieldBoolean } from '../../components/pages/EntityFieldBoolean';
 import { EntityFieldDate } from '../../components/pages/EntityFieldDate';
+import { EntityFieldSelect } from '../../components/pages/EntityFieldSelect';
+import { EntityFieldPhone } from '../../components/pages/EntityFieldPhone';
+import { EntityFieldRichText } from '../../components/pages/EntityFieldRichText';
 export var ENTITY_FIELD_RENDERS = {
     string: EntityFieldString,
     date: EntityFieldDate,
     boolean: EntityFieldBoolean,
+    select: EntityFieldSelect,
+    phone: EntityFieldPhone,
+    richtext: EntityFieldRichText,
 };
 // getFieldRenderer returns field-type specific renderer
 export var getEntityFieldRenderer = function (type) {
@@ -33,6 +39,7 @@ export var ENTITY_ACTIONS = {
     UPDATE: 'update',
 };
 export var ENTITY_ERRORS = {
+    CANT_UPDATE_ITEM: "Can't update item",
     CANT_LOAD_ITEMS: "Can't load items",
     FIELD_IS_REQUIRED: 'This field is required',
     INCORRECT_INPUT: 'Check all inputs',

@@ -3,18 +3,11 @@
 import React from 'react';
 import { WithStyles } from '@material-ui/core';
 import styles from './styles';
+import { IEntityProps } from '../../../application/types/entity';
 declare type IProps = WithStyles<typeof styles> & {
     current: string;
     value: any;
-    fields: {
-        name: string;
-        label?: string;
-        type: string;
-        variants?: {
-            label: string | number;
-            value: string;
-        }[];
-    }[];
+    fields: IEntityProps['fields'];
     clearFilter: () => void;
     applyFilter: () => void;
     setFilterCurrent: (current: string) => void;

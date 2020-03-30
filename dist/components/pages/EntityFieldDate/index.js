@@ -10,6 +10,6 @@ var EntityFieldDate = function (_a) {
         handler(value === null || value === void 0 ? void 0 : value.toISOString());
     }, [value, handler]);
     return isEditing ? (React.createElement("div", null,
-        React.createElement(DatePicker, { value: value ? new Date(value) : null, onChange: onChange, format: "dd.MM.yyyy", error: !!error, helperText: error }))) : (React.createElement("div", { onClick: onClick }, format(new Date(value), 'dd.MM.yyyy')));
+        React.createElement(DatePicker, { value: value ? new Date(value) : null, onChange: onChange, format: "dd.MM.yyyy", error: !!error, helperText: error, inputVariant: "outlined" }))) : (React.createElement("div", { onClick: onClick }, format(new Date(value), 'dd.MM.yyyy')));
 };
 export { EntityFieldDate };

@@ -2,5 +2,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Application } from './application';
-import config from './config';
-ReactDOM.render(React.createElement(Application, { config: config }), document.getElementById('root'));
+// import config from './config';
+import realConfig from './realConfig';
+ReactDOM.render(React.createElement(Application, { config: realConfig }), document.getElementById('root'));
