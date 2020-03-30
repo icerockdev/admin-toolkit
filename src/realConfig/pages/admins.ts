@@ -23,6 +23,7 @@ const fetchItemsFn: IEntityFetchFunction = async ({
   count: limit,
   sortBy,
   sortDir: orderBy,
+  filter,
 }) => {
   try {
     const offset = (page && limit && page * limit) || 0;
@@ -34,6 +35,7 @@ const fetchItemsFn: IEntityFetchFunction = async ({
           limit,
           sortBy,
           orderBy,
+          ...(filter?.name ? { [filter.name]: filter?.value } : {}),
         },
       })
       .catch((e) => e);
