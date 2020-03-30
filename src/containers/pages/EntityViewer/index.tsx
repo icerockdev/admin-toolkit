@@ -28,6 +28,7 @@ type IProps = WithStyles<typeof styles> & {
   errors: Record<string, string>;
   isEditing: boolean;
   onSave: (data: Record<string, any>) => void;
+  onResetFieldError: (field: string) => void;
 };
 
 const EntityViewer = withStyles(styles)(
@@ -42,6 +43,7 @@ const EntityViewer = withStyles(styles)(
       isEditing,
       entityName,
       onSave,
+      onResetFieldError,
     }: IProps) => {
       const isCreating = useMemo(() => typeof id === 'undefined', [id]);
 
@@ -61,8 +63,14 @@ const EntityViewer = withStyles(styles)(
       const [data, setData] = useState(toJS(entity));
 
       const onFieldChange = useCallback(
-        (f) => (value: any) => setData({ ...data, [f]: value }),
-        [data, setData]
+        (f) => (value: any) => {
+          if (errors[f]) {
+            onResetFieldError(f);
+          }
+
+          setData({ ...data, [f]: value });
+        },
+        [data, setData, errors]
       );
 
       const onSubmit = useCallback(

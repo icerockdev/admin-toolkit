@@ -225,6 +225,11 @@ export class Entity extends Page {
   };
 
   @action
+  resetFieldError = (field: string) => {
+    delete this.submitFieldsErrors[field];
+  };
+
+  @action
   validateSubmitFields = (data: Record<string, any>): boolean => {
     this.submitFieldsErrors = this.fields.reduce(
       (obj, field) =>
@@ -323,6 +328,7 @@ export class Entity extends Page {
           url={this.menu.url}
           errors={this.submitFieldsErrors}
           onSave={console.log}
+          onResetFieldError={this.resetFieldError}
           isEditing={false}
         />
       )
@@ -345,6 +351,7 @@ export class Entity extends Page {
           errors={this.submitFieldsErrors}
           url={this.menu.url}
           onSave={this.updateItem}
+          onResetFieldError={this.resetFieldError}
           isEditing
         />
       )
@@ -365,8 +372,9 @@ export class Entity extends Page {
           fields={this.fields}
           errors={this.submitFieldsErrors}
           url={this.menu.url}
-          isEditing
           onSave={this.createItem}
+          onResetFieldError={this.resetFieldError}
+          isEditing
         />
       )
     );
