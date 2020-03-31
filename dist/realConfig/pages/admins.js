@@ -36,10 +36,6 @@ export default (function (host) {
             label: 'Администраторы',
             url: '/user',
         },
-        filters: {
-            current: '',
-            value: '',
-        },
         fields: [
             {
                 name: 'name',

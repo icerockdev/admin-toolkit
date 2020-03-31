@@ -17,6 +17,7 @@ type IProps = {
 const EntityFieldDate: FC<IProps> = ({
   value,
   handler,
+  label,
   error,
   isEditing,
   onClick,
@@ -38,6 +39,7 @@ const EntityFieldDate: FC<IProps> = ({
         error={!!error}
         helperText={error}
         inputVariant="outlined"
+        label={label}
       />
     </div>
   ) : (
