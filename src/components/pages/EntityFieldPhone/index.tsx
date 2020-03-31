@@ -25,14 +25,18 @@ const EntityFieldPhone: FC<IProps> = ({
     (event) => {
       if (!handler) return;
 
-      handler(event.target.value);
+      handler(event.target.value.replace(/[^\d]/gim, ''));
     },
     [value, handler]
   );
 
   return isEditing ? (
     <div>
-      <InputMask mask="+9 (999) 999-99-99" value={value} onChange={onChange}>
+      <InputMask
+        mask="+9 (999) 999-99-99"
+        value={value ? value.toString() : ''}
+        onChange={onChange}
+      >
         {() => (
           <TextField
             label={label}

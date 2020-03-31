@@ -75,12 +75,21 @@ const Filter = withStyles(styles)(
       [fields]
     );
 
+    const onSubmit = useCallback(
+      (event) => {
+        event.preventDefault();
+
+        applyFilter();
+      },
+      [applyFilter]
+    );
+
     if (!filterableFields.length) {
       return null;
     }
 
     return (
-      <div className={classes.wrapper}>
+      <form className={classes.wrapper} onSubmit={onSubmit}>
         <FormControl variant="outlined" className={classes.formControl}>
           <InputLabel htmlFor="field" className={classes.label}>
             Фильтр
@@ -137,7 +146,7 @@ const Filter = withStyles(styles)(
             </IconButton>
           </Fragment>
         )}
-      </div>
+      </form>
     );
   }
 );
