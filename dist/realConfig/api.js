@@ -126,25 +126,27 @@ export var updateItemsFn = function (_a) {
     var url = _a.url, token = _a.token, data = _a.data;
     return __awaiter(void 0, void 0, void 0, function () {
         var result, error_3;
-        var _b, _c;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
+        var _b, _c, _d, _e, _f;
+        return __generator(this, function (_g) {
+            switch (_g.label) {
                 case 0:
-                    _d.trys.push([0, 2, , 3]);
+                    _g.trys.push([0, 2, , 3]);
                     return [4 /*yield*/, axios
                             .put(url + "/" + data.id, data, { headers: { Authorization: token } })
                             .catch(function (e) { return e; })];
                 case 1:
-                    result = _d.sent();
+                    result = _g.sent();
+                    console.log({ result: result });
                     if (!result.data || !(result.data.success || result.data.isSuccess)) {
-                        throw new Error(((_c = (_b = result.response) === null || _b === void 0 ? void 0 : _b.data) === null || _c === void 0 ? void 0 : _c.message) || ENTITY_ERRORS.CANT_UPDATE_ITEM);
+                        throw new Error(((_d = (_c = (_b = result.response) === null || _b === void 0 ? void 0 : _b.data) === null || _c === void 0 ? void 0 : _c.dataList[0]) === null || _d === void 0 ? void 0 : _d.message) || ((_f = (_e = result.response) === null || _e === void 0 ? void 0 : _e.data) === null || _f === void 0 ? void 0 : _f.message) ||
+                            ENTITY_ERRORS.CANT_UPDATE_ITEM);
                     }
                     return [2 /*return*/, Promise.resolve({
                             data: result.data.data,
                             error: '',
                         })];
                 case 2:
-                    error_3 = _d.sent();
+                    error_3 = _g.sent();
                     return [2 /*return*/, {
                             data: {},
                             error: error_3.message,
@@ -158,25 +160,25 @@ export var createItemsFn = function (_a) {
     var url = _a.url, token = _a.token, data = _a.data;
     return __awaiter(void 0, void 0, void 0, function () {
         var result, error_4;
-        var _b, _c;
-        return __generator(this, function (_d) {
-            switch (_d.label) {
+        var _b, _c, _d, _e, _f;
+        return __generator(this, function (_g) {
+            switch (_g.label) {
                 case 0:
-                    _d.trys.push([0, 2, , 3]);
+                    _g.trys.push([0, 2, , 3]);
                     return [4 /*yield*/, axios
                             .post("" + url, data, { headers: { Authorization: token } })
                             .catch(function (e) { return e; })];
                 case 1:
-                    result = _d.sent();
+                    result = _g.sent();
                     if (!result.data || !(result.data.success || result.data.isSuccess)) {
-                        throw new Error(((_c = (_b = result.response) === null || _b === void 0 ? void 0 : _b.data) === null || _c === void 0 ? void 0 : _c.message) || ENTITY_ERRORS.CANT_UPDATE_ITEM);
+                        throw new Error(((_d = (_c = (_b = result.response) === null || _b === void 0 ? void 0 : _b.data) === null || _c === void 0 ? void 0 : _c.dataList[0]) === null || _d === void 0 ? void 0 : _d.message) || ((_f = (_e = result.response) === null || _e === void 0 ? void 0 : _e.data) === null || _f === void 0 ? void 0 : _f.message) || ENTITY_ERRORS.CANT_UPDATE_ITEM);
                     }
                     return [2 /*return*/, Promise.resolve({
                             data: result.data.data,
                             error: '',
                         })];
                 case 2:
-                    error_4 = _d.sent();
+                    error_4 = _g.sent();
                     return [2 /*return*/, {
                             data: {},
                             error: error_4.message,

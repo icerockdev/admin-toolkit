@@ -20,10 +20,14 @@ var Filter = withStyles(styles)(function (_a) {
     }, [clearFilter]);
     var field = useMemo(function () { return (current && fields.find(function (field) { return field.name === current; })) || null; }, [fields, current]);
     var filterableFields = useMemo(function () { return fields.filter(function (field) { return field.filterable; }); }, [fields]);
+    var onSubmit = useCallback(function (event) {
+        event.preventDefault();
+        applyFilter();
+    }, [applyFilter]);
     if (!filterableFields.length) {
         return null;
     }
-    return (React.createElement("div", { className: classes.wrapper },
+    return (React.createElement("form", { className: classes.wrapper, onSubmit: onSubmit },
         React.createElement(FormControl, { variant: "outlined", className: classes.formControl },
             React.createElement(InputLabel, { htmlFor: "field", className: classes.label }, "\u0424\u0438\u043B\u044C\u0442\u0440"),
             React.createElement(Select, { variant: "outlined", id: "field", name: "field", label: "\u0424\u0438\u043B\u044C\u0442\u0440", value: current, onChange: onChangeField, className: classes.select },
@@ -37,9 +41,9 @@ var Filter = withStyles(styles)(function (_a) {
                 handler: setFilterValue,
                 availableVariants: field.availableVariants || {},
             })),
-            React.createElement(IconButton, { color: "secondary", onClick: onResetFilter, className: classes.iconButton },
+            React.createElement(IconButton, { color: "secondary", onClick: onResetFilter, className: classes.iconButton, tabIndex: 0 },
                 React.createElement(ClearIcon, null)),
-            React.createElement(IconButton, { disabled: !value, color: "primary", onClick: applyFilter, className: classes.iconButton },
+            React.createElement(IconButton, { disabled: !value, color: "primary", onClick: applyFilter, className: classes.iconButton, tabIndex: 0 },
                 React.createElement(CheckIcon, null))))));
 });
 export { Filter };

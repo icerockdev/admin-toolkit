@@ -78,7 +78,6 @@ const Filter = withStyles(styles)(
     const onSubmit = useCallback(
       (event) => {
         event.preventDefault();
-
         applyFilter();
       },
       [applyFilter]

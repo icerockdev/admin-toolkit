@@ -88,9 +88,13 @@ export const updateItemsFn: IEntityUpdateFunction = async ({
       .put(`${url}/${data.id}`, data, { headers: { Authorization: token } })
       .catch((e) => e);
 
+    console.log({ result });
+
     if (!result.data || !(result.data.success || result.data.isSuccess)) {
       throw new Error(
-        result.response?.data?.message || ENTITY_ERRORS.CANT_UPDATE_ITEM
+        result.response?.data?.dataList[0]?.message ||
+          result.response?.data?.message ||
+          ENTITY_ERRORS.CANT_UPDATE_ITEM
       );
     }
 
@@ -118,7 +122,9 @@ export const createItemsFn: IEntityCreateFunction = async ({
 
     if (!result.data || !(result.data.success || result.data.isSuccess)) {
       throw new Error(
-        result.response?.data?.message || ENTITY_ERRORS.CANT_UPDATE_ITEM
+        result.response?.data?.dataList[0]?.message ||
+          result.response?.data?.message ||
+          ENTITY_ERRORS.CANT_UPDATE_ITEM
       );
     }
 

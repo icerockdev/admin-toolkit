@@ -7,9 +7,9 @@ var EntityFieldPhone = function (_a) {
     var onChange = useCallback(function (event) {
         if (!handler)
             return;
-        handler(event.target.value);
+        handler(event.target.value.replace(/[^\d]/gim, ''));
     }, [value, handler]);
     return isEditing ? (React.createElement("div", null,
-        React.createElement(InputMask, { mask: "+9 (999) 999-99-99", value: value, onChange: onChange }, function () { return (React.createElement(TextField, { label: label, error: !!error, helperText: error, variant: "outlined" })); }))) : (React.createElement("div", { onClick: onClick }, value ? String(value) : ''));
+        React.createElement(InputMask, { mask: "+9 (999) 999-99-99", value: value ? value.toString() : '', onChange: onChange }, function () { return (React.createElement(TextField, { label: label, error: !!error, helperText: error, variant: "outlined" })); }))) : (React.createElement("div", { onClick: onClick }, value ? String(value) : ''));
 };
 export { EntityFieldPhone };
