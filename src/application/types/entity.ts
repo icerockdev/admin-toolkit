@@ -8,6 +8,7 @@ import { EntityFieldSelect } from '~/components/pages/EntityFieldSelect';
 import { EntityFieldPhone } from '~/components/pages/EntityFieldPhone';
 import { EntityFieldRichText } from '~/components/pages/EntityFieldRichText';
 import { EntityFieldBase64Image } from '~/components/pages/EntityFieldBase64';
+import { FC } from 'react';
 
 export const ENTITY_FIELD_RENDERS = {
   string: EntityFieldString,
@@ -20,12 +21,14 @@ export const ENTITY_FIELD_RENDERS = {
 };
 
 // getFieldRenderer returns field-type specific renderer
-export const getEntityFieldRenderer = (type: string = 'string') => {
+export const getEntityFieldRenderer = (type: string = 'string'): FC<any> => {
   const key = Object.prototype.hasOwnProperty.call(ENTITY_FIELD_RENDERS, type)
     ? type
     : 'string';
 
-  return ENTITY_FIELD_RENDERS[key as keyof typeof ENTITY_FIELD_RENDERS];
+  return ENTITY_FIELD_RENDERS[key as keyof typeof ENTITY_FIELD_RENDERS] as FC<
+    any
+  >;
 };
 
 export const ENTITY_SORT_DIRS: Record<string, 'asc' | 'desc'> = {

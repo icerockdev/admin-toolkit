@@ -17,7 +17,7 @@ import {
 import styles from './styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { Notifications } from '../Notification';
+import { toJS } from 'mobx';
 
 type IProps = WithStyles<typeof styles> & {
   config: Config;
@@ -25,15 +25,37 @@ type IProps = WithStyles<typeof styles> & {
 
 const Application = withStyles(styles)(
   observer(({ classes, config }: IProps) => {
+    console.log(
+      config?.pages.map((page) => toJS(page.roles)),
+      config?.auth?.user?.role
+    );
+
+    config.pages.map((page) => {
+      console.log({
+        url: page?.menu?.url,
+        user: toJS(config.auth?.user),
+        role: config.auth?.user?.role,
+        roles: toJS(page.roles),
+        all: page.roles?.all?.includes(config.auth?.user?.role || ''),
+        list: page.roles?.list?.includes(config.auth?.user?.role || ''),
+        filter:
+          page?.menu?.url &&
+          (!page.roles ||
+            (config.auth?.user?.role &&
+              (page.roles?.all?.includes(config.auth?.user?.role) ||
+                page.roles?.list?.includes(config.auth?.user?.role)))),
+      });
+    });
+
     const links = useMemo(
       () =>
         config.pages
-          .filter((page) => page?.menu?.url)
+          .filter((page) => page?.menu?.url && page.canList)
           .map((page) => ({
             name: page.menu.label,
             url: page.menu.url,
           })),
-      [config.pages]
+      [config.pages, config.auth?.user?.role]
     );
 
     if (!config.auth?.isLogged && config.auth?.sendAuthRequest) {

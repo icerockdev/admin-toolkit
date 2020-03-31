@@ -9,6 +9,7 @@ import {
   IEntityUpdateFunction,
   IEntityCreateFunction,
 } from '~/application';
+import { ADMIN_ROLE_EDITOR, ADMIN_ROLE_ADMIN } from '../roles';
 
 export const TYPE_OFFER = 10;
 export const TYPE_NEWS = 20;
@@ -134,6 +135,9 @@ export default new Entity({
   title: 'Акции/Новости',
   editable: true,
   viewable: true,
+  roles: {
+    all: [ADMIN_ROLE_ADMIN.toString(), ADMIN_ROLE_EDITOR.toString()],
+  },
   api: {
     list: {
       url: 'http://localhost:8080/admin/v1/news',

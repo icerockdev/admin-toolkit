@@ -9,13 +9,14 @@ import {
   IEntityUpdateFunction,
   IEntityCreateFunction,
 } from '~/application';
+import {
+  ADMIN_ROLE_ADMIN,
+  ADMIN_ROLE_EDITOR,
+  ADMIN_ROLE_MANAGER,
+} from '../roles';
 
 export const CUSTOMER_STATUS_ACTIVE = 10;
 export const CUSTOMER_STATUS_BLOCKED = 20;
-
-export const ADMIN_ROLE_ADMIN = 10;
-export const ADMIN_ROLE_MANAGER = 20;
-export const ADMIN_ROLE_EDITOR = 30;
 
 const fetchItemsFn: IEntityFetchFunction = async ({
   url,
@@ -138,6 +139,10 @@ export default new Entity({
   title: 'Администраторы',
   editable: true,
   viewable: true,
+  roles: {
+    // all: [ADMIN_ROLE_ADMIN.toString()],
+    all: [ADMIN_ROLE_MANAGER.toString()],
+  },
   api: {
     list: {
       url: 'http://localhost:8080/admin/v1/user',

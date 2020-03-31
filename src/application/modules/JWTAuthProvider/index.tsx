@@ -12,8 +12,7 @@ import { AuthProvider } from '../AuthProvider';
 import { Unwrap } from '~/application/types/common';
 
 const EMPTY_TOKENS = {
-  access:
-    'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJBdXRoZW50aWNhdGlvbiIsImF1ZCI6ImFsbGlhbmNlLWF1ZGllbmNlIiwicm9sZSI6MTAsImlzcyI6Imh0dHA6Ly8wLjAuMC4wOjgwIiwiaWQiOjEsInVzZXJUeXBlIjoxMCwidHlwZSI6IkFDQ0VTUyIsImV4cCI6MTU4NTY1NjM1NSwiaWF0IjoxNTg1NjIwMzU1fQ.kYheDzyE6ZWRSnQW10O2av7Icept-FKfnx3jjLVGBF1Ypr8JW_uWe0KwKT0nObrK2TWe3mx4jEP2SWjnLQD6NA',
+  access: '',
   refresh: '',
 };
 
