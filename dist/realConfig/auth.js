@@ -36,6 +36,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import axios from 'axios';
+var authRestorePassword = function (host, email) {
+    return axios
+        .post(host + "/admin/v1/auth/restore-password", { email: email })
+        .catch(function (e) { return e; });
+};
 var authGetTokens = function (host, email, password) {
     return axios
         .post(host + "/admin/v1/auth/signin", { email: email, password: password })
@@ -89,6 +94,31 @@ export var authRequestFn = function (host) { return function (email, password) {
                         error: error_1.message,
                     }];
             case 4: return [2 /*return*/];
+        }
+    });
+}); }; };
+export var authPasswRestoreFn = function (host) { return function (email) { return __awaiter(void 0, void 0, void 0, function () {
+    var restore, error_2;
+    var _a, _b;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
+            case 0:
+                _c.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, authRestorePassword(host, email)];
+            case 1:
+                restore = _c.sent();
+                if (!restore.data || !(restore.data.success || restore.data.isSuccess)) {
+                    throw new Error((_b = (_a = restore.response) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.message);
+                }
+                return [2 /*return*/, {
+                        error: '',
+                    }];
+            case 2:
+                error_2 = _c.sent();
+                return [2 /*return*/, {
+                        error: error_2.message,
+                    }];
+            case 3: return [2 /*return*/];
         }
     });
 }); }; };

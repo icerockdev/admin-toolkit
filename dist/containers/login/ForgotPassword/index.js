@@ -1,13 +1,19 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
-import React, { useCallback, } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Typography, Paper, TextField, Button, withStyles, Container, } from '@material-ui/core';
 import styles from '../styles';
 var ForgotPasswordUnstyled = function (_a) {
-    var classes = _a.classes, email = _a.email, onEmailChange = _a.onEmailChange, onSubmit = _a.onSubmit;
+    var classes = _a.classes, onSubmit = _a.onSubmit;
+    var _b = useState(''), email = _b[0], setEmail = _b[1];
+    var onEmailChange = useCallback(function (event) {
+        setEmail(event.target.value);
+    }, [setEmail]);
     var onSubmitCapture = useCallback(function (event) {
         event.preventDefault();
-        onSubmit(event);
-    }, [onSubmit]);
+        if (!onSubmit)
+            return;
+        onSubmit({ email: email });
+    }, [onSubmit, email]);
     return (React.createElement("div", { className: classes.wrap },
         React.createElement(Container, { component: "main", maxWidth: "sm" },
             React.createElement(Paper, { className: classes.paper },

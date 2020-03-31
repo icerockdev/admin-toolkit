@@ -1,3 +1,5 @@
+/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+
 import { IAuthProviderProps } from '../../types/auth';
 import { CancellablePromise } from 'mobx/lib/api/flow';
 import { Config } from '../Config';
@@ -5,6 +7,7 @@ export declare class AuthProvider {
     parent?: Config;
     user: IAuthProviderProps['user'];
     authRequestFn?: IAuthProviderProps['authRequestFn'];
+    authPasswRestoreFn?: IAuthProviderProps['authPasswRestoreFn'];
     roleTitles?: Record<any, string>;
     constructor(fields?: Partial<IAuthProviderProps>);
     isLoading: boolean;
@@ -15,6 +18,11 @@ export declare class AuthProvider {
         password: string;
     }) => void;
     sendAuthRequestCancel: () => void;
+    sendAuthPasswRestoreInstance?: CancellablePromise<any>;
+    sendAuthPasswRestore: ({ email }: {
+        email: string;
+    }) => void;
+    sendAuthPasswRestoreCancel: () => void;
     logout: () => void;
     withToken: (req: any, args: any) => any;
     get isLogged(): boolean;

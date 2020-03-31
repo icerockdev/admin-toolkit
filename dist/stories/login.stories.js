@@ -11,4 +11,4 @@ storiesOf('Login', module)
     .addDecorator(function (story) { return (React.createElement(Router, { history: createBrowserHistory() },
     React.createElement(Container, { fixed: true }, story()))); })
     .add('SignIn', function () { return (React.createElement(SignIn, { onForgotScreenClick: action('onForgotScreenClick'), onSubmit: action('onSubmit') })); })
-    .add('Forgot password', function () { return (React.createElement(ForgotPassword, { email: "user@example.com", onEmailChange: action('onEmailChange'), onSubmit: action('onSubmit') })); });
+    .add('Forgot password', function () { return (React.createElement(ForgotPassword, { onSubmit: action('onSubmit') })); });

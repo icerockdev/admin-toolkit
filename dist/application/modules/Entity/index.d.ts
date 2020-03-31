@@ -1,3 +1,5 @@
+/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+
 /// <reference types="react" />
 import { IEntityProps, ENTITY_SORT_DIRS } from '../../types/entity';
 import { Page } from '../Page';

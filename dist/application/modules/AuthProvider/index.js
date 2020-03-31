@@ -93,6 +93,48 @@ var AuthProvider = /** @class */ (function () {
                 _this.sendAuthRequestInstance.cancel();
             }
         };
+        this.sendAuthPasswRestore = function (_a) {
+            var email = _a.email;
+            _this.sendAuthPasswRestoreCancel();
+            _this.sendAuthPasswRestoreInstance = flow(function sendAuthPasswRestore() {
+                var response, e_2;
+                var _a, _b;
+                return __generator(this, function (_c) {
+                    switch (_c.label) {
+                        case 0:
+                            if (!this.authPasswRestoreFn)
+                                return [2 /*return*/];
+                            this.isLoading = true;
+                            _c.label = 1;
+                        case 1:
+                            _c.trys.push([1, 3, 4, 5]);
+                            return [4 /*yield*/, this.authPasswRestoreFn(email).catch(function () { return null; })];
+                        case 2:
+                            response = _c.sent();
+                            if (!response || response.error) {
+                                throw new Error(response.error);
+                            }
+                            (_a = this.parent) === null || _a === void 0 ? void 0 : _a.notifications.showSuccess('Check your email');
+                            (_b = this.parent) === null || _b === void 0 ? void 0 : _b.history.push('/');
+                            return [3 /*break*/, 5];
+                        case 3:
+                            e_2 = _c.sent();
+                            this.error = e_2;
+                            return [3 /*break*/, 5];
+                        case 4:
+                            this.isLoading = false;
+                            return [7 /*endfinally*/];
+                        case 5: return [2 /*return*/];
+                    }
+                });
+            }).bind(_this)();
+        };
+        this.sendAuthPasswRestoreCancel = function () {
+            if (_this.sendAuthPasswRestoreInstance &&
+                _this.sendAuthPasswRestoreInstance.cancel) {
+                _this.sendAuthPasswRestoreInstance.cancel();
+            }
+        };
         this.logout = function () {
             _this.user = EMPTY_USER;
         };
@@ -121,6 +163,9 @@ var AuthProvider = /** @class */ (function () {
     ], AuthProvider.prototype, "authRequestFn", void 0);
     __decorate([
         observable
+    ], AuthProvider.prototype, "authPasswRestoreFn", void 0);
+    __decorate([
+        observable
     ], AuthProvider.prototype, "roleTitles", void 0);
     __decorate([
         observable
@@ -131,6 +176,9 @@ var AuthProvider = /** @class */ (function () {
     __decorate([
         action
     ], AuthProvider.prototype, "sendAuthRequest", void 0);
+    __decorate([
+        action
+    ], AuthProvider.prototype, "sendAuthPasswRestore", void 0);
     __decorate([
         action
     ], AuthProvider.prototype, "logout", void 0);

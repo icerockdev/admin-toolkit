@@ -89,6 +89,7 @@ export class AuthProvider {
         }
 
         this.parent?.notifications.showSuccess('Check your email');
+        this.parent?.history.push('/');
       } catch (e) {
         this.error = e;
       } finally {

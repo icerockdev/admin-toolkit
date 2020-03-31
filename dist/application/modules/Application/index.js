@@ -1,5 +1,5 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
-import React, { useMemo } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { observer } from 'mobx-react';
 import { Switch, Route, Redirect, Router } from 'react-router-dom';
 import { SignIn } from '../../../containers/login/SignIn';
@@ -9,6 +9,7 @@ import { Container, withStyles, CssBaseline, ThemeProvider, } from '@material-ui
 import styles from './styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import { ForgotPassword } from '../../../containers/login/ForgotPassword';
 var Application = withStyles(styles)(observer(function (_a) {
     var classes = _a.classes, config = _a.config;
     var _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
@@ -24,10 +25,19 @@ var Application = withStyles(styles)(observer(function (_a) {
         var _a, _b, _c, _d, _e, _f, _g, _h;
         return (((_a = config.auth) === null || _a === void 0 ? void 0 : _a.roleTitles) && ((_c = (_b = config.auth) === null || _b === void 0 ? void 0 : _b.user) === null || _c === void 0 ? void 0 : _c.role) && ((_d = config.auth) === null || _d === void 0 ? void 0 : _d.roleTitles[(_f = (_e = config.auth) === null || _e === void 0 ? void 0 : _e.user) === null || _f === void 0 ? void 0 : _f.role])) || ((_h = (_g = config.auth) === null || _g === void 0 ? void 0 : _g.user) === null || _h === void 0 ? void 0 : _h.role);
     }, [(_d = config.auth) === null || _d === void 0 ? void 0 : _d.roleTitles, (_f = (_e = config.auth) === null || _e === void 0 ? void 0 : _e.user) === null || _f === void 0 ? void 0 : _f.role]);
+    var onForgotPassword = useCallback(function () {
+        config.history.push('/restore');
+    }, [config.history]);
     if (!((_g = config.auth) === null || _g === void 0 ? void 0 : _g.isLogged) && ((_h = config.auth) === null || _h === void 0 ? void 0 : _h.sendAuthRequest)) {
         return (React.createElement(ThemeProvider, { theme: config.theme },
             React.createElement(CssBaseline, null),
-            React.createElement(SignIn, { onSubmit: config.auth.sendAuthRequest, onForgotScreenClick: console.log }),
+            React.createElement(Router, { history: config.history },
+                React.createElement(Switch, null,
+                    React.createElement(Route, { path: "/restore", render: function () {
+                            var _a;
+                            return (React.createElement(ForgotPassword, { onSubmit: (_a = config.auth) === null || _a === void 0 ? void 0 : _a.sendAuthPasswRestore }));
+                        } }),
+                    React.createElement(SignIn, { onSubmit: config.auth.sendAuthRequest, onForgotScreenClick: onForgotPassword }))),
             React.createElement(config.notifications.Output, null)));
     }
     return (React.createElement(ThemeProvider, { theme: config.theme },
