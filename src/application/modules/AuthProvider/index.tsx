@@ -12,6 +12,7 @@ export class AuthProvider {
   @observable parent?: Config;
   @observable user: IAuthProviderProps['user'] = EMPTY_USER;
   @observable authRequestFn?: IAuthProviderProps['authRequestFn'];
+  @observable roleTitles?: Record<any, string>;
 
   constructor(fields?: Partial<IAuthProviderProps>) {
     if (fields) {

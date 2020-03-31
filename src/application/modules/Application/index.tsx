@@ -36,9 +36,18 @@ const Application = withStyles(styles)(
       [config.pages, config.auth?.user?.role]
     );
 
+    const role = useMemo(
+      () =>
+        (config.auth?.roleTitles &&
+          config.auth?.user?.role &&
+          config.auth?.roleTitles[config.auth?.user?.role]) ||
+        config.auth?.user?.role,
+      [config.auth?.roleTitles, config.auth?.user?.role]
+    );
+
     if (!config.auth?.isLogged && config.auth?.sendAuthRequest) {
       return (
-        <Fragment>
+        <ThemeProvider theme={config.theme}>
           <CssBaseline />
 
           <SignIn
@@ -47,7 +56,7 @@ const Application = withStyles(styles)(
           />
 
           <config.notifications.Output />
-        </Fragment>
+        </ThemeProvider>
       );
     }
 
@@ -60,7 +69,10 @@ const Application = withStyles(styles)(
             <Navigation
               links={links}
               logo={{ url: config.logo, title: config.title }}
-              account={config.auth?.user}
+              account={{
+                email: config.auth?.user?.email || '',
+                role,
+              }}
               onLogout={config.auth?.logout}
             />
 

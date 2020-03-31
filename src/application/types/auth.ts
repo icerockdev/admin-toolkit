@@ -23,6 +23,8 @@ export interface IAuthProviderProps {
 
   api: Record<string, { url: string; method: string }>;
 
+  roleTitles: Record<any, string>;
+
   authRequestFn?: (
     email: string,
     password: string
