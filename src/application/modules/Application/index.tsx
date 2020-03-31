@@ -25,28 +25,6 @@ type IProps = WithStyles<typeof styles> & {
 
 const Application = withStyles(styles)(
   observer(({ classes, config }: IProps) => {
-    console.log(
-      config?.pages.map((page) => toJS(page.roles)),
-      config?.auth?.user?.role
-    );
-
-    config.pages.map((page) => {
-      console.log({
-        url: page?.menu?.url,
-        user: toJS(config.auth?.user),
-        role: config.auth?.user?.role,
-        roles: toJS(page.roles),
-        all: page.roles?.all?.includes(config.auth?.user?.role || ''),
-        list: page.roles?.list?.includes(config.auth?.user?.role || ''),
-        filter:
-          page?.menu?.url &&
-          (!page.roles ||
-            (config.auth?.user?.role &&
-              (page.roles?.all?.includes(config.auth?.user?.role) ||
-                page.roles?.list?.includes(config.auth?.user?.role)))),
-      });
-    });
-
     const links = useMemo(
       () =>
         config.pages

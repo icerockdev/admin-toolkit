@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { IPageProps } from '~/application/types/page';
-import { observable, computed, action } from 'mobx';
+import { observable, computed, action, toJS } from 'mobx';
 import { observer } from 'mobx-react';
 
 export class Page {
@@ -25,31 +25,35 @@ export class Page {
 
   @computed
   get canList() {
-    return (
+    return !!(
       !this.roles ||
       (this.parent?.auth?.user?.role &&
-        (this.roles?.all?.includes(this.parent.auth?.user?.role) ||
-          this.roles?.list?.includes(this.parent.auth?.user?.role)))
+        (this.roles?.all?.includes(this.parent.auth?.user?.role.toString()) ||
+          this.roles?.list?.includes(this.parent.auth?.user?.role.toString())))
     );
   }
 
   @computed
   get canEdit() {
-    return (
+    return !!(
       !this.roles ||
       (this.parent?.auth?.user?.role &&
-        (this.roles?.all?.includes(this.parent.auth?.user?.role) ||
-          this.roles?.update?.includes(this.parent.auth?.user?.role)))
+        (this.roles?.all?.includes(this.parent.auth?.user?.role.toString()) ||
+          this.roles?.update?.includes(
+            this.parent.auth?.user?.role.toString()
+          )))
     );
   }
 
   @computed
   get canCreate() {
-    return (
+    return !!(
       !this.roles ||
       (this.parent?.auth?.user?.role &&
-        (this.roles?.all?.includes(this.parent.auth?.user?.role) ||
-          this.roles?.create?.includes(this.parent.auth?.user?.role)))
+        (this.roles?.all?.includes(this.parent.auth?.user?.role.toString()) ||
+          this.roles?.create?.includes(
+            this.parent.auth?.user?.role.toString()
+          )))
     );
   }
 

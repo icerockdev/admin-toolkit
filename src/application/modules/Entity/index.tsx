@@ -313,7 +313,7 @@ export class Entity extends Page {
         setFilters={this.setFilters}
         url={this.menu.url}
         applyFilter={this.fetchItems}
-        canCreate={this.editable}
+        canCreate={this.editable && this.canCreate}
       />
     ));
   }
@@ -330,7 +330,7 @@ export class Entity extends Page {
         sortDir={this.sortDir}
         onSortChange={this.setSort}
         canView={this.viewable}
-        canEdit={this.editable}
+        canEdit={this.editable && this.canEdit}
       />
     ));
   }

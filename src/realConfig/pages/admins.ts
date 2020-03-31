@@ -140,8 +140,7 @@ export default new Entity({
   editable: true,
   viewable: true,
   roles: {
-    // all: [ADMIN_ROLE_ADMIN.toString()],
-    all: [ADMIN_ROLE_MANAGER.toString()],
+    all: [ADMIN_ROLE_ADMIN.toString()],
   },
   api: {
     list: {
