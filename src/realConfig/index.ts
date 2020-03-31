@@ -11,6 +11,8 @@ import {
   ADMIN_ROLE_EDITOR,
   ADMIN_ROLE_MANAGER,
 } from './roles';
+import vehicle from './pages/vehicle';
+import feedback from './pages/feedback';
 
 // const HOST = 'http://localhost:8080';
 const HOST = 'https://api.alliance-trucks.icerockdev.com';
@@ -26,6 +28,12 @@ export default new Config({
       [ADMIN_ROLE_MANAGER]: 'Менеджер Заявок',
     },
   }),
-  pages: [news(HOST), admins(HOST), customer(HOST)],
+  pages: [
+    admins(HOST),
+    customer(HOST),
+    vehicle(HOST),
+    feedback(HOST),
+    news(HOST),
+  ],
   theme,
 });

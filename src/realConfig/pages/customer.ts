@@ -49,6 +49,7 @@ export default (host: string) =>
       {
         name: 'name',
         type: 'string',
+        label: 'Ф.И.О.',
         hideInEdit: true,
         hideInList: true,
         filterable: true,
@@ -79,6 +80,7 @@ export default (host: string) =>
         type: 'select',
         label: 'Статус',
         required: true,
+        sortable: true,
         filterable: false,
         availableVariants: {
           [CUSTOMER_STATUS_ACTIVE]: 'Активен',
@@ -119,6 +121,18 @@ export default (host: string) =>
         type: 'string',
         label: 'WWW',
         filterable: false,
+        hideInList: true,
+      },
+      {
+        name: 'region',
+        type: 'string', // TODO: should be reference field
+        label: 'Область',
+        hideInList: true,
+      },
+      {
+        name: 'city',
+        type: 'string', // TODO: should be reference field
+        label: 'Город',
         hideInList: true,
       },
     ],

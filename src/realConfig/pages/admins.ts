@@ -44,10 +44,6 @@ export default (host: string) =>
       label: 'Администраторы',
       url: '/user',
     },
-    filters: {
-      current: '',
-      value: '',
-    },
     fields: [
       {
         name: 'name',
