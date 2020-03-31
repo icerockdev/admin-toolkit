@@ -324,7 +324,7 @@ var Entity = /** @class */ (function (_super) {
     Object.defineProperty(Entity.prototype, "ListHead", {
         get: function () {
             var _this = this;
-            return observer(function () { return (React.createElement(EntityHead, { title: _this.title, filters: _this.filters, fields: _this.fields, setFilters: _this.setFilters, url: _this.menu.url, applyFilter: _this.fetchItems, canCreate: _this.editable })); });
+            return observer(function () { return (React.createElement(EntityHead, { title: _this.title, filters: _this.filters, fields: _this.fields, setFilters: _this.setFilters, url: _this.menu.url, applyFilter: _this.fetchItems, canCreate: _this.editable && _this.canCreate })); });
         },
         enumerable: true,
         configurable: true
@@ -332,7 +332,7 @@ var Entity = /** @class */ (function (_super) {
     Object.defineProperty(Entity.prototype, "ListBody", {
         get: function () {
             var _this = this;
-            return observer(function () { return (React.createElement(EntityList, { fields: _this.fields, data: _this.data, isLoading: _this.isLoading, url: _this.menu.url, sortBy: _this.sortBy, sortDir: _this.sortDir, onSortChange: _this.setSort, canView: _this.viewable, canEdit: _this.editable })); });
+            return observer(function () { return (React.createElement(EntityList, { fields: _this.fields, data: _this.data, isLoading: _this.isLoading, url: _this.menu.url, sortBy: _this.sortBy, sortDir: _this.sortDir, onSortChange: _this.setSort, canView: _this.viewable, canEdit: _this.editable && _this.canEdit })); });
         },
         enumerable: true,
         configurable: true

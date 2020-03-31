@@ -121,6 +121,9 @@ var AuthProvider = /** @class */ (function () {
     ], AuthProvider.prototype, "authRequestFn", void 0);
     __decorate([
         observable
+    ], AuthProvider.prototype, "roleTitles", void 0);
+    __decorate([
+        observable
     ], AuthProvider.prototype, "isLoading", void 0);
     __decorate([
         observable

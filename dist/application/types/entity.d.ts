@@ -1,27 +1,19 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-/// <reference types="react" />
 /// <reference types="styled-jsx" />
 /// <reference types="@emotion/core" />
 import { IPageProps } from './page';
+import { FC } from 'react';
 export declare const ENTITY_FIELD_RENDERS: {
-    string: import("react").FC<{
+    string: FC<{
         label: string;
         value: any;
-        isEditing?: boolean | undefined;
-        handler?: ((val: any) => void) | undefined;
         error?: string | undefined;
-        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-    } & Record<string, any>>;
-    date: import("react").FC<{
-        label: string;
-        value: any;
         isEditing?: boolean | undefined;
-        error?: string | undefined;
-        handler?: ((val: any) => void) | undefined;
         onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
+        handler?: ((val: any) => void) | undefined;
     } & Record<string, any>>;
-    boolean: import("react").FC<{
+    date: FC<{
         label: string;
         value: any;
         isEditing?: boolean | undefined;
@@ -29,7 +21,15 @@ export declare const ENTITY_FIELD_RENDERS: {
         handler?: ((val: any) => void) | undefined;
         onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
     } & Record<string, any>>;
-    select: import("react").FC<{
+    boolean: FC<{
+        label: string;
+        value: any;
+        isEditing?: boolean | undefined;
+        error?: string | undefined;
+        handler?: ((val: any) => void) | undefined;
+        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
+    } & Record<string, any>>;
+    select: FC<{
         label: string;
         value: any;
         isEditing?: boolean | undefined;
@@ -38,7 +38,7 @@ export declare const ENTITY_FIELD_RENDERS: {
         onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
         availableVariants?: Record<any, any> | undefined;
     } & Record<string, any>>;
-    phone: import("react").FC<{
+    phone: FC<{
         label: string;
         value: any;
         isEditing?: boolean | undefined;
@@ -46,7 +46,7 @@ export declare const ENTITY_FIELD_RENDERS: {
         error?: string | undefined;
         onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
     } & Record<string, any>>;
-    richtext: import("react").FC<{
+    richtext: FC<{
         label: string;
         value: any;
         isEditing?: boolean | undefined;
@@ -54,51 +54,19 @@ export declare const ENTITY_FIELD_RENDERS: {
         error?: string | undefined;
         onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
     } & Record<string, any>>;
+    base64image: import("react").ComponentType<Pick<{
+        classes: Record<"label" | "image" | "formControl" | "outlinedInput", string>;
+    } & {
+        label: string;
+        value: any;
+        error?: string | undefined;
+        isEditing?: boolean | undefined;
+        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
+        handler?: ((val: any) => void) | undefined;
+        availableVariants?: Record<any, any> | undefined;
+    } & Record<string, any>, string> & import("@material-ui/styles").StyledComponentProps<"label" | "image" | "formControl" | "outlinedInput">>;
 };
-export declare const getEntityFieldRenderer: (type?: string) => import("react").FC<{
-    label: string;
-    value: any;
-    isEditing?: boolean | undefined;
-    handler?: ((val: any) => void) | undefined;
-    error?: string | undefined;
-    onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-} & Record<string, any>> | import("react").FC<{
-    label: string;
-    value: any;
-    isEditing?: boolean | undefined;
-    error?: string | undefined;
-    handler?: ((val: any) => void) | undefined;
-    onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-} & Record<string, any>> | import("react").FC<{
-    label: string;
-    value: any;
-    isEditing?: boolean | undefined;
-    error?: string | undefined;
-    handler?: ((val: any) => void) | undefined;
-    onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-} & Record<string, any>> | import("react").FC<{
-    label: string;
-    value: any;
-    isEditing?: boolean | undefined;
-    handler?: ((val: any) => void) | undefined;
-    error?: string | undefined;
-    onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-    availableVariants?: Record<any, any> | undefined;
-} & Record<string, any>> | import("react").FC<{
-    label: string;
-    value: any;
-    isEditing?: boolean | undefined;
-    handler?: ((val: any) => void) | undefined;
-    error?: string | undefined;
-    onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-} & Record<string, any>> | import("react").FC<{
-    label: string;
-    value: any;
-    isEditing?: boolean | undefined;
-    handler?: ((val: any) => void) | undefined;
-    error?: string | undefined;
-    onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-} & Record<string, any>>;
+export declare const getEntityFieldRenderer: (type?: string) => FC<any>;
 export declare const ENTITY_SORT_DIRS: Record<string, 'asc' | 'desc'>;
 export declare const ENTITY_FILTER_TYPES: {
     TEXT: string;

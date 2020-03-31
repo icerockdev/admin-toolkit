@@ -17,7 +17,6 @@ import {
 import styles from './styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
-import { toJS } from 'mobx';
 
 type IProps = WithStyles<typeof styles> & {
   config: Config;

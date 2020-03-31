@@ -10,6 +10,6 @@ var EntityFieldPhone = function (_a) {
         handler(event.target.value);
     }, [value, handler]);
     return isEditing ? (React.createElement("div", null,
-        React.createElement(InputMask, { mask: "+9 (999) 999-99-99", value: value, onChange: onChange }, function () { return (React.createElement(TextField, { label: label, error: !!error, helperText: error, variant: "outlined" })); }))) : (React.createElement("div", { onClick: onClick }, String(value)));
+        React.createElement(InputMask, { mask: "+9 (999) 999-99-99", value: value, onChange: onChange }, function () { return (React.createElement(TextField, { label: label, error: !!error, helperText: error, variant: "outlined" })); }))) : (React.createElement("div", { onClick: onClick }, value ? String(value) : ''));
 };
 export { EntityFieldPhone };

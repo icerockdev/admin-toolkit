@@ -7,6 +7,7 @@ export declare class AuthProvider {
     parent?: Config;
     user: IAuthProviderProps['user'];
     authRequestFn?: IAuthProviderProps['authRequestFn'];
+    roleTitles?: Record<any, string>;
     constructor(fields?: Partial<IAuthProviderProps>);
     isLoading: boolean;
     error: string;

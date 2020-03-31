@@ -1,3 +1,4 @@
+/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -35,37 +36,37 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import axios from 'axios';
-var authGetTokens = function (email, password) {
+var authGetTokens = function (host, email, password) {
     return axios
-        .post('http://localhost:8080/admin/v1/auth/signin', { email: email, password: password })
+        .post(host + "/admin/v1/auth/signin", { email: email, password: password })
         .catch(function (e) { return e; });
 };
-var authGetProfile = function (accessToken) {
+var authGetProfile = function (host, accessToken) {
     return axios
-        .get('http://localhost:8080/admin/v1/user/profile', {
+        .get(host + "/admin/v1/user/profile", {
         headers: { authorization: "Bearer " + accessToken },
     })
         .catch(function (e) { return e; });
 };
-export var authRequestFn = function (email, password) { return __awaiter(void 0, void 0, void 0, function () {
+export var authRequestFn = function (host) { return function (email, password) { return __awaiter(void 0, void 0, void 0, function () {
     var auth, profile, error_1;
-    var _a, _b, _c, _d;
-    return __generator(this, function (_e) {
-        switch (_e.label) {
+    var _a, _b, _c, _d, _e;
+    return __generator(this, function (_f) {
+        switch (_f.label) {
             case 0:
-                _e.trys.push([0, 3, , 4]);
-                return [4 /*yield*/, authGetTokens(email, password)];
+                _f.trys.push([0, 3, , 4]);
+                return [4 /*yield*/, authGetTokens(host, email, password)];
             case 1:
-                auth = _e.sent();
-                if (!auth.data || !auth.data.success) {
+                auth = _f.sent();
+                if (!auth.data || !(auth.data.success || auth.data.isSuccess)) {
                     console.log({ auth: auth });
                     throw new Error((_b = (_a = auth.response) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.message);
                 }
-                return [4 /*yield*/, authGetProfile(auth.data.data.accessToken)];
+                return [4 /*yield*/, authGetProfile(host, auth.data.data.accessToken)];
             case 2:
-                profile = _e.sent();
-                if (!profile.data || !profile.data.success) {
-                    throw new Error((_d = (_c = profile.response) === null || _c === void 0 ? void 0 : _c.data) === null || _d === void 0 ? void 0 : _d.message);
+                profile = _f.sent();
+                if (!profile.data || !((_c = profile.data) === null || _c === void 0 ? void 0 : _c.data.id)) {
+                    throw new Error((_e = (_d = profile.response) === null || _d === void 0 ? void 0 : _d.data) === null || _e === void 0 ? void 0 : _e.message);
                 }
                 return [2 /*return*/, {
                         user: {
@@ -81,7 +82,7 @@ export var authRequestFn = function (email, password) { return __awaiter(void 0,
                         error: '',
                     }];
             case 3:
-                error_1 = _e.sent();
+                error_1 = _f.sent();
                 return [2 /*return*/, {
                         user: {},
                         tokens: {},
@@ -90,4 +91,4 @@ export var authRequestFn = function (email, password) { return __awaiter(void 0,
             case 4: return [2 /*return*/];
         }
     });
-}); };
+}); }; };

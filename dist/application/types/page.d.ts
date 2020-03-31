@@ -1,7 +1,13 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import { Config } from "../modules/Config";
+import { Config } from '../modules/Config';
 export interface IPageProps {
+    roles?: {
+        all?: string[];
+        list?: string[];
+        update?: string[];
+        create?: string[];
+    };
     parent: Config;
     title: string;
     menu: {
