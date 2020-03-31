@@ -6,10 +6,10 @@ import { TextField } from '@material-ui/core';
 type IProps = {
   label: string;
   value: any;
-  isEditing?: boolean;
-  handler?: (val: any) => void;
   error?: string;
+  isEditing?: boolean;
   onClick?: MouseEventHandler<HTMLDivElement>;
+  handler?: (val: any) => void;
 } & Record<string, any>;
 
 const EntityFieldString: FC<IProps> = ({
@@ -41,7 +41,7 @@ const EntityFieldString: FC<IProps> = ({
       />
     </div>
   ) : (
-    <div onClick={onClick}>{String(value)}</div>
+    <div onClick={onClick}>{value ? String(value) : ''}</div>
   );
 };
 

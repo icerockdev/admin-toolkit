@@ -1,7 +1,13 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { FC, MouseEventHandler, useCallback } from 'react';
-import { TextField } from '@material-ui/core';
+import React, {
+  FC,
+  MouseEventHandler,
+  useCallback,
+  useMemo,
+  useState,
+  useEffect,
+} from 'react';
 import MUIRichTextEditor from 'mui-rte';
 import { convertFromHTML } from 'draft-js';
 import { convertToRaw, ContentState } from 'draft-js';
@@ -24,10 +30,23 @@ const EntityFieldRichText: FC<IProps> = ({
   isEditing,
   onClick,
 }) => {
+  const [val, setVal] = useState('');
+
+  useEffect(() => {
+    const contentHTML = convertFromHTML(value || '');
+    const state = ContentState.createFromBlockArray(
+      contentHTML.contentBlocks,
+      contentHTML.entityMap
+    );
+
+    setVal(JSON.stringify(convertToRaw(state)));
+  }, []);
+
   const onChange = useCallback(
     (data) => {
+      if (!handler) return;
       const text = draftToHtml(convertToRaw(data.getCurrentContent()));
-      console.log({ text });
+      handler(text || '');
     },
     [value, handler]
   );
@@ -36,13 +55,13 @@ const EntityFieldRichText: FC<IProps> = ({
     <div>
       <MUIRichTextEditor
         label={label}
-        value={value || ''}
+        value={val || ''}
         onChange={onChange}
         error={!!error}
       />
     </div>
   ) : (
-    <div onClick={onClick}>{String(value)}</div>
+    <div onClick={onClick} dangerouslySetInnerHTML={{ __html: value }} />
   );
 };
 
