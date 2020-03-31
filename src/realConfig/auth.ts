@@ -4,11 +4,13 @@ import { IAuthProviderProps } from '~/application';
 import axios from 'axios';
 
 const authGetTokens = (
+  host: string,
   email: string,
   password: string
 ): Promise<{
   data: {
     success: boolean;
+    isSuccess: boolean;
     data: {
       accessToken: string;
       refreshToken: string;
@@ -21,14 +23,16 @@ const authGetTokens = (
   };
 }> =>
   axios
-    .post('http://localhost:8080/admin/v1/auth/signin', { email, password })
+    .post(`${host}/admin/v1/auth/signin`, { email, password })
     .catch((e) => e);
 
 const authGetProfile = (
+  host: string,
   accessToken: string
 ): Promise<{
   data: {
     success: boolean;
+    isSuccess: boolean;
     data: {
       id: number;
       email: string;
@@ -43,12 +47,12 @@ const authGetProfile = (
   };
 }> =>
   axios
-    .get('http://localhost:8080/admin/v1/user/profile', {
+    .get(`${host}/admin/v1/user/profile`, {
       headers: { authorization: `Bearer ${accessToken}` },
     })
     .catch((e) => e);
 
-export const authRequestFn = async (
+export const authRequestFn = (host: string) => async (
   email: string,
   password: string
 ): Promise<{
@@ -57,16 +61,16 @@ export const authRequestFn = async (
   error: string;
 }> => {
   try {
-    const auth = await authGetTokens(email, password);
+    const auth = await authGetTokens(host, email, password);
 
-    if (!auth.data || !auth.data.success) {
+    if (!auth.data || !(auth.data.success || auth.data.isSuccess)) {
       console.log({ auth });
       throw new Error(auth.response?.data?.message);
     }
 
-    const profile = await authGetProfile(auth.data.data.accessToken);
+    const profile = await authGetProfile(host, auth.data.data.accessToken);
 
-    if (!profile.data || !profile.data.success) {
+    if (!profile.data || !profile.data?.data.id) {
       throw new Error(profile.response?.data?.message);
     }
 
