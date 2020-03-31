@@ -197,7 +197,7 @@ export default new Entity({
     },
     {
       name: 'img',
-      type: 'string',
+      type: 'base64image',
       label: 'Изображение',
       required: false,
       hideInList: true,
