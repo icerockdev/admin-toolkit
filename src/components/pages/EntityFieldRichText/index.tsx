@@ -58,6 +58,19 @@ const EntityFieldRichText: FC<IProps> = ({
         value={val || ''}
         onChange={onChange}
         error={!!error}
+        controls={[
+          'title',
+          'bold',
+          'italic',
+          'underline',
+          'strikethrough',
+          'undo',
+          'redo',
+          'numberList',
+          'bulletList',
+          'quote',
+          'clear',
+        ]}
       />
     </div>
   ) : (
