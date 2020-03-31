@@ -121,6 +121,7 @@ const Filter = withStyles(styles)(
               color="secondary"
               onClick={onResetFilter}
               className={classes.iconButton}
+              tabIndex={0}
             >
               <ClearIcon />
             </IconButton>
@@ -130,6 +131,7 @@ const Filter = withStyles(styles)(
               color="primary"
               onClick={applyFilter}
               className={classes.iconButton}
+              tabIndex={0}
             >
               <CheckIcon />
             </IconButton>
