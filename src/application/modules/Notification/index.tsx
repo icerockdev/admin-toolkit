@@ -7,13 +7,6 @@ import { observer } from 'mobx-react';
 import { Notification } from '~/containers/login/Notification';
 
 export class Notifications {
-  constructor() {
-    reaction(
-      () => this.notification.message,
-      () => console.log(this.notification.message)
-    );
-  }
-
   @observable notification: INotification = {
     show: false,
     message: '',
@@ -28,7 +21,6 @@ export class Notifications {
 
   @action
   showError = (message: INotification['message']) => {
-    console.log('INSIDE', message);
     this.notification.show = true;
     this.notification.message = message;
     this.notification.type = 'error';

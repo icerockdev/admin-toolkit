@@ -22,7 +22,6 @@ const Notification: FC<IProps> = ({
 }) => {
   const onClose = useCallback(
     (...args) => {
-      console.log(args);
       hideNotification();
     },
     [hideNotification]

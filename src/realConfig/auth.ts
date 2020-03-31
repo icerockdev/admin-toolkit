@@ -82,7 +82,6 @@ export const authRequestFn = (host: string) => async (
     const auth = await authGetTokens(host, email, password);
 
     if (!auth.data || !(auth.data.success || auth.data.isSuccess)) {
-      console.log({ auth });
       throw new Error(auth.response?.data?.message);
     }
 

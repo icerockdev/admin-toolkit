@@ -374,7 +374,7 @@ export class Entity extends Page {
           fields={this.fields}
           url={this.menu.url}
           errors={this.editorFieldErrors}
-          onSave={console.log}
+          onSave={() => {}}
           onResetFieldError={this.resetFieldError}
           isEditing={false}
           isLoading={this.isLoading}

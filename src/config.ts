@@ -100,7 +100,6 @@ export default new Config({
       ],
       fetchItemsFn: (...props) =>
         new Promise((resolve) => {
-          console.log('Fetching items', props);
           setTimeout(resolve, 500, {
             data: {
               list: [SAMPLE_ENTITY_1, SAMPLE_ENTITY_2],
@@ -109,15 +108,12 @@ export default new Config({
           });
         }),
       updateItemsFn: ({ data }: IEntityUpdateFunctionProps) => {
-        console.log('update', { data });
         return Promise.resolve({ error: '', data });
       },
       createItemsFn: ({ data }: IEntityCreateFunctionProps) => {
-        console.log('create', { data });
         return Promise.resolve({ error: '', data });
       },
       getItemsFn: ({ id }: IEntityGetFunctionProps) => {
-        console.log('get', { id });
         return new Promise((resolve) =>
           setTimeout(resolve, 500, {
             data: SAMPLE_ENTITY_2,

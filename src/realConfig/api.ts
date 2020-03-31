@@ -88,8 +88,6 @@ export const updateItemsFn: IEntityUpdateFunction = async ({
       .put(`${url}/${data.id}`, data, { headers: { Authorization: token } })
       .catch((e) => e);
 
-    console.log({ result });
-
     if (!result.data || !(result.data.success || result.data.isSuccess)) {
       throw new Error(
         result.response?.data?.dataList[0]?.message ||
