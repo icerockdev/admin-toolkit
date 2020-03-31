@@ -12,6 +12,7 @@ export class AuthProvider {
   @observable parent?: Config;
   @observable user: IAuthProviderProps['user'] = EMPTY_USER;
   @observable authRequestFn?: IAuthProviderProps['authRequestFn'];
+  @observable authPasswRestoreFn?: IAuthProviderProps['authPasswRestoreFn'];
   @observable roleTitles?: Record<any, string>;
 
   constructor(fields?: Partial<IAuthProviderProps>) {
@@ -64,6 +65,44 @@ export class AuthProvider {
   sendAuthRequestCancel = () => {
     if (this.sendAuthRequestInstance && this.sendAuthRequestInstance.cancel) {
       this.sendAuthRequestInstance.cancel();
+    }
+  };
+
+  sendAuthPasswRestoreInstance?: CancellablePromise<any>;
+
+  @action
+  sendAuthPasswRestore = ({ email }: { email: string }) => {
+    this.sendAuthPasswRestoreCancel();
+
+    this.sendAuthPasswRestoreInstance = flow(function* sendAuthPasswRestore(
+      this: AuthProvider
+    ) {
+      if (!this.authPasswRestoreFn) return;
+
+      this.isLoading = true;
+
+      try {
+        const response = yield this.authPasswRestoreFn(email).catch(() => null);
+
+        if (!response || response.error) {
+          throw new Error(response.error);
+        }
+
+        this.parent?.notifications.showSuccess('Check your email');
+      } catch (e) {
+        this.error = e;
+      } finally {
+        this.isLoading = false;
+      }
+    }).bind(this)();
+  };
+
+  sendAuthPasswRestoreCancel = () => {
+    if (
+      this.sendAuthPasswRestoreInstance &&
+      this.sendAuthPasswRestoreInstance.cancel
+    ) {
+      this.sendAuthPasswRestoreInstance.cancel();
     }
   };
 

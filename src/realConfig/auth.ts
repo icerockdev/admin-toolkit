@@ -3,6 +3,24 @@
 import { IAuthProviderProps } from '~/application';
 import axios from 'axios';
 
+const authRestorePassword = (
+  host: string,
+  email: string
+): Promise<{
+  data: {
+    success: boolean;
+    isSuccess: boolean;
+  };
+  response: {
+    data: {
+      message: string;
+    };
+  };
+}> =>
+  axios
+    .post(`${host}/admin/v1/auth/restore-password`, { email })
+    .catch((e) => e);
+
 const authGetTokens = (
   host: string,
   email: string,
@@ -91,6 +109,28 @@ export const authRequestFn = (host: string) => async (
     return {
       user: {},
       tokens: {},
+      error: error.message,
+    };
+  }
+};
+
+export const authPasswRestoreFn = (host: string) => async (
+  email: string
+): Promise<{
+  error: string;
+}> => {
+  try {
+    const restore = await authRestorePassword(host, email);
+
+    if (!restore.data || !(restore.data.success || restore.data.isSuccess)) {
+      throw new Error(restore.response?.data?.message);
+    }
+
+    return {
+      error: '',
+    };
+  } catch (error) {
+    return {
       error: error.message,
     };
   }

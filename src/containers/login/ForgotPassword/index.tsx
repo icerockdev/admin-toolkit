@@ -1,12 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, {
-  FC,
-  ChangeEventHandler,
-  FormEventHandler,
-  useCallback,
-  FormEvent,
-} from 'react';
+import React, { FC, useCallback, FormEvent, useState } from 'react';
 import {
   Typography,
   Paper,
@@ -20,23 +14,28 @@ import {
 import styles from '../styles';
 
 type IProps = WithStyles<typeof styles> & {
-  email: string;
-  onEmailChange: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
-  onSubmit: FormEventHandler;
+  onSubmit?: ({ email }: { email: string }) => void;
 };
 
-const ForgotPasswordUnstyled: FC<IProps> = ({
-  classes,
-  email,
-  onEmailChange,
-  onSubmit,
-}) => {
+const ForgotPasswordUnstyled: FC<IProps> = ({ classes, onSubmit }) => {
+  const [email, setEmail] = useState('');
+
+  const onEmailChange = useCallback(
+    (event) => {
+      setEmail(event.target.value);
+    },
+    [setEmail]
+  );
+
   const onSubmitCapture = useCallback(
     (event: FormEvent) => {
       event.preventDefault();
-      onSubmit(event);
+
+      if (!onSubmit) return;
+
+      onSubmit({ email });
     },
-    [onSubmit]
+    [onSubmit, email]
   );
 
   return (

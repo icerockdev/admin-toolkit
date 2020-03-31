@@ -1,6 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { useMemo, Fragment } from 'react';
+import React, { useMemo, Fragment, useCallback } from 'react';
 import { Config } from '../Config';
 import { observer } from 'mobx-react';
 import { Switch, Route, Redirect, Router } from 'react-router-dom';
@@ -17,6 +17,7 @@ import {
 import styles from './styles';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import { ForgotPassword } from '~/containers/login/ForgotPassword';
 
 type IProps = WithStyles<typeof styles> & {
   config: Config;
@@ -44,15 +45,32 @@ const Application = withStyles(styles)(
       [config.auth?.roleTitles, config.auth?.user?.role]
     );
 
+    const onForgotPassword = useCallback(() => {
+      config.history.push('/restore');
+    }, [config.history]);
+
     if (!config.auth?.isLogged && config.auth?.sendAuthRequest) {
       return (
         <ThemeProvider theme={config.theme}>
           <CssBaseline />
 
-          <SignIn
-            onSubmit={config.auth.sendAuthRequest}
-            onForgotScreenClick={console.log}
-          />
+          <Router history={config.history}>
+            <Switch>
+              <Route
+                path="/restore"
+                render={() => (
+                  <ForgotPassword
+                    onSubmit={config.auth?.sendAuthPasswRestore}
+                  />
+                )}
+              />
+
+              <SignIn
+                onSubmit={config.auth.sendAuthRequest}
+                onForgotScreenClick={onForgotPassword}
+              />
+            </Switch>
+          </Router>
 
           <config.notifications.Output />
         </ThemeProvider>

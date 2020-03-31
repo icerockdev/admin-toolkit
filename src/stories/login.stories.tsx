@@ -12,7 +12,7 @@ import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 
 storiesOf('Login', module)
-  .addDecorator(story => (
+  .addDecorator((story) => (
     <Router history={createBrowserHistory()}>
       <Container fixed>{story()}</Container>
     </Router>
@@ -24,9 +24,5 @@ storiesOf('Login', module)
     />
   ))
   .add('Forgot password', () => (
-    <ForgotPassword
-      email="user@example.com"
-      onEmailChange={action('onEmailChange')}
-      onSubmit={action('onSubmit')}
-    />
+    <ForgotPassword onSubmit={action('onSubmit')} />
   ));

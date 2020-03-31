@@ -29,4 +29,6 @@ export interface IAuthProviderProps {
     email: string,
     password: string
   ) => Promise<{ user: IAuthProviderProps['user']; error: string }>;
+
+  authPasswRestoreFn?: (email: string) => Promise<{ error: string }>;
 }
