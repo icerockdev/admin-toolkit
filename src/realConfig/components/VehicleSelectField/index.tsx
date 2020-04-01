@@ -10,42 +10,38 @@ import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import Axios from 'axios';
 import { observer } from 'mobx-react';
 
-interface RegionData {
-  regionId: number | null;
-  cityId: number | null;
-  city: { name: string; id: number };
+interface VehicleData {
+  type: number;
+  vehicleId: number | null;
+  vehicle: string;
 }
 
 interface IProps {
   label: string;
-  data: RegionData;
+  data: VehicleData;
   value: any;
   fields: IEntityField[];
   error: string;
-  options: { getRegionsUrl: string };
+  options: { getVehiclesUrl: string };
   isEditing?: boolean;
   handler: (val: any) => void;
   withToken: (req: any, args: any) => any;
 }
 
-interface City {
+interface Vehicle {
   label: string;
   value: number;
 }
 
-const CitySelectField: FC<IProps> = observer(
+const VehicleSelectField: FC<IProps> = observer(
   ({ data, label, value, handler, error, options, withToken, isEditing }) => {
-    const [cities, setCities] = useState<City[]>([]);
+    const [vehicles, setVehicles] = useState<Vehicle[]>([]);
 
     useEffect(() => {
-      if (!data.regionId) {
-        setCities([]);
-      }
-
       (async () => {
         const result = await withToken(
           ({ token }: { token: string }) =>
-            Axios.get(`${options.getRegionsUrl}/${data.regionId}/cities`, {
+            Axios.get(`${options.getVehiclesUrl}/${data.type}/list`, {
               headers: { Authorization: token },
             }).catch((e) => e),
           {}
@@ -53,11 +49,11 @@ const CitySelectField: FC<IProps> = observer(
 
         if (!result?.data?.data) return;
 
-        setCities(result.data.data);
+        setVehicles(result.data.data);
       })();
-    }, [options.getRegionsUrl, data.regionId]);
+    }, [options.getVehiclesUrl, data.type]);
 
-    const onCityChange = useCallback(
+    const onVehicleChange = useCallback(
       async (event: ChangeEvent<{ value: any }>) => {
         handler(parseInt(event.target.value) || null);
       },
@@ -74,24 +70,24 @@ const CitySelectField: FC<IProps> = observer(
           name={label}
           label={label}
           value={value || ''}
-          onChange={onCityChange}
+          onChange={onVehicleChange}
           error={!!error}
           inputProps={{ className: 'select' }}
         >
           <MenuItem value="">...</MenuItem>
 
-          {cities.length > 0 &&
-            cities.map((city) => (
-              <MenuItem key={city.value} value={city.value}>
-                {city.label}
+          {vehicles.length > 0 &&
+            vehicles.map((vehicle) => (
+              <MenuItem key={vehicle.value} value={vehicle.value}>
+                {vehicle.label}
               </MenuItem>
             ))}
         </Select>
       </FormControl>
     ) : (
-      <div>{data?.city?.name || ''}</div>
+      <div>{data?.vehicle || ''}</div>
     );
   }
 );
 
-export { CitySelectField };
+export { VehicleSelectField };

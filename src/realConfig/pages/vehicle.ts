@@ -5,6 +5,7 @@ import { Entity } from '~/application';
 import { fetchItemsFn, getItemsFn, updateItemsFn, createItemsFn } from '../api';
 
 import { ADMIN_ROLE_ADMIN, ADMIN_ROLE_MANAGER } from '../roles';
+import { VehicleSelectField } from '../components/VehicleSelectField';
 
 export const VEHICLE_INQUIRY_TYPE_BUY = 10;
 export const VEHICLE_INQUIRY_TYPE_DRIVE = 20;
@@ -125,9 +126,13 @@ export default (host: string) =>
         required: true,
       },
       {
-        name: 'vehicle',
+        name: 'vehicleId',
         label: 'А/М',
-        type: 'string', // TODO: Should be reference field
+        type: 'custom',
+        component: VehicleSelectField,
+        options: {
+          getVehiclesUrl: `${host}/admin/v1/vehicle/`,
+        },
       },
       {
         name: 'manager',
