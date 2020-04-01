@@ -20,5 +20,5 @@ declare type IProps = WithStyles<typeof styles> & {
     onResetFieldError: (field: string) => void;
     withToken?: (req: any, args: any) => any;
 };
-declare const EntityViewer: React.ComponentType<Pick<IProps, "data" | "isLoading" | "withToken" | "id" | "url" | "isEditing" | "onSave" | "fields" | "errors" | "entityName" | "onResetFieldError" | "setEditorData" | "getItem" | "cancelGetItem"> & import("@material-ui/core").StyledComponentProps<"wrap" | "field" | "loader" | "breadcrumbs">>;
+declare const EntityViewer: React.ComponentType<Pick<IProps, "data" | "isLoading" | "withToken" | "id" | "url" | "isEditing" | "onSave" | "fields" | "errors" | "entityName" | "onResetFieldError" | "setEditorData" | "getItem" | "cancelGetItem"> & import("@material-ui/core").StyledComponentProps<"grid" | "wrap" | "field" | "loader" | "breadcrumbs" | "buttons">>;
 export { EntityViewer };

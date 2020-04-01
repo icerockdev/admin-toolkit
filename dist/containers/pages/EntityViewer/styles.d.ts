@@ -2,6 +2,10 @@
 
 import { Theme } from '@material-ui/core';
 declare const _default: (theme: Theme) => {
+    grid: {
+        display: string;
+        gridTemplateColumns: string;
+    };
     wrap: {
         marginBottom: number;
         '& .MuiFormControl-root': {
@@ -14,7 +18,7 @@ declare const _default: (theme: Theme) => {
         fontWeight: number;
         fontFamily: string | undefined;
         padding: string;
-        borderBottom: string;
+        boxShadow: string;
         '& > .label': {
             display: string;
             color: string;
@@ -36,6 +40,10 @@ declare const _default: (theme: Theme) => {
         alignItems: string;
         justifyContent: string;
         minHeight: number;
+    };
+    buttons: {
+        gridColumnStart: number;
+        gridColumnEnd: number;
     };
 };
 export default _default;

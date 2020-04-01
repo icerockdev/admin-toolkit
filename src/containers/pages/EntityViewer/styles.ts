@@ -3,6 +3,10 @@
 import { Theme } from '@material-ui/core';
 
 export default (theme: Theme) => ({
+  grid: {
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fill, minmax(500px, 1fr))',
+  },
   wrap: {
     marginBottom: theme.spacing(4),
 
@@ -16,7 +20,7 @@ export default (theme: Theme) => ({
     fontWeight: 400,
     fontFamily: theme.typography.fontFamily,
     padding: `${theme.spacing(4)}px ${theme.spacing(3)}px`,
-    borderBottom: '1px solid #e1e8ee',
+    boxShadow: '#e1e8ee 1px -1px',
     '& > .label': {
       display: 'block',
       color: '#a5b0bf',
@@ -38,5 +42,9 @@ export default (theme: Theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 200,
+  },
+  buttons: {
+    gridColumnStart: 1,
+    gridColumnEnd: -1,
   },
 });

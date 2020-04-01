@@ -154,73 +154,75 @@ const EntityViewer = withStyles(styles)(
           {data && (
             <form onSubmit={onSubmit}>
               <Paper>
-                {visibleFields.map((field) => (
-                  <div className={classes.field} key={field.name}>
-                    {!isEditing && (
-                      <div className="label">
-                        {field.label || field.name}
-                        {isEditing && field.required && <span>{` *`}</span>}
-                      </div>
-                    )}
-                    <div className="field">
-                      {createElement(
-                        field.type === 'custom' && field.component
-                          ? field.component
-                          : getEntityFieldRenderer(
-                              field.type || typeof data[field.name]
-                            ),
-                        {
-                          value: Object.prototype.hasOwnProperty.call(
-                            data,
-                            field.name
-                          )
-                            ? data[field.name]
-                            : null,
-                          label: `${field.label || field.name}${
-                            field.required ? ' *' : ''
-                          }`,
-                          error: errors[field.name],
-                          isEditing,
-                          handler: onFieldChange(field.name),
-                          options: field.options || {},
-                          data, // for custom fields
-                          fields, // for custom fields
-                          withToken, // for custom fields
-                        }
+                <div className={classes.grid} style={{ flexWrap: 'wrap' }}>
+                  {visibleFields.map((field) => (
+                    <div className={classes.field} key={field.name}>
+                      {!isEditing && (
+                        <div className="label">
+                          {field.label || field.name}
+                          {isEditing && field.required && <span>{` *`}</span>}
+                        </div>
                       )}
+                      <div className="field">
+                        {createElement(
+                          field.type === 'custom' && field.component
+                            ? field.component
+                            : getEntityFieldRenderer(
+                                field.type || typeof data[field.name]
+                              ),
+                          {
+                            value: Object.prototype.hasOwnProperty.call(
+                              data,
+                              field.name
+                            )
+                              ? data[field.name]
+                              : null,
+                            label: `${field.label || field.name}${
+                              field.required ? ' *' : ''
+                            }`,
+                            error: errors[field.name],
+                            isEditing,
+                            handler: onFieldChange(field.name),
+                            options: field.options || {},
+                            data, // for custom fields
+                            fields, // for custom fields
+                            withToken, // for custom fields
+                          }
+                        )}
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
 
-                {isEditing && (
-                  <div className={classes.field}>
-                    <Grid container spacing={1}>
-                      <Grid item style={{ flex: 1 }} />
+                  {isEditing && (
+                    <div className={`${classes.field} ${classes.buttons}`}>
+                      <Grid container spacing={1}>
+                        <Grid item style={{ flex: 1 }} />
 
-                      <Grid item>
-                        <Button
-                          type="submit"
-                          color="default"
-                          variant="outlined"
-                          to={isCreating ? url : `${url}/${id}`}
-                          component={RouterLink}
-                        >
-                          Отмена
-                        </Button>
+                        <Grid item>
+                          <Button
+                            type="submit"
+                            color="default"
+                            variant="outlined"
+                            to={isCreating ? url : `${url}/${id}`}
+                            component={RouterLink}
+                          >
+                            Отмена
+                          </Button>
+                        </Grid>
+
+                        <Grid item>
+                          <Button
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                          >
+                            Сохранить
+                          </Button>
+                        </Grid>
                       </Grid>
-
-                      <Grid item>
-                        <Button
-                          type="submit"
-                          variant="contained"
-                          color="primary"
-                        >
-                          Сохранить
-                        </Button>
-                      </Grid>
-                    </Grid>
-                  </div>
-                )}
+                    </div>
+                  )}
+                </div>
               </Paper>
             </form>
           )}
