@@ -74,7 +74,9 @@ const EntityFieldRichText: FC<IProps> = ({
       />
     </div>
   ) : (
-    <div onClick={onClick} dangerouslySetInnerHTML={{ __html: value }} />
+    (value && (
+      <div onClick={onClick} dangerouslySetInnerHTML={{ __html: value }} />
+    )) || <div>&nbsp;</div>
   );
 };
 

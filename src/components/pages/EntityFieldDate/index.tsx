@@ -44,7 +44,7 @@ const EntityFieldDate: FC<IProps> = ({
     </div>
   ) : (
     <div onClick={onClick}>
-      {value ? format(new Date(value), 'dd.MM.yyyy') : ''}
+      {value ? format(new Date(value), 'dd.MM.yyyy') : <div>&nbsp;</div>}
     </div>
   );
 };

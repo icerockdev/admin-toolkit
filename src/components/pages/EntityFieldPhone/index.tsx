@@ -48,7 +48,7 @@ const EntityFieldPhone: FC<IProps> = ({
       </InputMask>
     </div>
   ) : (
-    <div onClick={onClick}>{value ? String(value) : ''}</div>
+    <div onClick={onClick}>{value ? String(value) : <div>&nbsp;</div>}</div>
   );
 };
 

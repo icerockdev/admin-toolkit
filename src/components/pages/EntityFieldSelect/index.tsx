@@ -56,7 +56,9 @@ const EntityFieldSelect: FC<IProps> = ({
       </Select>
     </FormControl>
   ) : (
-    <div onClick={onClick}>{options && options[value]}</div>
+    <div onClick={onClick}>
+      {(options && options[value]) || <div>&nbsp;</div>}
+    </div>
   );
 };
 
