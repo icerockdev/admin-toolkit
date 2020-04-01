@@ -9,6 +9,6 @@ var EntityFieldString = function (_a) {
         handler(event.target.value);
     }, [value, handler]);
     return isEditing ? (React.createElement("div", null,
-        React.createElement(TextField, { label: label, value: value || '', onChange: onChange, error: !!error, helperText: error, variant: "outlined" }))) : (React.createElement("div", { onClick: onClick }, value ? String(value) : ''));
+        React.createElement(TextField, { label: label, value: value || '', onChange: onChange, error: !!error, helperText: error, variant: "outlined" }))) : (React.createElement("div", { onClick: onClick }, value ? String(value) : React.createElement("div", null, "\u00A0")));
 };
 export { EntityFieldString };

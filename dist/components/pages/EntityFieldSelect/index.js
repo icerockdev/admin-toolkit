@@ -13,6 +13,6 @@ var EntityFieldSelect = function (_a) {
         React.createElement(Select, { variant: "outlined", id: label, name: label, label: label, value: !value ? '' : value, onChange: onChange, error: !!error, inputProps: { className: 'select' } },
             React.createElement(MenuItem, { value: "" }, "..."),
             options &&
-                Object.keys(options).map(function (item) { return (React.createElement(MenuItem, { key: item, value: item }, options[item])); })))) : (React.createElement("div", { onClick: onClick }, options && options[value]));
+                Object.keys(options).map(function (item) { return (React.createElement(MenuItem, { key: item, value: item }, options[item])); })))) : (React.createElement("div", { onClick: onClick }, (options && options[value]) || React.createElement("div", null, "\u00A0")));
 };
 export { EntityFieldSelect };

@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/admin-toolkit/static/js/main.6a581646.chunk.js",
-    "main.js.map": "/admin-toolkit/static/js/main.6a581646.chunk.js.map",
+    "main.js": "/admin-toolkit/static/js/main.042ac191.chunk.js",
+    "main.js.map": "/admin-toolkit/static/js/main.042ac191.chunk.js.map",
     "runtime-main.js": "/admin-toolkit/static/js/runtime-main.eeed6b69.js",
     "runtime-main.js.map": "/admin-toolkit/static/js/runtime-main.eeed6b69.js.map",
     "static/js/2.de6b41ff.chunk.js": "/admin-toolkit/static/js/2.de6b41ff.chunk.js",
     "static/js/2.de6b41ff.chunk.js.map": "/admin-toolkit/static/js/2.de6b41ff.chunk.js.map",
     "index.html": "/admin-toolkit/index.html",
-    "precache-manifest.ec4634958e9aaf5e0f7dcf86b96ef7a7.js": "/admin-toolkit/precache-manifest.ec4634958e9aaf5e0f7dcf86b96ef7a7.js",
+    "precache-manifest.f5fdf5082702675a537a375cd2455bc2.js": "/admin-toolkit/precache-manifest.f5fdf5082702675a537a375cd2455bc2.js",
     "service-worker.js": "/admin-toolkit/service-worker.js",
     "static/js/2.de6b41ff.chunk.js.LICENSE.txt": "/admin-toolkit/static/js/2.de6b41ff.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.eeed6b69.js",
     "static/js/2.de6b41ff.chunk.js",
-    "static/js/main.6a581646.chunk.js"
+    "static/js/main.042ac191.chunk.js"
   ]
 }

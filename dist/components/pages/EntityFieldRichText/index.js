@@ -31,6 +31,6 @@ var EntityFieldRichText = function (_a) {
                 'bulletList',
                 'quote',
                 'clear',
-            ] }))) : (React.createElement("div", { onClick: onClick, dangerouslySetInnerHTML: { __html: value } }));
+            ] }))) : ((value && (React.createElement("div", { onClick: onClick, dangerouslySetInnerHTML: { __html: value } }))) || React.createElement("div", null, "\u00A0"));
 };
 export { EntityFieldRichText };
