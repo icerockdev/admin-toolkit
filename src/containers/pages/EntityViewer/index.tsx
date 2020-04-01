@@ -176,7 +176,9 @@ const EntityViewer = withStyles(styles)(
                           )
                             ? data[field.name]
                             : null,
-                          label: field.label || field.name,
+                          label: `${field.label || field.name}${
+                            field.required ? ' *' : ''
+                          }`,
                           error: errors[field.name],
                           isEditing,
                           handler: onFieldChange(field.name),
