@@ -5,6 +5,7 @@ import { Entity } from '~/application';
 import { fetchItemsFn, getItemsFn, updateItemsFn, createItemsFn } from '../api';
 
 import { ADMIN_ROLE_ADMIN, ADMIN_ROLE_MANAGER } from '../roles';
+import { InquiryStatusField } from '../components/InquiryStatusField';
 
 export const VEHICLE_INQUIRY_TYPE_BUY = 10;
 export const VEHICLE_INQUIRY_TYPE_DRIVE = 20;
@@ -17,6 +18,33 @@ export const VEHICLE_INQUIRY_STATUS_SENT_KP = 50;
 export const VEHICLE_INQUIRY_STATUS_CLOSED_SUCCESSFULLY = 60;
 export const VEHICLE_INQUIRY_STATUS_CLOSED_NOT_SUCCESSFULLY = 70;
 export const VEHICLE_INQUIRY_STATUS_CLOSED = 80;
+
+export const VEHICLE_INQUIRY_STATUSES = {
+  [VEHICLE_INQUIRY_TYPE_BUY]: [
+    VEHICLE_INQUIRY_STATUS_NEW,
+    VEHICLE_INQUIRY_STATUS_IN_PROGRESS,
+    VEHICLE_INQUIRY_STATUS_SENT_KP,
+    VEHICLE_INQUIRY_STATUS_CLOSED_SUCCESSFULLY,
+    VEHICLE_INQUIRY_STATUS_CLOSED_NOT_SUCCESSFULLY,
+  ],
+  [VEHICLE_INQUIRY_TYPE_DRIVE]: [
+    VEHICLE_INQUIRY_STATUS_NEW,
+    VEHICLE_INQUIRY_STATUS_IN_PROGRESS,
+    VEHICLE_INQUIRY_STATUS_TEST_DRIVE_ASSIGNED,
+    VEHICLE_INQUIRY_STATUS_TEST_DRIVE_COMPLETED,
+  ],
+};
+
+export const VEHICLE_INQUIRY_STATUS_TITLES = {
+  [VEHICLE_INQUIRY_STATUS_NEW]: 'Новая',
+  [VEHICLE_INQUIRY_STATUS_IN_PROGRESS]: 'Обрабатывается менеджером',
+  [VEHICLE_INQUIRY_STATUS_TEST_DRIVE_ASSIGNED]: 'Назначен тест-драйв',
+  [VEHICLE_INQUIRY_STATUS_TEST_DRIVE_COMPLETED]: 'Тест-драйв завершен',
+  [VEHICLE_INQUIRY_STATUS_SENT_KP]: 'Отправлено КП',
+  [VEHICLE_INQUIRY_STATUS_CLOSED_SUCCESSFULLY]: 'Закрыта успешно',
+  [VEHICLE_INQUIRY_STATUS_CLOSED_NOT_SUCCESSFULLY]: 'Закрыта неуспешно',
+  [VEHICLE_INQUIRY_STATUS_CLOSED]: 'Закрыта',
+};
 
 export default (host: string) =>
   new Entity({
@@ -71,19 +99,14 @@ export default (host: string) =>
       },
       {
         name: 'status',
-        type: 'select',
+        type: 'custom',
         label: 'Статус',
         required: true,
         sortable: true,
+        component: InquiryStatusField,
         options: {
-          [VEHICLE_INQUIRY_STATUS_NEW]: 'Новая',
-          [VEHICLE_INQUIRY_STATUS_IN_PROGRESS]: 'Обрабатывается менеджером',
-          [VEHICLE_INQUIRY_STATUS_TEST_DRIVE_ASSIGNED]: 'Назначен тест-драйв',
-          [VEHICLE_INQUIRY_STATUS_TEST_DRIVE_COMPLETED]: 'Тест-драйв завершен',
-          [VEHICLE_INQUIRY_STATUS_SENT_KP]: 'Отправлено КП',
-          [VEHICLE_INQUIRY_STATUS_CLOSED_SUCCESSFULLY]: 'Закрыта успешно',
-          [VEHICLE_INQUIRY_STATUS_CLOSED_NOT_SUCCESSFULLY]: 'Закрыта неуспешно',
-          [VEHICLE_INQUIRY_STATUS_CLOSED]: 'Закрыта',
+          types: VEHICLE_INQUIRY_STATUSES,
+          titles: VEHICLE_INQUIRY_STATUS_TITLES,
         },
       },
       {
