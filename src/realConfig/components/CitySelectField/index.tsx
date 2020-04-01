@@ -13,6 +13,7 @@ import { observer } from 'mobx-react';
 interface RegionData {
   regionId: number | null;
   cityId: number | null;
+  city: { name: string; id: number };
 }
 
 interface IProps {
@@ -22,6 +23,7 @@ interface IProps {
   fields: IEntityField[];
   error: string;
   options: { getRegionsUrl: string };
+  isEditing?: boolean;
   handler: (val: any) => void;
   withToken: (req: any, args: any) => any;
 }
@@ -32,7 +34,7 @@ interface CityRegion {
 }
 
 const CitySelectField: FC<IProps> = observer(
-  ({ data, label, value, handler, error, options, withToken }) => {
+  ({ data, label, value, handler, error, options, withToken, isEditing }) => {
     const [cities, setCities] = useState<CityRegion[]>([]);
 
     useEffect(() => {
@@ -62,32 +64,32 @@ const CitySelectField: FC<IProps> = observer(
       [data, options, handler]
     );
 
-    return (
-      <div>
-        <FormControl variant="outlined">
-          <InputLabel htmlFor={label}>{label}</InputLabel>
+    return isEditing ? (
+      <FormControl variant="outlined">
+        <InputLabel htmlFor={label}>{label}</InputLabel>
 
-          <Select
-            variant="outlined"
-            id={label}
-            name={label}
-            label={label}
-            value={value || ''}
-            onChange={onRegionChange}
-            error={!!error}
-            inputProps={{ className: 'select' }}
-          >
-            <MenuItem value="">...</MenuItem>
+        <Select
+          variant="outlined"
+          id={label}
+          name={label}
+          label={label}
+          value={value || ''}
+          onChange={onRegionChange}
+          error={!!error}
+          inputProps={{ className: 'select' }}
+        >
+          <MenuItem value="">...</MenuItem>
 
-            {cities.length > 0 &&
-              cities.map((city) => (
-                <MenuItem key={city.value} value={city.value}>
-                  {city.label}
-                </MenuItem>
-              ))}
-          </Select>
-        </FormControl>
-      </div>
+          {cities.length > 0 &&
+            cities.map((city) => (
+              <MenuItem key={city.value} value={city.value}>
+                {city.label}
+              </MenuItem>
+            ))}
+        </Select>
+      </FormControl>
+    ) : (
+      <div>{data?.city?.name || ''}</div>
     );
   }
 );
