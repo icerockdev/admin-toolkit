@@ -4,6 +4,9 @@ import { Theme } from '@material-ui/core';
 declare const _default: (theme: Theme) => {
     wrap: {
         marginBottom: number;
+        '& .MuiFormControl-root': {
+            width: string;
+        };
     };
     field: {
         color: string;

@@ -2,6 +2,9 @@
 export default (function (theme) { return ({
     wrap: {
         marginBottom: theme.spacing(4),
+        '& .MuiFormControl-root': {
+            width: '100%',
+        },
     },
     field: {
         color: '#282f36',
