@@ -39,7 +39,7 @@ var Filter = withStyles(styles)(function (_a) {
                 label: field.label || field.name,
                 isEditing: true,
                 handler: setFilterValue,
-                availableVariants: field.availableVariants || {},
+                options: field.options || {},
             })),
             React.createElement(IconButton, { color: "secondary", onClick: onResetFilter, className: classes.iconButton, tabIndex: 0 },
                 React.createElement(ClearIcon, null)),

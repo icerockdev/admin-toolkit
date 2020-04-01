@@ -136,7 +136,6 @@ export var updateItemsFn = function (_a) {
                             .catch(function (e) { return e; })];
                 case 1:
                     result = _g.sent();
-                    console.log({ result: result });
                     if (!result.data || !(result.data.success || result.data.isSuccess)) {
                         throw new Error(((_d = (_c = (_b = result.response) === null || _b === void 0 ? void 0 : _b.data) === null || _c === void 0 ? void 0 : _c.dataList[0]) === null || _d === void 0 ? void 0 : _d.message) || ((_f = (_e = result.response) === null || _e === void 0 ? void 0 : _e.data) === null || _f === void 0 ? void 0 : _f.message) ||
                             ENTITY_ERRORS.CANT_UPDATE_ITEM);
@@ -171,7 +170,8 @@ export var createItemsFn = function (_a) {
                 case 1:
                     result = _g.sent();
                     if (!result.data || !(result.data.success || result.data.isSuccess)) {
-                        throw new Error(((_d = (_c = (_b = result.response) === null || _b === void 0 ? void 0 : _b.data) === null || _c === void 0 ? void 0 : _c.dataList[0]) === null || _d === void 0 ? void 0 : _d.message) || ((_f = (_e = result.response) === null || _e === void 0 ? void 0 : _e.data) === null || _f === void 0 ? void 0 : _f.message) || ENTITY_ERRORS.CANT_UPDATE_ITEM);
+                        throw new Error(((_d = (_c = (_b = result.response) === null || _b === void 0 ? void 0 : _b.data) === null || _c === void 0 ? void 0 : _c.dataList[0]) === null || _d === void 0 ? void 0 : _d.message) || ((_f = (_e = result.response) === null || _e === void 0 ? void 0 : _e.data) === null || _f === void 0 ? void 0 : _f.message) ||
+                            ENTITY_ERRORS.CANT_UPDATE_ITEM);
                     }
                     return [2 /*return*/, Promise.resolve({
                             data: result.data.data,

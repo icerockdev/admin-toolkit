@@ -10,7 +10,7 @@ declare type IProps = WithStyles<typeof styles> & {
     isEditing?: boolean;
     onClick?: MouseEventHandler<HTMLDivElement>;
     handler?: (val: any) => void;
-    availableVariants?: Record<any, any>;
+    options?: Record<any, any>;
 } & Record<string, any>;
 declare const EntityFieldBase64Image: React.ComponentType<Pick<IProps, string> & import("@material-ui/core").StyledComponentProps<"label" | "image" | "formControl" | "outlinedInput">>;
 export { EntityFieldBase64Image };

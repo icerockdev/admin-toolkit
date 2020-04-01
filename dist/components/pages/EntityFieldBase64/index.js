@@ -40,7 +40,7 @@ import { OutlinedInput, Button, FormControl, withStyles, Box, } from '@material-
 import ImageIcon from '@material-ui/icons/Image';
 import styles from './styles';
 var EntityFieldBase64Image = withStyles(styles)(function (_a) {
-    var classes = _a.classes, label = _a.label, value = _a.value, handler = _a.handler, error = _a.error, isEditing = _a.isEditing, onClick = _a.onClick, availableVariants = _a.availableVariants;
+    var classes = _a.classes, label = _a.label, value = _a.value, handler = _a.handler, error = _a.error, isEditing = _a.isEditing, onClick = _a.onClick, options = _a.options;
     var _b = useState(''), innerError = _b[0], setInnerError = _b[1];
     var getBase64 = useCallback(function (file) {
         return new Promise(function (resolve, reject) {
@@ -63,18 +63,16 @@ var EntityFieldBase64Image = withStyles(styles)(function (_a) {
                     file = e.target.files[0];
                     if (!file)
                         return [2 /*return*/];
-                    if ((availableVariants === null || availableVariants === void 0 ? void 0 : availableVariants.maxSize) &&
-                        file.size > availableVariants.maxSize) {
+                    if ((options === null || options === void 0 ? void 0 : options.maxSize) && file.size > options.maxSize) {
                         setInnerError('Файл слишком большой!');
                         return [2 /*return*/];
                     }
-                    if ((availableVariants === null || availableVariants === void 0 ? void 0 : availableVariants.maxSize) &&
-                        file.size < availableVariants.minSize) {
+                    if ((options === null || options === void 0 ? void 0 : options.maxSize) && file.size < options.minSize) {
                         setInnerError('Файл слишком маленький!');
                         return [2 /*return*/];
                     }
-                    if ((availableVariants === null || availableVariants === void 0 ? void 0 : availableVariants.allowedMimeType) &&
-                        !availableVariants.allowedMimeType.includes(file.type)) {
+                    if ((options === null || options === void 0 ? void 0 : options.allowedMimeType) &&
+                        !options.allowedMimeType.includes(file.type)) {
                         setInnerError('Тип файла не поддерживается!');
                         return [2 /*return*/];
                     }
@@ -85,17 +83,17 @@ var EntityFieldBase64Image = withStyles(styles)(function (_a) {
                     img.src = photo;
                     img.onload = function () {
                         var naturalWidth = img.naturalWidth, naturalHeight = img.naturalHeight;
-                        if (availableVariants && availableVariants.minViewBox) {
-                            var minWidth = availableVariants.minViewBox.width;
-                            var minHeight = availableVariants.minViewBox.height;
+                        if (options && options.minViewBox) {
+                            var minWidth = options.minViewBox.width;
+                            var minHeight = options.minViewBox.height;
                             if (naturalWidth < minWidth || naturalHeight < minHeight) {
                                 setInnerError("\u0420\u0430\u0437\u043C\u0435\u0440 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0438 \u043D\u0435 \u0434\u043E\u043B\u0436\u0435\u043D \u0431\u044B\u0442\u044C \u043C\u0435\u043D\u0435\u0435 " + minWidth + "x" + minHeight + " \u043F\u0438\u043A\u0441\u0435\u043B\u0435\u0439");
                                 return;
                             }
                         }
-                        if (availableVariants === null || availableVariants === void 0 ? void 0 : availableVariants.maxViewBox) {
-                            var maxWidth = availableVariants.maxViewBox.width;
-                            var maxHeight = availableVariants.maxViewBox.height;
+                        if (options === null || options === void 0 ? void 0 : options.maxViewBox) {
+                            var maxWidth = options.maxViewBox.width;
+                            var maxHeight = options.maxViewBox.height;
                             if (naturalWidth > maxWidth || naturalHeight > maxHeight) {
                                 setInnerError("\u0420\u0430\u0437\u043C\u0435\u0440 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0438 \u043D\u0435 \u0434\u043E\u043B\u0436\u0435\u043D \u0431\u044B\u0442\u044C \u0431\u043E\u043B\u0435\u0435 " + maxWidth + "x" + maxHeight + " \u043F\u0438\u043A\u0441\u0435\u043B\u0435\u0439");
                                 return;
@@ -123,9 +121,7 @@ var EntityFieldBase64Image = withStyles(styles)(function (_a) {
                             width: 150,
                         } },
                         React.createElement("span", null, "\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C"))); } }),
-                React.createElement("input", { id: label, name: label, type: "file", onChange: loadImage, style: { position: 'absolute' }, accept: availableVariants && availableVariants.mimes
-                        ? availableVariants.mimes.join(', ')
-                        : '' })),
+                React.createElement("input", { id: label, name: label, type: "file", onChange: loadImage, style: { position: 'absolute' }, accept: options && options.mimes ? options.mimes.join(', ') : '' })),
             (innerError || error) && (React.createElement(Box, { color: "error.main", fontSize: 12 }, innerError || error))))) : (React.createElement("div", { onClick: onClick },
         React.createElement("img", { src: value ? String(value) : '' })));
 });

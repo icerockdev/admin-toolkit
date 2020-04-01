@@ -17,7 +17,7 @@ import { getEntityFieldRenderer } from '../../../application';
 import { observer } from 'mobx-react';
 import { Link as RouterLink } from 'react-router-dom';
 var EntityViewer = withStyles(styles)(observer(function (_a) {
-    var classes = _a.classes, id = _a.id, fields = _a.fields, errors = _a.errors, url = _a.url, isEditing = _a.isEditing, entityName = _a.entityName, onSave = _a.onSave, onResetFieldError = _a.onResetFieldError, isLoading = _a.isLoading, data = _a.data, setEditorData = _a.setEditorData, getItem = _a.getItem, cancelGetItem = _a.cancelGetItem;
+    var classes = _a.classes, id = _a.id, fields = _a.fields, errors = _a.errors, url = _a.url, isEditing = _a.isEditing, entityName = _a.entityName, onSave = _a.onSave, onResetFieldError = _a.onResetFieldError, isLoading = _a.isLoading, data = _a.data, setEditorData = _a.setEditorData, getItem = _a.getItem, cancelGetItem = _a.cancelGetItem, withToken = _a.withToken;
     var isCreating = useMemo(function () { return typeof id === 'undefined'; }, [id]);
     var title = useMemo(function () {
         var field = fields.find(function (f) { return f.title; });
@@ -60,7 +60,9 @@ var EntityViewer = withStyles(styles)(observer(function (_a) {
                     !isEditing && (React.createElement("div", { className: "label" },
                         field.label || field.name,
                         isEditing && field.required && React.createElement("span", null, " *"))),
-                    React.createElement("div", { className: "field" }, createElement(getEntityFieldRenderer(field.type || typeof data[field.name]), {
+                    React.createElement("div", { className: "field" }, createElement(field.type === 'custom' && field.component
+                        ? field.component
+                        : getEntityFieldRenderer(field.type || typeof data[field.name]), {
                         value: Object.prototype.hasOwnProperty.call(data, field.name)
                             ? data[field.name]
                             : null,
@@ -68,7 +70,10 @@ var EntityViewer = withStyles(styles)(observer(function (_a) {
                         error: errors[field.name],
                         isEditing: isEditing,
                         handler: onFieldChange(field.name),
-                        availableVariants: field.availableVariants || {},
+                        options: field.options || {},
+                        data: data,
+                        fields: fields,
+                        withToken: withToken,
                     })))); }),
                 isEditing && (React.createElement("div", { className: classes.field },
                     React.createElement(Grid, { container: true, spacing: 1 },

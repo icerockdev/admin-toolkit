@@ -29,7 +29,7 @@ var EntityList = withStyles(styles)(function (_a) {
                     visibleFields.map(function (field) { return (React.createElement(TableCell, { key: field.name }, createElement(getEntityFieldRenderer(field.type || typeof entry[field.name]), {
                         label: field.label || field.name,
                         value: entry[field.name],
-                        availableVariants: field.availableVariants || {},
+                        options: field.options || {},
                     }))); }),
                     (canEdit || canView) && (React.createElement(TableCell, { size: "small", align: "right" },
                         React.createElement(ButtonGroup, { variant: "text" },

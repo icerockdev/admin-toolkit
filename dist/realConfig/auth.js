@@ -64,7 +64,6 @@ export var authRequestFn = function (host) { return function (email, password) {
             case 1:
                 auth = _f.sent();
                 if (!auth.data || !(auth.data.success || auth.data.isSuccess)) {
-                    console.log({ auth: auth });
                     throw new Error((_b = (_a = auth.response) === null || _a === void 0 ? void 0 : _a.data) === null || _b === void 0 ? void 0 : _b.message);
                 }
                 return [4 /*yield*/, authGetProfile(host, auth.data.data.accessToken)];

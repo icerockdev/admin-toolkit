@@ -47,7 +47,7 @@ export default (function (host) {
                 label: 'Тип',
                 required: true,
                 filterable: true,
-                availableVariants: (_a = {},
+                options: (_a = {},
                     _a[TYPE_OFFER] = 'Акция',
                     _a[TYPE_NEWS] = 'Новость',
                     _a),

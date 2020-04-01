@@ -36,7 +36,7 @@ export declare const ENTITY_FIELD_RENDERS: {
         handler?: ((val: any) => void) | undefined;
         error?: string | undefined;
         onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-        availableVariants?: Record<any, any> | undefined;
+        options?: Record<any, any> | undefined;
     } & Record<string, any>>;
     phone: FC<{
         label: string;
@@ -63,7 +63,7 @@ export declare const ENTITY_FIELD_RENDERS: {
         isEditing?: boolean | undefined;
         onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
         handler?: ((val: any) => void) | undefined;
-        availableVariants?: Record<any, any> | undefined;
+        options?: Record<any, any> | undefined;
     } & Record<string, any>, string> & import("@material-ui/styles").StyledComponentProps<"label" | "image" | "formControl" | "outlinedInput">>;
 };
 export declare const getEntityFieldRenderer: (type?: string) => FC<any>;
@@ -91,12 +91,13 @@ export interface IEntityField {
     name: string;
     label?: string;
     title?: boolean;
-    type: keyof typeof ENTITY_FIELD_RENDERS;
+    type: keyof typeof ENTITY_FIELD_RENDERS | 'custom';
     sortable?: boolean;
     filterable?: boolean;
     required?: boolean;
     validator?: (val: any) => boolean;
-    availableVariants?: Record<any, any>;
+    options?: Record<any, any>;
+    component?: FC<any>;
     hideInList?: boolean;
     hideInEdit?: boolean;
 }

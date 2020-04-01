@@ -8,7 +8,7 @@ declare type IProps = {
     handler?: (val: any) => void;
     error?: string;
     onClick?: MouseEventHandler<HTMLDivElement>;
-    availableVariants?: Record<any, any>;
+    options?: Record<any, any>;
 } & Record<string, any>;
 declare const EntityFieldSelect: FC<IProps>;
 export { EntityFieldSelect };

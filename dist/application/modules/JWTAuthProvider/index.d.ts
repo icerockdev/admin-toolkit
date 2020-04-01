@@ -16,6 +16,6 @@ export declare class JWTAuthProvider extends AuthProvider {
     }) => void;
     sendAuthRequestCancel: () => void;
     logout: () => void;
-    withToken: (req: any, args: any) => any;
+    withToken: (req: any, args: any) => Promise<any>;
     get isLogged(): boolean;
 }

@@ -2,7 +2,7 @@
 import React, { useCallback } from 'react';
 import { Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 var EntityFieldSelect = function (_a) {
-    var label = _a.label, value = _a.value, handler = _a.handler, error = _a.error, isEditing = _a.isEditing, onClick = _a.onClick, availableVariants = _a.availableVariants;
+    var label = _a.label, value = _a.value, handler = _a.handler, error = _a.error, isEditing = _a.isEditing, onClick = _a.onClick, options = _a.options;
     var onChange = useCallback(function (event) {
         if (!handler)
             return;
@@ -12,7 +12,7 @@ var EntityFieldSelect = function (_a) {
         React.createElement(InputLabel, { htmlFor: label }, label),
         React.createElement(Select, { variant: "outlined", id: label, name: label, label: label, value: !value ? '' : value, onChange: onChange, error: !!error, inputProps: { className: 'select' } },
             React.createElement(MenuItem, { value: "" }, "..."),
-            availableVariants &&
-                Object.keys(availableVariants).map(function (item) { return (React.createElement(MenuItem, { key: item, value: item }, availableVariants[item])); })))) : (React.createElement("div", { onClick: onClick }, availableVariants && availableVariants[value]));
+            options &&
+                Object.keys(options).map(function (item) { return (React.createElement(MenuItem, { key: item, value: item }, options[item])); })))) : (React.createElement("div", { onClick: onClick }, options && options[value]));
 };
 export { EntityFieldSelect };

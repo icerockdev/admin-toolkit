@@ -361,7 +361,8 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function (_a) {
                 var id = _a.match.params.id;
-                return (React.createElement(EntityViewer, { entityName: _this.title, id: id, fields: _this.fields, url: _this.menu.url, errors: _this.editorFieldErrors, onSave: console.log, onResetFieldError: _this.resetFieldError, isEditing: false, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel }));
+                var _b, _c;
+                return (React.createElement(EntityViewer, { entityName: _this.title, id: id, fields: _this.fields, url: _this.menu.url, errors: _this.editorFieldErrors, onSave: function () { }, onResetFieldError: _this.resetFieldError, isEditing: false, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken }));
             });
         },
         enumerable: true,
@@ -372,7 +373,8 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function (_a) {
                 var id = _a.match.params.id;
-                return (React.createElement(EntityViewer, { entityName: _this.title, id: id, fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.updateItem, onResetFieldError: _this.resetFieldError, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, isEditing: true }));
+                var _b, _c;
+                return (React.createElement(EntityViewer, { entityName: _this.title, id: id, fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.updateItem, onResetFieldError: _this.resetFieldError, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, isEditing: true }));
             });
         },
         enumerable: true,
@@ -383,7 +385,8 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function (_a) {
                 var id = _a.match.params.id;
-                return (React.createElement(EntityViewer, { entityName: _this.title, fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.createItem, onResetFieldError: _this.resetFieldError, isEditing: true, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.createEmptyItem, cancelGetItem: _this.getItemsCancel }));
+                var _b, _c;
+                return (React.createElement(EntityViewer, { entityName: _this.title, fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.createItem, onResetFieldError: _this.resetFieldError, isEditing: true, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.createEmptyItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken }));
             });
         },
         enumerable: true,

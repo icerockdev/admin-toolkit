@@ -6,7 +6,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 import React from 'react';
-import { observable, action, reaction, computed } from 'mobx';
+import { observable, action, computed } from 'mobx';
 import { observer } from 'mobx-react';
 import { Notification } from '../../../containers/login/Notification';
 var Notifications = /** @class */ (function () {
@@ -22,7 +22,6 @@ var Notifications = /** @class */ (function () {
             _this.notification.show = false;
         };
         this.showError = function (message) {
-            console.log('INSIDE', message);
             _this.notification.show = true;
             _this.notification.message = message;
             _this.notification.type = 'error';
@@ -32,7 +31,6 @@ var Notifications = /** @class */ (function () {
             _this.notification.message = message;
             _this.notification.type = 'success';
         };
-        reaction(function () { return _this.notification.message; }, function () { return console.log(_this.notification.message); });
     }
     Object.defineProperty(Notifications.prototype, "Output", {
         get: function () {

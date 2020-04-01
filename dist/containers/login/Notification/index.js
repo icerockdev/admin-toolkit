@@ -9,7 +9,6 @@ var Notification = function (_a) {
         for (var _i = 0; _i < arguments.length; _i++) {
             args[_i] = arguments[_i];
         }
-        console.log(args);
         hideNotification();
     }, [hideNotification]);
     return (React.createElement(Snackbar, { anchorOrigin: { vertical: 'bottom', horizontal: 'center' }, key: "bottom,left", open: show, onClose: onClose, autoHideDuration: timeout },

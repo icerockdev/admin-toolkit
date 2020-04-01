@@ -92,7 +92,6 @@ export default new Config({
                     props[_i] = arguments[_i];
                 }
                 return new Promise(function (resolve) {
-                    console.log('Fetching items', props);
                     setTimeout(resolve, 500, {
                         data: {
                             list: [SAMPLE_ENTITY_1, SAMPLE_ENTITY_2],
@@ -103,17 +102,14 @@ export default new Config({
             },
             updateItemsFn: function (_a) {
                 var data = _a.data;
-                console.log('update', { data: data });
                 return Promise.resolve({ error: '', data: data });
             },
             createItemsFn: function (_a) {
                 var data = _a.data;
-                console.log('create', { data: data });
                 return Promise.resolve({ error: '', data: data });
             },
             getItemsFn: function (_a) {
                 var id = _a.id;
-                console.log('get', { id: id });
                 return new Promise(function (resolve) {
                     return setTimeout(resolve, 500, {
                         data: SAMPLE_ENTITY_2,
