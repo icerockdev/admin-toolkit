@@ -108,7 +108,7 @@ const EntityList = withStyles(styles)(
                           label: field.label || field.name,
                           value: entry[field.name],
                           options: field.options || {},
-                          data, // for custom fields
+                          data: entry, // for custom fields
                           fields, // for custom fields
                           withToken, // for custom fields
                         }
