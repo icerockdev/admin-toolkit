@@ -11,8 +11,6 @@
     "@material-ui/lab": "^4.0.0-alpha.41",
     "@material-ui/pickers": "^3.2.10",
     "axios": "^0.19.2",
-    "craco": "^0.0.3",
-    "craco-alias": "^2.1.1",
     "date-fns": "^2.11.1",
     "draftjs-to-html": "^0.9.1",
     "history": "^4.10.1",
@@ -22,9 +20,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-input-mask": "^2.0.4",
-    "react-router-dom": "^5.1.2",
-    "react-scripts": "3.4.1",
-    "typescript": "^3.8.3"
+    "react-router-dom": "^5.1.2"
   },
   "scripts": {
     "start": "craco start",
@@ -66,6 +62,10 @@
     ]
   },
   "devDependencies": {
+    "react-scripts": "3.4.1",
+    "typescript": "^3.8.3",
+    "craco": "^0.0.3",
+    "craco-alias": "^2.1.1",
     "@storybook/addon-actions": "^5.3.17",
     "@storybook/addon-info": "^5.3.17",
     "@storybook/addon-links": "^5.3.17",
