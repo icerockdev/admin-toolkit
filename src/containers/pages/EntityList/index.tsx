@@ -36,6 +36,7 @@ type IProps = WithStyles<typeof styles> & {
   canView: boolean;
   canEdit: boolean;
   onSortChange: (field: string) => void;
+  withToken?: (req: any, args: any) => any;
 };
 
 const EntityList = withStyles(styles)(
@@ -47,6 +48,7 @@ const EntityList = withStyles(styles)(
     url,
     sortBy,
     sortDir,
+    withToken,
     canView,
     canEdit,
     onSortChange,
@@ -97,13 +99,18 @@ const EntityList = withStyles(styles)(
                   {visibleFields.map((field) => (
                     <TableCell key={field.name}>
                       {createElement(
-                        getEntityFieldRenderer(
-                          field.type || typeof entry[field.name]
-                        ),
+                        field.type === 'custom' && field.component
+                          ? field.component
+                          : getEntityFieldRenderer(
+                              field.type || typeof entry[field.name]
+                            ),
                         {
                           label: field.label || field.name,
                           value: entry[field.name],
                           options: field.options || {},
+                          data, // for custom fields
+                          fields, // for custom fields
+                          withToken, // for custom fields
                         }
                       )}
                     </TableCell>

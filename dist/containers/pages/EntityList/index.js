@@ -8,7 +8,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { EntityHeadSortable } from '../../../components/pages/EntityHeadSortable';
 import styles from './styles';
 var EntityList = withStyles(styles)(function (_a) {
-    var classes = _a.classes, isLoading = _a.isLoading, fields = _a.fields, data = _a.data, url = _a.url, sortBy = _a.sortBy, sortDir = _a.sortDir, canView = _a.canView, canEdit = _a.canEdit, onSortChange = _a.onSortChange;
+    var classes = _a.classes, isLoading = _a.isLoading, fields = _a.fields, data = _a.data, url = _a.url, sortBy = _a.sortBy, sortDir = _a.sortDir, withToken = _a.withToken, canView = _a.canView, canEdit = _a.canEdit, onSortChange = _a.onSortChange;
     var visibleFields = useMemo(function () { return fields.filter(function (field) { return !field.hideInList; }); }, [fields]);
     if (isLoading) {
         return (React.createElement("div", { className: classes.loader },
@@ -26,10 +26,15 @@ var EntityList = withStyles(styles)(function (_a) {
                         }),
                         (canView || canEdit) && React.createElement(TableCell, null))),
                 React.createElement(TableBody, null, data.map(function (entry, i) { return (React.createElement(TableRow, { key: i },
-                    visibleFields.map(function (field) { return (React.createElement(TableCell, { key: field.name }, createElement(getEntityFieldRenderer(field.type || typeof entry[field.name]), {
+                    visibleFields.map(function (field) { return (React.createElement(TableCell, { key: field.name }, createElement(field.type === 'custom' && field.component
+                        ? field.component
+                        : getEntityFieldRenderer(field.type || typeof entry[field.name]), {
                         label: field.label || field.name,
                         value: entry[field.name],
                         options: field.options || {},
+                        data: data,
+                        fields: fields,
+                        withToken: withToken,
                     }))); }),
                     (canEdit || canView) && (React.createElement(TableCell, { size: "small", align: "right" },
                         React.createElement(ButtonGroup, { variant: "text" },

@@ -14,6 +14,7 @@ declare type IProps = WithStyles<typeof styles> & {
     canView: boolean;
     canEdit: boolean;
     onSortChange: (field: string) => void;
+    withToken?: (req: any, args: any) => any;
 };
-declare const EntityList: React.ComponentType<Pick<IProps, "canEdit" | "data" | "isLoading" | "url" | "onSortChange" | "fields" | "sortBy" | "sortDir" | "canView"> & import("@material-ui/core").StyledComponentProps<"loader">>;
+declare const EntityList: React.ComponentType<Pick<IProps, "canEdit" | "data" | "isLoading" | "withToken" | "url" | "onSortChange" | "fields" | "sortBy" | "sortDir" | "canView"> & import("@material-ui/core").StyledComponentProps<"loader">>;
 export { EntityList };

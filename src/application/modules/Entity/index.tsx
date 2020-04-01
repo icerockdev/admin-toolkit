@@ -331,6 +331,7 @@ export class Entity extends Page {
         onSortChange={this.setSort}
         canView={this.viewable}
         canEdit={this.editable && this.canEdit}
+        withToken={this.parent?.auth?.withToken}
       />
     ));
   }

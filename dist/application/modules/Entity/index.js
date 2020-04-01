@@ -332,7 +332,10 @@ var Entity = /** @class */ (function (_super) {
     Object.defineProperty(Entity.prototype, "ListBody", {
         get: function () {
             var _this = this;
-            return observer(function () { return (React.createElement(EntityList, { fields: _this.fields, data: _this.data, isLoading: _this.isLoading, url: _this.menu.url, sortBy: _this.sortBy, sortDir: _this.sortDir, onSortChange: _this.setSort, canView: _this.viewable, canEdit: _this.editable && _this.canEdit })); });
+            return observer(function () {
+                var _a, _b;
+                return (React.createElement(EntityList, { fields: _this.fields, data: _this.data, isLoading: _this.isLoading, url: _this.menu.url, sortBy: _this.sortBy, sortDir: _this.sortDir, onSortChange: _this.setSort, canView: _this.viewable, canEdit: _this.editable && _this.canEdit, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken }));
+            });
         },
         enumerable: true,
         configurable: true
