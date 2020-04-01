@@ -5,6 +5,10 @@ import { Theme } from '@material-ui/core';
 export default (theme: Theme) => ({
   wrap: {
     marginBottom: theme.spacing(4),
+
+    '& .MuiFormControl-root': {
+      width: '100%',
+    },
   },
   field: {
     color: '#282f36',
