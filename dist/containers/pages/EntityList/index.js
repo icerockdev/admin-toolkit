@@ -32,7 +32,7 @@ var EntityList = withStyles(styles)(function (_a) {
                         label: field.label || field.name,
                         value: entry[field.name],
                         options: field.options || {},
-                        data: data,
+                        data: entry,
                         fields: fields,
                         withToken: withToken,
                     }))); }),
