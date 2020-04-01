@@ -121,7 +121,7 @@ const Filter = withStyles(styles)(
                 label: field.label || field.name,
                 isEditing: true,
                 handler: setFilterValue,
-                availableVariants: field.availableVariants || {},
+                options: field.options || {},
               })}
             </div>
 

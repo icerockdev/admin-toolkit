@@ -34,6 +34,7 @@ type IProps = WithStyles<typeof styles> & {
   cancelGetItem: () => void;
   onSave: () => void;
   onResetFieldError: (field: string) => void;
+  withToken?: (req: any, args: any) => any;
 };
 
 const EntityViewer = withStyles(styles)(
@@ -53,6 +54,7 @@ const EntityViewer = withStyles(styles)(
       setEditorData,
       getItem,
       cancelGetItem,
+      withToken,
     }: IProps) => {
       const isCreating = useMemo(() => typeof id === 'undefined', [id]);
 
@@ -162,9 +164,11 @@ const EntityViewer = withStyles(styles)(
                     )}
                     <div className="field">
                       {createElement(
-                        getEntityFieldRenderer(
-                          field.type || typeof data[field.name]
-                        ),
+                        field.type === 'custom' && field.component
+                          ? field.component
+                          : getEntityFieldRenderer(
+                              field.type || typeof data[field.name]
+                            ),
                         {
                           value: Object.prototype.hasOwnProperty.call(
                             data,
@@ -176,7 +180,10 @@ const EntityViewer = withStyles(styles)(
                           error: errors[field.name],
                           isEditing,
                           handler: onFieldChange(field.name),
-                          availableVariants: field.availableVariants || {},
+                          options: field.options || {},
+                          data, // for custom fields
+                          fields, // for custom fields
+                          withToken, // for custom fields
                         }
                       )}
                     </div>

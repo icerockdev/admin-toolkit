@@ -60,7 +60,7 @@ export default (host: string) =>
         sortable: true,
         filterable: true,
         hideInEdit: true,
-        availableVariants: {
+        options: {
           [CUSTOMER_STATUS_ACTIVE]: 'Активен',
           [CUSTOMER_STATUS_BLOCKED]: 'Заблокирован',
         },
@@ -86,7 +86,7 @@ export default (host: string) =>
         sortable: true,
         required: true,
         filterable: true,
-        availableVariants: {
+        options: {
           [ADMIN_ROLE_ADMIN]: 'Главный Администратор',
           [ADMIN_ROLE_EDITOR]: 'Редактор Контента',
           [ADMIN_ROLE_MANAGER]: 'Менеджер Заявок',

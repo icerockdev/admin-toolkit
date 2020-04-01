@@ -382,6 +382,7 @@ export class Entity extends Page {
           data={this.editorData}
           getItem={this.getItem}
           cancelGetItem={this.getItemsCancel}
+          withToken={this.parent?.auth?.withToken}
         />
       )
     );
@@ -408,6 +409,7 @@ export class Entity extends Page {
           data={this.editorData}
           getItem={this.getItem}
           cancelGetItem={this.getItemsCancel}
+          withToken={this.parent?.auth?.withToken}
           isEditing
         />
       )
@@ -435,6 +437,7 @@ export class Entity extends Page {
           data={this.editorData}
           getItem={this.createEmptyItem}
           cancelGetItem={this.getItemsCancel}
+          withToken={this.parent?.auth?.withToken}
         />
       )
     );

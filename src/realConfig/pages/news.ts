@@ -49,7 +49,7 @@ export default (host: string) =>
         label: 'Тип',
         required: true,
         filterable: true,
-        availableVariants: {
+        options: {
           [TYPE_OFFER]: 'Акция',
           [TYPE_NEWS]: 'Новость',
         },

@@ -10,7 +10,7 @@ type IProps = {
   handler?: (val: any) => void;
   error?: string;
   onClick?: MouseEventHandler<HTMLDivElement>;
-  availableVariants?: Record<any, any>;
+  options?: Record<any, any>;
 } & Record<string, any>;
 
 const EntityFieldSelect: FC<IProps> = ({
@@ -20,7 +20,7 @@ const EntityFieldSelect: FC<IProps> = ({
   error,
   isEditing,
   onClick,
-  availableVariants,
+  options,
 }) => {
   const onChange = useCallback(
     (event) => {
@@ -47,16 +47,16 @@ const EntityFieldSelect: FC<IProps> = ({
       >
         <MenuItem value="">...</MenuItem>
 
-        {availableVariants &&
-          Object.keys(availableVariants).map((item) => (
+        {options &&
+          Object.keys(options).map((item) => (
             <MenuItem key={item} value={item}>
-              {availableVariants[item]}
+              {options[item]}
             </MenuItem>
           ))}
       </Select>
     </FormControl>
   ) : (
-    <div onClick={onClick}>{availableVariants && availableVariants[value]}</div>
+    <div onClick={onClick}>{options && options[value]}</div>
   );
 };
 

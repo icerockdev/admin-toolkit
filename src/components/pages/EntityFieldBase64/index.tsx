@@ -25,7 +25,7 @@ type IProps = WithStyles<typeof styles> & {
   isEditing?: boolean;
   onClick?: MouseEventHandler<HTMLDivElement>;
   handler?: (val: any) => void;
-  availableVariants?: Record<any, any>;
+  options?: Record<any, any>;
 } & Record<string, any>;
 
 const EntityFieldBase64Image = withStyles(styles)(
@@ -37,7 +37,7 @@ const EntityFieldBase64Image = withStyles(styles)(
     error,
     isEditing,
     onClick,
-    availableVariants,
+    options,
   }: IProps) => {
     const [innerError, setInnerError] = useState('');
 
@@ -61,25 +61,19 @@ const EntityFieldBase64Image = withStyles(styles)(
 
         if (!file) return;
 
-        if (
-          availableVariants?.maxSize &&
-          file.size > availableVariants.maxSize
-        ) {
+        if (options?.maxSize && file.size > options.maxSize) {
           setInnerError('Файл слишком большой!');
           return;
         }
 
-        if (
-          availableVariants?.maxSize &&
-          file.size < availableVariants.minSize
-        ) {
+        if (options?.maxSize && file.size < options.minSize) {
           setInnerError('Файл слишком маленький!');
           return;
         }
 
         if (
-          availableVariants?.allowedMimeType &&
-          !availableVariants.allowedMimeType.includes(file.type)
+          options?.allowedMimeType &&
+          !options.allowedMimeType.includes(file.type)
         ) {
           setInnerError('Тип файла не поддерживается!');
           return;
@@ -93,9 +87,9 @@ const EntityFieldBase64Image = withStyles(styles)(
         img.onload = () => {
           const { naturalWidth, naturalHeight } = img;
 
-          if (availableVariants && availableVariants.minViewBox) {
-            const minWidth = availableVariants.minViewBox.width;
-            const minHeight = availableVariants.minViewBox.height;
+          if (options && options.minViewBox) {
+            const minWidth = options.minViewBox.width;
+            const minHeight = options.minViewBox.height;
 
             if (naturalWidth < minWidth || naturalHeight < minHeight) {
               setInnerError(
@@ -105,9 +99,9 @@ const EntityFieldBase64Image = withStyles(styles)(
             }
           }
 
-          if (availableVariants?.maxViewBox) {
-            let maxWidth = availableVariants.maxViewBox.width;
-            let maxHeight = availableVariants.maxViewBox.height;
+          if (options?.maxViewBox) {
+            let maxWidth = options.maxViewBox.width;
+            let maxHeight = options.maxViewBox.height;
             if (naturalWidth > maxWidth || naturalHeight > maxHeight) {
               setInnerError(
                 `Размер картинки не должен быть более ${maxWidth}x${maxHeight} пикселей`
@@ -175,11 +169,7 @@ const EntityFieldBase64Image = withStyles(styles)(
               type="file"
               onChange={loadImage}
               style={{ position: 'absolute' }}
-              accept={
-                availableVariants && availableVariants.mimes
-                  ? availableVariants.mimes.join(', ')
-                  : ''
-              }
+              accept={options && options.mimes ? options.mimes.join(', ') : ''}
             />
           </label>
           {(innerError || error) && (

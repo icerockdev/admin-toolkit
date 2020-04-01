@@ -57,7 +57,7 @@ export default (host: string) =>
         type: 'select',
         filterable: true,
         sortable: true,
-        availableVariants: {
+        options: {
           [VEHICLE_INQUIRY_TYPE_BUY]: 'Покупка А/М',
           [VEHICLE_INQUIRY_TYPE_DRIVE]: 'Тест-драйв',
         },
@@ -75,7 +75,7 @@ export default (host: string) =>
         label: 'Статус',
         required: true,
         sortable: true,
-        availableVariants: {
+        options: {
           [VEHICLE_INQUIRY_STATUS_NEW]: 'Новая',
           [VEHICLE_INQUIRY_STATUS_IN_PROGRESS]: 'Обрабатывается менеджером',
           [VEHICLE_INQUIRY_STATUS_TEST_DRIVE_ASSIGNED]: 'Назначен тест-драйв',

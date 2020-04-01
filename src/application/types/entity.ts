@@ -8,7 +8,7 @@ import { EntityFieldSelect } from '~/components/pages/EntityFieldSelect';
 import { EntityFieldPhone } from '~/components/pages/EntityFieldPhone';
 import { EntityFieldRichText } from '~/components/pages/EntityFieldRichText';
 import { EntityFieldBase64Image } from '~/components/pages/EntityFieldBase64';
-import { FC } from 'react';
+import { FC, ReactElement } from 'react';
 
 export const ENTITY_FIELD_RENDERS = {
   string: EntityFieldString,
@@ -62,12 +62,13 @@ export interface IEntityField {
   name: string;
   label?: string;
   title?: boolean;
-  type: keyof typeof ENTITY_FIELD_RENDERS;
+  type: keyof typeof ENTITY_FIELD_RENDERS | 'custom';
   sortable?: boolean;
   filterable?: boolean;
   required?: boolean;
   validator?: (val: any) => boolean;
-  availableVariants?: Record<any, any>;
+  options?: Record<any, any>;
+  component?: FC<any>;
 
   hideInList?: boolean;
   hideInEdit?: boolean;

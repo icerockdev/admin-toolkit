@@ -4,6 +4,8 @@ import { Entity } from '~/application';
 import { ADMIN_ROLE_ADMIN, ADMIN_ROLE_MANAGER } from '../roles';
 
 import { fetchItemsFn, getItemsFn, updateItemsFn, createItemsFn } from '../api';
+import { RegionSelectField } from '../components/RegionSelectField';
+import { CitySelectField } from '../components/CitySelectField';
 
 export const TYPE_OFFER = 10;
 export const TYPE_NEWS = 20;
@@ -82,7 +84,7 @@ export default (host: string) =>
         required: true,
         sortable: true,
         filterable: false,
-        availableVariants: {
+        options: {
           [CUSTOMER_STATUS_ACTIVE]: 'Активен',
           [CUSTOMER_STATUS_BLOCKED]: 'Заблокирован',
           [CUSTOMER_STATUS_REGISTRATION]: 'Не подтвержден',
@@ -124,16 +126,24 @@ export default (host: string) =>
         hideInList: true,
       },
       {
-        name: 'region',
-        type: 'string', // TODO: should be reference field
-        label: 'Область',
+        name: 'regionId',
+        type: 'custom', // TODO: should be reference field
+        label: 'Область/Край',
         hideInList: true,
+        component: RegionSelectField,
+        options: {
+          getRegionsUrl: `${host}/admin/v1/location/region`,
+        },
       },
       {
-        name: 'city',
-        type: 'string', // TODO: should be reference field
+        name: 'cityId',
+        type: 'custom', // TODO: should be reference field
         label: 'Город',
         hideInList: true,
+        component: CitySelectField,
+        options: {
+          getRegionsUrl: `${host}/admin/v1/location/region`,
+        },
       },
     ],
     fetchItemsFn,
