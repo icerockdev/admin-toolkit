@@ -4,7 +4,7 @@ import React, { MouseEventHandler } from 'react';
 import { WithStyles } from '@material-ui/core';
 import styles from '../styles';
 declare type IProps = WithStyles<typeof styles> & {
-    onForgotScreenClick: MouseEventHandler;
+    onForgotScreenClick?: MouseEventHandler;
     onSubmit: ({ email, password }: {
         email: string;
         password: string;

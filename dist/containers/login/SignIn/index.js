@@ -21,7 +21,7 @@ var SignInUnstyled = function (_a) {
                 React.createElement("form", { noValidate: true, onSubmit: onSubmitCapture },
                     React.createElement(TextField, { variant: "outlined", margin: "normal", required: true, fullWidth: true, id: "email", label: "Email", name: "email", className: classes.marginTop, autoComplete: "email", defaultValue: email, onChange: onEmailChange, autoFocus: true }),
                     React.createElement(TextField, { variant: "outlined", margin: "normal", required: true, fullWidth: true, name: "password", label: "\u041F\u0430\u0440\u043E\u043B\u044C", type: "password", id: "password", className: classes.marginTop, defaultValue: password, onChange: onPasswordChange, autoComplete: "current-password", InputProps: {
-                            endAdornment: (React.createElement(InputAdornment, { position: "end", onClick: onForgotScreenClick, className: classes.forgot }, "\u0417\u0430\u0431\u044B\u043B\u0438 \u043F\u0430\u0440\u043E\u043B\u044C?")),
+                            endAdornment: onForgotScreenClick ? (React.createElement(InputAdornment, { position: "end", onClick: onForgotScreenClick, className: classes.forgot }, "\u0417\u0430\u0431\u044B\u043B\u0438 \u043F\u0430\u0440\u043E\u043B\u044C?")) : null,
                         } }),
                     React.createElement(Button, { type: "submit", fullWidth: true, variant: "contained", color: "primary", className: classes.marginTop, disabled: !email.length || !password.length }, "\u0412\u043E\u0439\u0442\u0438"))))));
 };

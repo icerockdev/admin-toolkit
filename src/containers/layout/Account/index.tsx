@@ -1,6 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { FC, useCallback, useState, useRef } from 'react';
+import React, { FC, useCallback, useState, useRef, useMemo } from 'react';
 import {
   IconButton,
   WithStyles,
@@ -15,16 +15,25 @@ import { Link } from 'react-router-dom';
 
 type IProps = WithStyles<typeof styles> & {
   email?: string;
+  username?: string;
   role?: string;
   onLogout?: () => void;
 };
 
-const AccountUnstyled: FC<IProps> = ({ classes, email, role, onLogout }) => {
+const AccountUnstyled: FC<IProps> = ({
+  classes,
+  email,
+  username,
+  role,
+  onLogout,
+}) => {
   const ref = useRef<HTMLDivElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const onMenuOpen = useCallback(() => setIsMenuOpen(true), [setIsMenuOpen]);
   const onMenuClose = useCallback(() => setIsMenuOpen(false), [setIsMenuOpen]);
+
+  const name = useMemo(() => email || username || '', [email, username]);
 
   return (
     <div className={classes.account} ref={ref}>
@@ -36,7 +45,7 @@ const AccountUnstyled: FC<IProps> = ({ classes, email, role, onLogout }) => {
         color="inherit"
       >
         <span className={classes.accountCircle}>
-          {(email && email.charAt(0)) || ''}
+          {(name && name.charAt(0)) || ''}
         </span>
       </IconButton>
 
@@ -49,7 +58,7 @@ const AccountUnstyled: FC<IProps> = ({ classes, email, role, onLogout }) => {
       >
         <MenuItem>
           <div>
-            {email && <Typography component="div">{email}</Typography>}
+            {name && <Typography component="div">{name}</Typography>}
             {role && (
               <Typography
                 component="span"

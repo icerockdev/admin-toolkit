@@ -22,7 +22,7 @@ import {
 import styles from '../styles';
 
 type IProps = WithStyles<typeof styles> & {
-  onForgotScreenClick: MouseEventHandler;
+  onForgotScreenClick?: MouseEventHandler;
   onSubmit: ({ email, password }: { email: string; password: string }) => void;
 };
 
@@ -42,12 +42,12 @@ const SignInUnstyled: FC<IProps> = ({
     [email, password, onSubmit]
   );
 
-  const onEmailChange = useCallback(event => setEmail(event.target.value), [
+  const onEmailChange = useCallback((event) => setEmail(event.target.value), [
     setEmail,
   ]);
 
   const onPasswordChange = useCallback(
-    event => setPassword(event.target.value),
+    (event) => setPassword(event.target.value),
     [setPassword]
   );
 
@@ -89,7 +89,7 @@ const SignInUnstyled: FC<IProps> = ({
               onChange={onPasswordChange}
               autoComplete="current-password"
               InputProps={{
-                endAdornment: (
+                endAdornment: onForgotScreenClick ? (
                   <InputAdornment
                     position="end"
                     onClick={onForgotScreenClick}
@@ -97,7 +97,7 @@ const SignInUnstyled: FC<IProps> = ({
                   >
                     Забыли пароль?
                   </InputAdornment>
-                ),
+                ) : null,
               }}
             />
 

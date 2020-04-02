@@ -8,7 +8,7 @@ import { Account } from '../Account';
 
 type IProps = WithStyles<typeof styles> & {
   logo?: { url?: string; title?: string };
-  account?: { email?: string; role?: string };
+  account?: { email?: string; username?: string; role?: string };
   links: { name: string; url: string }[];
   onLogout?: () => void;
 };
@@ -47,6 +47,7 @@ const NavigationUnstyled: FC<IProps> = ({
         {account && (
           <Account
             email={account.email}
+            username={account.username}
             role={account.role}
             onLogout={onLogout}
           />

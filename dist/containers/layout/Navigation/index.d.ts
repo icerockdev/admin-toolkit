@@ -10,6 +10,7 @@ declare type IProps = WithStyles<typeof styles> & {
     };
     account?: {
         email?: string;
+        username?: string;
         role?: string;
     };
     links: {

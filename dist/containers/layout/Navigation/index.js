@@ -14,7 +14,7 @@ var NavigationUnstyled = function (_a) {
                 var name = _a.name, url = _a.url;
                 return (React.createElement(NavLink, { key: name, className: classes.link, to: url }, name));
             }))),
-            account && (React.createElement(Account, { email: account.email, role: account.role, onLogout: onLogout })))));
+            account && (React.createElement(Account, { email: account.email, username: account.username, role: account.role, onLogout: onLogout })))));
 };
 var Navigation = withStyles(styles, { withTheme: true })(NavigationUnstyled);
 export { Navigation };
