@@ -1,4 +1,4 @@
-# Icerockdev Admin Toolkit
+#  IceRock Development Admin Toolkit
 This is a tool for building admin panels, that can be installed as npm dependency.
 
 [DEMO](https://icerockdev.github.io/admin-toolkit/ "DEMO")
