@@ -9,7 +9,7 @@ var AccountUnstyled = function (_a) {
     var _b = useState(false), isMenuOpen = _b[0], setIsMenuOpen = _b[1];
     var onMenuOpen = useCallback(function () { return setIsMenuOpen(true); }, [setIsMenuOpen]);
     var onMenuClose = useCallback(function () { return setIsMenuOpen(false); }, [setIsMenuOpen]);
-    var name = useMemo(function () { return (email || username || ''); }, [email, username]);
+    var name = useMemo(function () { return email || username || ''; }, [email, username]);
     return (React.createElement("div", { className: classes.account, ref: ref },
         React.createElement(IconButton, { "aria-label": "account of current user", "aria-controls": "menu-appbar", "aria-haspopup": "true", onClick: onMenuOpen, color: "inherit" },
             React.createElement("span", { className: classes.accountCircle }, (name && name.charAt(0)) || '')),

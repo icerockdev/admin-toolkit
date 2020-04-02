@@ -45,9 +45,15 @@ const Application = withStyles(styles)(
       [config.auth?.roleTitles, config.auth?.user?.role]
     );
 
-    const onForgotPassword = useCallback(() => {
-      config.history.push('/restore');
-    }, [config.history]);
+    const onForgotPassword = useMemo(
+      () =>
+        config.auth?.authPasswRestoreFn
+          ? () => {
+              config.history.push('/restore');
+            }
+          : undefined,
+      [config.history, config.auth, config.auth?.authPasswRestoreFn]
+    );
 
     if (!config.auth?.isLogged && config.auth?.sendAuthRequest) {
       return (
@@ -88,6 +94,7 @@ const Application = withStyles(styles)(
               logo={{ url: config.logo, title: config.title }}
               account={{
                 email: config.auth?.user?.email || '',
+                username: config.auth?.user?.username || '',
                 role,
               }}
               onLogout={config.auth?.logout}
