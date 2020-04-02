@@ -11,10 +11,10 @@ export declare class Entity extends Page {
     filters: IEntityProps['filters'];
     editable: IEntityProps['editable'];
     viewable: IEntityProps['viewable'];
+    getItemsFn: IEntityProps['getItemsFn'];
     fetchItemsFn: IEntityProps['fetchItemsFn'];
     updateItemsFn: IEntityProps['updateItemsFn'];
     createItemsFn: IEntityProps['createItemsFn'];
-    getItemsFn: IEntityProps['getItemsFn'];
     isLoading: boolean;
     itemsPerPage: number[];
     items: number;
@@ -47,6 +47,8 @@ export declare class Entity extends Page {
     getItemsCancel: () => void;
     setEditorData: (data: Record<string, any>) => void;
     createEmptyItem: () => void;
+    get canEdit(): boolean;
+    get canCreate(): boolean;
     onMount: () => void;
     onUnmount: () => void;
     get ListHead(): () => JSX.Element;

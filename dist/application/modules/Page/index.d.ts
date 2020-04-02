@@ -11,7 +11,5 @@ export declare class Page {
     onMount: (page: Page) => void;
     onUnmount: (page: Page) => void;
     get canList(): boolean;
-    get canEdit(): boolean;
-    get canCreate(): boolean;
     get output(): () => JSX.Element;
 }

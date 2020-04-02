@@ -29,10 +29,10 @@ export class Entity extends Page {
   };
   @observable editable: IEntityProps['editable'] = false;
   @observable viewable: IEntityProps['viewable'] = false;
+  @observable getItemsFn: IEntityProps['getItemsFn'] = undefined;
   @observable fetchItemsFn: IEntityProps['fetchItemsFn'] = undefined;
   @observable updateItemsFn: IEntityProps['updateItemsFn'] = undefined;
   @observable createItemsFn: IEntityProps['createItemsFn'] = undefined;
-  @observable getItemsFn: IEntityProps['getItemsFn'] = undefined;
 
   // Built-in
   @observable isLoading: boolean = true;
@@ -292,6 +292,30 @@ export class Entity extends Page {
   createEmptyItem = () => {
     this.editorData = {};
   };
+
+  @computed
+  get canEdit() {
+    return !!(
+      !this.roles ||
+      (this.parent?.auth?.user?.role &&
+        (this.roles?.all?.includes(this.parent.auth?.user?.role.toString()) ||
+          this.roles?.update?.includes(
+            this.parent.auth?.user?.role.toString()
+          )))
+    );
+  }
+
+  @computed
+  get canCreate() {
+    return !!(
+      !this.roles ||
+      (this.parent?.auth?.user?.role &&
+        (this.roles?.all?.includes(this.parent.auth?.user?.role.toString()) ||
+          this.roles?.create?.includes(
+            this.parent.auth?.user?.role.toString()
+          )))
+    );
+  }
 
   @action
   onMount = () => {

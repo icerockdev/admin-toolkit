@@ -81,10 +81,10 @@ var Entity = /** @class */ (function (_super) {
         };
         _this.editable = false;
         _this.viewable = false;
+        _this.getItemsFn = undefined;
         _this.fetchItemsFn = undefined;
         _this.updateItemsFn = undefined;
         _this.createItemsFn = undefined;
-        _this.getItemsFn = undefined;
         // Built-in
         _this.isLoading = true;
         _this.itemsPerPage = [5, 10, 15, 25, 50];
@@ -321,6 +321,26 @@ var Entity = /** @class */ (function (_super) {
         reaction(function () { return [_this.page, _this.items, _this.sortBy, _this.sortDir]; }, _this.fetchItems);
         return _this;
     }
+    Object.defineProperty(Entity.prototype, "canEdit", {
+        get: function () {
+            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
+            return !!(!this.roles ||
+                (((_c = (_b = (_a = this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.user) === null || _c === void 0 ? void 0 : _c.role) &&
+                    (((_e = (_d = this.roles) === null || _d === void 0 ? void 0 : _d.all) === null || _e === void 0 ? void 0 : _e.includes((_g = (_f = this.parent.auth) === null || _f === void 0 ? void 0 : _f.user) === null || _g === void 0 ? void 0 : _g.role.toString())) || ((_j = (_h = this.roles) === null || _h === void 0 ? void 0 : _h.update) === null || _j === void 0 ? void 0 : _j.includes((_l = (_k = this.parent.auth) === null || _k === void 0 ? void 0 : _k.user) === null || _l === void 0 ? void 0 : _l.role.toString())))));
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Entity.prototype, "canCreate", {
+        get: function () {
+            var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
+            return !!(!this.roles ||
+                (((_c = (_b = (_a = this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.user) === null || _c === void 0 ? void 0 : _c.role) &&
+                    (((_e = (_d = this.roles) === null || _d === void 0 ? void 0 : _d.all) === null || _e === void 0 ? void 0 : _e.includes((_g = (_f = this.parent.auth) === null || _f === void 0 ? void 0 : _f.user) === null || _g === void 0 ? void 0 : _g.role.toString())) || ((_j = (_h = this.roles) === null || _h === void 0 ? void 0 : _h.create) === null || _j === void 0 ? void 0 : _j.includes((_l = (_k = this.parent.auth) === null || _k === void 0 ? void 0 : _k.user) === null || _l === void 0 ? void 0 : _l.role.toString())))));
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Entity.prototype, "ListHead", {
         get: function () {
             var _this = this;
@@ -424,6 +444,9 @@ var Entity = /** @class */ (function (_super) {
     ], Entity.prototype, "viewable", void 0);
     __decorate([
         observable
+    ], Entity.prototype, "getItemsFn", void 0);
+    __decorate([
+        observable
     ], Entity.prototype, "fetchItemsFn", void 0);
     __decorate([
         observable
@@ -431,9 +454,6 @@ var Entity = /** @class */ (function (_super) {
     __decorate([
         observable
     ], Entity.prototype, "createItemsFn", void 0);
-    __decorate([
-        observable
-    ], Entity.prototype, "getItemsFn", void 0);
     __decorate([
         observable
     ], Entity.prototype, "isLoading", void 0);
@@ -506,6 +526,12 @@ var Entity = /** @class */ (function (_super) {
     __decorate([
         action
     ], Entity.prototype, "createEmptyItem", void 0);
+    __decorate([
+        computed
+    ], Entity.prototype, "canEdit", null);
+    __decorate([
+        computed
+    ], Entity.prototype, "canCreate", null);
     __decorate([
         action
     ], Entity.prototype, "onMount", void 0);

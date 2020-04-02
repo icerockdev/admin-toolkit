@@ -2,12 +2,7 @@
 
 import { Config } from '../modules/Config';
 export interface IPageProps {
-    roles?: {
-        all?: string[];
-        list?: string[];
-        update?: string[];
-        create?: string[];
-    };
+    roles?: Record<string, string[]>;
     parent: Config;
     title: string;
     menu: {
