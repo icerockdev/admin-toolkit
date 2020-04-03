@@ -55,6 +55,7 @@ new AuthProvider({
       error: '',
     })
   ),
+  persist: true, //store beetween sessions
 });
 ```
 

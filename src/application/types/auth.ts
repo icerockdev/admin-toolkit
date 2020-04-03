@@ -22,8 +22,8 @@ export interface IAuthProviderProps {
   };
 
   api: Record<string, { url: string; method: string }>;
-
   roleTitles: Record<any, string>;
+  persist: boolean;
 
   authRequestFn?: (
     email: string,

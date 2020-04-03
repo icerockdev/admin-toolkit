@@ -2,7 +2,7 @@
 
 // import React from 'react';
 import { EMPTY_USER, IAuthProviderProps } from '~/application/types/auth';
-import { computed, observable, action } from 'mobx';
+import { computed, observable, action, reaction, toJS } from 'mobx';
 import { flow } from 'mobx';
 import { CancellablePromise } from 'mobx/lib/api/flow';
 import { Config } from '../Config';
@@ -14,10 +14,21 @@ export class AuthProvider {
   @observable authRequestFn?: IAuthProviderProps['authRequestFn'];
   @observable authPasswRestoreFn?: IAuthProviderProps['authPasswRestoreFn'];
   @observable roleTitles?: Record<any, string>;
+  @observable persist?: IAuthProviderProps['persist'] = true;
 
   constructor(fields?: Partial<IAuthProviderProps>) {
     if (fields) {
       Object.assign(this, fields);
+    }
+
+    if (this.persist) {
+      const user = this.getPersistedCredentials();
+
+      if (user) {
+        this.user = { ...EMPTY_USER, ...user };
+      }
+
+      reaction(() => this.user, this.persistCredentials);
     }
   }
 
@@ -105,6 +116,22 @@ export class AuthProvider {
     ) {
       this.sendAuthPasswRestoreInstance.cancel();
     }
+  };
+
+  getPersistedCredentials = (): IAuthProviderProps['user'] => {
+    try {
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+
+      if (typeof user != 'object') return {};
+
+      return user;
+    } catch (e) {
+      return {};
+    }
+  };
+
+  persistCredentials = () => {
+    localStorage.setItem('user', JSON.stringify(this.user));
   };
 
   @action
