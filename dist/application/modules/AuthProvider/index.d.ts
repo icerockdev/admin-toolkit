@@ -9,6 +9,7 @@ export declare class AuthProvider {
     authRequestFn?: IAuthProviderProps['authRequestFn'];
     authPasswRestoreFn?: IAuthProviderProps['authPasswRestoreFn'];
     roleTitles?: Record<any, string>;
+    persist?: IAuthProviderProps['persist'];
     constructor(fields?: Partial<IAuthProviderProps>);
     isLoading: boolean;
     error: string;
@@ -23,6 +24,14 @@ export declare class AuthProvider {
         email: string;
     }) => void;
     sendAuthPasswRestoreCancel: () => void;
+    getPersistedCredentials: () => {
+        id?: number | undefined;
+        email?: string | undefined;
+        username?: string | undefined;
+        role?: string | undefined;
+        token?: string | undefined;
+    };
+    persistCredentials: () => void;
     logout: () => void;
     withToken: (req: any, args: any) => any;
     get isLogged(): boolean;

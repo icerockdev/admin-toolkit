@@ -17,6 +17,7 @@ export interface IAuthProviderProps {
         method: string;
     }>;
     roleTitles: Record<any, string>;
+    persist: boolean;
     authRequestFn?: (email: string, password: string) => Promise<{
         user: IAuthProviderProps['user'];
         error: string;

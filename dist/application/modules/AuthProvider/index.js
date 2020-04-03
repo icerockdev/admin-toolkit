@@ -45,12 +45,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 // import React from 'react';
 import { EMPTY_USER } from '../../types/auth';
-import { computed, observable, action } from 'mobx';
+import { computed, observable, action, reaction } from 'mobx';
 import { flow } from 'mobx';
 var AuthProvider = /** @class */ (function () {
     function AuthProvider(fields) {
         var _this = this;
         this.user = EMPTY_USER;
+        this.persist = true;
         // Built-in
         this.isLoading = false;
         this.error = '';
@@ -135,6 +136,20 @@ var AuthProvider = /** @class */ (function () {
                 _this.sendAuthPasswRestoreInstance.cancel();
             }
         };
+        this.getPersistedCredentials = function () {
+            try {
+                var user = JSON.parse(localStorage.getItem('user') || '{}');
+                if (typeof user != 'object')
+                    return {};
+                return user;
+            }
+            catch (e) {
+                return {};
+            }
+        };
+        this.persistCredentials = function () {
+            localStorage.setItem('user', JSON.stringify(_this.user));
+        };
         this.logout = function () {
             _this.user = EMPTY_USER;
         };
@@ -143,6 +158,13 @@ var AuthProvider = /** @class */ (function () {
         };
         if (fields) {
             Object.assign(this, fields);
+        }
+        if (this.persist) {
+            var user = this.getPersistedCredentials();
+            if (user) {
+                this.user = __assign(__assign({}, EMPTY_USER), user);
+            }
+            reaction(function () { return _this.user; }, this.persistCredentials);
         }
     }
     Object.defineProperty(AuthProvider.prototype, "isLogged", {
@@ -167,6 +189,9 @@ var AuthProvider = /** @class */ (function () {
     __decorate([
         observable
     ], AuthProvider.prototype, "roleTitles", void 0);
+    __decorate([
+        observable
+    ], AuthProvider.prototype, "persist", void 0);
     __decorate([
         observable
     ], AuthProvider.prototype, "isLoading", void 0);
