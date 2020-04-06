@@ -95,8 +95,8 @@ export default new Config({
                     sortable: true,
                     options: {
                         accuracy: 4,
-                    }
-                }
+                    },
+                },
             ],
             fetchItemsFn: function () {
                 var props = [];

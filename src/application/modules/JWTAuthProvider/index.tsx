@@ -5,7 +5,7 @@ import {
   IAuthProviderProps,
   AUTH_ERRORS,
 } from '~/application/types/auth';
-import { computed, observable, action, reaction } from 'mobx';
+import { computed, observable, action, reaction, toJS } from 'mobx';
 import { flow } from 'mobx';
 import { AuthProvider } from '../AuthProvider';
 import { Unwrap } from '~/application/types/common';
@@ -29,7 +29,20 @@ export class JWTAuthProvider extends AuthProvider {
   constructor(fields?: Partial<IAuthProviderProps>) {
     super(fields);
 
-    reaction(() => this.tokens, this.persistCredentials);
+    if (this.persist) {
+      const { user, tokens } = this.getPersistedCredentials();
+
+      if (user) {
+        this.user = user;
+      }
+
+      if (tokens) {
+        this.tokens = tokens;
+      }
+
+      reaction(() => this.tokens, this.persistTokens);
+      reaction(() => this.user, this.persistCredentials);
+    }
   }
 
   @action
@@ -92,7 +105,7 @@ export class JWTAuthProvider extends AuthProvider {
 
   getPersistedCredentials = (): {
     user?: IAuthProviderProps['user'];
-    tokens?: IAuthProviderProps['user'];
+    tokens?: Record<string, string>;
   } => {
     try {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -108,6 +121,9 @@ export class JWTAuthProvider extends AuthProvider {
 
   persistCredentials = () => {
     localStorage.setItem('user', JSON.stringify(this.user));
+  };
+
+  persistTokens = () => {
     localStorage.setItem('tokens', JSON.stringify(this.tokens));
   };
 

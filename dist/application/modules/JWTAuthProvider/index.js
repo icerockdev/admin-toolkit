@@ -144,9 +144,21 @@ var JWTAuthProvider = /** @class */ (function (_super) {
         };
         _this.persistCredentials = function () {
             localStorage.setItem('user', JSON.stringify(_this.user));
+        };
+        _this.persistTokens = function () {
             localStorage.setItem('tokens', JSON.stringify(_this.tokens));
         };
-        reaction(function () { return _this.tokens; }, _this.persistCredentials);
+        if (_this.persist) {
+            var _a = _this.getPersistedCredentials(), user = _a.user, tokens = _a.tokens;
+            if (user) {
+                _this.user = user;
+            }
+            if (tokens) {
+                _this.tokens = tokens;
+            }
+            reaction(function () { return _this.tokens; }, _this.persistTokens);
+            reaction(function () { return _this.user; }, _this.persistCredentials);
+        }
         return _this;
     }
     Object.defineProperty(JWTAuthProvider.prototype, "isLogged", {

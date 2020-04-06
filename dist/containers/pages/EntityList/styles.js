@@ -9,6 +9,6 @@ export default (function (theme) { return ({
     table: {
         '& td, & th': {
             padding: theme.spacing(),
-        }
-    }
+        },
+    },
 }); });
