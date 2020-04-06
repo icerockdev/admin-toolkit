@@ -4,7 +4,6 @@
 import { IEntityProps, ENTITY_SORT_DIRS } from '../../types/entity';
 import { Page } from '../Page';
 import { CancellablePromise } from 'mobx/lib/api/flow';
-import { RouteComponentProps } from 'react-router-dom';
 export declare class Entity extends Page {
     api: IEntityProps['api'];
     fields: IEntityProps['fields'];
@@ -55,14 +54,12 @@ export declare class Entity extends Page {
     get ListBody(): () => JSX.Element;
     get ListFooter(): () => JSX.Element;
     get List(): () => JSX.Element;
-    get Viewer(): ({ match: { params: { id }, }, }: RouteComponentProps<{
+    get Viewer(): ({ id }: {
         id: string;
-    }, import("react-router").StaticContext, import("history").History.PoorMansUnknown>) => JSX.Element;
-    get Editor(): ({ match: { params: { id }, }, }: RouteComponentProps<{
+    }) => JSX.Element;
+    get Editor(): ({ id }: {
         id: string;
-    }, import("react-router").StaticContext, import("history").History.PoorMansUnknown>) => JSX.Element;
-    get Creator(): ({ match: { params: { id }, }, }: RouteComponentProps<{
-        id: string;
-    }, import("react-router").StaticContext, import("history").History.PoorMansUnknown>) => JSX.Element;
+    }) => JSX.Element;
+    get Creator(): () => JSX.Element;
     get output(): () => JSX.Element;
 }

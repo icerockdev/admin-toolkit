@@ -10,12 +10,12 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import React, { useMemo, createElement, useEffect, useCallback } from 'react';
+import React, { useMemo, useEffect, useCallback } from 'react';
 import { Breadcrumbs, Typography, withStyles, Link, Paper, Grid, Button, CircularProgress, } from '@material-ui/core';
 import styles from './styles';
-import { getEntityFieldRenderer } from '../../../application';
 import { observer } from 'mobx-react';
 import { Link as RouterLink } from 'react-router-dom';
+import { EntityField } from '../../../application/components/EntityField';
 var EntityViewer = withStyles(styles)(observer(function (_a) {
     var classes = _a.classes, id = _a.id, fields = _a.fields, errors = _a.errors, url = _a.url, isEditing = _a.isEditing, entityName = _a.entityName, onSave = _a.onSave, onResetFieldError = _a.onResetFieldError, isLoading = _a.isLoading, data = _a.data, setEditorData = _a.setEditorData, getItem = _a.getItem, cancelGetItem = _a.cancelGetItem, withToken = _a.withToken;
     var isCreating = useMemo(function () { return typeof id === 'undefined'; }, [id]);
@@ -61,21 +61,8 @@ var EntityViewer = withStyles(styles)(observer(function (_a) {
                         !isEditing && (React.createElement("div", { className: "label" },
                             field.label || field.name,
                             isEditing && field.required && React.createElement("span", null, " *"))),
-                        React.createElement("div", { className: "field" }, createElement(field.type === 'custom' && field.component
-                            ? field.component
-                            : getEntityFieldRenderer(field.type || typeof data[field.name]), {
-                            value: Object.prototype.hasOwnProperty.call(data, field.name)
-                                ? data[field.name]
-                                : null,
-                            label: "" + (field.label || field.name) + (field.required ? ' *' : ''),
-                            error: errors[field.name],
-                            isEditing: isEditing,
-                            handler: onFieldChange(field.name),
-                            options: field.options || {},
-                            data: data,
-                            fields: fields,
-                            withToken: withToken,
-                        })))); }),
+                        React.createElement("div", { className: "field" },
+                            React.createElement(EntityField, { name: field.name, data: data, fields: fields, isEditing: isEditing, error: errors[field.name], handler: onFieldChange(field.name), withToken: withToken })))); }),
                     isEditing && (React.createElement("div", { className: classes.field + " " + classes.buttons },
                         React.createElement(Grid, { container: true, spacing: 1 },
                             React.createElement(Grid, { item: true, style: { flex: 1 } }),

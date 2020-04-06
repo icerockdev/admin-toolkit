@@ -18,6 +18,7 @@ import styles from './styles';
 import { IEntityField, getEntityFieldRenderer } from '~/application';
 import { observer } from 'mobx-react';
 import { Link as RouterLink } from 'react-router-dom';
+import { EntityField } from '../../../application/components/EntityField';
 
 type IProps = WithStyles<typeof styles> & {
   url: string;
@@ -89,7 +90,6 @@ const EntityViewer = withStyles(styles)(
 
       useEffect(() => {
         getItem(id);
-
         return () => cancelGetItem();
       }, [id]);
 
@@ -164,31 +164,15 @@ const EntityViewer = withStyles(styles)(
                         </div>
                       )}
                       <div className="field">
-                        {createElement(
-                          field.type === 'custom' && field.component
-                            ? field.component
-                            : getEntityFieldRenderer(
-                                field.type || typeof data[field.name]
-                              ),
-                          {
-                            value: Object.prototype.hasOwnProperty.call(
-                              data,
-                              field.name
-                            )
-                              ? data[field.name]
-                              : null,
-                            label: `${field.label || field.name}${
-                              field.required ? ' *' : ''
-                            }`,
-                            error: errors[field.name],
-                            isEditing,
-                            handler: onFieldChange(field.name),
-                            options: field.options || {},
-                            data, // for custom fields
-                            fields, // for custom fields
-                            withToken, // for custom fields
-                          }
-                        )}
+                        <EntityField
+                          name={field.name}
+                          data={data}
+                          fields={fields}
+                          isEditing={isEditing}
+                          error={errors[field.name]}
+                          handler={onFieldChange(field.name)}
+                          withToken={withToken}
+                        />
                       </div>
                     </div>
                   ))}

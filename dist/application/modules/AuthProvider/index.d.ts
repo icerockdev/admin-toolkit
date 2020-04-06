@@ -25,11 +25,13 @@ export declare class AuthProvider {
     }) => void;
     sendAuthPasswRestoreCancel: () => void;
     getPersistedCredentials: () => {
-        id?: number | undefined;
-        email?: string | undefined;
-        username?: string | undefined;
-        role?: string | undefined;
-        token?: string | undefined;
+        user?: {
+            id?: number | undefined;
+            email?: string | undefined;
+            username?: string | undefined;
+            role?: string | undefined;
+            token?: string | undefined;
+        } | undefined;
     };
     persistCredentials: () => void;
     logout: () => void;

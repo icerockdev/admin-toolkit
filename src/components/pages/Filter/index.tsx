@@ -27,6 +27,7 @@ import {
 import { FilterText } from '../FilterText';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
+import { EntityField } from '~/application/components/EntityField';
 
 type IProps = WithStyles<typeof styles> & {
   current: string;
@@ -116,13 +117,15 @@ const Filter = withStyles(styles)(
         {field && (
           <Fragment>
             <div className={classes.input}>
-              {createElement(getEntityFieldRenderer(field.type), {
-                value,
-                label: field.label || field.name,
-                isEditing: true,
-                handler: setFilterValue,
-                options: field.options || {},
-              })}
+              {
+                <EntityField
+                  name={field.name}
+                  fields={fields}
+                  data={{ [field.name]: value }}
+                  handler={setFilterValue}
+                  isEditing
+                />
+              }
             </div>
 
             <IconButton

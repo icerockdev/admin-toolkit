@@ -25,6 +25,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink } from 'react-router-dom';
 import { EntityHeadSortable } from '~/components/pages/EntityHeadSortable';
 import styles from './styles';
+import { EntityField } from '../../../application/components/EntityField';
 
 type IProps = WithStyles<typeof styles> & {
   isLoading: boolean;
@@ -69,7 +70,7 @@ const EntityList = withStyles(styles)(
     return (
       <Paper>
         <TableContainer>
-          <Table>
+          <Table className={classes.table}>
             <TableHead>
               <TableRow>
                 {visibleFields.map((field) =>
@@ -98,21 +99,11 @@ const EntityList = withStyles(styles)(
                 <TableRow key={i}>
                   {visibleFields.map((field) => (
                     <TableCell key={field.name}>
-                      {createElement(
-                        field.type === 'custom' && field.component
-                          ? field.component
-                          : getEntityFieldRenderer(
-                              field.type || typeof entry[field.name]
-                            ),
-                        {
-                          label: field.label || field.name,
-                          value: entry[field.name],
-                          options: field.options || {},
-                          data: entry, // for custom fields
-                          fields, // for custom fields
-                          withToken, // for custom fields
-                        }
-                      )}
+                      <EntityField
+                        name={field.name}
+                        fields={fields}
+                        data={entry}
+                      />
                     </TableCell>
                   ))}
                   {(canEdit || canView) && (

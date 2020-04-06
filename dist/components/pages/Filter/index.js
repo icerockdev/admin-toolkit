@@ -1,16 +1,18 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 var _a;
-import React, { useCallback, Fragment, useMemo, createElement, } from 'react';
+import React, { useCallback, Fragment, useMemo, } from 'react';
 import { withStyles, FormControl, InputLabel, Select, MenuItem, IconButton, } from '@material-ui/core';
 import styles from './styles';
-import { ENTITY_FILTER_TYPES, getEntityFieldRenderer, } from '../../../application/types/entity';
+import { ENTITY_FILTER_TYPES, } from '../../../application/types/entity';
 import { FilterText } from '../FilterText';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
+import { EntityField } from '../../../application/components/EntityField';
 var FILTER_RENDERERS = (_a = {},
     _a[ENTITY_FILTER_TYPES.TEXT] = FilterText,
     _a);
 var Filter = withStyles(styles)(function (_a) {
+    var _b;
     var classes = _a.classes, current = _a.current, value = _a.value, fields = _a.fields, clearFilter = _a.clearFilter, setFilterCurrent = _a.setFilterCurrent, setFilterValue = _a.setFilterValue, applyFilter = _a.applyFilter;
     var onChangeField = useCallback(function (event) {
         setFilterCurrent(String(event.target.value));
@@ -34,13 +36,7 @@ var Filter = withStyles(styles)(function (_a) {
                 React.createElement(MenuItem, { value: "" }, "..."),
                 filterableFields.map(function (field) { return (React.createElement(MenuItem, { key: field.name, value: field.name }, field.label || field.name)); }))),
         field && (React.createElement(Fragment, null,
-            React.createElement("div", { className: classes.input }, createElement(getEntityFieldRenderer(field.type), {
-                value: value,
-                label: field.label || field.name,
-                isEditing: true,
-                handler: setFilterValue,
-                options: field.options || {},
-            })),
+            React.createElement("div", { className: classes.input }, React.createElement(EntityField, { name: field.name, fields: fields, data: (_b = {}, _b[field.name] = value, _b), handler: setFilterValue, isEditing: true })),
             React.createElement(IconButton, { color: "secondary", onClick: onResetFilter, className: classes.iconButton, tabIndex: 0 },
                 React.createElement(ClearIcon, null)),
             React.createElement(IconButton, { disabled: !value, color: "primary", onClick: applyFilter, className: classes.iconButton, tabIndex: 0 },

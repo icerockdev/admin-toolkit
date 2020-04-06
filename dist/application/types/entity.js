@@ -6,6 +6,7 @@ import { EntityFieldSelect } from '../../components/pages/EntityFieldSelect';
 import { EntityFieldPhone } from '../../components/pages/EntityFieldPhone';
 import { EntityFieldRichText } from '../../components/pages/EntityFieldRichText';
 import { EntityFieldBase64Image } from '../../components/pages/EntityFieldBase64';
+import { EntityFieldNumber } from '../../components/pages/EntityFieldNumber';
 export var ENTITY_FIELD_RENDERS = {
     string: EntityFieldString,
     date: EntityFieldDate,
@@ -14,6 +15,7 @@ export var ENTITY_FIELD_RENDERS = {
     phone: EntityFieldPhone,
     richtext: EntityFieldRichText,
     base64image: EntityFieldBase64Image,
+    number: EntityFieldNumber,
 };
 // getFieldRenderer returns field-type specific renderer
 export var getEntityFieldRenderer = function (type) {

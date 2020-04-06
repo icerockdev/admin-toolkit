@@ -8,5 +8,10 @@ declare const _default: (theme: Theme) => {
         justifyContent: string;
         minHeight: number;
     };
+    table: {
+        '& td, & th': {
+            padding: number;
+        };
+    };
 };
 export default _default;

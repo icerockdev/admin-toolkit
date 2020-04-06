@@ -138,9 +138,11 @@ export class Entity extends Page {
   };
 
   fetchItemsCancel = () => {
-    if (this.fetchItemsInstance && this.fetchItemsInstance.cancel) {
-      this.fetchItemsInstance.cancel();
-    }
+    try {
+      if (this.fetchItemsInstance && this.fetchItemsInstance.cancel) {
+        this.fetchItemsInstance.cancel();
+      }
+    } catch (e) {}
   };
 
   updateItemInstance?: CancellablePromise<any>;
@@ -278,9 +280,11 @@ export class Entity extends Page {
   };
 
   getItemsCancel = () => {
-    if (this.getItemsInstance && this.getItemsInstance.cancel) {
-      this.getItemsInstance.cancel();
-    }
+    try {
+      if (this.getItemsInstance && this.getItemsInstance.cancel) {
+        this.getItemsInstance.cancel();
+      }
+    } catch (e) {}
   };
 
   @action
@@ -387,85 +391,67 @@ export class Entity extends Page {
 
   @computed
   get Viewer() {
-    return observer(
-      ({
-        match: {
-          params: { id },
-        },
-      }: RouteComponentProps<{ id: string }>) => (
-        <EntityViewer
-          entityName={this.title}
-          id={id}
-          fields={this.fields}
-          url={this.menu.url}
-          errors={this.editorFieldErrors}
-          onSave={() => {}}
-          onResetFieldError={this.resetFieldError}
-          isEditing={false}
-          isLoading={this.isLoading}
-          setEditorData={this.setEditorData}
-          data={this.editorData}
-          getItem={this.getItem}
-          cancelGetItem={this.getItemsCancel}
-          withToken={this.parent?.auth?.withToken}
-        />
-      )
-    );
+    return observer(({ id }: { id: string }) => (
+      <EntityViewer
+        entityName={this.title}
+        id={id}
+        fields={this.fields}
+        url={this.menu.url}
+        errors={this.editorFieldErrors}
+        onSave={() => {}}
+        onResetFieldError={this.resetFieldError}
+        isEditing={false}
+        isLoading={this.isLoading}
+        setEditorData={this.setEditorData}
+        data={this.editorData}
+        getItem={this.getItem}
+        cancelGetItem={this.getItemsCancel}
+        withToken={this.parent?.auth?.withToken}
+      />
+    ));
   }
 
   @computed
   get Editor() {
-    return observer(
-      ({
-        match: {
-          params: { id },
-        },
-      }: RouteComponentProps<{ id: string }>) => (
-        <EntityViewer
-          entityName={this.title}
-          id={id}
-          fields={this.fields}
-          errors={this.editorFieldErrors}
-          url={this.menu.url}
-          onSave={this.updateItem}
-          onResetFieldError={this.resetFieldError}
-          isLoading={this.isLoading}
-          setEditorData={this.setEditorData}
-          data={this.editorData}
-          getItem={this.getItem}
-          cancelGetItem={this.getItemsCancel}
-          withToken={this.parent?.auth?.withToken}
-          isEditing
-        />
-      )
-    );
+    return observer(({ id }: { id: string }) => (
+      <EntityViewer
+        entityName={this.title}
+        id={id}
+        fields={this.fields}
+        errors={this.editorFieldErrors}
+        url={this.menu.url}
+        onSave={this.updateItem}
+        onResetFieldError={this.resetFieldError}
+        isLoading={this.isLoading}
+        setEditorData={this.setEditorData}
+        data={this.editorData}
+        getItem={this.getItem}
+        cancelGetItem={this.getItemsCancel}
+        withToken={this.parent?.auth?.withToken}
+        isEditing
+      />
+    ));
   }
 
   @computed
   get Creator() {
-    return observer(
-      ({
-        match: {
-          params: { id },
-        },
-      }: RouteComponentProps<{ id: string }>) => (
-        <EntityViewer
-          entityName={this.title}
-          fields={this.fields}
-          errors={this.editorFieldErrors}
-          url={this.menu.url}
-          onSave={this.createItem}
-          onResetFieldError={this.resetFieldError}
-          isEditing
-          isLoading={this.isLoading}
-          setEditorData={this.setEditorData}
-          data={this.editorData}
-          getItem={this.createEmptyItem}
-          cancelGetItem={this.getItemsCancel}
-          withToken={this.parent?.auth?.withToken}
-        />
-      )
-    );
+    return observer(() => (
+      <EntityViewer
+        entityName={this.title}
+        fields={this.fields}
+        errors={this.editorFieldErrors}
+        url={this.menu.url}
+        onSave={this.createItem}
+        onResetFieldError={this.resetFieldError}
+        isEditing
+        isLoading={this.isLoading}
+        setEditorData={this.setEditorData}
+        data={this.editorData}
+        getItem={this.createEmptyItem}
+        cancelGetItem={this.getItemsCancel}
+        withToken={this.parent?.auth?.withToken}
+      />
+    ));
   }
 
   @computed
@@ -473,8 +459,22 @@ export class Entity extends Page {
     return observer(() => (
       <Switch>
         <Route path={`${this.menu.url}/create`} component={this.Creator} />
-        <Route path={`${this.menu.url}/:id/edit`} component={this.Editor} />
-        <Route path={`${this.menu.url}/:id/`} component={this.Viewer} />
+        <Route
+          path={`${this.menu.url}/:id/edit`}
+          component={({
+            match: {
+              params: { id },
+            },
+          }: RouteComponentProps<{ id: string }>) => <this.Editor id={id} />}
+        />
+        <Route
+          path={`${this.menu.url}/:id/`}
+          component={({
+            match: {
+              params: { id },
+            },
+          }: RouteComponentProps<{ id: string }>) => <this.Viewer id={id} />}
+        />
         <Route path={this.menu.url} component={this.List} />
       </Switch>
     ));

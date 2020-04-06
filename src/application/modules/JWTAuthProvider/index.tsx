@@ -1,12 +1,11 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-// import React from 'react';
 import {
   EMPTY_USER,
   IAuthProviderProps,
   AUTH_ERRORS,
 } from '~/application/types/auth';
-import { computed, observable, action } from 'mobx';
+import { computed, observable, action, reaction } from 'mobx';
 import { flow } from 'mobx';
 import { AuthProvider } from '../AuthProvider';
 import { Unwrap } from '~/application/types/common';
@@ -29,6 +28,8 @@ export class JWTAuthProvider extends AuthProvider {
 
   constructor(fields?: Partial<IAuthProviderProps>) {
     super(fields);
+
+    reaction(() => this.tokens, this.persistCredentials);
   }
 
   @action
@@ -87,6 +88,27 @@ export class JWTAuthProvider extends AuthProvider {
   @observable
   withToken = async (req: any, args: any) => {
     return req({ ...args, token: `Bearer ${this.tokens.access}` });
+  };
+
+  getPersistedCredentials = (): {
+    user?: IAuthProviderProps['user'];
+    tokens?: IAuthProviderProps['user'];
+  } => {
+    try {
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const tokens = JSON.parse(localStorage.getItem('tokens') || '{}');
+
+      if (typeof user != 'object') return {};
+
+      return { user, tokens };
+    } catch (e) {
+      return {};
+    }
+  };
+
+  persistCredentials = () => {
+    localStorage.setItem('user', JSON.stringify(this.user));
+    localStorage.setItem('tokens', JSON.stringify(this.tokens));
   };
 
   @computed

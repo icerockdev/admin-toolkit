@@ -5,7 +5,6 @@ import {
   AuthProvider,
   Page,
   Entity,
-  ENTITY_FILTER_TYPES,
   IEntityUpdateFunctionProps,
   IEntityCreateFunctionProps,
   IEntityGetFunctionProps,
@@ -18,6 +17,7 @@ const SAMPLE_ENTITY_1 = {
   phone: '+7 000 000 000',
   title: 'First one',
   created: new Date().toISOString(),
+  number: '0.123123123',
   visible: true,
 };
 
@@ -27,6 +27,7 @@ const SAMPLE_ENTITY_2 = {
   phone: '+7 000 000 000',
   title: 'First one',
   created: new Date().toISOString(),
+  number: 0.123123123,
   visible: true,
 };
 
@@ -69,6 +70,7 @@ export default new Config({
           name: 'type',
           label: 'Тип',
           sortable: true,
+          filterable: true,
           type: 'string',
           required: true,
         },
@@ -96,6 +98,15 @@ export default new Config({
           label: 'Видимость',
           sortable: false,
           type: 'boolean',
+        },
+        {
+          type: 'number',
+          name: 'number',
+          label: 'Количество',
+          sortable: true,
+          options: {
+            accuracy: 4,
+          },
         },
       ],
       fetchItemsFn: (...props) =>

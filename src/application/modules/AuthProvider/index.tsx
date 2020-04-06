@@ -22,7 +22,7 @@ export class AuthProvider {
     }
 
     if (this.persist) {
-      const user = this.getPersistedCredentials();
+      const { user } = this.getPersistedCredentials();
 
       if (user) {
         this.user = { ...EMPTY_USER, ...user };
@@ -118,7 +118,7 @@ export class AuthProvider {
     }
   };
 
-  getPersistedCredentials = (): IAuthProviderProps['user'] => {
+  getPersistedCredentials = (): { user?: IAuthProviderProps['user'] } => {
     try {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
 

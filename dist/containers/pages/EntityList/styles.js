@@ -6,4 +6,9 @@ export default (function (theme) { return ({
         justifyContent: 'center',
         minHeight: 200,
     },
+    table: {
+        '& td, & th': {
+            padding: theme.spacing(),
+        }
+    }
 }); });

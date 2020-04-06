@@ -9,4 +9,9 @@ export default (theme: Theme) => ({
     justifyContent: 'center',
     minHeight: 200,
   },
+  table: {
+    '& td, & th': {
+      padding: theme.spacing(),
+    },
+  },
 });

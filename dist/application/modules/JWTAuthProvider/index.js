@@ -65,9 +65,8 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-// import React from 'react';
 import { EMPTY_USER, AUTH_ERRORS, } from '../../types/auth';
-import { computed, observable, action } from 'mobx';
+import { computed, observable, action, reaction } from 'mobx';
 import { flow } from 'mobx';
 import { AuthProvider } from '../AuthProvider';
 var EMPTY_TOKENS = {
@@ -131,6 +130,23 @@ var JWTAuthProvider = /** @class */ (function (_super) {
                 return [2 /*return*/, req(__assign(__assign({}, args), { token: "Bearer " + this.tokens.access }))];
             });
         }); };
+        _this.getPersistedCredentials = function () {
+            try {
+                var user = JSON.parse(localStorage.getItem('user') || '{}');
+                var tokens = JSON.parse(localStorage.getItem('tokens') || '{}');
+                if (typeof user != 'object')
+                    return {};
+                return { user: user, tokens: tokens };
+            }
+            catch (e) {
+                return {};
+            }
+        };
+        _this.persistCredentials = function () {
+            localStorage.setItem('user', JSON.stringify(_this.user));
+            localStorage.setItem('tokens', JSON.stringify(_this.tokens));
+        };
+        reaction(function () { return _this.tokens; }, _this.persistCredentials);
         return _this;
     }
     Object.defineProperty(JWTAuthProvider.prototype, "isLogged", {

@@ -65,6 +65,17 @@ export declare const ENTITY_FIELD_RENDERS: {
         handler?: ((val: any) => void) | undefined;
         options?: Record<any, any> | undefined;
     } & Record<string, any>, string> & import("@material-ui/styles").StyledComponentProps<"label" | "image" | "formControl" | "outlinedInput">>;
+    number: FC<{
+        label: string;
+        value: any;
+        error?: string | undefined;
+        isEditing?: boolean | undefined;
+        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
+        handler?: ((val: any) => void) | undefined;
+        options?: {
+            accuracy?: number | undefined;
+        } | undefined;
+    } & Record<string, any>>;
 };
 export declare const getEntityFieldRenderer: (type?: string) => FC<any>;
 export declare const ENTITY_SORT_DIRS: Record<string, 'asc' | 'desc'>;

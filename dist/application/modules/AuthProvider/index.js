@@ -160,7 +160,7 @@ var AuthProvider = /** @class */ (function () {
             Object.assign(this, fields);
         }
         if (this.persist) {
-            var user = this.getPersistedCredentials();
+            var user = this.getPersistedCredentials().user;
             if (user) {
                 this.user = __assign(__assign({}, EMPTY_USER), user);
             }

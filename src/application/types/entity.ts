@@ -8,7 +8,8 @@ import { EntityFieldSelect } from '~/components/pages/EntityFieldSelect';
 import { EntityFieldPhone } from '~/components/pages/EntityFieldPhone';
 import { EntityFieldRichText } from '~/components/pages/EntityFieldRichText';
 import { EntityFieldBase64Image } from '~/components/pages/EntityFieldBase64';
-import { FC, ReactElement } from 'react';
+import { FC } from 'react';
+import { EntityFieldNumber } from '~/components/pages/EntityFieldNumber';
 
 export const ENTITY_FIELD_RENDERS = {
   string: EntityFieldString,
@@ -18,6 +19,7 @@ export const ENTITY_FIELD_RENDERS = {
   phone: EntityFieldPhone,
   richtext: EntityFieldRichText,
   base64image: EntityFieldBase64Image,
+  number: EntityFieldNumber,
 };
 
 // getFieldRenderer returns field-type specific renderer
