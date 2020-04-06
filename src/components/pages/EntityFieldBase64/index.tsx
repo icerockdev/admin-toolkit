@@ -181,7 +181,7 @@ const EntityFieldBase64Image = withStyles(styles)(
       </div>
     ) : (
       <div onClick={onClick}>
-        <img src={value ? String(value) : ''} />
+        <img src={value ? String(value) : ''} className={classes.preview} />
       </div>
     );
   }

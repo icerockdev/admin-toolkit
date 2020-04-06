@@ -34,4 +34,8 @@ export default (theme: Theme) => ({
     backgroundPosition: '50% 50%',
     backgroundColor: '#eeeeee',
   },
+  preview: {
+    maxWidth: '100%',
+    maxHeight: 300,
+  },
 });
