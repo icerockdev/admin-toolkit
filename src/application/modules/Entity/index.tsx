@@ -390,7 +390,17 @@ export class Entity extends Page {
   }
 
   @computed
-  get Viewer() {
+  get ViewerHead() {
+    return observer(({ id }: { id: any }) => null);
+  }
+
+  @computed
+  get ViewerFooter() {
+    return observer(({ id }: { id: any }) => null);
+  }
+
+  @computed
+  get ViewerBody() {
     return observer(({ id }: { id: string }) => (
       <EntityViewer
         entityName={this.title}
@@ -412,7 +422,28 @@ export class Entity extends Page {
   }
 
   @computed
-  get Editor() {
+  get Viewer() {
+    return observer(({ id }: { id: string }) => (
+      <>
+        <this.ViewerHead id={id} />
+        <this.ViewerBody id={id} />
+        <this.ViewerFooter id={id} />
+      </>
+    ));
+  }
+
+  @computed
+  get EditorHead() {
+    return observer(({ id }: { id: any }) => null);
+  }
+
+  @computed
+  get EditorFooter() {
+    return observer(({ id }: { id: any }) => null);
+  }
+
+  @computed
+  get EditorBody() {
     return observer(({ id }: { id: string }) => (
       <EntityViewer
         entityName={this.title}
@@ -434,7 +465,28 @@ export class Entity extends Page {
   }
 
   @computed
-  get Creator() {
+  get Editor() {
+    return observer(({ id }: { id: string }) => (
+      <>
+        <this.EditorHead id={id} />
+        <this.EditorBody id={id} />
+        <this.EditorFooter id={id} />
+      </>
+    ));
+  }
+
+  @computed
+  get CreatorHead() {
+    return observer(() => null);
+  }
+
+  @computed
+  get CreatorFooter() {
+    return observer(() => null);
+  }
+
+  @computed
+  get CreatorBody() {
     return observer(() => (
       <EntityViewer
         entityName={this.title}
@@ -451,6 +503,17 @@ export class Entity extends Page {
         cancelGetItem={this.getItemsCancel}
         withToken={this.parent?.auth?.withToken}
       />
+    ));
+  }
+
+  @computed
+  get Creator() {
+    return observer(({ id }: { id: string }) => (
+      <>
+        <this.CreatorHead />
+        <this.CreatorBody />
+        <this.CreatorFooter />
+      </>
     ));
   }
 

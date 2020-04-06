@@ -124,7 +124,7 @@ export class AuthProvider {
 
       if (typeof user != 'object') return {};
 
-      return user;
+      return { user };
     } catch (e) {
       return {};
     }

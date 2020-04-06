@@ -141,7 +141,7 @@ var AuthProvider = /** @class */ (function () {
                 var user = JSON.parse(localStorage.getItem('user') || '{}');
                 if (typeof user != 'object')
                     return {};
-                return user;
+                return { user: user };
             }
             catch (e) {
                 return {};
