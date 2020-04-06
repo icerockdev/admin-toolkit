@@ -1,6 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React from 'react';
+import React, { ReactElement } from 'react';
 import {
   IEntityProps,
   ENTITY_ERRORS,
@@ -16,6 +16,8 @@ import { Switch, Route, RouteComponentProps } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { EntityViewer } from '../../../containers/pages/EntityViewer';
 import { Unwrap } from '~/application/types/common';
+import { Breadcrumbs } from '@material-ui/core';
+import { EntityBreadcrumbs } from '~/containers/pages/EntityBreadcrumbs';
 
 export class Entity extends Page {
   // Props
@@ -390,8 +392,43 @@ export class Entity extends Page {
   }
 
   @computed
-  get ViewerHead() {
+  get Breadcrumbs() {
+    return observer(
+      ({
+        id,
+        isEditing = false,
+        isCreating = false,
+        buttons,
+      }: {
+        id?: any;
+        isEditing?: boolean;
+        isCreating?: boolean;
+        buttons?: ReactElement;
+      }) => (
+        <EntityBreadcrumbs
+          data={this.editorData}
+          fields={this.fields}
+          id={id}
+          name={this.title}
+          url={this.menu.url}
+          isEditing={isEditing}
+          isCreating={isCreating}
+          buttons={buttons}
+        />
+      )
+    );
+  }
+
+  @computed
+  get ViewerHeadButtons() {
     return observer(({ id }: { id: any }) => null);
+  }
+
+  @computed
+  get ViewerHead() {
+    return observer(({ id }: { id: any }) => (
+      <this.Breadcrumbs id={id} buttons={<this.ViewerHeadButtons id={id} />} />
+    ));
   }
 
   @computed
@@ -403,7 +440,6 @@ export class Entity extends Page {
   get ViewerBody() {
     return observer(({ id }: { id: string }) => (
       <EntityViewer
-        entityName={this.title}
         id={id}
         fields={this.fields}
         url={this.menu.url}
@@ -433,8 +469,19 @@ export class Entity extends Page {
   }
 
   @computed
+  get EditorHeadButtons() {
+    return observer(({ id }: { id: any }) => <div>T</div>);
+  }
+
+  @computed
   get EditorHead() {
-    return observer(({ id }: { id: any }) => null);
+    return observer(({ id }: { id: any }) => (
+      <this.Breadcrumbs
+        id={id}
+        buttons={<this.EditorHeadButtons id={id} />}
+        isEditing
+      />
+    ));
   }
 
   @computed
@@ -446,7 +493,6 @@ export class Entity extends Page {
   get EditorBody() {
     return observer(({ id }: { id: string }) => (
       <EntityViewer
-        entityName={this.title}
         id={id}
         fields={this.fields}
         errors={this.editorFieldErrors}
@@ -476,8 +522,15 @@ export class Entity extends Page {
   }
 
   @computed
-  get CreatorHead() {
+  get CreatorHeadButtons() {
     return observer(() => null);
+  }
+
+  @computed
+  get CreatorHead() {
+    return observer(() => (
+      <this.Breadcrumbs buttons={<this.CreatorHeadButtons />} isCreating />
+    ));
   }
 
   @computed
@@ -489,7 +542,6 @@ export class Entity extends Page {
   get CreatorBody() {
     return observer(() => (
       <EntityViewer
-        entityName={this.title}
         fields={this.fields}
         errors={this.editorFieldErrors}
         url={this.menu.url}

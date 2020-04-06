@@ -22,7 +22,6 @@ import { EntityField } from '../../../application/components/EntityField';
 
 type IProps = WithStyles<typeof styles> & {
   url: string;
-  entityName: string;
   id?: string;
   fields: IEntityField[];
   errors: Record<string, string>;
@@ -47,7 +46,6 @@ const EntityViewer = withStyles(styles)(
       errors,
       url,
       isEditing,
-      entityName,
       onSave,
       onResetFieldError,
       isLoading,
@@ -58,11 +56,6 @@ const EntityViewer = withStyles(styles)(
       withToken,
     }: IProps) => {
       const isCreating = useMemo(() => typeof id === 'undefined', [id]);
-
-      const title = useMemo(() => {
-        const field = fields.find((f) => f.title);
-        return data && field && field.name ? data[field.name] : id;
-      }, [data, fields, id]);
 
       const visibleFields = useMemo(
         () => fields.filter((field) => !field.hideInEdit),
@@ -103,54 +96,6 @@ const EntityViewer = withStyles(styles)(
 
       return (
         <div className={classes.wrap}>
-          <div className={classes.breadcrumbs}>
-            <Grid container alignItems="center">
-              <Grid style={{ flex: 1 }}>
-                <Breadcrumbs aria-label="breadcrumb">
-                  {entityName && (
-                    <Link color="inherit" to={url} component={RouterLink}>
-                      {entityName}
-                    </Link>
-                  )}
-
-                  {isEditing && !isCreating && !!title && (
-                    <Link
-                      color="inherit"
-                      to={`${url}/${id}`}
-                      component={RouterLink}
-                    >
-                      {title}
-                    </Link>
-                  )}
-
-                  {!isEditing && !isCreating && (
-                    <Typography color="textPrimary">{title}</Typography>
-                  )}
-
-                  {isEditing && !isCreating && (
-                    <Typography color="textPrimary">Редактирование</Typography>
-                  )}
-
-                  {isEditing && isCreating && (
-                    <Typography color="textPrimary">Создание</Typography>
-                  )}
-                </Breadcrumbs>
-              </Grid>
-
-              {!isEditing && (
-                <Button
-                  to={`${url}/${id}/edit`}
-                  component={RouterLink}
-                  variant="contained"
-                  color="primary"
-                  type="button"
-                >
-                  Редактировать
-                </Button>
-              )}
-            </Grid>
-          </div>
-
           {data && (
             <form onSubmit={onSubmit}>
               <Paper>
