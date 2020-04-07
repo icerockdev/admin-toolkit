@@ -112,15 +112,17 @@ export interface IEntityField {
     hideInList?: boolean;
     hideInEdit?: boolean;
 }
+export interface IFilterValue {
+    name: string;
+    value: any;
+}
 export interface IEntityProps extends IPageProps {
     fields: IEntityField[];
     editable: boolean;
     viewable: boolean;
     creatable: boolean;
-    filters: {
-        current: string;
-        value: any;
-    };
+    selectable: boolean;
+    filters: IFilterValue[];
     api?: Record<typeof ENTITY_ACTIONS[keyof typeof ENTITY_ACTIONS], {
         url: string;
         method: string;
@@ -133,10 +135,7 @@ export interface IEntityProps extends IPageProps {
 export interface IEntityFetchFunctionProps {
     url: string;
     page?: number;
-    filter?: {
-        name?: string;
-        value?: any;
-    } | null;
+    filter?: IFilterValue[];
     sortBy: string;
     sortDir: string;
     count?: number;

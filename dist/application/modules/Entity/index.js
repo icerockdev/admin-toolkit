@@ -76,12 +76,10 @@ var Entity = /** @class */ (function (_super) {
             list: { url: '/', method: 'get' },
         };
         _this.fields = [];
-        _this.filters = {
-            current: '',
-            value: '',
-        };
+        _this.filters = [];
         _this.editable = false;
         _this.viewable = false;
+        _this.selectable = false;
         _this.getItemsFn = undefined;
         _this.fetchItemsFn = undefined;
         _this.updateItemsFn = undefined;
@@ -97,6 +95,7 @@ var Entity = /** @class */ (function (_super) {
         _this.sortDir = ENTITY_SORT_DIRS.ASC;
         _this.editorFieldErrors = {};
         _this.editorData = {};
+        _this.selected = [];
         _this.setFilters = function (filters) {
             _this.filters = filters;
         };
@@ -105,6 +104,9 @@ var Entity = /** @class */ (function (_super) {
         };
         _this.setPerPage = function (items) {
             _this.items = items;
+        };
+        _this.setSelected = function (selected) {
+            _this.selected = selected;
         };
         _this.setSort = function (field) {
             if (field !== _this.sortBy && _this.sortDir !== ENTITY_SORT_DIRS.ASC) {
@@ -128,15 +130,16 @@ var Entity = /** @class */ (function (_super) {
                         case 0:
                             this.isLoading = true;
                             this.error = '';
+                            this.selected = [];
                             _k.label = 1;
                         case 1:
                             _k.trys.push([1, 3, , 4]);
                             if (!((_b = (_a = this.api) === null || _a === void 0 ? void 0 : _a.list) === null || _b === void 0 ? void 0 : _b.url) || !this.fetchItemsFn) {
                                 throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
                             }
-                            filter = this.filters.current && this.filters.value
-                                ? { name: this.filters.current, value: this.filters.value }
-                                : null;
+                            filter = (this.filters.length > 0 &&
+                                toJS(this.filters).filter(function (el) { return el.name && el.value !== ''; })) ||
+                                [];
                             return [4 /*yield*/, (_d = (_c = this.parent) === null || _c === void 0 ? void 0 : _c.auth) === null || _d === void 0 ? void 0 : _d.withToken(this.fetchItemsFn, {
                                     url: ((_f = (_e = this.api) === null || _e === void 0 ? void 0 : _e.list) === null || _f === void 0 ? void 0 : _f.url) || '',
                                     filter: filter,
@@ -359,10 +362,7 @@ var Entity = /** @class */ (function (_super) {
     Object.defineProperty(Entity.prototype, "ListBody", {
         get: function () {
             var _this = this;
-            return observer(function () {
-                var _a, _b;
-                return (React.createElement(EntityList, { fields: _this.fields, data: _this.data, isLoading: _this.isLoading, url: _this.menu.url, sortBy: _this.sortBy, sortDir: _this.sortDir, onSortChange: _this.setSort, canView: _this.viewable, canEdit: _this.editable && _this.canEdit, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken }));
-            });
+            return observer(function () { return (React.createElement(EntityList, { fields: _this.fields, data: _this.data, isLoading: _this.isLoading, url: _this.menu.url, selected: _this.selected, sortBy: _this.sortBy, sortDir: _this.sortDir, canView: _this.viewable, canEdit: _this.editable && _this.canEdit, canSelect: _this.selectable, setSelected: _this.setSelected, onSortChange: _this.setSort })); });
         },
         enumerable: true,
         configurable: true
@@ -593,6 +593,9 @@ var Entity = /** @class */ (function (_super) {
     ], Entity.prototype, "viewable", void 0);
     __decorate([
         observable
+    ], Entity.prototype, "selectable", void 0);
+    __decorate([
+        observable
     ], Entity.prototype, "getItemsFn", void 0);
     __decorate([
         observable
@@ -637,6 +640,9 @@ var Entity = /** @class */ (function (_super) {
         observable
     ], Entity.prototype, "editorData", void 0);
     __decorate([
+        observable
+    ], Entity.prototype, "selected", void 0);
+    __decorate([
         action
     ], Entity.prototype, "setFilters", void 0);
     __decorate([
@@ -645,6 +651,9 @@ var Entity = /** @class */ (function (_super) {
     __decorate([
         action
     ], Entity.prototype, "setPerPage", void 0);
+    __decorate([
+        action
+    ], Entity.prototype, "setSelected", void 0);
     __decorate([
         action
     ], Entity.prototype, "setSort", void 0);

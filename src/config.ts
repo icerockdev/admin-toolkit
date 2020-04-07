@@ -108,7 +108,6 @@ export default new Config({
       ],
       fetchItemsFn: (...props) =>
         new Promise((resolve) => {
-          console.log(props);
           setTimeout(resolve, 500, {
             data: {
               list: [SAMPLE_ENTITY_1, SAMPLE_ENTITY_2],

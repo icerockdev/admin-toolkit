@@ -3,15 +3,13 @@
 import React from 'react';
 import { WithStyles } from '@material-ui/core';
 import styles from './styles';
-import { IEntityProps } from '../../../application/types/entity';
+import { IEntityProps, IFilterValue } from '../../../application/types/entity';
 declare type IProps = WithStyles<typeof styles> & {
-    current: string;
-    value: any;
     fields: IEntityProps['fields'];
+    filters: IFilterValue[];
     clearFilter: () => void;
     applyFilter: () => void;
-    setFilterCurrent: (current: string) => void;
-    setFilterValue: (value: any) => void;
+    setFilters: (filters: IFilterValue[]) => void;
 };
-declare const Filter: React.ComponentType<Pick<IProps, "value" | "fields" | "current" | "clearFilter" | "setFilterCurrent" | "setFilterValue" | "applyFilter"> & import("@material-ui/core").StyledComponentProps<"input" | "label" | "select" | "formControl" | "wrapper" | "iconButton">>;
+declare const Filter: React.ComponentType<Pick<IProps, "fields" | "filters" | "setFilters" | "clearFilter" | "applyFilter"> & import("@material-ui/core").StyledComponentProps<"input" | "label" | "select" | "clear" | "formControl" | "wrapper" | "iconButton">>;
 export { Filter };

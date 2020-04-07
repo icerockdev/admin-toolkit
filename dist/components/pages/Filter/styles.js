@@ -14,6 +14,10 @@ export default (function (theme) { return ({
         },
     },
     input: {
+        display: 'flex',
+        boxShadow: 'inset rgba(0, 0, 0, 1) 0 0 1px',
+        borderRadius: '0 4px 4px 0',
+        marginRight: 5,
         '& .select': {
             padding: '10px 34px 7px 14px',
         },
@@ -24,12 +28,17 @@ export default (function (theme) { return ({
             transform: 'translate(10px, 12px) scale(0.9)',
         },
     },
+    clear: {
+        height: 36,
+        width: 36,
+        padding: 0,
+    },
     label: {
         transform: 'translate(10px, 12px) scale(0.9)',
     },
     iconButton: {
-        height: '36px',
-        width: '36px',
+        height: 36,
+        width: 36,
         padding: 0,
     },
 }); });

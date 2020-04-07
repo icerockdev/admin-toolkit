@@ -10,6 +10,7 @@ export declare class Entity extends Page {
     filters: IEntityProps['filters'];
     editable: IEntityProps['editable'];
     viewable: IEntityProps['viewable'];
+    selectable: IEntityProps['selectable'];
     getItemsFn: IEntityProps['getItemsFn'];
     fetchItemsFn: IEntityProps['fetchItemsFn'];
     updateItemsFn: IEntityProps['updateItemsFn'];
@@ -25,13 +26,12 @@ export declare class Entity extends Page {
     sortDir: typeof ENTITY_SORT_DIRS[keyof typeof ENTITY_SORT_DIRS];
     editorFieldErrors: Record<string, string>;
     editorData: Record<string, any>;
+    selected: any[];
     constructor(fields?: Partial<IEntityProps>);
-    setFilters: (filters: {
-        current: string;
-        value: any;
-    }) => void;
+    setFilters: (filters: import("../../types/entity").IFilterValue[]) => void;
     setPage: (page: number) => void;
     setPerPage: (items: number) => void;
+    setSelected: (selected: any[]) => void;
     setSort: (field: string) => void;
     fetchItemsInstance?: CancellablePromise<any>;
     fetchItems: () => void;

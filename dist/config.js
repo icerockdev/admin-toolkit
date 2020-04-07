@@ -50,10 +50,6 @@ export default new Config({
                 label: 'Sample entity',
                 url: '/entity',
             },
-            filters: {
-                current: '',
-                value: '',
-            },
             fields: [
                 {
                     name: 'type',
@@ -68,6 +64,7 @@ export default new Config({
                     label: 'Телефон',
                     sortable: true,
                     type: 'string',
+                    filterable: true,
                 },
                 {
                     name: 'title',

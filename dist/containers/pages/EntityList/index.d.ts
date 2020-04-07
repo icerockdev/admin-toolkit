@@ -11,10 +11,12 @@ declare type IProps = WithStyles<typeof styles> & {
     url: string;
     sortBy: string;
     sortDir: typeof ENTITY_SORT_DIRS[keyof typeof ENTITY_SORT_DIRS];
+    selected: any[];
     canView: boolean;
     canEdit: boolean;
+    canSelect?: boolean;
+    setSelected: (items: any[]) => void;
     onSortChange: (field: string) => void;
-    withToken?: (req: any, args: any) => any;
 };
-declare const EntityList: React.ComponentType<Pick<IProps, "data" | "isLoading" | "withToken" | "url" | "onSortChange" | "fields" | "sortBy" | "sortDir" | "canView" | "canEdit"> & import("@material-ui/core").StyledComponentProps<"table" | "loader">>;
+declare const EntityList: React.ComponentType<Pick<IProps, "data" | "isLoading" | "url" | "selected" | "onSortChange" | "fields" | "sortBy" | "sortDir" | "canView" | "canEdit" | "canSelect" | "setSelected"> & import("@material-ui/core").StyledComponentProps<"table" | "loader">>;
 export { EntityList };

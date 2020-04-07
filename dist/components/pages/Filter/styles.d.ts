@@ -16,6 +16,10 @@ declare const _default: (theme: Theme) => {
         };
     };
     input: {
+        display: string;
+        boxShadow: string;
+        borderRadius: string;
+        marginRight: number;
         '& .select': {
             padding: string;
         };
@@ -26,12 +30,17 @@ declare const _default: (theme: Theme) => {
             transform: string;
         };
     };
+    clear: {
+        height: number;
+        width: number;
+        padding: number;
+    };
     label: {
         transform: string;
     };
     iconButton: {
-        height: string;
-        width: string;
+        height: number;
+        width: number;
         padding: number;
     };
 };
