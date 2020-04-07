@@ -61,10 +61,6 @@ export default new Config({
         label: 'Sample entity',
         url: '/entity',
       },
-      filters: {
-        current: '',
-        value: '',
-      },
       fields: [
         {
           name: 'type',
@@ -79,6 +75,7 @@ export default new Config({
           label: 'Телефон',
           sortable: true,
           type: 'string',
+          filterable: true,
         },
         {
           name: 'title',
@@ -111,6 +108,7 @@ export default new Config({
       ],
       fetchItemsFn: (...props) =>
         new Promise((resolve) => {
+          console.log(props);
           setTimeout(resolve, 500, {
             data: {
               list: [SAMPLE_ENTITY_1, SAMPLE_ENTITY_2],

@@ -1,12 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, {
-  ChangeEvent,
-  useCallback,
-  Fragment,
-  useMemo,
-  createElement,
-} from 'react';
+import React, { ChangeEvent, useCallback, Fragment, useMemo } from 'react';
 
 import {
   withStyles,
@@ -19,61 +13,81 @@ import {
 } from '@material-ui/core';
 
 import styles from './styles';
-import {
-  ENTITY_FILTER_TYPES,
-  IEntityProps,
-  getEntityFieldRenderer,
-} from '~/application/types/entity';
-import { FilterText } from '../FilterText';
+import { IEntityProps, IFilterValue } from '~/application/types/entity';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import { EntityField } from '~/application/components/EntityField';
+import { toJS } from 'mobx';
 
 type IProps = WithStyles<typeof styles> & {
-  current: string;
-  value: any;
   fields: IEntityProps['fields'];
+  filters: IFilterValue[];
 
   clearFilter: () => void;
   applyFilter: () => void;
-  setFilterCurrent: (current: string) => void;
-  setFilterValue: (value: any) => void;
-};
-
-const FILTER_RENDERERS = {
-  [ENTITY_FILTER_TYPES.TEXT]: FilterText,
+  setFilters: (filters: IFilterValue[]) => void;
 };
 
 const Filter = withStyles(styles)(
   ({
     classes,
-    current,
-    value,
     fields,
+    filters,
+    setFilters,
     clearFilter,
-    setFilterCurrent,
-    setFilterValue,
     applyFilter,
   }: IProps) => {
-    const onChangeField = useCallback(
+    const onSelectField = useCallback(
       (event: ChangeEvent<{ name?: string | undefined; value: unknown }>) => {
-        setFilterCurrent(String(event.target.value));
+        if (!event.target.value) return;
+
+        setFilters([
+          ...filters,
+          { name: String(event.target.value), value: '' },
+        ]);
       },
-      [setFilterCurrent]
+      [setFilters, filters]
     );
 
-    const onResetFilter = useCallback(() => {
-      clearFilter();
-    }, [clearFilter]);
+    const setFilterValue = useCallback(
+      (i: number) => (value: any) => {
+        setFilters(
+          filters.map((filter, index) =>
+            i === index ? { ...filter, value } : filter
+          )
+        );
+      },
+      [filters, setFilters]
+    );
 
-    const field = useMemo(
-      () => (current && fields.find((field) => field.name === current)) || null,
-      [fields, current]
+    const removeFilter = useCallback(
+      (i: number) => () => {
+        setFilters(filters.filter((_, index) => i !== index));
+      },
+      [filters, setFilters]
     );
 
     const filterableFields = useMemo(
       () => fields.filter((field) => field.filterable),
       [fields]
+    );
+
+    const selectableFields = useMemo(
+      () =>
+        filterableFields.filter(
+          (field) => !filters.some((filter) => filter.name === field.name)
+        ),
+      [filterableFields, filters]
+    );
+
+    const currentFilters = useMemo(
+      () =>
+        filters
+          .map((filter) =>
+            filterableFields.find((field) => field.name === filter.name)
+          )
+          .filter((field) => !!field) || [],
+      [filterableFields, filters]
     );
 
     const onSubmit = useCallback(
@@ -84,61 +98,60 @@ const Filter = withStyles(styles)(
       [applyFilter]
     );
 
-    if (!filterableFields.length) {
-      return null;
-    }
-
     return (
       <form className={classes.wrapper} onSubmit={onSubmit}>
-        <FormControl variant="outlined" className={classes.formControl}>
-          <InputLabel htmlFor="field" className={classes.label}>
-            Фильтр
-          </InputLabel>
+        {selectableFields.length > 0 && (
+          <FormControl variant="outlined" className={classes.formControl}>
+            <InputLabel htmlFor="field" className={classes.label}>
+              Фильтр
+            </InputLabel>
 
-          <Select
-            variant="outlined"
-            id="field"
-            name="field"
-            label="Фильтр"
-            value={current}
-            onChange={onChangeField}
-            className={classes.select}
-          >
-            <MenuItem value="">...</MenuItem>
+            <Select
+              variant="outlined"
+              id="field"
+              name="field"
+              label="Фильтр"
+              value=""
+              onChange={onSelectField}
+              className={classes.select}
+            >
+              <MenuItem value="">...</MenuItem>
 
-            {filterableFields.map((field) => (
-              <MenuItem key={field.name} value={field.name}>
-                {field.label || field.name}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+              {selectableFields.map((field) => (
+                <MenuItem key={field.name} value={field.name}>
+                  {field.label || field.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        )}
 
-        {field && (
-          <Fragment>
-            <div className={classes.input}>
-              {
+        {currentFilters.map(
+          (field, i) =>
+            field && (
+              <div className={classes.input} key={field.name}>
                 <EntityField
                   name={field.name}
                   fields={fields}
-                  data={{ [field.name]: value }}
-                  handler={setFilterValue}
+                  data={{ [field.name]: filters[i].value }}
+                  handler={setFilterValue(i)}
                   isEditing
                 />
-              }
-            </div>
 
+                <IconButton
+                  color="secondary"
+                  onClick={removeFilter(i)}
+                  className={classes.clear}
+                  tabIndex={0}
+                >
+                  <ClearIcon />
+                </IconButton>
+              </div>
+            )
+        )}
+        {currentFilters.length > 0 && (
+          <Fragment>
             <IconButton
-              color="secondary"
-              onClick={onResetFilter}
-              className={classes.iconButton}
-              tabIndex={0}
-            >
-              <ClearIcon />
-            </IconButton>
-
-            <IconButton
-              disabled={!value}
               color="primary"
               onClick={applyFilter}
               className={classes.iconButton}

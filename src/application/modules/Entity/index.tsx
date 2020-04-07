@@ -5,6 +5,7 @@ import {
   IEntityProps,
   ENTITY_ERRORS,
   ENTITY_SORT_DIRS,
+  IEntityFetchFunctionProps,
 } from '~/application/types/entity';
 import { Page } from '~/application/modules/Page';
 import { EntityList } from '../../../containers/pages/EntityList';
@@ -24,10 +25,7 @@ export class Entity extends Page {
     list: { url: '/', method: 'get' },
   };
   @observable fields: IEntityProps['fields'] = [];
-  @observable filters: IEntityProps['filters'] = {
-    current: '',
-    value: '',
-  };
+  @observable filters: IEntityProps['filters'] = [];
   @observable editable: IEntityProps['editable'] = false;
   @observable viewable: IEntityProps['viewable'] = false;
   @observable selectable: IEntityProps['selectable'] = false;
@@ -117,9 +115,9 @@ export class Entity extends Page {
         }
 
         const filter =
-          this.filters.current && this.filters.value
-            ? { name: this.filters.current, value: this.filters.value }
-            : null;
+          (this.filters.length > 0 &&
+            toJS(this.filters).filter((el) => el.name && el.value !== '')) ||
+          [];
 
         const result: Unwrap<typeof this.fetchItemsFn> = yield this.parent?.auth?.withToken(
           this.fetchItemsFn,

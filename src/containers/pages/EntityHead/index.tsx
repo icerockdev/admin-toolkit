@@ -36,7 +36,7 @@ const EntityHeadUnstyled: FC<IProps> = ({
 }) => {
   const setFilterCurrent = useCallback(
     (current: string) => {
-      setFilters({ ...filters, current, value: null });
+      // setFilters({ ...filters, current, value: null });
 
       if (current === '') {
         applyFilter();
@@ -45,13 +45,8 @@ const EntityHeadUnstyled: FC<IProps> = ({
     [setFilters, applyFilter, filters]
   );
 
-  const setFilterValue = useCallback(
-    (value: string) => setFilters({ ...filters, value }),
-    [setFilters, filters]
-  );
-
   const clearFilter = useCallback(() => {
-    setFilters({ ...filters, current: '', value: '' });
+    setFilters([]);
     applyFilter();
   }, [setFilters, filters, applyFilter]);
 
@@ -68,13 +63,11 @@ const EntityHeadUnstyled: FC<IProps> = ({
 
       {filters && (
         <Filter
-          current={filters.current}
-          value={filters.value}
           fields={fields}
-          clearFilter={clearFilter}
-          setFilterCurrent={setFilterCurrent}
-          setFilterValue={setFilterValue}
+          filters={filters}
+          setFilters={setFilters}
           applyFilter={applyFilter}
+          clearFilter={clearFilter}
         />
       )}
 
