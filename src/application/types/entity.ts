@@ -81,6 +81,7 @@ export interface IEntityProps extends IPageProps {
   editable: boolean;
   viewable: boolean;
   creatable: boolean;
+  selectable: boolean;
   filters: {
     current: string;
     value: any;

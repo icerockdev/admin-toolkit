@@ -1,6 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-/// <reference types="react" />
+import React from 'react';
 import { IEntityProps, ENTITY_SORT_DIRS } from '../../types/entity';
 import { Page } from '../Page';
 import { CancellablePromise } from 'mobx/lib/api/flow';
@@ -54,12 +54,48 @@ export declare class Entity extends Page {
     get ListBody(): () => JSX.Element;
     get ListFooter(): () => JSX.Element;
     get List(): () => JSX.Element;
+    get Breadcrumbs(): ({ id, isEditing, isCreating, buttons, }: {
+        id?: any;
+        isEditing?: boolean | undefined;
+        isCreating?: boolean | undefined;
+        buttons?: React.ReactElement<any, string | ((props: any) => React.ReactElement<any, string | any | (new (props: any) => React.Component<any, any, any>)> | null) | (new (props: any) => React.Component<any, any, any>)> | undefined;
+    }) => JSX.Element;
+    get ViewerHeadButtons(): ({ id }: {
+        id: any;
+    }) => null;
+    get ViewerHead(): ({ id }: {
+        id: any;
+    }) => JSX.Element;
+    get ViewerFooter(): ({ id }: {
+        id: any;
+    }) => null;
+    get ViewerBody(): ({ id }: {
+        id: string;
+    }) => JSX.Element;
     get Viewer(): ({ id }: {
+        id: string;
+    }) => JSX.Element;
+    get EditorHeadButtons(): ({ id }: {
+        id: any;
+    }) => null;
+    get EditorHead(): ({ id }: {
+        id: any;
+    }) => JSX.Element;
+    get EditorFooter(): ({ id }: {
+        id: any;
+    }) => null;
+    get EditorBody(): ({ id }: {
         id: string;
     }) => JSX.Element;
     get Editor(): ({ id }: {
         id: string;
     }) => JSX.Element;
-    get Creator(): () => JSX.Element;
+    get CreatorHeadButtons(): () => null;
+    get CreatorHead(): () => JSX.Element;
+    get CreatorFooter(): () => null;
+    get CreatorBody(): () => JSX.Element;
+    get Creator(): ({ id }: {
+        id: string;
+    }) => JSX.Element;
     get output(): () => JSX.Element;
 }

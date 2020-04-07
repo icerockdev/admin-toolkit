@@ -31,5 +31,9 @@ declare const _default: (theme: Theme) => {
         backgroundPosition: string;
         backgroundColor: string;
     };
+    preview: {
+        maxWidth: string;
+        maxHeight: number;
+    };
 };
 export default _default;

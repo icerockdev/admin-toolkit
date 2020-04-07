@@ -55,7 +55,7 @@ export declare const ENTITY_FIELD_RENDERS: {
         onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
     } & Record<string, any>>;
     base64image: import("react").ComponentType<Pick<{
-        classes: Record<"label" | "image" | "formControl" | "outlinedInput", string>;
+        classes: Record<"label" | "image" | "formControl" | "outlinedInput" | "preview", string>;
     } & {
         label: string;
         value: any;
@@ -64,7 +64,7 @@ export declare const ENTITY_FIELD_RENDERS: {
         onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
         handler?: ((val: any) => void) | undefined;
         options?: Record<any, any> | undefined;
-    } & Record<string, any>, string> & import("@material-ui/styles").StyledComponentProps<"label" | "image" | "formControl" | "outlinedInput">>;
+    } & Record<string, any>, string> & import("@material-ui/styles").StyledComponentProps<"label" | "image" | "formControl" | "outlinedInput" | "preview">>;
     number: FC<{
         label: string;
         value: any;

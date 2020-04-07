@@ -123,6 +123,6 @@ var EntityFieldBase64Image = withStyles(styles)(function (_a) {
                         React.createElement("span", null, "\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C"))); } }),
                 React.createElement("input", { id: label, name: label, type: "file", onChange: loadImage, style: { position: 'absolute' }, accept: options && options.mimes ? options.mimes.join(', ') : '' })),
             (innerError || error) && (React.createElement(Box, { color: "error.main", fontSize: 12 }, innerError || error))))) : (React.createElement("div", { onClick: onClick },
-        React.createElement("img", { src: value ? String(value) : '' })));
+        React.createElement("img", { src: value ? String(value) : '', className: classes.preview })));
 });
 export { EntityFieldBase64Image };

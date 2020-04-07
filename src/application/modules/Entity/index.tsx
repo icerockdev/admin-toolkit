@@ -16,7 +16,6 @@ import { Switch, Route, RouteComponentProps } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { EntityViewer } from '../../../containers/pages/EntityViewer';
 import { Unwrap } from '~/application/types/common';
-import { Breadcrumbs } from '@material-ui/core';
 import { EntityBreadcrumbs } from '~/containers/pages/EntityBreadcrumbs';
 
 export class Entity extends Page {
@@ -31,6 +30,7 @@ export class Entity extends Page {
   };
   @observable editable: IEntityProps['editable'] = false;
   @observable viewable: IEntityProps['viewable'] = false;
+  @observable selectable: IEntityProps['selectable'] = false;
   @observable getItemsFn: IEntityProps['getItemsFn'] = undefined;
   @observable fetchItemsFn: IEntityProps['fetchItemsFn'] = undefined;
   @observable updateItemsFn: IEntityProps['updateItemsFn'] = undefined;
@@ -49,6 +49,7 @@ export class Entity extends Page {
     ENTITY_SORT_DIRS.ASC;
   @observable editorFieldErrors: Record<string, string> = {};
   @observable editorData: Record<string, any> = {};
+  @observable selected: any[] = [];
 
   constructor(fields?: Partial<IEntityProps>) {
     super();
@@ -79,6 +80,11 @@ export class Entity extends Page {
   };
 
   @action
+  setSelected = (selected: any[]) => {
+    this.selected = selected;
+  };
+
+  @action
   setSort = (field: string) => {
     if (field !== this.sortBy && this.sortDir !== ENTITY_SORT_DIRS.ASC) {
       this.sortDir = ENTITY_SORT_DIRS.ASC;
@@ -103,6 +109,7 @@ export class Entity extends Page {
     this.fetchItemsInstance = flow(function* (this: Entity) {
       this.isLoading = true;
       this.error = '';
+      this.selected = [];
 
       try {
         if (!this.api?.list?.url || !this.fetchItemsFn) {
@@ -356,12 +363,14 @@ export class Entity extends Page {
         data={this.data}
         isLoading={this.isLoading}
         url={this.menu.url}
+        selected={this.selected}
         sortBy={this.sortBy}
         sortDir={this.sortDir}
-        onSortChange={this.setSort}
         canView={this.viewable}
         canEdit={this.editable && this.canEdit}
-        withToken={this.parent?.auth?.withToken}
+        canSelect={this.selectable}
+        setSelected={this.setSelected}
+        onSortChange={this.setSort}
       />
     ));
   }
@@ -470,7 +479,7 @@ export class Entity extends Page {
 
   @computed
   get EditorHeadButtons() {
-    return observer(({ id }: { id: any }) => <div>T</div>);
+    return observer(({ id }: { id: any }) => null);
   }
 
   @computed

@@ -27,12 +27,6 @@ export default (function (theme) { return ({
             display: 'block',
         },
     },
-    breadcrumbs: {
-        marginBottom: theme.spacing(2),
-        height: 36,
-        alignItems: 'center',
-        display: 'flex',
-    },
     loader: {
         display: 'flex',
         alignItems: 'center',

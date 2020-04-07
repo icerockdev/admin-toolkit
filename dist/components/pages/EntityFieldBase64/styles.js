@@ -29,4 +29,8 @@ export default (function (theme) { return ({
         backgroundPosition: '50% 50%',
         backgroundColor: '#eeeeee',
     },
+    preview: {
+        maxWidth: '100%',
+        maxHeight: 300,
+    },
 }); });

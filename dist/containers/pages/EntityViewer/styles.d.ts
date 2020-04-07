@@ -29,12 +29,6 @@ declare const _default: (theme: Theme) => {
             display: string;
         };
     };
-    breadcrumbs: {
-        marginBottom: number;
-        height: number;
-        alignItems: string;
-        display: string;
-    };
     loader: {
         display: string;
         alignItems: string;

@@ -12,5 +12,5 @@ declare type IProps = WithStyles<typeof styles> & {
     handler?: (val: any) => void;
     options?: Record<any, any>;
 } & Record<string, any>;
-declare const EntityFieldBase64Image: React.ComponentType<Pick<IProps, string> & import("@material-ui/core").StyledComponentProps<"label" | "image" | "formControl" | "outlinedInput">>;
+declare const EntityFieldBase64Image: React.ComponentType<Pick<IProps, string> & import("@material-ui/core").StyledComponentProps<"label" | "image" | "formControl" | "outlinedInput" | "preview">>;
 export { EntityFieldBase64Image };

@@ -66,6 +66,7 @@ import { computed, observable, action, reaction, flow, toJS } from 'mobx';
 import { Switch, Route } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { EntityViewer } from '../../../containers/pages/EntityViewer';
+import { EntityBreadcrumbs } from '../../../containers/pages/EntityBreadcrumbs';
 var Entity = /** @class */ (function (_super) {
     __extends(Entity, _super);
     function Entity(fields) {
@@ -385,13 +386,112 @@ var Entity = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(Entity.prototype, "Viewer", {
+    Object.defineProperty(Entity.prototype, "Breadcrumbs", {
+        get: function () {
+            var _this = this;
+            return observer(function (_a) {
+                var id = _a.id, _b = _a.isEditing, isEditing = _b === void 0 ? false : _b, _c = _a.isCreating, isCreating = _c === void 0 ? false : _c, buttons = _a.buttons;
+                return (React.createElement(EntityBreadcrumbs, { data: _this.editorData, fields: _this.fields, id: id, name: _this.title, url: _this.menu.url, isEditing: isEditing, isCreating: isCreating, buttons: buttons }));
+            });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Entity.prototype, "ViewerHeadButtons", {
+        get: function () {
+            return observer(function (_a) {
+                var id = _a.id;
+                return null;
+            });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Entity.prototype, "ViewerHead", {
+        get: function () {
+            var _this = this;
+            return observer(function (_a) {
+                var id = _a.id;
+                return (React.createElement(_this.Breadcrumbs, { id: id, buttons: React.createElement(_this.ViewerHeadButtons, { id: id }) }));
+            });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Entity.prototype, "ViewerFooter", {
+        get: function () {
+            return observer(function (_a) {
+                var id = _a.id;
+                return null;
+            });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Entity.prototype, "ViewerBody", {
         get: function () {
             var _this = this;
             return observer(function (_a) {
                 var id = _a.id;
                 var _b, _c;
-                return (React.createElement(EntityViewer, { entityName: _this.title, id: id, fields: _this.fields, url: _this.menu.url, errors: _this.editorFieldErrors, onSave: function () { }, onResetFieldError: _this.resetFieldError, isEditing: false, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken }));
+                return (React.createElement(EntityViewer, { id: id, fields: _this.fields, url: _this.menu.url, errors: _this.editorFieldErrors, onSave: function () { }, onResetFieldError: _this.resetFieldError, isEditing: false, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken }));
+            });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Entity.prototype, "Viewer", {
+        get: function () {
+            var _this = this;
+            return observer(function (_a) {
+                var id = _a.id;
+                return (React.createElement(React.Fragment, null,
+                    React.createElement(_this.ViewerHead, { id: id }),
+                    React.createElement(_this.ViewerBody, { id: id }),
+                    React.createElement(_this.ViewerFooter, { id: id })));
+            });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Entity.prototype, "EditorHeadButtons", {
+        get: function () {
+            return observer(function (_a) {
+                var id = _a.id;
+                return null;
+            });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Entity.prototype, "EditorHead", {
+        get: function () {
+            var _this = this;
+            return observer(function (_a) {
+                var id = _a.id;
+                return (React.createElement(_this.Breadcrumbs, { id: id, buttons: React.createElement(_this.EditorHeadButtons, { id: id }), isEditing: true }));
+            });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Entity.prototype, "EditorFooter", {
+        get: function () {
+            return observer(function (_a) {
+                var id = _a.id;
+                return null;
+            });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Entity.prototype, "EditorBody", {
+        get: function () {
+            var _this = this;
+            return observer(function (_a) {
+                var id = _a.id;
+                var _b, _c;
+                return (React.createElement(EntityViewer, { id: id, fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.updateItem, onResetFieldError: _this.resetFieldError, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, isEditing: true }));
             });
         },
         enumerable: true,
@@ -402,8 +502,43 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function (_a) {
                 var id = _a.id;
-                var _b, _c;
-                return (React.createElement(EntityViewer, { entityName: _this.title, id: id, fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.updateItem, onResetFieldError: _this.resetFieldError, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, isEditing: true }));
+                return (React.createElement(React.Fragment, null,
+                    React.createElement(_this.EditorHead, { id: id }),
+                    React.createElement(_this.EditorBody, { id: id }),
+                    React.createElement(_this.EditorFooter, { id: id })));
+            });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Entity.prototype, "CreatorHeadButtons", {
+        get: function () {
+            return observer(function () { return null; });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Entity.prototype, "CreatorHead", {
+        get: function () {
+            var _this = this;
+            return observer(function () { return (React.createElement(_this.Breadcrumbs, { buttons: React.createElement(_this.CreatorHeadButtons, null), isCreating: true })); });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Entity.prototype, "CreatorFooter", {
+        get: function () {
+            return observer(function () { return null; });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Entity.prototype, "CreatorBody", {
+        get: function () {
+            var _this = this;
+            return observer(function () {
+                var _a, _b;
+                return (React.createElement(EntityViewer, { fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.createItem, onResetFieldError: _this.resetFieldError, isEditing: true, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.createEmptyItem, cancelGetItem: _this.getItemsCancel, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken }));
             });
         },
         enumerable: true,
@@ -412,9 +547,12 @@ var Entity = /** @class */ (function (_super) {
     Object.defineProperty(Entity.prototype, "Creator", {
         get: function () {
             var _this = this;
-            return observer(function () {
-                var _a, _b;
-                return (React.createElement(EntityViewer, { entityName: _this.title, fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.createItem, onResetFieldError: _this.resetFieldError, isEditing: true, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.createEmptyItem, cancelGetItem: _this.getItemsCancel, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken }));
+            return observer(function (_a) {
+                var id = _a.id;
+                return (React.createElement(React.Fragment, null,
+                    React.createElement(_this.CreatorHead, null),
+                    React.createElement(_this.CreatorBody, null),
+                    React.createElement(_this.CreatorFooter, null)));
             });
         },
         enumerable: true,
@@ -563,10 +701,49 @@ var Entity = /** @class */ (function (_super) {
     ], Entity.prototype, "List", null);
     __decorate([
         computed
+    ], Entity.prototype, "Breadcrumbs", null);
+    __decorate([
+        computed
+    ], Entity.prototype, "ViewerHeadButtons", null);
+    __decorate([
+        computed
+    ], Entity.prototype, "ViewerHead", null);
+    __decorate([
+        computed
+    ], Entity.prototype, "ViewerFooter", null);
+    __decorate([
+        computed
+    ], Entity.prototype, "ViewerBody", null);
+    __decorate([
+        computed
     ], Entity.prototype, "Viewer", null);
     __decorate([
         computed
+    ], Entity.prototype, "EditorHeadButtons", null);
+    __decorate([
+        computed
+    ], Entity.prototype, "EditorHead", null);
+    __decorate([
+        computed
+    ], Entity.prototype, "EditorFooter", null);
+    __decorate([
+        computed
+    ], Entity.prototype, "EditorBody", null);
+    __decorate([
+        computed
     ], Entity.prototype, "Editor", null);
+    __decorate([
+        computed
+    ], Entity.prototype, "CreatorHeadButtons", null);
+    __decorate([
+        computed
+    ], Entity.prototype, "CreatorHead", null);
+    __decorate([
+        computed
+    ], Entity.prototype, "CreatorFooter", null);
+    __decorate([
+        computed
+    ], Entity.prototype, "CreatorBody", null);
     __decorate([
         computed
     ], Entity.prototype, "Creator", null);
