@@ -10,6 +10,7 @@ export declare class Entity extends Page {
     filters: IEntityProps['filters'];
     editable: IEntityProps['editable'];
     viewable: IEntityProps['viewable'];
+    creatable: IEntityProps['creatable'];
     selectable: IEntityProps['selectable'];
     getItemsFn: IEntityProps['getItemsFn'];
     fetchItemsFn: IEntityProps['fetchItemsFn'];
@@ -27,6 +28,7 @@ export declare class Entity extends Page {
     editorFieldErrors: Record<string, string>;
     editorData: Record<string, any>;
     selected: any[];
+    filterData: Record<string, any>;
     constructor(fields?: Partial<IEntityProps>);
     setFilters: (filters: import("../../types/entity").IFilterValue[]) => void;
     setPage: (page: number) => void;
@@ -50,6 +52,8 @@ export declare class Entity extends Page {
     get canCreate(): boolean;
     onMount: () => void;
     onUnmount: () => void;
+    get ListHeadTitle(): () => JSX.Element;
+    get ListHeadButtons(): () => JSX.Element;
     get ListHead(): () => JSX.Element;
     get ListBody(): () => JSX.Element;
     get ListFooter(): () => JSX.Element;

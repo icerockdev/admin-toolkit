@@ -21,6 +21,14 @@ export declare const ENTITY_FIELD_RENDERS: {
         handler?: ((val: any) => void) | undefined;
         onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
     } & Record<string, any>>;
+    datetime: FC<{
+        label: string;
+        value: any;
+        isEditing?: boolean | undefined;
+        error?: string | undefined;
+        handler?: ((val: any) => void) | undefined;
+        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
+    } & Record<string, any>>;
     boolean: FC<{
         label: string;
         value: any;
@@ -146,6 +154,7 @@ export interface IEntityFetchFunctionResult {
         list: Record<string, any>[];
         totalCount?: number;
     };
+    filterData?: Record<string, any>;
     error?: string;
 }
 export declare type IEntityFetchFunction = (props: IEntityFetchFunctionProps) => Promise<IEntityFetchFunctionResult>;

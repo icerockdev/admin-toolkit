@@ -24,6 +24,7 @@ type IProps = WithStyles<typeof styles> & {
   fields: IEntityField[];
   data: Record<string, any>;
   buttons?: ReactElement;
+  viewable: boolean;
 };
 
 const EntityBreadcrumbs = withStyles(styles)(
@@ -38,6 +39,7 @@ const EntityBreadcrumbs = withStyles(styles)(
       fields,
       data,
       buttons,
+      viewable,
     }: IProps) => {
       const title = useMemo(() => {
         const field = fields.find((f) => f.title);
@@ -58,7 +60,7 @@ const EntityBreadcrumbs = withStyles(styles)(
                 {isEditing && !isCreating && !!title && (
                   <Link
                     color="inherit"
-                    to={`${url}/${id}`}
+                    to={viewable ? `${url}/${id}` : url}
                     component={RouterLink}
                   >
                     {title}

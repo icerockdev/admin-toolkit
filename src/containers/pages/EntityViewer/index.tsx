@@ -1,13 +1,10 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { useMemo, createElement, useEffect, useCallback } from 'react';
+import React, { useMemo, useEffect, useCallback } from 'react';
 
 import {
-  Breadcrumbs,
-  Typography,
   withStyles,
   WithStyles,
-  Link,
   Paper,
   Grid,
   Button,
@@ -28,6 +25,7 @@ type IProps = WithStyles<typeof styles> & {
   isEditing: boolean;
   isLoading: boolean;
   data: Record<string, any>;
+  viewable: boolean;
 
   setEditorData: (data: Record<string, any>) => void;
   getItem: (id: any) => void;
@@ -48,6 +46,7 @@ const EntityViewer = withStyles(styles)(
       isEditing,
       onSave,
       onResetFieldError,
+      viewable,
       isLoading,
       data,
       setEditorData,
@@ -132,7 +131,7 @@ const EntityViewer = withStyles(styles)(
                             type="submit"
                             color="default"
                             variant="outlined"
-                            to={isCreating ? url : `${url}/${id}`}
+                            to={isCreating || !viewable ? url : `${url}/${id}`}
                             component={RouterLink}
                           >
                             Отмена

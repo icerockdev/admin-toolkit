@@ -7,9 +7,11 @@ import { EntityFieldPhone } from '../../components/pages/EntityFieldPhone';
 import { EntityFieldRichText } from '../../components/pages/EntityFieldRichText';
 import { EntityFieldBase64Image } from '../../components/pages/EntityFieldBase64';
 import { EntityFieldNumber } from '../../components/pages/EntityFieldNumber';
+import { EntityFieldDateTime } from '../../components/pages/EntityFieldDatetime';
 export var ENTITY_FIELD_RENDERS = {
     string: EntityFieldString,
     date: EntityFieldDate,
+    datetime: EntityFieldDateTime,
     boolean: EntityFieldBoolean,
     select: EntityFieldSelect,
     phone: EntityFieldPhone,

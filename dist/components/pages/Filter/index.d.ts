@@ -7,9 +7,10 @@ import { IEntityProps, IFilterValue } from '../../../application/types/entity';
 declare type IProps = WithStyles<typeof styles> & {
     fields: IEntityProps['fields'];
     filters: IFilterValue[];
+    filterData: Record<string, any>;
     clearFilter: () => void;
     applyFilter: () => void;
     setFilters: (filters: IFilterValue[]) => void;
 };
-declare const Filter: React.ComponentType<Pick<IProps, "fields" | "filters" | "setFilters" | "clearFilter" | "applyFilter"> & import("@material-ui/core").StyledComponentProps<"input" | "label" | "select" | "clear" | "formControl" | "wrapper" | "iconButton">>;
+declare const Filter: React.ComponentType<Pick<IProps, "fields" | "filters" | "filterData" | "setFilters" | "applyFilter" | "clearFilter"> & import("@material-ui/core").StyledComponentProps<"input" | "label" | "select" | "clear" | "formControl" | "wrapper" | "iconButton">>;
 export { Filter };

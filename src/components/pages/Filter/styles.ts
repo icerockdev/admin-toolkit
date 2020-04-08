@@ -6,6 +6,7 @@ export default (theme: Theme) => ({
   wrapper: {
     height: '36px',
     display: 'flex',
+    justifyContent: 'flex-end',
   },
   formControl: {
     margin: `0 ${theme.spacing(1)}px 0 0`,

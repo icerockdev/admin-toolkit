@@ -4,12 +4,21 @@ import { Theme } from '@material-ui/core';
 
 export default (theme: Theme) => ({
   header: {
-    marginBottom: theme.spacing(2),
+    margin: '5px 0',
+    display: 'flex',
+    justifyContent: 'center',
+
+    '& > *': {
+      margin: '5px 0',
+    },
   },
   title: {
     color: '#282f36',
     fontSize: '34px',
     fontWeight: 900,
     flexGrow: 1,
+  },
+  buttons: {
+    marginRight: theme.spacing(1),
   },
 });

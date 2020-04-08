@@ -17,7 +17,7 @@ import { observer } from 'mobx-react';
 import { Link as RouterLink } from 'react-router-dom';
 import { EntityField } from '../../../application/components/EntityField';
 var EntityViewer = withStyles(styles)(observer(function (_a) {
-    var classes = _a.classes, id = _a.id, fields = _a.fields, errors = _a.errors, url = _a.url, isEditing = _a.isEditing, onSave = _a.onSave, onResetFieldError = _a.onResetFieldError, isLoading = _a.isLoading, data = _a.data, setEditorData = _a.setEditorData, getItem = _a.getItem, cancelGetItem = _a.cancelGetItem, withToken = _a.withToken;
+    var classes = _a.classes, id = _a.id, fields = _a.fields, errors = _a.errors, url = _a.url, isEditing = _a.isEditing, onSave = _a.onSave, onResetFieldError = _a.onResetFieldError, viewable = _a.viewable, isLoading = _a.isLoading, data = _a.data, setEditorData = _a.setEditorData, getItem = _a.getItem, cancelGetItem = _a.cancelGetItem, withToken = _a.withToken;
     var isCreating = useMemo(function () { return typeof id === 'undefined'; }, [id]);
     var visibleFields = useMemo(function () { return fields.filter(function (field) { return !field.hideInEdit; }); }, [fields]);
     var onFieldChange = useCallback(function (f) { return function (value) {
@@ -52,7 +52,7 @@ var EntityViewer = withStyles(styles)(observer(function (_a) {
                     React.createElement(Grid, { container: true, spacing: 1 },
                         React.createElement(Grid, { item: true, style: { flex: 1 } }),
                         React.createElement(Grid, { item: true },
-                            React.createElement(Button, { type: "submit", color: "default", variant: "outlined", to: isCreating ? url : url + "/" + id, component: RouterLink }, "\u041E\u0442\u043C\u0435\u043D\u0430")),
+                            React.createElement(Button, { type: "submit", color: "default", variant: "outlined", to: isCreating || !viewable ? url : url + "/" + id, component: RouterLink }, "\u041E\u0442\u043C\u0435\u043D\u0430")),
                         React.createElement(Grid, { item: true },
                             React.createElement(Button, { type: "submit", variant: "contained", color: "primary" }, "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C")))))))))));
 }));

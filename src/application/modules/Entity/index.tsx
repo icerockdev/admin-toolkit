@@ -5,7 +5,6 @@ import {
   IEntityProps,
   ENTITY_ERRORS,
   ENTITY_SORT_DIRS,
-  IEntityFetchFunctionProps,
 } from '~/application/types/entity';
 import { Page } from '~/application/modules/Page';
 import { EntityList } from '../../../containers/pages/EntityList';
@@ -18,6 +17,7 @@ import { observer } from 'mobx-react';
 import { EntityViewer } from '../../../containers/pages/EntityViewer';
 import { Unwrap } from '~/application/types/common';
 import { EntityBreadcrumbs } from '~/containers/pages/EntityBreadcrumbs';
+import { Typography } from '@material-ui/core';
 
 export class Entity extends Page {
   // Props
@@ -28,6 +28,7 @@ export class Entity extends Page {
   @observable filters: IEntityProps['filters'] = [];
   @observable editable: IEntityProps['editable'] = false;
   @observable viewable: IEntityProps['viewable'] = false;
+  @observable creatable: IEntityProps['creatable'] = false;
   @observable selectable: IEntityProps['selectable'] = false;
   @observable getItemsFn: IEntityProps['getItemsFn'] = undefined;
   @observable fetchItemsFn: IEntityProps['fetchItemsFn'] = undefined;
@@ -48,6 +49,7 @@ export class Entity extends Page {
   @observable editorFieldErrors: Record<string, string> = {};
   @observable editorData: Record<string, any> = {};
   @observable selected: any[] = [];
+  @observable filterData: Record<string, any> = {};
 
   constructor(fields?: Partial<IEntityProps>) {
     super();
@@ -135,6 +137,7 @@ export class Entity extends Page {
           throw new Error(result?.error || ENTITY_ERRORS.CANT_LOAD_ITEMS);
 
         this.data = result?.data?.list || [];
+        this.filterData = result?.filterData || {};
         this.totalCount = result?.data?.totalCount || 0;
         this.isLoading = false;
       } catch (e) {
@@ -339,16 +342,32 @@ export class Entity extends Page {
   };
 
   @computed
+  get ListHeadTitle() {
+    return observer(() => (
+      <Typography variant="h4" style={{ flex: 1 }}>
+        {this.title}
+      </Typography>
+    ));
+  }
+
+  @computed
+  get ListHeadButtons() {
+    return observer(() => <></>);
+  }
+
+  @computed
   get ListHead() {
     return observer(() => (
       <EntityHead
-        title={this.title}
+        filterData={this.filterData}
+        title={<this.ListHeadTitle />}
+        buttons={<this.ListHeadButtons />}
         filters={this.filters}
         fields={this.fields}
         setFilters={this.setFilters}
         url={this.menu.url}
         applyFilter={this.fetchItems}
-        canCreate={this.editable && this.canCreate}
+        canCreate={this.creatable && this.canCreate}
       />
     ));
   }
@@ -418,6 +437,7 @@ export class Entity extends Page {
           id={id}
           name={this.title}
           url={this.menu.url}
+          viewable={this.viewable}
           isEditing={isEditing}
           isCreating={isCreating}
           buttons={buttons}
@@ -460,6 +480,7 @@ export class Entity extends Page {
         getItem={this.getItem}
         cancelGetItem={this.getItemsCancel}
         withToken={this.parent?.auth?.withToken}
+        viewable={this.viewable}
       />
     ));
   }
@@ -512,6 +533,7 @@ export class Entity extends Page {
         getItem={this.getItem}
         cancelGetItem={this.getItemsCancel}
         withToken={this.parent?.auth?.withToken}
+        viewable={this.viewable}
         isEditing
       />
     ));
@@ -560,6 +582,7 @@ export class Entity extends Page {
         data={this.editorData}
         getItem={this.createEmptyItem}
         cancelGetItem={this.getItemsCancel}
+        viewable={this.viewable}
         withToken={this.parent?.auth?.withToken}
       />
     ));

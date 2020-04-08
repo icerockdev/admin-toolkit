@@ -1,6 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, ReactElement } from 'react';
 import {
   Typography,
   withStyles,
@@ -14,11 +14,13 @@ import { IEntityProps } from '~/application';
 import { Filter } from '~/components/pages/Filter';
 
 type IProps = WithStyles<typeof styles> & {
-  title: string;
+  title: ReactElement;
+  buttons: ReactElement;
   canCreate: boolean;
   url: string;
   filters: IEntityProps['filters'];
   fields: IEntityProps['fields'];
+  filterData: Record<string, any>;
   setFilters: (filters: IEntityProps['filters']) => void;
   applyFilter: () => void;
 };
@@ -26,25 +28,16 @@ type IProps = WithStyles<typeof styles> & {
 const EntityHeadUnstyled: FC<IProps> = ({
   classes,
   title,
+  buttons,
   filters,
   fields,
   canCreate,
   url,
+  filterData,
 
   setFilters,
   applyFilter,
 }) => {
-  const setFilterCurrent = useCallback(
-    (current: string) => {
-      // setFilters({ ...filters, current, value: null });
-
-      if (current === '') {
-        applyFilter();
-      }
-    },
-    [setFilters, applyFilter, filters]
-  );
-
   const clearFilter = useCallback(() => {
     setFilters([]);
     applyFilter();
@@ -54,15 +47,14 @@ const EntityHeadUnstyled: FC<IProps> = ({
     <Grid
       container
       justify="space-between"
-      alignItems="flex-end"
+      alignItems="center"
       className={classes.header}
     >
-      <Typography component="h3" className={classes.title}>
-        {title}
-      </Typography>
+      {title}
 
       {filters && (
         <Filter
+          filterData={filterData}
           fields={fields}
           filters={filters}
           setFilters={setFilters}
@@ -70,6 +62,8 @@ const EntityHeadUnstyled: FC<IProps> = ({
           clearFilter={clearFilter}
         />
       )}
+
+      {buttons && <div className={classes.buttons}>{buttons}</div>}
 
       {canCreate && url && (
         <Button

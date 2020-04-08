@@ -5,6 +5,7 @@ declare const _default: (theme: Theme) => {
     wrapper: {
         height: string;
         display: string;
+        justifyContent: string;
     };
     formControl: {
         margin: string;

@@ -23,8 +23,9 @@ import styles from './styles';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import { EntityField } from '../../../application/components/EntityField';
-var Filter = withStyles(styles)(function (_a) {
-    var classes = _a.classes, fields = _a.fields, filters = _a.filters, setFilters = _a.setFilters, clearFilter = _a.clearFilter, applyFilter = _a.applyFilter;
+import { observer } from 'mobx-react';
+var Filter = withStyles(styles)(observer(function (_a) {
+    var classes = _a.classes, fields = _a.fields, filters = _a.filters, filterData = _a.filterData, setFilters = _a.setFilters, applyFilter = _a.applyFilter;
     var onSelectField = useCallback(function (event) {
         if (!event.target.value)
             return;
@@ -64,12 +65,12 @@ var Filter = withStyles(styles)(function (_a) {
         currentFilters.map(function (field, i) {
             var _a;
             return field && (React.createElement("div", { className: classes.input, key: field.name },
-                React.createElement(EntityField, { name: field.name, fields: fields, data: (_a = {}, _a[field.name] = filters[i].value, _a), handler: setFilterValue(i), isEditing: true }),
+                React.createElement(EntityField, { name: field.name, fields: fields, data: __assign(__assign({}, filterData), (_a = {}, _a[field.name] = filters[i].value, _a)), handler: setFilterValue(i), isEditing: true }),
                 React.createElement(IconButton, { color: "secondary", onClick: removeFilter(i), className: classes.clear, tabIndex: 0 },
                     React.createElement(ClearIcon, null))));
         }),
         currentFilters.length > 0 && (React.createElement(Fragment, null,
             React.createElement(IconButton, { color: "primary", onClick: applyFilter, className: classes.iconButton, tabIndex: 0 },
                 React.createElement(CheckIcon, null))))));
-});
+}));
 export { Filter };

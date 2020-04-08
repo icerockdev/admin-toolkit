@@ -10,10 +10,12 @@ import { EntityFieldRichText } from '~/components/pages/EntityFieldRichText';
 import { EntityFieldBase64Image } from '~/components/pages/EntityFieldBase64';
 import { FC } from 'react';
 import { EntityFieldNumber } from '~/components/pages/EntityFieldNumber';
+import { EntityFieldDateTime } from '~/components/pages/EntityFieldDatetime';
 
 export const ENTITY_FIELD_RENDERS = {
   string: EntityFieldString,
   date: EntityFieldDate,
+  datetime: EntityFieldDateTime,
   boolean: EntityFieldBoolean,
   select: EntityFieldSelect,
   phone: EntityFieldPhone,
@@ -113,6 +115,7 @@ export interface IEntityFetchFunctionResult {
     list: Record<string, any>[];
     totalCount?: number;
   };
+  filterData?: Record<string, any>;
   error?: string;
 }
 

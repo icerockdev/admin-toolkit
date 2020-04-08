@@ -13,6 +13,7 @@ declare type IProps = WithStyles<typeof styles> & {
     fields: IEntityField[];
     data: Record<string, any>;
     buttons?: ReactElement;
+    viewable: boolean;
 };
-declare const EntityBreadcrumbs: React.ComponentType<Pick<IProps, "data" | "id" | "url" | "name" | "isEditing" | "fields" | "buttons" | "isCreating"> & import("@material-ui/core").StyledComponentProps<"breadcrumbs">>;
+declare const EntityBreadcrumbs: React.ComponentType<Pick<IProps, "data" | "id" | "url" | "name" | "isEditing" | "fields" | "buttons" | "viewable" | "isCreating"> & import("@material-ui/core").StyledComponentProps<"breadcrumbs">>;
 export { EntityBreadcrumbs };

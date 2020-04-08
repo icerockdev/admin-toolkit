@@ -17,6 +17,7 @@ const SAMPLE_ENTITY_1 = {
   phone: '+7 000 000 000',
   title: 'First one',
   created: new Date().toISOString(),
+  createdTime: new Date().toISOString(),
   number: '0.123123123',
   visible: true,
 };
@@ -27,6 +28,7 @@ const SAMPLE_ENTITY_2 = {
   phone: '+7 000 000 000',
   title: 'First one',
   created: new Date().toISOString(),
+  createdTime: new Date().toISOString(),
   number: 0.123123123,
   visible: true,
 };
@@ -49,7 +51,7 @@ export default new Config({
     new Entity({
       title: 'Sample entity',
       editable: true,
-      viewable: true,
+      viewable: false,
       api: {
         list: { url: '/list', method: 'get' },
         update: { url: '/update', method: 'patch' },
@@ -89,6 +91,12 @@ export default new Config({
           label: 'Дата публикации',
           sortable: true,
           type: 'date',
+        },
+        {
+          name: 'createdTime',
+          label: 'Дата и время',
+          sortable: true,
+          type: 'datetime',
         },
         {
           name: 'visible',

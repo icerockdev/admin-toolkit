@@ -67,6 +67,7 @@ import { Switch, Route } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { EntityViewer } from '../../../containers/pages/EntityViewer';
 import { EntityBreadcrumbs } from '../../../containers/pages/EntityBreadcrumbs';
+import { Typography } from '@material-ui/core';
 var Entity = /** @class */ (function (_super) {
     __extends(Entity, _super);
     function Entity(fields) {
@@ -79,6 +80,7 @@ var Entity = /** @class */ (function (_super) {
         _this.filters = [];
         _this.editable = false;
         _this.viewable = false;
+        _this.creatable = false;
         _this.selectable = false;
         _this.getItemsFn = undefined;
         _this.fetchItemsFn = undefined;
@@ -96,6 +98,7 @@ var Entity = /** @class */ (function (_super) {
         _this.editorFieldErrors = {};
         _this.editorData = {};
         _this.selected = [];
+        _this.filterData = {};
         _this.setFilters = function (filters) {
             _this.filters = filters;
         };
@@ -153,6 +156,7 @@ var Entity = /** @class */ (function (_super) {
                             if (!result || result.error)
                                 throw new Error((result === null || result === void 0 ? void 0 : result.error) || ENTITY_ERRORS.CANT_LOAD_ITEMS);
                             this.data = ((_g = result === null || result === void 0 ? void 0 : result.data) === null || _g === void 0 ? void 0 : _g.list) || [];
+                            this.filterData = (result === null || result === void 0 ? void 0 : result.filterData) || {};
                             this.totalCount = ((_h = result === null || result === void 0 ? void 0 : result.data) === null || _h === void 0 ? void 0 : _h.totalCount) || 0;
                             this.isLoading = false;
                             return [3 /*break*/, 4];
@@ -351,10 +355,25 @@ var Entity = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(Entity.prototype, "ListHeadTitle", {
+        get: function () {
+            var _this = this;
+            return observer(function () { return (React.createElement(Typography, { variant: "h4", style: { flex: 1 } }, _this.title)); });
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Entity.prototype, "ListHeadButtons", {
+        get: function () {
+            return observer(function () { return React.createElement(React.Fragment, null); });
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Entity.prototype, "ListHead", {
         get: function () {
             var _this = this;
-            return observer(function () { return (React.createElement(EntityHead, { title: _this.title, filters: _this.filters, fields: _this.fields, setFilters: _this.setFilters, url: _this.menu.url, applyFilter: _this.fetchItems, canCreate: _this.editable && _this.canCreate })); });
+            return observer(function () { return (React.createElement(EntityHead, { filterData: _this.filterData, title: React.createElement(_this.ListHeadTitle, null), buttons: React.createElement(_this.ListHeadButtons, null), filters: _this.filters, fields: _this.fields, setFilters: _this.setFilters, url: _this.menu.url, applyFilter: _this.fetchItems, canCreate: _this.creatable && _this.canCreate })); });
         },
         enumerable: true,
         configurable: true
@@ -391,7 +410,7 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function (_a) {
                 var id = _a.id, _b = _a.isEditing, isEditing = _b === void 0 ? false : _b, _c = _a.isCreating, isCreating = _c === void 0 ? false : _c, buttons = _a.buttons;
-                return (React.createElement(EntityBreadcrumbs, { data: _this.editorData, fields: _this.fields, id: id, name: _this.title, url: _this.menu.url, isEditing: isEditing, isCreating: isCreating, buttons: buttons }));
+                return (React.createElement(EntityBreadcrumbs, { data: _this.editorData, fields: _this.fields, id: id, name: _this.title, url: _this.menu.url, viewable: _this.viewable, isEditing: isEditing, isCreating: isCreating, buttons: buttons }));
             });
         },
         enumerable: true,
@@ -434,7 +453,7 @@ var Entity = /** @class */ (function (_super) {
             return observer(function (_a) {
                 var id = _a.id;
                 var _b, _c;
-                return (React.createElement(EntityViewer, { id: id, fields: _this.fields, url: _this.menu.url, errors: _this.editorFieldErrors, onSave: function () { }, onResetFieldError: _this.resetFieldError, isEditing: false, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken }));
+                return (React.createElement(EntityViewer, { id: id, fields: _this.fields, url: _this.menu.url, errors: _this.editorFieldErrors, onSave: function () { }, onResetFieldError: _this.resetFieldError, isEditing: false, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, viewable: _this.viewable }));
             });
         },
         enumerable: true,
@@ -491,7 +510,7 @@ var Entity = /** @class */ (function (_super) {
             return observer(function (_a) {
                 var id = _a.id;
                 var _b, _c;
-                return (React.createElement(EntityViewer, { id: id, fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.updateItem, onResetFieldError: _this.resetFieldError, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, isEditing: true }));
+                return (React.createElement(EntityViewer, { id: id, fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.updateItem, onResetFieldError: _this.resetFieldError, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, viewable: _this.viewable, isEditing: true }));
             });
         },
         enumerable: true,
@@ -538,7 +557,7 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function () {
                 var _a, _b;
-                return (React.createElement(EntityViewer, { fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.createItem, onResetFieldError: _this.resetFieldError, isEditing: true, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.createEmptyItem, cancelGetItem: _this.getItemsCancel, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken }));
+                return (React.createElement(EntityViewer, { fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.createItem, onResetFieldError: _this.resetFieldError, isEditing: true, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.createEmptyItem, cancelGetItem: _this.getItemsCancel, viewable: _this.viewable, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken }));
             });
         },
         enumerable: true,
@@ -593,6 +612,9 @@ var Entity = /** @class */ (function (_super) {
     ], Entity.prototype, "viewable", void 0);
     __decorate([
         observable
+    ], Entity.prototype, "creatable", void 0);
+    __decorate([
+        observable
     ], Entity.prototype, "selectable", void 0);
     __decorate([
         observable
@@ -642,6 +664,9 @@ var Entity = /** @class */ (function (_super) {
     __decorate([
         observable
     ], Entity.prototype, "selected", void 0);
+    __decorate([
+        observable
+    ], Entity.prototype, "filterData", void 0);
     __decorate([
         action
     ], Entity.prototype, "setFilters", void 0);
@@ -696,6 +721,12 @@ var Entity = /** @class */ (function (_super) {
     __decorate([
         action
     ], Entity.prototype, "onUnmount", void 0);
+    __decorate([
+        computed
+    ], Entity.prototype, "ListHeadTitle", null);
+    __decorate([
+        computed
+    ], Entity.prototype, "ListHeadButtons", null);
     __decorate([
         computed
     ], Entity.prototype, "ListHead", null);
