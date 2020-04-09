@@ -63,13 +63,24 @@ export default new Config({
         label: 'Sample entity',
         url: '/entity',
       },
+      references: {
+        type: {
+          getMany: async () => {
+            return {
+              1: 'variant 1',
+              2: 'variant 2',
+              3: 'variant 3',
+            };
+          },
+        },
+      },
       fields: [
         {
           name: 'type',
           label: 'Тип',
           sortable: true,
           filterable: true,
-          type: 'string',
+          type: 'referenceSelect',
           required: true,
         },
         {

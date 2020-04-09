@@ -5,6 +5,9 @@ import {
   IEntityProps,
   ENTITY_ERRORS,
   ENTITY_SORT_DIRS,
+  ENTITY_REFERENCE_FIELDS,
+  IEntityFetchFunctionProps,
+  IEntityReferenceProps,
 } from '~/application/types/entity';
 import { Page } from '~/application/modules/Page';
 import { EntityList } from '../../../containers/pages/EntityList';
@@ -34,6 +37,8 @@ export class Entity extends Page {
   @observable fetchItemsFn: IEntityProps['fetchItemsFn'] = undefined;
   @observable updateItemsFn: IEntityProps['updateItemsFn'] = undefined;
   @observable createItemsFn: IEntityProps['createItemsFn'] = undefined;
+  @observable references: IEntityProps['references'] = {};
+  @observable referenceData: Record<string, any> = {};
 
   // Built-in
   @observable isLoading: boolean = true;
@@ -112,6 +117,7 @@ export class Entity extends Page {
       this.selected = [];
 
       try {
+        // loading entity
         if (!this.api?.list?.url || !this.fetchItemsFn) {
           throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
         }
@@ -139,6 +145,33 @@ export class Entity extends Page {
         this.data = result?.data?.list || [];
         this.filterData = result?.filterData || {};
         this.totalCount = result?.data?.totalCount || 0;
+
+        // Loading references (if any)
+        const references = this.fields
+          .filter(
+            (field) =>
+              field.type &&
+              Object.prototype.hasOwnProperty.call(
+                ENTITY_REFERENCE_FIELDS,
+                field.type
+              ) &&
+              this.references[field.name]?.getMany
+          )
+          .map(async (field) => ({
+            [field.name]: await this.references[field.name].getMany(this),
+          }));
+
+        const refResults = yield Promise.all(references);
+
+        this.referenceData = refResults.reduce(
+          (obj: Record<string, any>, res: Record<string, any>) => ({
+            ...obj,
+            ...res,
+          }),
+          {}
+        );
+
+        // finished
         this.isLoading = false;
       } catch (e) {
         this.parent?.notifications.showError(e.message);

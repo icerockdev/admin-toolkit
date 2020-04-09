@@ -11,6 +11,8 @@ import { EntityFieldBase64Image } from '~/components/pages/EntityFieldBase64';
 import { FC } from 'react';
 import { EntityFieldNumber } from '~/components/pages/EntityFieldNumber';
 import { EntityFieldDateTime } from '~/components/pages/EntityFieldDatetime';
+import { EntityFieldReferenceSelect } from '~/components/pages/EntityFieldReferenceSelect';
+import { Entity } from '../modules';
 
 export const ENTITY_FIELD_RENDERS = {
   string: EntityFieldString,
@@ -22,6 +24,11 @@ export const ENTITY_FIELD_RENDERS = {
   richtext: EntityFieldRichText,
   base64image: EntityFieldBase64Image,
   number: EntityFieldNumber,
+  referenceSelect: EntityFieldReferenceSelect,
+};
+
+export const ENTITY_REFERENCE_FIELDS = {
+  referenceSelect: true,
 };
 
 // getFieldRenderer returns field-type specific renderer
@@ -90,6 +97,8 @@ export interface IEntityProps extends IPageProps {
   creatable: boolean;
   selectable: boolean;
   filters: IFilterValue[];
+  references: Record<string, IEntityReferenceProps>;
+
   api?: Record<
     typeof ENTITY_ACTIONS[keyof typeof ENTITY_ACTIONS],
     { url: string; method: string }
@@ -169,3 +178,8 @@ export interface IEntityGetFunctionResult {
 export type IEntityGetFunction = (
   props: IEntityGetFunctionProps
 ) => Promise<IEntityGetFunctionResult>;
+
+export type IEntityReferenceProps = {
+  getMany: (entity: Entity) => Promise<Record<string, any>>;
+  getOne?: (id: any) => Promise<Record<string, any>>;
+};
