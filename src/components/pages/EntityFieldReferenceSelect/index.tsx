@@ -2,6 +2,7 @@
 
 import React, { FC, MouseEventHandler, useCallback } from 'react';
 import { TextField } from '@material-ui/core';
+import { toJS } from 'mobx';
 
 type IProps = {
   label: string;
@@ -9,6 +10,7 @@ type IProps = {
   error?: string;
   isEditing?: boolean;
   onClick?: MouseEventHandler<HTMLDivElement>;
+  options: Record<string, any>;
   handler?: (val: any) => void;
 } & Record<string, any>;
 
@@ -19,7 +21,10 @@ const EntityFieldReferenceSelect: FC<IProps> = ({
   error,
   isEditing,
   onClick,
+  options,
 }) => {
+  console.log({ options: toJS(options) });
+
   const onChange = useCallback(
     (event) => {
       if (!handler) return;

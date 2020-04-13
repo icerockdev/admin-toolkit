@@ -171,6 +171,16 @@ export class Entity extends Page {
           {}
         );
 
+        // updating field reference data
+        this.fields = this.fields.map((field) =>
+          this.referenceData[field.name]
+            ? {
+                ...field,
+                options: { referenceData: this.referenceData[field.name] },
+              }
+            : field
+        );
+
         // finished
         this.isLoading = false;
       } catch (e) {
