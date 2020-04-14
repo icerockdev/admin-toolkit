@@ -1,54 +1,63 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React, { FC, MouseEventHandler, useCallback } from 'react';
-import { TextField } from '@material-ui/core';
+import { Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 import { toJS } from 'mobx';
+import { observer } from 'mobx-react';
 
 type IProps = {
   label: string;
   value: any;
-  error?: string;
   isEditing?: boolean;
-  onClick?: MouseEventHandler<HTMLDivElement>;
-  options: Record<string, any>;
   handler?: (val: any) => void;
+  error?: string;
+  onClick?: MouseEventHandler<HTMLDivElement>;
+  options?: Record<any, any>;
 } & Record<string, any>;
 
-const EntityFieldReferenceSelect: FC<IProps> = ({
-  label,
-  value,
-  handler,
-  error,
-  isEditing,
-  onClick,
-  options,
-}) => {
-  console.log({ options: toJS(options) });
+const EntityFieldReferenceSelect: FC<IProps> = observer(
+  ({ label, value, handler, error, isEditing, onClick, options }) => {
+    const onChange = useCallback(
+      (event) => {
+        if (!handler) return;
+        handler(event.target.value);
+      },
+      [value, handler]
+    );
 
-  const onChange = useCallback(
-    (event) => {
-      if (!handler) return;
+    return isEditing ? (
+      <FormControl variant="outlined">
+        <InputLabel htmlFor={label}>{label}</InputLabel>
 
-      handler(event.target.value);
-    },
-    [value, handler]
-  );
+        <Select
+          variant="outlined"
+          id={label}
+          name={label}
+          label={label}
+          value={!value ? '' : value}
+          onChange={onChange}
+          error={!!error}
+          inputProps={{ className: 'select' }}
+        >
+          <MenuItem value="">...</MenuItem>
 
-  return isEditing ? (
-    <div>
-      R:
-      <TextField
-        label={label}
-        value={value || ''}
-        onChange={onChange}
-        error={!!error}
-        helperText={error}
-        variant="outlined"
-      />
-    </div>
-  ) : (
-    <div onClick={onClick}>R: {value ? String(value) : <div>&nbsp;</div>}</div>
-  );
-};
+          {options &&
+            options.referenceData &&
+            Object.keys(options.referenceData).map((item) => (
+              <MenuItem key={item} value={item}>
+                {options.referenceData[item]}
+              </MenuItem>
+            ))}
+        </Select>
+      </FormControl>
+    ) : (
+      <div onClick={onClick}>
+        {(options && options.referenceData && options.referenceData[value]) || (
+          <div>&nbsp;</div>
+        )}
+      </div>
+    );
+  }
+);
 
 export { EntityFieldReferenceSelect };

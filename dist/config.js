@@ -39,7 +39,7 @@ import { Config, AuthProvider, Page, Entity, } from './application';
 import logo from './assets/logo512.png';
 var SAMPLE_ENTITY_1 = {
     id: 1,
-    type: 'text',
+    type: 1,
     phone: '+7 000 000 000',
     title: 'First one',
     created: new Date().toISOString(),
@@ -49,7 +49,7 @@ var SAMPLE_ENTITY_1 = {
 };
 var SAMPLE_ENTITY_2 = {
     id: 2,
-    type: 'text',
+    type: 2,
     phone: '+7 000 000 000',
     title: 'First one',
     created: new Date().toISOString(),

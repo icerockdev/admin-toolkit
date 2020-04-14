@@ -13,7 +13,7 @@ import logo from '~/assets/logo512.png';
 
 const SAMPLE_ENTITY_1 = {
   id: 1,
-  type: 'text',
+  type: 1,
   phone: '+7 000 000 000',
   title: 'First one',
   created: new Date().toISOString(),
@@ -24,7 +24,7 @@ const SAMPLE_ENTITY_1 = {
 
 const SAMPLE_ENTITY_2 = {
   id: 2,
-  type: 'text',
+  type: 2,
   phone: '+7 000 000 000',
   title: 'First one',
   created: new Date().toISOString(),

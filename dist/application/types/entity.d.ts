@@ -88,11 +88,11 @@ export declare const ENTITY_FIELD_RENDERS: {
     referenceSelect: FC<{
         label: string;
         value: any;
-        error?: string | undefined;
         isEditing?: boolean | undefined;
-        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-        options: Record<string, any>;
         handler?: ((val: any) => void) | undefined;
+        error?: string | undefined;
+        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
+        options?: Record<any, any> | undefined;
     } & Record<string, any>>;
 };
 export declare const ENTITY_REFERENCE_FIELDS: {

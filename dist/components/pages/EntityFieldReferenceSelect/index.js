@@ -1,19 +1,20 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 import React, { useCallback } from 'react';
-import { TextField } from '@material-ui/core';
-import { toJS } from 'mobx';
-var EntityFieldReferenceSelect = function (_a) {
+import { Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import { observer } from 'mobx-react';
+var EntityFieldReferenceSelect = observer(function (_a) {
     var label = _a.label, value = _a.value, handler = _a.handler, error = _a.error, isEditing = _a.isEditing, onClick = _a.onClick, options = _a.options;
-    console.log({ options: toJS(options) });
     var onChange = useCallback(function (event) {
         if (!handler)
             return;
         handler(event.target.value);
     }, [value, handler]);
-    return isEditing ? (React.createElement("div", null,
-        "R:",
-        React.createElement(TextField, { label: label, value: value || '', onChange: onChange, error: !!error, helperText: error, variant: "outlined" }))) : (React.createElement("div", { onClick: onClick },
-        "R: ",
-        value ? String(value) : React.createElement("div", null, "\u00A0")));
-};
+    return isEditing ? (React.createElement(FormControl, { variant: "outlined" },
+        React.createElement(InputLabel, { htmlFor: label }, label),
+        React.createElement(Select, { variant: "outlined", id: label, name: label, label: label, value: !value ? '' : value, onChange: onChange, error: !!error, inputProps: { className: 'select' } },
+            React.createElement(MenuItem, { value: "" }, "..."),
+            options &&
+                options.referenceData &&
+                Object.keys(options.referenceData).map(function (item) { return (React.createElement(MenuItem, { key: item, value: item }, options.referenceData[item])); })))) : (React.createElement("div", { onClick: onClick }, (options && options.referenceData && options.referenceData[value]) || (React.createElement("div", null, "\u00A0"))));
+});
 export { EntityFieldReferenceSelect };
