@@ -14,6 +14,7 @@ declare type IProps = WithStyles<typeof styles> & {
     filterData: Record<string, any>;
     setFilters: (filters: IEntityProps['filters']) => void;
     applyFilter: () => void;
+    withToken?: (req: any, args: any) => void;
 };
-declare const EntityHead: React.ComponentType<Pick<React.PropsWithChildren<IProps>, "title" | "children" | "url" | "fields" | "filters" | "filterData" | "setFilters" | "applyFilter" | "buttons" | "canCreate"> & import("@material-ui/core").StyledComponentProps<"title" | "header" | "buttons">>;
+declare const EntityHead: React.ComponentType<Pick<React.PropsWithChildren<IProps>, "title" | "children" | "withToken" | "url" | "fields" | "filters" | "filterData" | "setFilters" | "applyFilter" | "buttons" | "canCreate"> & import("@material-ui/core").StyledComponentProps<"title" | "header" | "buttons">>;
 export { EntityHead };

@@ -8,6 +8,7 @@ import { EntityFieldRichText } from '../../components/pages/EntityFieldRichText'
 import { EntityFieldBase64Image } from '../../components/pages/EntityFieldBase64';
 import { EntityFieldNumber } from '../../components/pages/EntityFieldNumber';
 import { EntityFieldDateTime } from '../../components/pages/EntityFieldDatetime';
+import { EntityFieldReferenceSelect } from '../../components/pages/EntityFieldReferenceSelect';
 export var ENTITY_FIELD_RENDERS = {
     string: EntityFieldString,
     date: EntityFieldDate,
@@ -18,6 +19,10 @@ export var ENTITY_FIELD_RENDERS = {
     richtext: EntityFieldRichText,
     base64image: EntityFieldBase64Image,
     number: EntityFieldNumber,
+    referenceSelect: EntityFieldReferenceSelect,
+};
+export var ENTITY_REFERENCE_FIELDS = {
+    referenceSelect: true,
 };
 // getFieldRenderer returns field-type specific renderer
 export var getEntityFieldRenderer = function (type) {

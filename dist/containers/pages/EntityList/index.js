@@ -16,7 +16,7 @@ import styles from './styles';
 import { EntityField } from '../../../application/components/EntityField';
 import { useHistory } from 'react-router-dom';
 var EntityList = withStyles(styles)(function (_a) {
-    var classes = _a.classes, isLoading = _a.isLoading, fields = _a.fields, data = _a.data, url = _a.url, selected = _a.selected, sortBy = _a.sortBy, sortDir = _a.sortDir, canView = _a.canView, canEdit = _a.canEdit, canSelect = _a.canSelect, onSortChange = _a.onSortChange, setSelected = _a.setSelected;
+    var classes = _a.classes, isLoading = _a.isLoading, fields = _a.fields, data = _a.data, url = _a.url, selected = _a.selected, sortBy = _a.sortBy, sortDir = _a.sortDir, canView = _a.canView, canEdit = _a.canEdit, canSelect = _a.canSelect, onSortChange = _a.onSortChange, setSelected = _a.setSelected, withToken = _a.withToken;
     var visibleFields = useMemo(function () { return fields.filter(function (field) { return !field.hideInList; }); }, [fields]);
     var history = useHistory();
     var onRowClick = useCallback(function (id) {
@@ -58,7 +58,7 @@ var EntityList = withStyles(styles)(function (_a) {
                     canSelect && (React.createElement(TableCell, null,
                         React.createElement(Checkbox, { checked: selected.includes(entry.id), onChange: function (_, includes) { return onSelect(entry.id, includes); } }))),
                     visibleFields.map(function (field) { return (React.createElement(TableCell, { key: field.name, onClick: function () { return onRowClick(entry.id); } },
-                        React.createElement(EntityField, { name: field.name, fields: fields, data: entry }))); }),
+                        React.createElement(EntityField, { name: field.name, fields: fields, data: entry, withToken: withToken }))); }),
                     (canEdit || canView) && (React.createElement(TableCell, { size: "small", align: "right" },
                         React.createElement(ButtonGroup, { variant: "text" },
                             canEdit && (React.createElement(Button, { to: url + "/" + entry.id + "/edit", component: RouterLink },

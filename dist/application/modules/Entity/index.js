@@ -29,6 +29,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __generator = (this && this.__generator) || function (thisArg, body) {
     var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
     return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
@@ -57,7 +66,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import React from 'react';
-import { ENTITY_ERRORS, ENTITY_SORT_DIRS, } from '../../types/entity';
+import { ENTITY_ERRORS, ENTITY_SORT_DIRS, ENTITY_REFERENCE_FIELDS, } from '../../types/entity';
 import { Page } from '../Page';
 import { EntityList } from '../../../containers/pages/EntityList';
 import { EntityHead } from '../../../containers/pages/EntityHead';
@@ -86,6 +95,8 @@ var Entity = /** @class */ (function (_super) {
         _this.fetchItemsFn = undefined;
         _this.updateItemsFn = undefined;
         _this.createItemsFn = undefined;
+        _this.references = {};
+        _this.referenceData = {};
         // Built-in
         _this.isLoading = true;
         _this.itemsPerPage = [5, 10, 15, 25, 50];
@@ -126,7 +137,8 @@ var Entity = /** @class */ (function (_super) {
         _this.fetchItems = function () {
             _this.fetchItemsCancel();
             _this.fetchItemsInstance = flow(function () {
-                var filter, result, e_1;
+                var filter, result, references, refResults, e_1;
+                var _this = this;
                 var _a, _b, _c, _d, _e, _f, _g, _h, _j;
                 return __generator(this, function (_k) {
                     switch (_k.label) {
@@ -136,7 +148,8 @@ var Entity = /** @class */ (function (_super) {
                             this.selected = [];
                             _k.label = 1;
                         case 1:
-                            _k.trys.push([1, 3, , 4]);
+                            _k.trys.push([1, 4, , 5]);
+                            // loading entity
                             if (!((_b = (_a = this.api) === null || _a === void 0 ? void 0 : _a.list) === null || _b === void 0 ? void 0 : _b.url) || !this.fetchItemsFn) {
                                 throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
                             }
@@ -158,14 +171,44 @@ var Entity = /** @class */ (function (_super) {
                             this.data = ((_g = result === null || result === void 0 ? void 0 : result.data) === null || _g === void 0 ? void 0 : _g.list) || [];
                             this.filterData = (result === null || result === void 0 ? void 0 : result.filterData) || {};
                             this.totalCount = ((_h = result === null || result === void 0 ? void 0 : result.data) === null || _h === void 0 ? void 0 : _h.totalCount) || 0;
-                            this.isLoading = false;
-                            return [3 /*break*/, 4];
+                            references = this.fields
+                                .filter(function (field) {
+                                var _a;
+                                return field.type &&
+                                    Object.prototype.hasOwnProperty.call(ENTITY_REFERENCE_FIELDS, field.type) && ((_a = _this.references[field.name]) === null || _a === void 0 ? void 0 : _a.getMany);
+                            })
+                                .map(function (field) { return __awaiter(_this, void 0, void 0, function () {
+                                var _a;
+                                var _b;
+                                return __generator(this, function (_c) {
+                                    switch (_c.label) {
+                                        case 0:
+                                            _b = {};
+                                            _a = field.name;
+                                            return [4 /*yield*/, this.references[field.name].getMany(this)];
+                                        case 1: return [2 /*return*/, (_b[_a] = _c.sent(),
+                                                _b)];
+                                    }
+                                });
+                            }); });
+                            return [4 /*yield*/, Promise.all(references)];
                         case 3:
+                            refResults = _k.sent();
+                            this.referenceData = refResults.reduce(function (obj, res) { return (__assign(__assign({}, obj), res)); }, {});
+                            // updating field reference data
+                            this.fields = this.fields.map(function (field) {
+                                return _this.referenceData[field.name]
+                                    ? __assign(__assign({}, field), { options: { referenceData: _this.referenceData[field.name] } }) : field;
+                            });
+                            // finished
+                            this.isLoading = false;
+                            return [3 /*break*/, 5];
+                        case 4:
                             e_1 = _k.sent();
                             (_j = this.parent) === null || _j === void 0 ? void 0 : _j.notifications.showError(e_1.message);
                             this.isLoading = false;
-                            return [3 /*break*/, 4];
-                        case 4: return [2 /*return*/];
+                            return [3 /*break*/, 5];
+                        case 5: return [2 /*return*/];
                     }
                 });
             }).bind(_this)();
@@ -373,7 +416,10 @@ var Entity = /** @class */ (function (_super) {
     Object.defineProperty(Entity.prototype, "ListHead", {
         get: function () {
             var _this = this;
-            return observer(function () { return (React.createElement(EntityHead, { filterData: _this.filterData, title: React.createElement(_this.ListHeadTitle, null), buttons: React.createElement(_this.ListHeadButtons, null), filters: _this.filters, fields: _this.fields, setFilters: _this.setFilters, url: _this.menu.url, applyFilter: _this.fetchItems, canCreate: _this.creatable && _this.canCreate })); });
+            return observer(function () {
+                var _a, _b;
+                return (React.createElement(EntityHead, { filterData: _this.filterData, title: React.createElement(_this.ListHeadTitle, null), buttons: React.createElement(_this.ListHeadButtons, null), filters: _this.filters, fields: _this.fields, setFilters: _this.setFilters, url: _this.menu.url, applyFilter: _this.fetchItems, canCreate: _this.creatable && _this.canCreate, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken }));
+            });
         },
         enumerable: true,
         configurable: true
@@ -381,7 +427,10 @@ var Entity = /** @class */ (function (_super) {
     Object.defineProperty(Entity.prototype, "ListBody", {
         get: function () {
             var _this = this;
-            return observer(function () { return (React.createElement(EntityList, { fields: _this.fields, data: _this.data, isLoading: _this.isLoading, url: _this.menu.url, selected: _this.selected, sortBy: _this.sortBy, sortDir: _this.sortDir, canView: _this.viewable, canEdit: _this.editable && _this.canEdit, canSelect: _this.selectable, setSelected: _this.setSelected, onSortChange: _this.setSort })); });
+            return observer(function () {
+                var _a, _b;
+                return (React.createElement(EntityList, { fields: _this.fields, data: _this.data, isLoading: _this.isLoading, url: _this.menu.url, selected: _this.selected, sortBy: _this.sortBy, sortDir: _this.sortDir, canView: _this.viewable, canEdit: _this.editable && _this.canEdit, canSelect: _this.selectable, setSelected: _this.setSelected, onSortChange: _this.setSort, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken }));
+            });
         },
         enumerable: true,
         configurable: true
@@ -628,6 +677,12 @@ var Entity = /** @class */ (function (_super) {
     __decorate([
         observable
     ], Entity.prototype, "createItemsFn", void 0);
+    __decorate([
+        observable
+    ], Entity.prototype, "references", void 0);
+    __decorate([
+        observable
+    ], Entity.prototype, "referenceData", void 0);
     __decorate([
         observable
     ], Entity.prototype, "isLoading", void 0);

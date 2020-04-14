@@ -411,6 +411,7 @@ export class Entity extends Page {
         url={this.menu.url}
         applyFilter={this.fetchItems}
         canCreate={this.creatable && this.canCreate}
+        withToken={this.parent?.auth?.withToken}
       />
     ));
   }
@@ -431,6 +432,7 @@ export class Entity extends Page {
         canSelect={this.selectable}
         setSelected={this.setSelected}
         onSortChange={this.setSort}
+        withToken={this.parent?.auth?.withToken}
       />
     ));
   }

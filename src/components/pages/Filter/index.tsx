@@ -27,6 +27,7 @@ type IProps = WithStyles<typeof styles> & {
   clearFilter: () => void;
   applyFilter: () => void;
   setFilters: (filters: IFilterValue[]) => void;
+  withToken?: (req: any, args: any) => void;
 };
 
 const Filter = withStyles(styles)(
@@ -38,6 +39,7 @@ const Filter = withStyles(styles)(
       filterData,
       setFilters,
       applyFilter,
+      withToken,
     }: IProps) => {
       const onSelectField = useCallback(
         (event: ChangeEvent<{ name?: string | undefined; value: unknown }>) => {
@@ -137,6 +139,7 @@ const Filter = withStyles(styles)(
                     fields={fields}
                     data={{ ...filterData, [field.name]: filters[i].value }}
                     handler={setFilterValue(i)}
+                    withToken={withToken}
                     isEditing
                   />
 

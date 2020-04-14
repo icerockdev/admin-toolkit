@@ -23,6 +23,7 @@ type IProps = WithStyles<typeof styles> & {
   filterData: Record<string, any>;
   setFilters: (filters: IEntityProps['filters']) => void;
   applyFilter: () => void;
+  withToken?: (req: any, args: any) => void;
 };
 
 const EntityHeadUnstyled: FC<IProps> = ({
@@ -37,6 +38,7 @@ const EntityHeadUnstyled: FC<IProps> = ({
 
   setFilters,
   applyFilter,
+  withToken,
 }) => {
   const clearFilter = useCallback(() => {
     setFilters([]);
@@ -60,6 +62,7 @@ const EntityHeadUnstyled: FC<IProps> = ({
           setFilters={setFilters}
           applyFilter={applyFilter}
           clearFilter={clearFilter}
+          withToken={withToken}
         />
       )}
 

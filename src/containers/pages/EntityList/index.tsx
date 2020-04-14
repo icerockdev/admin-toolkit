@@ -38,6 +38,7 @@ type IProps = WithStyles<typeof styles> & {
   canSelect?: boolean;
   setSelected: (items: any[]) => void;
   onSortChange: (field: string) => void;
+  withToken?: (req: any, args: any) => void;
 };
 
 const EntityList = withStyles(styles)(
@@ -55,6 +56,7 @@ const EntityList = withStyles(styles)(
     canSelect,
     onSortChange,
     setSelected,
+    withToken,
   }: IProps) => {
     const visibleFields = useMemo(
       () => fields.filter((field) => !field.hideInList),
@@ -155,6 +157,7 @@ const EntityList = withStyles(styles)(
                         name={field.name}
                         fields={fields}
                         data={entry}
+                        withToken={withToken}
                       />
                     </TableCell>
                   ))}

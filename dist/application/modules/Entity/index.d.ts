@@ -16,6 +16,8 @@ export declare class Entity extends Page {
     fetchItemsFn: IEntityProps['fetchItemsFn'];
     updateItemsFn: IEntityProps['updateItemsFn'];
     createItemsFn: IEntityProps['createItemsFn'];
+    references: IEntityProps['references'];
+    referenceData: Record<string, any>;
     isLoading: boolean;
     itemsPerPage: number[];
     items: number;

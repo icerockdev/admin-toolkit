@@ -4,6 +4,7 @@
 /// <reference types="@emotion/core" />
 import { IPageProps } from './page';
 import { FC } from 'react';
+import { Entity } from '../modules';
 export declare const ENTITY_FIELD_RENDERS: {
     string: FC<{
         label: string;
@@ -84,6 +85,18 @@ export declare const ENTITY_FIELD_RENDERS: {
             accuracy?: number | undefined;
         } | undefined;
     } & Record<string, any>>;
+    referenceSelect: FC<{
+        label: string;
+        value: any;
+        error?: string | undefined;
+        isEditing?: boolean | undefined;
+        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
+        options: Record<string, any>;
+        handler?: ((val: any) => void) | undefined;
+    } & Record<string, any>>;
+};
+export declare const ENTITY_REFERENCE_FIELDS: {
+    referenceSelect: boolean;
 };
 export declare const getEntityFieldRenderer: (type?: string) => FC<any>;
 export declare const ENTITY_SORT_DIRS: Record<string, 'asc' | 'desc'>;
@@ -131,6 +144,7 @@ export interface IEntityProps extends IPageProps {
     creatable: boolean;
     selectable: boolean;
     filters: IFilterValue[];
+    references: Record<string, IEntityReferenceProps>;
     api?: Record<typeof ENTITY_ACTIONS[keyof typeof ENTITY_ACTIONS], {
         url: string;
         method: string;
@@ -190,3 +204,7 @@ export interface IEntityGetFunctionResult {
     error?: string;
 }
 export declare type IEntityGetFunction = (props: IEntityGetFunctionProps) => Promise<IEntityGetFunctionResult>;
+export declare type IEntityReferenceProps = {
+    getMany: (entity: Entity) => Promise<Record<string, any>>;
+    getOne?: (id: any) => Promise<Record<string, any>>;
+};
