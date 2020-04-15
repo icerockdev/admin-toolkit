@@ -4,6 +4,7 @@ import {
   EMPTY_USER,
   IAuthProviderProps,
   AUTH_ERRORS,
+  UNAUTHORIZED,
 } from '~/application/types/auth';
 import { computed, observable, action, reaction, toJS } from 'mobx';
 import { flow } from 'mobx';
@@ -98,9 +99,19 @@ export class JWTAuthProvider extends AuthProvider {
     this.tokens = EMPTY_TOKENS;
   };
 
-  @observable
+  @action
   withToken = async (req: any, args: any) => {
-    return req({ ...args, token: `Bearer ${this.tokens.access}` });
+    const result = await req({
+      ...args,
+      token: `Bearer ${this.tokens.access}`,
+    });
+
+    if (result.error === UNAUTHORIZED) {
+      this.user = EMPTY_USER;
+      this.tokens = EMPTY_TOKENS;
+    }
+
+    return result;
   };
 
   getPersistedCredentials = (): {

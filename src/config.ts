@@ -8,6 +8,7 @@ import {
   IEntityUpdateFunctionProps,
   IEntityCreateFunctionProps,
   IEntityGetFunctionProps,
+  UNAUTHORIZED,
 } from './application';
 import logo from '~/assets/logo512.png';
 
