@@ -23,7 +23,17 @@ export type IJWTTokenRefreshFn = (
   refresh: '';
 }>;
 
+export type IJWTAuthRequestFn = (
+  email: string,
+  password: string
+) => Promise<{
+  user: IAuthProviderProps['user'];
+  tokens: { access: string; refresh: string };
+  error: string;
+}>;
+
 export type IJWTAuthProviderProps = IAuthProviderProps & {
+  authRequestFn: IJWTAuthRequestFn;
   tokenRefreshFn: IJWTTokenRefreshFn;
 };
 

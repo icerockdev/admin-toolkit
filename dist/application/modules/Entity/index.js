@@ -84,7 +84,7 @@ import { observer } from 'mobx-react';
 import { EntityViewer } from '../../../containers/pages/EntityViewer';
 import { EntityBreadcrumbs } from '../../../containers/pages/EntityBreadcrumbs';
 import { Typography } from '@material-ui/core';
-import { saveAs } from "file-saver";
+import { saveAs } from 'file-saver';
 var Entity = /** @class */ (function (_super) {
     __extends(Entity, _super);
     function Entity(fields) {
@@ -394,20 +394,22 @@ var Entity = /** @class */ (function (_super) {
                                 filter: this.filters,
                                 page: 0,
                                 count: 1000,
-                                sortDir: "DESC",
-                                sortBy: "id",
+                                sortDir: 'DESC',
+                                sortBy: 'id',
                             }))];
                     case 1:
                         response = _f.sent();
                         if (!((_e = response.data) === null || _e === void 0 ? void 0 : _e.list))
                             return [2 /*return*/];
-                        fields = this.fields.filter(function (field) { return !field.hideInExport; }).map(function (field) { return field.name; });
+                        fields = this.fields
+                            .filter(function (field) { return !field.hideInExport; })
+                            .map(function (field) { return field.name; });
                         rows = __spreadArrays([
                             fields
                         ], response.data.list.map(function (item) {
                             return fields.reduce(function (obj, field) { return __spreadArrays(obj, ['"' + String(item[field]) + '"']); }, []);
                         }));
-                        csv = "data:text/csv;charset=utf-8," + rows.map(function (e) { return e.join(","); }).join("\n");
+                        csv = 'data:text/csv;charset=utf-8,' + rows.map(function (e) { return e.join(','); }).join('\n');
                         uri = encodeURI(csv);
                         saveAs(uri, this.title + ".csv");
                         return [2 /*return*/];

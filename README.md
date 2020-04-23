@@ -201,7 +201,10 @@ new Entity({
 - `entity.canCreate: boolean` - if entity can be created by current user
 - `entity.output` - component, that renders entity page and contains router for list, view, edit and create pages
 - `entity.List`, `entity.Viewer`, `entity.Editor`, `entity.Creator` - overridable components for viewing, editing and creating item
-- `entity.ListHeader`, `entity.ListBody`, `entity.ListFooter` - overridable parts of `entity.list` component
+- `entity.ListHead`, `entity.ListBody`, `entity.ListFooter` - overridable parts of `entity.List` component
+- `entity.EditorHead`, `entity.EditorBody`, `entity.EditorFooter` - overridable parts of `entity.Editor` component
+- `entity.ViewerHead`, `entity.ViewerHeadButtons`, `entity.ViewerBody`, `entity.ViewerFooter` - overridable parts of `entity.Viewer` component
+- `entity.CreatorHead`, `entity.CreatorHeadButtons`, `entity.CreatorBody`, `entity.CreatorFooter` - overridable parts of `entity.Creator` component
 - `entity.isLoading: boolean` - is item currently loading / updating
 - `entity.items: number` - how many items per page should be displayed in view list
 - `entity.itemsPerPage: number[]` - available options for items

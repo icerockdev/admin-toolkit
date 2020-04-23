@@ -19,5 +19,5 @@ export default (function (theme) { return ({
     },
     export: {
         marginRight: theme.spacing(1),
-    }
+    },
 }); });
