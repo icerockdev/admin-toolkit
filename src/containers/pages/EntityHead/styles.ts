@@ -21,4 +21,7 @@ export default (theme: Theme) => ({
   buttons: {
     marginRight: theme.spacing(1),
   },
+  export: {
+    marginRight: theme.spacing(1),
+  },
 });

@@ -6,8 +6,6 @@ import {
   ENTITY_ERRORS,
   ENTITY_SORT_DIRS,
   ENTITY_REFERENCE_FIELDS,
-  IEntityFetchFunctionProps,
-  IEntityReferenceProps,
 } from '~/application/types/entity';
 import { Page } from '~/application/modules/Page';
 import { EntityList } from '../../../containers/pages/EntityList';
@@ -21,6 +19,7 @@ import { EntityViewer } from '../../../containers/pages/EntityViewer';
 import { Unwrap } from '~/application/types/common';
 import { EntityBreadcrumbs } from '~/containers/pages/EntityBreadcrumbs';
 import { Typography } from '@material-ui/core';
+import { saveAs } from 'file-saver';
 
 export class Entity extends Page {
   // Props
@@ -32,6 +31,7 @@ export class Entity extends Page {
   @observable editable: IEntityProps['editable'] = false;
   @observable viewable: IEntityProps['viewable'] = false;
   @observable creatable: IEntityProps['creatable'] = false;
+  @observable exportable: IEntityProps['exportable'] = false;
   @observable selectable: IEntityProps['selectable'] = false;
   @observable getItemsFn: IEntityProps['getItemsFn'] = undefined;
   @observable fetchItemsFn: IEntityProps['fetchItemsFn'] = undefined;
@@ -384,6 +384,42 @@ export class Entity extends Page {
     this.fetchItemsCancel();
   };
 
+  @observable
+  exportData = async () => {
+    if (!this.fetchItemsFn) return;
+
+    const response = await this.parent?.auth?.withToken(this.fetchItemsFn, {
+      url: this.api?.list?.url,
+      filter: this.filters,
+      page: 0,
+      count: 1000,
+      sortDir: 'DESC',
+      sortBy: 'id',
+    });
+
+    if (!response.data?.list) return;
+
+    const fields = this.fields
+      .filter((field) => !field.hideInExport)
+      .map((field) => field.name);
+
+    const rows = [
+      fields,
+      ...response.data.list.map((item: Record<string, any>) =>
+        fields.reduce(
+          (obj, field) => [...obj, '"' + String(item[field]) + '"'],
+          [] as string[]
+        )
+      ),
+    ];
+
+    let csv =
+      'data:text/csv;charset=utf-8,' + rows.map((e) => e.join(',')).join('\n');
+    var uri = encodeURI(csv);
+
+    saveAs(uri, `${this.title}.csv`);
+  };
+
   @computed
   get ListHeadTitle() {
     return observer(() => (
@@ -410,8 +446,10 @@ export class Entity extends Page {
         setFilters={this.setFilters}
         url={this.menu.url}
         applyFilter={this.fetchItems}
-        canCreate={this.creatable && this.canCreate}
         withToken={this.parent?.auth?.withToken}
+        onExport={this.exportData}
+        canExport={this.exportable}
+        canCreate={this.creatable && this.canCreate}
       />
     ));
   }

@@ -16,6 +16,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 var __generator = (this && this.__generator) || function (thisArg, body) {
     var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
     return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
@@ -44,7 +53,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 // import React from 'react';
-import { EMPTY_USER } from '../../types/auth';
+import { EMPTY_USER, UNAUTHORIZED, } from '../../types/auth';
 import { computed, observable, action, reaction } from 'mobx';
 import { flow } from 'mobx';
 var AuthProvider = /** @class */ (function () {
@@ -153,9 +162,20 @@ var AuthProvider = /** @class */ (function () {
         this.logout = function () {
             _this.user = EMPTY_USER;
         };
-        this.withToken = function (req, args) {
-            return req(__assign(__assign({}, args), { token: _this.user.token }));
-        };
+        this.withToken = function (req, args) { return __awaiter(_this, void 0, void 0, function () {
+            var result;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, req(__assign(__assign({}, args), { token: this.user.token }))];
+                    case 1:
+                        result = _a.sent();
+                        if (result.error === UNAUTHORIZED) {
+                            this.user = EMPTY_USER;
+                        }
+                        return [2 /*return*/, result];
+                }
+            });
+        }); };
         if (fields) {
             Object.assign(this, fields);
         }
@@ -208,7 +228,7 @@ var AuthProvider = /** @class */ (function () {
         action
     ], AuthProvider.prototype, "logout", void 0);
     __decorate([
-        observable
+        action
     ], AuthProvider.prototype, "withToken", void 0);
     __decorate([
         computed

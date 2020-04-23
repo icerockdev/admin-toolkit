@@ -2,6 +2,12 @@
 
 import { IAuthProviderProps } from '../../types/auth';
 import { AuthProvider } from '../AuthProvider';
+declare type IJWTAuthProviderProps = IAuthProviderProps & {
+    tokenRefreshFn: (refresh: string) => Promise<{
+        access: '';
+        refresh: '';
+    }>;
+};
 export declare class JWTAuthProvider extends AuthProvider {
     tokens: Record<string, string>;
     authRequestFn?: (email: string, password: string) => Promise<{
@@ -9,7 +15,11 @@ export declare class JWTAuthProvider extends AuthProvider {
         tokens: Record<string, string>;
         error: string;
     }>;
-    constructor(fields?: Partial<IAuthProviderProps>);
+    tokenRefreshFn?: (refresh: string) => Promise<{
+        access: string;
+        refresh: string;
+    }>;
+    constructor(fields?: Partial<IJWTAuthProviderProps>);
     sendAuthRequest: ({ email, password, }: {
         email: string;
         password: string;
@@ -31,3 +41,4 @@ export declare class JWTAuthProvider extends AuthProvider {
     persistTokens: () => void;
     get isLogged(): boolean;
 }
+export {};

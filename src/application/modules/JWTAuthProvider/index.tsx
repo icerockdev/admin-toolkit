@@ -16,6 +16,15 @@ const EMPTY_TOKENS = {
   refresh: '',
 };
 
+type IJWTAuthProviderProps = IAuthProviderProps & {
+  tokenRefreshFn: (
+    refresh: string
+  ) => Promise<{
+    access: '';
+    refresh: '';
+  }>;
+};
+
 export class JWTAuthProvider extends AuthProvider {
   @observable tokens: Record<string, string> = EMPTY_TOKENS;
   @observable authRequestFn?: (
@@ -27,7 +36,14 @@ export class JWTAuthProvider extends AuthProvider {
     error: string;
   }>;
 
-  constructor(fields?: Partial<IAuthProviderProps>) {
+  @observable tokenRefreshFn?: (
+    refresh: string
+  ) => Promise<{
+    access: string;
+    refresh: string;
+  }>;
+
+  constructor(fields?: Partial<IJWTAuthProviderProps>) {
     super(fields);
 
     if (this.persist) {
@@ -107,6 +123,21 @@ export class JWTAuthProvider extends AuthProvider {
     });
 
     if (result.error === UNAUTHORIZED) {
+      if (this.tokenRefreshFn) {
+        const { access, refresh } = await this.tokenRefreshFn(
+          this.tokens.refresh
+        );
+
+        if (access && refresh) {
+          this.tokens = { access, refresh };
+
+          return await req({
+            ...args,
+            token: `Bearer ${access}`,
+          });
+        }
+      }
+
       this.user = EMPTY_USER;
       this.tokens = EMPTY_TOKENS;
     }

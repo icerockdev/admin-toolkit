@@ -40,6 +40,7 @@ var Filter = withStyles(styles)(observer(function (_a) {
     }; }, [filters, setFilters]);
     var removeFilter = useCallback(function (i) { return function () {
         setFilters(filters.filter(function (_, index) { return i !== index; }));
+        applyFilter();
     }; }, [filters, setFilters]);
     var filterableFields = useMemo(function () { return fields.filter(function (field) { return field.filterable; }); }, [fields]);
     var selectableFields = useMemo(function () {

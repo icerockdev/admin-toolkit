@@ -16,6 +16,7 @@ import { IEntityField, getEntityFieldRenderer } from '~/application';
 import { observer } from 'mobx-react';
 import { Link as RouterLink } from 'react-router-dom';
 import { EntityField } from '../../../application/components/EntityField';
+import { toJS } from 'mobx';
 
 type IProps = WithStyles<typeof styles> & {
   url: string;
@@ -43,7 +44,6 @@ const EntityViewer = withStyles(styles)(
       fields,
       errors,
       url,
-      isEditing,
       onSave,
       onResetFieldError,
       viewable,
@@ -53,12 +53,21 @@ const EntityViewer = withStyles(styles)(
       getItem,
       cancelGetItem,
       withToken,
+      isEditing,
     }: IProps) => {
       const isCreating = useMemo(() => typeof id === 'undefined', [id]);
 
+      console.log({ isEditing, isCreating, fields: toJS(fields) });
+
       const visibleFields = useMemo(
-        () => fields.filter((field) => !field.hideInEdit),
-        [fields]
+        () =>
+          fields.filter(
+            (field) =>
+              (isEditing && !isCreating && !field.hideInEdit) ||
+              (isCreating && !field.hideInCreate) ||
+              (!isEditing && !isCreating && !field.hideInList)
+          ),
+        [fields, isEditing, isCreating]
       );
 
       const onFieldChange = useCallback(

@@ -11,6 +11,7 @@ export declare class Entity extends Page {
     editable: IEntityProps['editable'];
     viewable: IEntityProps['viewable'];
     creatable: IEntityProps['creatable'];
+    exportable: IEntityProps['exportable'];
     selectable: IEntityProps['selectable'];
     getItemsFn: IEntityProps['getItemsFn'];
     fetchItemsFn: IEntityProps['fetchItemsFn'];
@@ -54,6 +55,7 @@ export declare class Entity extends Page {
     get canCreate(): boolean;
     onMount: () => void;
     onUnmount: () => void;
+    exportData: () => Promise<void>;
     get ListHeadTitle(): () => JSX.Element;
     get ListHeadButtons(): () => JSX.Element;
     get ListHead(): () => JSX.Element;

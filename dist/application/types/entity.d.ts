@@ -132,6 +132,8 @@ export interface IEntityField {
     component?: FC<any>;
     hideInList?: boolean;
     hideInEdit?: boolean;
+    hideInCreate?: boolean;
+    hideInExport?: boolean;
 }
 export interface IFilterValue {
     name: string;
@@ -143,6 +145,7 @@ export interface IEntityProps extends IPageProps {
     viewable: boolean;
     creatable: boolean;
     selectable: boolean;
+    exportable: boolean;
     filters: IFilterValue[];
     references: Record<string, IEntityReferenceProps>;
     api?: Record<typeof ENTITY_ACTIONS[keyof typeof ENTITY_ACTIONS], {

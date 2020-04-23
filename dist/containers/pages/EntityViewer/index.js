@@ -16,10 +16,18 @@ import styles from './styles';
 import { observer } from 'mobx-react';
 import { Link as RouterLink } from 'react-router-dom';
 import { EntityField } from '../../../application/components/EntityField';
+import { toJS } from 'mobx';
 var EntityViewer = withStyles(styles)(observer(function (_a) {
-    var classes = _a.classes, id = _a.id, fields = _a.fields, errors = _a.errors, url = _a.url, isEditing = _a.isEditing, onSave = _a.onSave, onResetFieldError = _a.onResetFieldError, viewable = _a.viewable, isLoading = _a.isLoading, data = _a.data, setEditorData = _a.setEditorData, getItem = _a.getItem, cancelGetItem = _a.cancelGetItem, withToken = _a.withToken;
+    var classes = _a.classes, id = _a.id, fields = _a.fields, errors = _a.errors, url = _a.url, onSave = _a.onSave, onResetFieldError = _a.onResetFieldError, viewable = _a.viewable, isLoading = _a.isLoading, data = _a.data, setEditorData = _a.setEditorData, getItem = _a.getItem, cancelGetItem = _a.cancelGetItem, withToken = _a.withToken, isEditing = _a.isEditing;
     var isCreating = useMemo(function () { return typeof id === 'undefined'; }, [id]);
-    var visibleFields = useMemo(function () { return fields.filter(function (field) { return !field.hideInEdit; }); }, [fields]);
+    console.log({ isEditing: isEditing, isCreating: isCreating, fields: toJS(fields) });
+    var visibleFields = useMemo(function () {
+        return fields.filter(function (field) {
+            return (isEditing && !isCreating && !field.hideInEdit) ||
+                (isCreating && !field.hideInCreate) ||
+                (!isEditing && !isCreating && !field.hideInList);
+        });
+    }, [fields, isEditing, isCreating]);
     var onFieldChange = useCallback(function (f) { return function (value) {
         var _a;
         if (errors[f]) {

@@ -83,6 +83,8 @@ export interface IEntityField {
 
   hideInList?: boolean;
   hideInEdit?: boolean;
+  hideInCreate?: boolean;
+  hideInExport?: boolean;
 }
 
 export interface IFilterValue {
@@ -96,6 +98,7 @@ export interface IEntityProps extends IPageProps {
   viewable: boolean;
   creatable: boolean;
   selectable: boolean;
+  exportable: boolean;
   filters: IFilterValue[];
   references: Record<string, IEntityReferenceProps>;
 

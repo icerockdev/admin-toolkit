@@ -35,6 +35,6 @@ export declare class AuthProvider {
     };
     persistCredentials: () => void;
     logout: () => void;
-    withToken: (req: any, args: any) => any;
+    withToken: (req: any, args: any) => Promise<any>;
     get isLogged(): boolean;
 }

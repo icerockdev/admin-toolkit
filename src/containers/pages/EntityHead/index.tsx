@@ -1,13 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React, { FC, useCallback, ReactElement } from 'react';
-import {
-  Typography,
-  withStyles,
-  WithStyles,
-  Grid,
-  Button,
-} from '@material-ui/core';
+import { withStyles, WithStyles, Grid, Button } from '@material-ui/core';
 import styles from './styles';
 import { Link as RouterLink } from 'react-router-dom';
 import { IEntityProps } from '~/application';
@@ -17,12 +11,14 @@ type IProps = WithStyles<typeof styles> & {
   title: ReactElement;
   buttons: ReactElement;
   canCreate: boolean;
+  canExport: boolean;
   url: string;
   filters: IEntityProps['filters'];
   fields: IEntityProps['fields'];
   filterData: Record<string, any>;
   setFilters: (filters: IEntityProps['filters']) => void;
   applyFilter: () => void;
+  onExport: () => void;
   withToken?: (req: any, args: any) => void;
 };
 
@@ -33,12 +29,14 @@ const EntityHeadUnstyled: FC<IProps> = ({
   filters,
   fields,
   canCreate,
+  canExport,
   url,
   filterData,
 
   setFilters,
   applyFilter,
   withToken,
+  onExport,
 }) => {
   const clearFilter = useCallback(() => {
     setFilters([]);
@@ -67,6 +65,17 @@ const EntityHeadUnstyled: FC<IProps> = ({
       )}
 
       {buttons && <div className={classes.buttons}>{buttons}</div>}
+
+      {canExport && (
+        <Button
+          variant="outlined"
+          color="primary"
+          onClick={onExport}
+          className={classes.export}
+        >
+          Экспорт
+        </Button>
+      )}
 
       {canCreate && url && (
         <Button

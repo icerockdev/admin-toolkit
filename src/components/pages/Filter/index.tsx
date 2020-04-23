@@ -67,6 +67,7 @@ const Filter = withStyles(styles)(
       const removeFilter = useCallback(
         (i: number) => () => {
           setFilters(filters.filter((_, index) => i !== index));
+          applyFilter();
         },
         [filters, setFilters]
       );

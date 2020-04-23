@@ -77,6 +77,8 @@ export default new Config({
             title: 'Sample entity',
             editable: true,
             viewable: false,
+            creatable: true,
+            exportable: true,
             api: {
                 list: { url: '/list', method: 'get' },
                 update: { url: '/update', method: 'patch' },
@@ -123,6 +125,7 @@ export default new Config({
                     sortable: true,
                     type: 'string',
                     title: true,
+                    hideInCreate: true,
                 },
                 {
                     name: 'created',

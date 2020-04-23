@@ -65,7 +65,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-import { EMPTY_USER, AUTH_ERRORS, } from '../../types/auth';
+import { EMPTY_USER, AUTH_ERRORS, UNAUTHORIZED, } from '../../types/auth';
 import { computed, observable, action, reaction } from 'mobx';
 import { flow } from 'mobx';
 import { AuthProvider } from '../AuthProvider';
@@ -126,8 +126,27 @@ var JWTAuthProvider = /** @class */ (function (_super) {
             _this.tokens = EMPTY_TOKENS;
         };
         _this.withToken = function (req, args) { return __awaiter(_this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, req(__assign(__assign({}, args), { token: "Bearer " + this.tokens.access }))];
+            var result, _a, access, refresh;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0: return [4 /*yield*/, req(__assign(__assign({}, args), { token: "Bearer " + this.tokens.access }))];
+                    case 1:
+                        result = _b.sent();
+                        if (!(result.error === UNAUTHORIZED)) return [3 /*break*/, 5];
+                        if (!this.tokenRefreshFn) return [3 /*break*/, 4];
+                        return [4 /*yield*/, this.tokenRefreshFn(this.tokens.refresh)];
+                    case 2:
+                        _a = _b.sent(), access = _a.access, refresh = _a.refresh;
+                        if (!(access && refresh)) return [3 /*break*/, 4];
+                        this.tokens = { access: access, refresh: refresh };
+                        return [4 /*yield*/, req(__assign(__assign({}, args), { token: "Bearer " + access }))];
+                    case 3: return [2 /*return*/, _b.sent()];
+                    case 4:
+                        this.user = EMPTY_USER;
+                        this.tokens = EMPTY_TOKENS;
+                        _b.label = 5;
+                    case 5: return [2 /*return*/, result];
+                }
             });
         }); };
         _this.getPersistedCredentials = function () {
@@ -175,13 +194,16 @@ var JWTAuthProvider = /** @class */ (function (_super) {
         observable
     ], JWTAuthProvider.prototype, "authRequestFn", void 0);
     __decorate([
+        observable
+    ], JWTAuthProvider.prototype, "tokenRefreshFn", void 0);
+    __decorate([
         action
     ], JWTAuthProvider.prototype, "sendAuthRequest", void 0);
     __decorate([
         action
     ], JWTAuthProvider.prototype, "logout", void 0);
     __decorate([
-        observable
+        action
     ], JWTAuthProvider.prototype, "withToken", void 0);
     __decorate([
         computed

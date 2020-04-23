@@ -59,6 +59,38 @@ new AuthProvider({
 });
 ```
 
+## JWTAuthProvider
+JWTAuthProvider is extension of AuthProvider, but it has ```tokenRefreshOption``` to fetch renewed access token, using refresh token. Also, authRequestFn returns ```tokens``` field with access and refresh token pair:
+```javascript
+new AuthProvider({
+  authRequestFn: (email, password) => (
+    Promise.resolve({
+      user: {
+        email: 'user@example.com',
+        username: 'username',
+        role: 'user'
+      },
+	  tokens: {
+		access: 'accessToken',
+		refresh: 'refreshToken',
+	  },
+      error: ''
+    })
+  ),
+  authPasswRestoreFn: (email) => (
+    Promise.resolve({
+      error: '',
+    })
+  ),
+  tokenRefreshFn: (refresh) => (
+  	Promise.resolve({
+		access: 'newAccessToken',
+		refresh: 'newRefreshToken',
+	}),
+  ),
+  persist: true, //store beetween sessions
+});
+```
 #### Methods and values: ####
 - ```auth.user``` - current user info
 - ```auth.withToken: (req, args) => Promise<any>``` - wrapper for callbacks, which used to add ```token``` value to function arguments
@@ -103,6 +135,8 @@ new Entity({
   title: "Sample entity",
   editable: true,
   viewable: true,
+  creatable: true,
+  exportable: true,
   api: {
     get: { url: "/get", method: "get" },
     list: { url: "/list", method: "get" },
@@ -113,7 +147,17 @@ new Entity({
     enabled: true,
     label: "Sample entity",
     url: "/entity"
-  },      
+  },
+  references: {
+        status: {
+          getMany: async () => {
+            return {
+              1: 'variant 1',
+              2: 'variant 2',
+            };
+          },
+        },
+      },
   fields: [
     {
       name: "type", 
@@ -122,6 +166,14 @@ new Entity({
       type: "custom", // see Fields below
       component: EntityTypeField,
     },
+	{
+    	name: 'status',
+        label: 'Статус',
+        sortable: true,
+        filterable: true,
+        type: 'referenceSelect',
+        required: true,
+	},
   ],
   getItemsFn, // see getItemsFn below
   fetchItemsFn, // see fetchItemsFn below
@@ -130,6 +182,7 @@ new Entity({
 });
 ```
 #### Methods and values ####
+- ```entity.canView: boolean``` - if entity can be viewed by current user
 - ```entity.canEdit: boolean``` - if entity can be edited by current user
 - ```entity.canCreate: boolean``` - if entity can be created by current user
 - ```entity.output``` - component, that renders entity page and contains router for list, view, edit and create pages
@@ -156,7 +209,9 @@ Custom fields are rendered by React Component specified in  ```component``` prop
 - ```options?: Record<any, any>;``` - options, passed for ```custom``` component or { [value]: key } for ```select``` component
 - ```component?: FC<any>;``` - React Component to render field. Only for ```custom``` fields
 - ```hideInList?: boolean;``` - do not render in table of entities
-- ```hideInEdit?: boolean;``` - do not render in editor or creator form
+- ```hideInEdit?: boolean;``` - do not render in editor form
+- ```hideInCreate?: boolean;``` - do not render in creator form
+- ```hideInExport?: boolean;``` - do not export field in CSV
 
 Every field is rendered by predefined or custom component, which accepts common options. ```isEditing``` prop tells component to render in view (when it's in a table or in entity preview) or editor (when it's in editor or acting as filter field).
 
@@ -227,6 +282,11 @@ createItemsFn: ({
   error?: string;
 }>
 ```
+
+#### Auth wrappers for Entity ####
+Each entity has a link to config via ```this.parent```. You can access tokens by hitting ```this.parent.auth```, but you'd better use ```this.parent.auth.withToken(fn, args)``` in your own entity methods. 
+
+```withToken``` will add ```token``` arg to list of fn arguments, so you can pass it as auth header.
 
 ## Theming ##
 See https://material-ui.com/customization/theming/. To change colors, fonts, spacing, create your own theme and add it to config as ```theme``` prop:

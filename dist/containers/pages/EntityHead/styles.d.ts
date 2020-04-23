@@ -19,5 +19,8 @@ declare const _default: (theme: Theme) => {
     buttons: {
         marginRight: number;
     };
+    export: {
+        marginRight: number;
+    };
 };
 export default _default;

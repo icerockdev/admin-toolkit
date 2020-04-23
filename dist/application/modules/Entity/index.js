@@ -65,6 +65,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 import React from 'react';
 import { ENTITY_ERRORS, ENTITY_SORT_DIRS, ENTITY_REFERENCE_FIELDS, } from '../../types/entity';
 import { Page } from '../Page';
@@ -77,6 +84,7 @@ import { observer } from 'mobx-react';
 import { EntityViewer } from '../../../containers/pages/EntityViewer';
 import { EntityBreadcrumbs } from '../../../containers/pages/EntityBreadcrumbs';
 import { Typography } from '@material-ui/core';
+import { saveAs } from "file-saver";
 var Entity = /** @class */ (function (_super) {
     __extends(Entity, _super);
     function Entity(fields) {
@@ -90,6 +98,7 @@ var Entity = /** @class */ (function (_super) {
         _this.editable = false;
         _this.viewable = false;
         _this.creatable = false;
+        _this.exportable = false;
         _this.selectable = false;
         _this.getItemsFn = undefined;
         _this.fetchItemsFn = undefined;
@@ -372,6 +381,39 @@ var Entity = /** @class */ (function (_super) {
         _this.onUnmount = function () {
             _this.fetchItemsCancel();
         };
+        _this.exportData = function () { return __awaiter(_this, void 0, void 0, function () {
+            var response, fields, rows, csv, uri;
+            var _a, _b, _c, _d, _e;
+            return __generator(this, function (_f) {
+                switch (_f.label) {
+                    case 0:
+                        if (!this.fetchItemsFn)
+                            return [2 /*return*/];
+                        return [4 /*yield*/, ((_b = (_a = this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken(this.fetchItemsFn, {
+                                url: (_d = (_c = this.api) === null || _c === void 0 ? void 0 : _c.list) === null || _d === void 0 ? void 0 : _d.url,
+                                filter: this.filters,
+                                page: 0,
+                                count: 1000,
+                                sortDir: "DESC",
+                                sortBy: "id",
+                            }))];
+                    case 1:
+                        response = _f.sent();
+                        if (!((_e = response.data) === null || _e === void 0 ? void 0 : _e.list))
+                            return [2 /*return*/];
+                        fields = this.fields.filter(function (field) { return !field.hideInExport; }).map(function (field) { return field.name; });
+                        rows = __spreadArrays([
+                            fields
+                        ], response.data.list.map(function (item) {
+                            return fields.reduce(function (obj, field) { return __spreadArrays(obj, ['"' + String(item[field]) + '"']); }, []);
+                        }));
+                        csv = "data:text/csv;charset=utf-8," + rows.map(function (e) { return e.join(","); }).join("\n");
+                        uri = encodeURI(csv);
+                        saveAs(uri, this.title + ".csv");
+                        return [2 /*return*/];
+                }
+            });
+        }); };
         if (fields) {
             Object.assign(_this, fields);
         }
@@ -418,7 +460,7 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function () {
                 var _a, _b;
-                return (React.createElement(EntityHead, { filterData: _this.filterData, title: React.createElement(_this.ListHeadTitle, null), buttons: React.createElement(_this.ListHeadButtons, null), filters: _this.filters, fields: _this.fields, setFilters: _this.setFilters, url: _this.menu.url, applyFilter: _this.fetchItems, canCreate: _this.creatable && _this.canCreate, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken }));
+                return (React.createElement(EntityHead, { filterData: _this.filterData, title: React.createElement(_this.ListHeadTitle, null), buttons: React.createElement(_this.ListHeadButtons, null), filters: _this.filters, fields: _this.fields, setFilters: _this.setFilters, url: _this.menu.url, applyFilter: _this.fetchItems, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken, onExport: _this.exportData, canExport: _this.exportable, canCreate: _this.creatable && _this.canCreate }));
             });
         },
         enumerable: true,
@@ -664,6 +706,9 @@ var Entity = /** @class */ (function (_super) {
     ], Entity.prototype, "creatable", void 0);
     __decorate([
         observable
+    ], Entity.prototype, "exportable", void 0);
+    __decorate([
+        observable
     ], Entity.prototype, "selectable", void 0);
     __decorate([
         observable
@@ -776,6 +821,9 @@ var Entity = /** @class */ (function (_super) {
     __decorate([
         action
     ], Entity.prototype, "onUnmount", void 0);
+    __decorate([
+        observable
+    ], Entity.prototype, "exportData", void 0);
     __decorate([
         computed
     ], Entity.prototype, "ListHeadTitle", null);

@@ -17,4 +17,7 @@ export default (function (theme) { return ({
     buttons: {
         marginRight: theme.spacing(1),
     },
+    export: {
+        marginRight: theme.spacing(1),
+    }
 }); });
