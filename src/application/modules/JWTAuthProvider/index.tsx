@@ -16,32 +16,21 @@ const EMPTY_TOKENS = {
   refresh: '',
 };
 
-type IJWTAuthProviderProps = IAuthProviderProps & {
-  tokenRefreshFn: (
-    refresh: string
-  ) => Promise<{
-    access: '';
-    refresh: '';
-  }>;
+export type IJWTTokenRefreshFn = (
+  refresh: string
+) => Promise<{
+  access: '';
+  refresh: '';
+}>;
+
+export type IJWTAuthProviderProps = IAuthProviderProps & {
+  tokenRefreshFn: IJWTTokenRefreshFn;
 };
 
 export class JWTAuthProvider extends AuthProvider {
   @observable tokens: Record<string, string> = EMPTY_TOKENS;
-  @observable authRequestFn?: (
-    email: string,
-    password: string
-  ) => Promise<{
-    user: IAuthProviderProps['user'];
-    tokens: Record<string, string>;
-    error: string;
-  }>;
-
-  @observable tokenRefreshFn?: (
-    refresh: string
-  ) => Promise<{
-    access: string;
-    refresh: string;
-  }>;
+  @observable authRequestFn?: IJWTAuthProviderProps['authRequestFn'];
+  @observable tokenRefreshFn?: IJWTAuthProviderProps['tokenRefreshFn'];
 
   constructor(fields?: Partial<IJWTAuthProviderProps>) {
     super(fields);

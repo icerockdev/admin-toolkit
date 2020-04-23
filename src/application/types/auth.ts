@@ -15,6 +15,13 @@ export const EMPTY_USER: IAuthProviderProps['user'] = {
   token: '',
 };
 
+export type IAuthRequestFn = (
+  email: string,
+  password: string
+) => Promise<{ user: IAuthProviderProps['user']; error: string }>;
+
+export type IAuthPasswRestoreFn = (email: string) => Promise<{ error: string }>;
+
 export interface IAuthProviderProps {
   user: {
     id?: number;
@@ -28,10 +35,6 @@ export interface IAuthProviderProps {
   roleTitles: Record<any, string>;
   persist: boolean;
 
-  authRequestFn?: (
-    email: string,
-    password: string
-  ) => Promise<{ user: IAuthProviderProps['user']; error: string }>;
-
-  authPasswRestoreFn?: (email: string) => Promise<{ error: string }>;
+  authRequestFn?: IAuthRequestFn;
+  authPasswRestoreFn?: IAuthPasswRestoreFn;
 }
