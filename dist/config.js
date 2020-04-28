@@ -101,6 +101,16 @@ export default new Config({
                     required: true,
                 },
                 {
+                    name: 'another',
+                    label: 'Проверка лейбла',
+                    type: 'select',
+                    filterable: true,
+                    options: {
+                        1: 'asdasdasd adsasd',
+                        2: 'asdasd asdasdasd',
+                    },
+                },
+                {
                     name: 'phone',
                     label: 'Телефон',
                     sortable: true,
