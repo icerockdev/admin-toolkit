@@ -9,6 +9,7 @@ interface IProps {
   data?: Record<string, any>;
   error?: string;
   isEditing?: boolean;
+  isFiltering?: boolean;
   handler?: (val: any) => void;
   withToken?: (req: any, args: any) => void;
 }
@@ -19,6 +20,7 @@ const EntityField: FC<IProps> = ({
   data = {},
   error = '',
   isEditing,
+  isFiltering,
   handler,
   withToken = (cb, args) => cb(args),
 }) => {
@@ -44,6 +46,7 @@ const EntityField: FC<IProps> = ({
       }`,
       error,
       isEditing,
+      isFiltering,
       handler,
       options: field.options || {},
       data, // for custom fields

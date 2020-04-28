@@ -106,10 +106,10 @@ var Entity = /** @class */ (function (_super) {
         _this.createItemsFn = undefined;
         _this.references = {};
         _this.referenceData = {};
-        // Built-in
-        _this.isLoading = true;
         _this.itemsPerPage = [5, 10, 15, 25, 50];
         _this.items = _this.itemsPerPage[_this.itemsPerPage.length] || 50;
+        // Built-in
+        _this.isLoading = true;
         _this.totalCount = 0;
         _this.page = 0;
         _this.data = [];
@@ -468,12 +468,19 @@ var Entity = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(Entity.prototype, "ListExtra", {
+        get: function () {
+            return null;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(Entity.prototype, "ListBody", {
         get: function () {
             var _this = this;
             return observer(function () {
                 var _a, _b;
-                return (React.createElement(EntityList, { fields: _this.fields, data: _this.data, isLoading: _this.isLoading, url: _this.menu.url, selected: _this.selected, sortBy: _this.sortBy, sortDir: _this.sortDir, canView: _this.viewable, canEdit: _this.editable && _this.canEdit, canSelect: _this.selectable, setSelected: _this.setSelected, onSortChange: _this.setSort, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken }));
+                return (React.createElement(EntityList, { fields: _this.fields, data: _this.data, extra: _this.ListExtra, isLoading: _this.isLoading, url: _this.menu.url, selected: _this.selected, sortBy: _this.sortBy, sortDir: _this.sortDir, canView: _this.viewable, canEdit: _this.editable && _this.canEdit, canSelect: _this.selectable, setSelected: _this.setSelected, onSortChange: _this.setSort, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken }));
             });
         },
         enumerable: true,
@@ -732,13 +739,13 @@ var Entity = /** @class */ (function (_super) {
     ], Entity.prototype, "referenceData", void 0);
     __decorate([
         observable
-    ], Entity.prototype, "isLoading", void 0);
-    __decorate([
-        observable
     ], Entity.prototype, "itemsPerPage", void 0);
     __decorate([
         observable
     ], Entity.prototype, "items", void 0);
+    __decorate([
+        observable
+    ], Entity.prototype, "isLoading", void 0);
     __decorate([
         observable
     ], Entity.prototype, "totalCount", void 0);
@@ -835,6 +842,9 @@ var Entity = /** @class */ (function (_super) {
     __decorate([
         computed
     ], Entity.prototype, "ListHead", null);
+    __decorate([
+        computed
+    ], Entity.prototype, "ListExtra", null);
     __decorate([
         computed
     ], Entity.prototype, "ListBody", null);

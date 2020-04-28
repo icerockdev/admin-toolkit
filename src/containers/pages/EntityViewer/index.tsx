@@ -57,8 +57,6 @@ const EntityViewer = withStyles(styles)(
     }: IProps) => {
       const isCreating = useMemo(() => typeof id === 'undefined', [id]);
 
-      console.log({ isEditing, isCreating, fields: toJS(fields) });
-
       const visibleFields = useMemo(
         () =>
           fields.filter(

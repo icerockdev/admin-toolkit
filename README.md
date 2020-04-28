@@ -5,7 +5,6 @@ This is a tool for building admin panels, that can be installed as npm dependenc
 [DEMO](https://icerockdev.github.io/admin-toolkit/ 'DEMO')
 
 ## Installation
-
 `yarn add icerockdev-admin-toolkit`
 
 or
@@ -13,7 +12,6 @@ or
 `npm i -S icerockdev-admin-toolkit`
 
 ## Usage
-
 ```typescript
 import React from 'react';
 import { Application } from 'admin-toolkit';
@@ -23,7 +21,6 @@ export const App = () => <Application config={config} />;
 ```
 
 ## Config
-
 The app is built on extendable classes. You can write your own autherntification by extending AuthProvider class. Creating complex pages should be made by extending Page class.
 
 ```typescript
@@ -36,11 +33,9 @@ const config = new Config({
 ```
 
 ## AuthProvider
-
 `AuthProvider` is extendable class. You can override its metods for your needs. The app decides user authentication status by checking its token field, but you can override this behaviour in your own class, like this done in `JWTAuthProvider`.
 
 #### Options:
-
 ```javascript
 new AuthProvider({
   authRequestFn: (email, password) =>
@@ -97,14 +92,12 @@ new AuthProvider({
 ```
 
 #### Methods and values:
-
 - `auth.user` - current user info
 - `auth.withToken: (req, args) => Promise<any>` - wrapper for callbacks, which used to add `token` value to function arguments
 - `aurh.logout: () => void` - function to log user out
 - `auth.isLogged: boolean` - computed field to decide if user is logged in
 
 ## Page
-
 Page class is for rendering pages inside the app. You can extend it to create more complex pages, like this done in Entity class.
 
 #### Options:

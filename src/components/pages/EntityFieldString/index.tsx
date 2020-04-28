@@ -1,6 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { FC, MouseEventHandler, useCallback } from 'react';
+import React, { FC, MouseEventHandler, useCallback, useMemo } from 'react';
 import { TextField } from '@material-ui/core';
 
 type IProps = {
@@ -20,6 +20,20 @@ const EntityFieldString: FC<IProps> = ({
   isEditing,
   onClick,
 }) => {
+  const text = useMemo(
+    () =>
+      (value &&
+        value
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(
+            /(\b(https?|ftp|file):\/\/([-A-Z0-9+&@#%?=~_|!:,.;]*)([-A-Z0-9+&@#%?\/=~_|!:,.;]*)[-A-Z0-9+&@#\/%=~_|])/gi,
+            '<a href="$1" target="blank" rel="nofollow">$1</a>'
+          )) ||
+      '',
+    [value]
+  );
+
   const onChange = useCallback(
     (event) => {
       if (!handler) return;
@@ -41,7 +55,10 @@ const EntityFieldString: FC<IProps> = ({
       />
     </div>
   ) : (
-    <div onClick={onClick}>{value ? String(value) : <div>&nbsp;</div>}</div>
+    <div
+      onClick={onClick}
+      dangerouslySetInnerHTML={{ __html: text ? String(text) : '&nbsp;' }}
+    />
   );
 };
 

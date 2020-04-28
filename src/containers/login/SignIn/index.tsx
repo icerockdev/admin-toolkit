@@ -66,7 +66,7 @@ const SignInUnstyled: FC<IProps> = ({
               required
               fullWidth
               id="email"
-              label="Email"
+              label="Логин"
               name="email"
               className={classes.marginTop}
               autoComplete="email"

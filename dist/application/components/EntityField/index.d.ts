@@ -8,6 +8,7 @@ interface IProps {
     data?: Record<string, any>;
     error?: string;
     isEditing?: boolean;
+    isFiltering?: boolean;
     handler?: (val: any) => void;
     withToken?: (req: any, args: any) => void;
 }

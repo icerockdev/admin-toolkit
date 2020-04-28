@@ -146,6 +146,7 @@ export interface IEntityProps extends IPageProps {
     creatable: boolean;
     selectable: boolean;
     exportable: boolean;
+    items: number;
     filters: IFilterValue[];
     references: Record<string, IEntityReferenceProps>;
     api?: Record<typeof ENTITY_ACTIONS[keyof typeof ENTITY_ACTIONS], {

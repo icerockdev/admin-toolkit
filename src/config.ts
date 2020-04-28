@@ -54,6 +54,7 @@ export default new Config({
       viewable: false,
       creatable: true,
       exportable: true,
+      selectable: false,
       api: {
         list: { url: '/list', method: 'get' },
         update: { url: '/update', method: 'patch' },
@@ -65,17 +66,6 @@ export default new Config({
         label: 'Sample entity',
         url: '/entity',
       },
-      references: {
-        type: {
-          getMany: async () => {
-            return {
-              1: 'variant 1',
-              2: 'variant 2',
-              3: 'variant 3',
-            };
-          },
-        },
-      },
       fields: [
         {
           name: 'type',
@@ -84,6 +74,16 @@ export default new Config({
           filterable: true,
           type: 'referenceSelect',
           required: true,
+        },
+        {
+          name: 'another',
+          label: 'Проверка лейбла',
+          type: 'select',
+          filterable: true,
+          options: {
+            1: 'asdasdasd adsasd',
+            2: 'asdasd asdasdasd',
+          },
         },
         {
           name: 'phone',
@@ -128,6 +128,7 @@ export default new Config({
           },
         },
       ],
+
       fetchItemsFn: (...props) =>
         new Promise((resolve) => {
           setTimeout(resolve, 500, {
@@ -137,18 +138,33 @@ export default new Config({
             },
           });
         }),
+
       updateItemsFn: ({ data }: IEntityUpdateFunctionProps) => {
         return Promise.resolve({ error: '', data });
       },
+
       createItemsFn: ({ data }: IEntityCreateFunctionProps) => {
         return Promise.resolve({ error: '', data });
       },
+
       getItemsFn: ({ id }: IEntityGetFunctionProps) => {
         return new Promise((resolve) =>
           setTimeout(resolve, 500, {
             data: SAMPLE_ENTITY_2,
           })
         );
+      },
+
+      references: {
+        type: {
+          getMany: async () => {
+            return {
+              1: 'variant 1',
+              2: 'variant 2',
+              3: 'variant 3',
+            };
+          },
+        },
       },
     }),
     new Page({

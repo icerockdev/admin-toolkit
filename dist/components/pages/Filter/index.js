@@ -66,7 +66,7 @@ var Filter = withStyles(styles)(observer(function (_a) {
         currentFilters.map(function (field, i) {
             var _a;
             return field && (React.createElement("div", { className: classes.input, key: field.name },
-                React.createElement(EntityField, { name: field.name, fields: fields, data: __assign(__assign({}, filterData), (_a = {}, _a[field.name] = filters[i].value, _a)), handler: setFilterValue(i), withToken: withToken, isEditing: true }),
+                React.createElement(EntityField, { name: field.name, fields: fields, data: __assign(__assign({}, filterData), (_a = {}, _a[field.name] = filters[i].value, _a)), handler: setFilterValue(i), withToken: withToken, isEditing: true, isFiltering: true }),
                 React.createElement(IconButton, { color: "secondary", onClick: removeFilter(i), className: classes.clear, tabIndex: 0 },
                     React.createElement(ClearIcon, null))));
         }),

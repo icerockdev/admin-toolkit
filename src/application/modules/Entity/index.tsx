@@ -39,11 +39,12 @@ export class Entity extends Page {
   @observable createItemsFn: IEntityProps['createItemsFn'] = undefined;
   @observable references: IEntityProps['references'] = {};
   @observable referenceData: Record<string, any> = {};
+  @observable itemsPerPage: number[] = [5, 10, 15, 25, 50];
+  @observable items: IEntityProps['items'] =
+    this.itemsPerPage[this.itemsPerPage.length] || 50;
 
   // Built-in
   @observable isLoading: boolean = true;
-  @observable itemsPerPage: number[] = [5, 10, 15, 25, 50];
-  @observable items: number = this.itemsPerPage[this.itemsPerPage.length] || 50;
   @observable totalCount: number = 0;
   @observable page: number = 0;
   @observable data: Record<string, any>[] = [];
@@ -455,11 +456,17 @@ export class Entity extends Page {
   }
 
   @computed
+  get ListExtra(): (({ id }: { id: any }) => JSX.Element) | null {
+    return null;
+  }
+
+  @computed
   get ListBody() {
     return observer(() => (
       <EntityList
         fields={this.fields}
         data={this.data}
+        extra={this.ListExtra}
         isLoading={this.isLoading}
         url={this.menu.url}
         selected={this.selected}

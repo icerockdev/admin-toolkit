@@ -2,7 +2,7 @@
 import React, { createElement, useMemo } from 'react';
 import { getEntityFieldRenderer } from '../..';
 var EntityField = function (_a) {
-    var name = _a.name, fields = _a.fields, _b = _a.data, data = _b === void 0 ? {} : _b, _c = _a.error, error = _c === void 0 ? '' : _c, isEditing = _a.isEditing, handler = _a.handler, _d = _a.withToken, withToken = _d === void 0 ? function (cb, args) { return cb(args); } : _d;
+    var name = _a.name, fields = _a.fields, _b = _a.data, data = _b === void 0 ? {} : _b, _c = _a.error, error = _c === void 0 ? '' : _c, isEditing = _a.isEditing, isFiltering = _a.isFiltering, handler = _a.handler, _d = _a.withToken, withToken = _d === void 0 ? function (cb, args) { return cb(args); } : _d;
     var field = useMemo(function () { return fields.find(function (field) { return field.name === name; }); }, [
         fields,
         name,
@@ -19,6 +19,7 @@ var EntityField = function (_a) {
         label: "" + (field.label || field.name) + (field.required && isEditing ? ' *' : ''),
         error: error,
         isEditing: isEditing,
+        isFiltering: isFiltering,
         handler: handler,
         options: field.options || {},
         data: data,

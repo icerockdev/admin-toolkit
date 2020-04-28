@@ -19,9 +19,9 @@ export declare class Entity extends Page {
     createItemsFn: IEntityProps['createItemsFn'];
     references: IEntityProps['references'];
     referenceData: Record<string, any>;
-    isLoading: boolean;
     itemsPerPage: number[];
-    items: number;
+    items: IEntityProps['items'];
+    isLoading: boolean;
     totalCount: number;
     page: number;
     data: Record<string, any>[];
@@ -59,6 +59,9 @@ export declare class Entity extends Page {
     get ListHeadTitle(): () => JSX.Element;
     get ListHeadButtons(): () => JSX.Element;
     get ListHead(): () => JSX.Element;
+    get ListExtra(): (({ id }: {
+        id: any;
+    }) => JSX.Element) | null;
     get ListBody(): () => JSX.Element;
     get ListFooter(): () => JSX.Element;
     get List(): () => JSX.Element;

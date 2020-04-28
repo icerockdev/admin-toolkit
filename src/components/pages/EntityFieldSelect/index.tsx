@@ -1,7 +1,13 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { FC, MouseEventHandler, useCallback } from 'react';
-import { Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import React, { FC, MouseEventHandler, useCallback, useRef } from 'react';
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  OutlinedInput,
+} from '@material-ui/core';
 
 type IProps = {
   label: string;
@@ -22,6 +28,8 @@ const EntityFieldSelect: FC<IProps> = ({
   onClick,
   options,
 }) => {
+  const ref = useRef<HTMLLabelElement>(null);
+
   const onChange = useCallback(
     (event) => {
       if (!handler) return;
@@ -33,19 +41,22 @@ const EntityFieldSelect: FC<IProps> = ({
 
   return isEditing ? (
     <FormControl variant="outlined">
-      <InputLabel htmlFor={label}>{label}</InputLabel>
+      <InputLabel htmlFor={label} style={{ whiteSpace: 'nowrap' }} ref={ref}>
+        {label}
+      </InputLabel>
 
       <Select
         variant="outlined"
         id={label}
         name={label}
-        label={label}
         value={!value ? '' : value}
         onChange={onChange}
         error={!!error}
         inputProps={{ className: 'select' }}
+        labelWidth={ref.current?.clientWidth || 100}
+        style={{ minWidth: (ref.current?.clientWidth || 100) + 60 }}
       >
-        <MenuItem value="">...</MenuItem>
+        <MenuItem value="">{label}</MenuItem>
 
         {options &&
           Object.keys(options).map((item) => (

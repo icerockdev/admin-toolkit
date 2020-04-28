@@ -79,6 +79,7 @@ export default new Config({
             viewable: false,
             creatable: true,
             exportable: true,
+            selectable: false,
             api: {
                 list: { url: '/list', method: 'get' },
                 update: { url: '/update', method: 'patch' },
@@ -89,19 +90,6 @@ export default new Config({
                 enabled: true,
                 label: 'Sample entity',
                 url: '/entity',
-            },
-            references: {
-                type: {
-                    getMany: function () { return __awaiter(void 0, void 0, void 0, function () {
-                        return __generator(this, function (_a) {
-                            return [2 /*return*/, {
-                                    1: 'variant 1',
-                                    2: 'variant 2',
-                                    3: 'variant 3',
-                                }];
-                        });
-                    }); },
-                },
             },
             fields: [
                 {
@@ -184,6 +172,19 @@ export default new Config({
                         data: SAMPLE_ENTITY_2,
                     });
                 });
+            },
+            references: {
+                type: {
+                    getMany: function () { return __awaiter(void 0, void 0, void 0, function () {
+                        return __generator(this, function (_a) {
+                            return [2 /*return*/, {
+                                    1: 'variant 1',
+                                    2: 'variant 2',
+                                    3: 'variant 3',
+                                }];
+                        });
+                    }); },
+                },
             },
         }),
         new Page({

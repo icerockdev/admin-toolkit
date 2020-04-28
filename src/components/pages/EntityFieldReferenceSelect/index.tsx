@@ -1,6 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { FC, MouseEventHandler, useCallback } from 'react';
+import React, { FC, MouseEventHandler, useCallback, useRef } from 'react';
 import { Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
@@ -17,6 +17,8 @@ type IProps = {
 
 const EntityFieldReferenceSelect: FC<IProps> = observer(
   ({ label, value, handler, error, isEditing, onClick, options }) => {
+    const ref = useRef<HTMLLabelElement>(null);
+
     const onChange = useCallback(
       (event) => {
         if (!handler) return;
@@ -27,7 +29,9 @@ const EntityFieldReferenceSelect: FC<IProps> = observer(
 
     return isEditing ? (
       <FormControl variant="outlined">
-        <InputLabel htmlFor={label}>{label}</InputLabel>
+        <InputLabel htmlFor={label} style={{ whiteSpace: 'nowrap' }} ref={ref}>
+          {label}
+        </InputLabel>
 
         <Select
           variant="outlined"
@@ -38,6 +42,8 @@ const EntityFieldReferenceSelect: FC<IProps> = observer(
           onChange={onChange}
           error={!!error}
           inputProps={{ className: 'select' }}
+          labelWidth={ref.current?.clientWidth || 100}
+          style={{ minWidth: (ref.current?.clientWidth || 100) + 60 }}
         >
           <MenuItem value="">...</MenuItem>
 

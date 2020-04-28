@@ -19,7 +19,7 @@ var SignInUnstyled = function (_a) {
             React.createElement(Paper, { className: classes.paper },
                 React.createElement(Typography, { align: "center", component: "h3", className: classes.header }, "\u0410\u0432\u0442\u043E\u0440\u0438\u0437\u0430\u0446\u0438\u044F"),
                 React.createElement("form", { noValidate: true, onSubmit: onSubmitCapture },
-                    React.createElement(TextField, { variant: "outlined", margin: "normal", required: true, fullWidth: true, id: "email", label: "Email", name: "email", className: classes.marginTop, autoComplete: "email", defaultValue: email, onChange: onEmailChange, autoFocus: true }),
+                    React.createElement(TextField, { variant: "outlined", margin: "normal", required: true, fullWidth: true, id: "email", label: "\u041B\u043E\u0433\u0438\u043D", name: "email", className: classes.marginTop, autoComplete: "email", defaultValue: email, onChange: onEmailChange, autoFocus: true }),
                     React.createElement(TextField, { variant: "outlined", margin: "normal", required: true, fullWidth: true, name: "password", label: "\u041F\u0430\u0440\u043E\u043B\u044C", type: "password", id: "password", className: classes.marginTop, defaultValue: password, onChange: onPasswordChange, autoComplete: "current-password", InputProps: {
                             endAdornment: onForgotScreenClick ? (React.createElement(InputAdornment, { position: "end", onClick: onForgotScreenClick, className: classes.forgot }, "\u0417\u0430\u0431\u044B\u043B\u0438 \u043F\u0430\u0440\u043E\u043B\u044C?")) : null,
                         } }),

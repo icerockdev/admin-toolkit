@@ -142,6 +142,7 @@ const Filter = withStyles(styles)(
                     handler={setFilterValue(i)}
                     withToken={withToken}
                     isEditing
+                    isFiltering
                   />
 
                   <IconButton
