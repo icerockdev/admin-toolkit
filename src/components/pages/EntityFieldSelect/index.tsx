@@ -1,13 +1,15 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { FC, MouseEventHandler, useCallback, useRef } from 'react';
-import {
-  Select,
-  MenuItem,
-  FormControl,
-  InputLabel,
-  OutlinedInput,
-} from '@material-ui/core';
+import React, {
+  FC,
+  MouseEventHandler,
+  useCallback,
+  useRef,
+  useMemo,
+  useEffect,
+  useState,
+} from 'react';
+import { Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
 
 type IProps = {
   label: string;
@@ -39,6 +41,12 @@ const EntityFieldSelect: FC<IProps> = ({
     [value, handler]
   );
 
+  const [labelWidth, setLabelWidth] = useState(0);
+
+  useEffect(() => {
+    setLabelWidth((ref.current && ref.current.clientWidth) || 0);
+  }, [ref.current]);
+
   return isEditing ? (
     <FormControl variant="outlined">
       <InputLabel htmlFor={label} style={{ whiteSpace: 'nowrap' }} ref={ref}>
@@ -53,8 +61,8 @@ const EntityFieldSelect: FC<IProps> = ({
         onChange={onChange}
         error={!!error}
         inputProps={{ className: 'select' }}
-        labelWidth={ref.current?.clientWidth || 100}
-        style={{ minWidth: (ref.current?.clientWidth || 100) + 60 }}
+        labelWidth={labelWidth}
+        style={{ minWidth: labelWidth + 40 }}
       >
         <MenuItem value="">{label}</MenuItem>
 
