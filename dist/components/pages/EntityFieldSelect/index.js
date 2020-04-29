@@ -16,7 +16,7 @@ var EntityFieldSelect = function (_a) {
     return isEditing ? (React.createElement(FormControl, { variant: "outlined" },
         React.createElement(InputLabel, { htmlFor: label, style: { whiteSpace: 'nowrap' }, ref: ref }, label),
         React.createElement(Select, { variant: "outlined", id: label, name: label, value: !value ? '' : value, onChange: onChange, error: !!error, inputProps: { className: 'select' }, labelWidth: labelWidth, style: { minWidth: labelWidth + 40 } },
-            React.createElement(MenuItem, { value: "" }, label),
+            React.createElement(MenuItem, { value: "" }, "..."),
             options &&
                 Object.keys(options).map(function (item) { return (React.createElement(MenuItem, { key: item, value: item }, options[item])); })))) : (React.createElement("div", { onClick: onClick }, (options && options[value]) || React.createElement("div", null, "\u00A0")));
 };

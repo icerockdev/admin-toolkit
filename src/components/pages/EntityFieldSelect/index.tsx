@@ -63,7 +63,7 @@ const EntityFieldSelect: FC<IProps> = ({
         labelWidth={labelWidth}
         style={{ minWidth: labelWidth + 40 }}
       >
-        <MenuItem value="">{label}</MenuItem>
+        <MenuItem value="">...</MenuItem>
 
         {options &&
           Object.keys(options).map((item) => (
