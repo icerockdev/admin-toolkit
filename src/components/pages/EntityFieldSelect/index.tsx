@@ -30,8 +30,6 @@ const EntityFieldSelect: FC<IProps> = ({
   onClick,
   options,
 }) => {
-  const ref = useRef<HTMLLabelElement>(null);
-
   const onChange = useCallback(
     (event) => {
       if (!handler) return;
@@ -41,6 +39,7 @@ const EntityFieldSelect: FC<IProps> = ({
     [value, handler]
   );
 
+  const ref = useRef<HTMLLabelElement>(null);
   const [labelWidth, setLabelWidth] = useState(0);
 
   useEffect(() => {

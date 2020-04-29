@@ -31,6 +31,8 @@ import styles from './styles';
 import { EntityField } from '../../../application/components/EntityField';
 import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 
 type IProps = WithStyles<typeof styles> & {
   isLoading: boolean;
@@ -116,7 +118,8 @@ const EntityList = observer(
         () =>
           visibleFields.length +
           (canView || canEdit ? 1 : 0) +
-          (canSelect ? 1 : 0),
+          (canSelect ? 1 : 0) +
+          (extra ? 1 : 0),
         [visibleFields, canEdit, canView, canSelect]
       );
 
@@ -134,6 +137,8 @@ const EntityList = observer(
             <Table className={classes.table}>
               <TableHead>
                 <TableRow>
+                  {extra && <TableCell />}
+
                   {canSelect && (
                     <TableCell>
                       <Checkbox
@@ -169,6 +174,16 @@ const EntityList = observer(
                 {data.map((entry, i) => (
                   <Fragment key={i}>
                     <TableRow hover>
+                      {extra && (
+                        <TableCell onClick={() => onRowClick(entry.id)}>
+                          {expanded[entry.id] ? (
+                            <KeyboardArrowDownIcon />
+                          ) : (
+                            <KeyboardArrowRightIcon />
+                          )}
+                        </TableCell>
+                      )}
+
                       {canSelect && (
                         <TableCell>
                           <Checkbox

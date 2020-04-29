@@ -27,6 +27,8 @@ import styles from './styles';
 import { EntityField } from '../../../application/components/EntityField';
 import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
+import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
+import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 var EntityList = observer(withStyles(styles)(function (_a) {
     var classes = _a.classes, isLoading = _a.isLoading, fields = _a.fields, data = _a.data, url = _a.url, extra = _a.extra, selected = _a.selected, sortBy = _a.sortBy, sortDir = _a.sortDir, canView = _a.canView, canEdit = _a.canEdit, canSelect = _a.canSelect, onSortChange = _a.onSortChange, setSelected = _a.setSelected, withToken = _a.withToken;
     var _b = useState({}), expanded = _b[0], setExpanded = _b[1];
@@ -57,7 +59,8 @@ var EntityList = observer(withStyles(styles)(function (_a) {
     var colSpan = useMemo(function () {
         return visibleFields.length +
             (canView || canEdit ? 1 : 0) +
-            (canSelect ? 1 : 0);
+            (canSelect ? 1 : 0) +
+            (extra ? 1 : 0);
     }, [visibleFields, canEdit, canView, canSelect]);
     if (isLoading) {
         return (React.createElement("div", { className: classes.loader },
@@ -68,6 +71,7 @@ var EntityList = observer(withStyles(styles)(function (_a) {
             React.createElement(Table, { className: classes.table },
                 React.createElement(TableHead, null,
                     React.createElement(TableRow, null,
+                        extra && React.createElement(TableCell, null),
                         canSelect && (React.createElement(TableCell, null,
                             React.createElement(Checkbox, { onChange: onSelectAll, checked: isAllSelected }))),
                         visibleFields.map(function (field) {
@@ -78,6 +82,7 @@ var EntityList = observer(withStyles(styles)(function (_a) {
                         (canView || canEdit) && React.createElement(TableCell, null))),
                 React.createElement(TableBody, null, data.map(function (entry, i) { return (React.createElement(Fragment, { key: i },
                     React.createElement(TableRow, { hover: true },
+                        extra && (React.createElement(TableCell, { onClick: function () { return onRowClick(entry.id); } }, expanded[entry.id] ? (React.createElement(KeyboardArrowDownIcon, null)) : (React.createElement(KeyboardArrowRightIcon, null)))),
                         canSelect && (React.createElement(TableCell, null,
                             React.createElement(Checkbox, { checked: selected.includes(entry.id), onChange: function (_, includes) {
                                     return onSelect(entry.id, includes);
