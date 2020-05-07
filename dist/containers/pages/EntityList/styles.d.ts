@@ -12,6 +12,9 @@ declare const _default: (theme: Theme) => {
         '& td, & th': {
             padding: number;
         };
+        '& svg': {
+            verticalAlign: string;
+        };
     };
 };
 export default _default;

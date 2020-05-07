@@ -127,7 +127,7 @@ export interface IEntityField {
     sortable?: boolean;
     filterable?: boolean;
     required?: boolean;
-    validator?: (val: any) => boolean;
+    validator?: (val: any) => string;
     options?: Record<any, any>;
     component?: FC<any>;
     hideInList?: boolean;

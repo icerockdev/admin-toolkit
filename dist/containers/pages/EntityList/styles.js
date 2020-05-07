@@ -10,5 +10,8 @@ export default (function (theme) { return ({
         '& td, & th': {
             padding: theme.spacing(),
         },
+        '& svg': {
+            verticalAlign: 'middle',
+        }
     },
 }); });

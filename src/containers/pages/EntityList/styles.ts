@@ -13,5 +13,8 @@ export default (theme: Theme) => ({
     '& td, & th': {
       padding: theme.spacing(),
     },
+    '& svg': {
+      verticalAlign: 'middle',
+    },
   },
 });

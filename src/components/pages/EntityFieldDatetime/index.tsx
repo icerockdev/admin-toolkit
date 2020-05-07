@@ -4,6 +4,7 @@ import React, { FC, MouseEventHandler, useCallback } from 'react';
 import { DateTimePicker } from '@material-ui/pickers';
 import format from 'date-fns/format';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
+import { parseISO } from 'date-fns';
 
 type IProps = {
   label: string;
@@ -33,7 +34,7 @@ const EntityFieldDateTime: FC<IProps> = ({
   return isEditing ? (
     <div>
       <DateTimePicker
-        value={value ? new Date(value) : null}
+        value={value && parseISO(value) ? parseISO(value) : null}
         onChange={onChange}
         format="dd.MM.yyyy HH:ii"
         error={!!error}
@@ -44,7 +45,11 @@ const EntityFieldDateTime: FC<IProps> = ({
     </div>
   ) : (
     <div onClick={onClick}>
-      {value ? format(new Date(value), 'dd.MM.yyyy HH:ii') : <div>&nbsp;</div>}
+      {value && parseISO(value) ? (
+        format(parseISO(value), 'dd.MM.yyyy HH:ii')
+      ) : (
+        <div>&nbsp;</div>
+      )}
     </div>
   );
 };

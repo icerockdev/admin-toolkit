@@ -233,15 +233,15 @@ var Entity = /** @class */ (function (_super) {
         _this.updateItem = function () {
             _this.updateItemInstance = flow(function () {
                 var data, result, e_2;
-                var _a, _b, _c, _d, _e, _f, _g, _h;
-                return __generator(this, function (_j) {
-                    switch (_j.label) {
+                var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
+                return __generator(this, function (_q) {
+                    switch (_q.label) {
                         case 0:
                             this.isLoading = true;
                             this.error = '';
-                            _j.label = 1;
+                            _q.label = 1;
                         case 1:
-                            _j.trys.push([1, 3, , 4]);
+                            _q.trys.push([1, 3, , 4]);
                             data = toJS(this.editorData);
                             if (!this.validateSubmitFields(data)) {
                                 throw new Error(ENTITY_ERRORS.INCORRECT_INPUT);
@@ -254,21 +254,35 @@ var Entity = /** @class */ (function (_super) {
                                     data: data,
                                 })];
                         case 2:
-                            result = _j.sent();
+                            result = _q.sent();
                             if (!result || result.error)
                                 throw new Error((result === null || result === void 0 ? void 0 : result.error) || ENTITY_ERRORS.CANT_LOAD_ITEMS);
                             this.fetchItems();
-                            (_g = this.parent) === null || _g === void 0 ? void 0 : _g.history.push(this.menu.url);
+                            if (((_h = (_g = this.parent) === null || _g === void 0 ? void 0 : _g.history) === null || _h === void 0 ? void 0 : _h.length) && ((_j = this.parent) === null || _j === void 0 ? void 0 : _j.history.goBack)) {
+                                (_k = this.parent) === null || _k === void 0 ? void 0 : _k.history.goBack();
+                            }
+                            else if ((_m = (_l = this.parent) === null || _l === void 0 ? void 0 : _l.history) === null || _m === void 0 ? void 0 : _m.push) {
+                                (_o = this.parent) === null || _o === void 0 ? void 0 : _o.history.push(this.menu.url);
+                            }
                             return [3 /*break*/, 4];
                         case 3:
-                            e_2 = _j.sent();
-                            (_h = this.parent) === null || _h === void 0 ? void 0 : _h.notifications.showError(e_2.message);
+                            e_2 = _q.sent();
+                            (_p = this.parent) === null || _p === void 0 ? void 0 : _p.notifications.showError(e_2.message);
                             this.isLoading = false;
                             return [3 /*break*/, 4];
                         case 4: return [2 /*return*/];
                     }
                 });
             }).bind(_this)();
+        };
+        _this.onEditCancel = function () {
+            var _a, _b, _c, _d, _e, _f, _g;
+            if (((_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.history) === null || _b === void 0 ? void 0 : _b.length) && ((_c = _this.parent) === null || _c === void 0 ? void 0 : _c.history.goBack)) {
+                (_d = _this.parent) === null || _d === void 0 ? void 0 : _d.history.goBack();
+            }
+            else if ((_f = (_e = _this.parent) === null || _e === void 0 ? void 0 : _e.history) === null || _f === void 0 ? void 0 : _f.push) {
+                (_g = _this.parent) === null || _g === void 0 ? void 0 : _g.history.push(_this.menu.url);
+            }
         };
         _this.createItem = function () {
             _this.updateItemInstance = flow(function () {
@@ -318,9 +332,10 @@ var Entity = /** @class */ (function (_super) {
             _this.editorFieldErrors = _this.fields.reduce(function (obj, field) {
                 var _a;
                 return (!field.required || field.type === 'boolean' || !!data[field.name]) &&
-                    (!field.validator || field.validator(data[field.name]))
+                    (!field.validator || !field.validator(data[field.name]))
                     ? obj
-                    : __assign(__assign({}, obj), (_a = {}, _a[field.name] = ENTITY_ERRORS.FIELD_IS_REQUIRED, _a));
+                    : __assign(__assign({}, obj), (_a = {}, _a[field.name] = (field.validator && field.validator(data[field.name])) ||
+                        ENTITY_ERRORS.FIELD_IS_REQUIRED, _a));
             }, {});
             return Object.keys(_this.editorFieldErrors).length === 0;
         };
@@ -333,6 +348,9 @@ var Entity = /** @class */ (function (_super) {
                         case 0:
                             this.isLoading = true;
                             this.error = '';
+                            if (Object.keys(this.editorFieldErrors).length) {
+                                this.editorFieldErrors = {};
+                            }
                             _j.label = 1;
                         case 1:
                             _j.trys.push([1, 3, , 4]);
@@ -553,7 +571,7 @@ var Entity = /** @class */ (function (_super) {
             return observer(function (_a) {
                 var id = _a.id;
                 var _b, _c;
-                return (React.createElement(EntityViewer, { id: id, fields: _this.fields, url: _this.menu.url, errors: _this.editorFieldErrors, onSave: function () { }, onResetFieldError: _this.resetFieldError, isEditing: false, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, viewable: _this.viewable }));
+                return (React.createElement(EntityViewer, { id: id, fields: _this.fields, url: _this.menu.url, errors: _this.editorFieldErrors, onSave: function () { }, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isEditing: false, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, viewable: _this.viewable }));
             });
         },
         enumerable: true,
@@ -610,7 +628,7 @@ var Entity = /** @class */ (function (_super) {
             return observer(function (_a) {
                 var id = _a.id;
                 var _b, _c;
-                return (React.createElement(EntityViewer, { id: id, fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.updateItem, onResetFieldError: _this.resetFieldError, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, viewable: _this.viewable, isEditing: true }));
+                return (React.createElement(EntityViewer, { id: id, fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.updateItem, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, viewable: _this.viewable, isEditing: true }));
             });
         },
         enumerable: true,
@@ -657,7 +675,7 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function () {
                 var _a, _b;
-                return (React.createElement(EntityViewer, { fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.createItem, onResetFieldError: _this.resetFieldError, isEditing: true, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.createEmptyItem, cancelGetItem: _this.getItemsCancel, viewable: _this.viewable, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken }));
+                return (React.createElement(EntityViewer, { fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.createItem, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isEditing: true, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.createEmptyItem, cancelGetItem: _this.getItemsCancel, viewable: _this.viewable, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken }));
             });
         },
         enumerable: true,
@@ -797,6 +815,9 @@ var Entity = /** @class */ (function (_super) {
     __decorate([
         action
     ], Entity.prototype, "updateItem", void 0);
+    __decorate([
+        action
+    ], Entity.prototype, "onEditCancel", void 0);
     __decorate([
         action
     ], Entity.prototype, "createItem", void 0);

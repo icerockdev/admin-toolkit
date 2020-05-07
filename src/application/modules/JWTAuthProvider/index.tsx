@@ -121,7 +121,7 @@ export class JWTAuthProvider extends AuthProvider {
       token: `Bearer ${this.tokens.access}`,
     });
 
-    if (result.error === UNAUTHORIZED) {
+    if (result?.error === UNAUTHORIZED) {
       if (this.tokenRefreshFn) {
         const { access, refresh } = await this.tokenRefreshFn(
           this.tokens.refresh

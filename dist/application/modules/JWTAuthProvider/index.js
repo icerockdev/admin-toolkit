@@ -132,7 +132,7 @@ var JWTAuthProvider = /** @class */ (function (_super) {
                     case 0: return [4 /*yield*/, req(__assign(__assign({}, args), { token: "Bearer " + this.tokens.access }))];
                     case 1:
                         result = _b.sent();
-                        if (!(result.error === UNAUTHORIZED)) return [3 /*break*/, 5];
+                        if (!((result === null || result === void 0 ? void 0 : result.error) === UNAUTHORIZED)) return [3 /*break*/, 5];
                         if (!this.tokenRefreshFn) return [3 /*break*/, 4];
                         return [4 /*yield*/, this.tokenRefreshFn(this.tokens.refresh)];
                     case 2:

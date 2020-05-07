@@ -17,8 +17,9 @@ declare type IProps = WithStyles<typeof styles> & {
     getItem: (id: any) => void;
     cancelGetItem: () => void;
     onSave: () => void;
+    onCancel: () => void;
     onResetFieldError: (field: string) => void;
     withToken?: (req: any, args: any) => any;
 };
-declare const EntityViewer: React.ComponentType<Pick<IProps, "data" | "isLoading" | "withToken" | "id" | "url" | "isEditing" | "onSave" | "fields" | "errors" | "onResetFieldError" | "viewable" | "setEditorData" | "getItem" | "cancelGetItem"> & import("@material-ui/core").StyledComponentProps<"grid" | "wrap" | "field" | "loader" | "buttons">>;
+declare const EntityViewer: React.ComponentType<Pick<IProps, "data" | "isLoading" | "withToken" | "id" | "url" | "isEditing" | "onSave" | "fields" | "errors" | "onCancel" | "onResetFieldError" | "setEditorData" | "getItem" | "cancelGetItem" | "viewable"> & import("@material-ui/core").StyledComponentProps<"grid" | "wrap" | "field" | "loader" | "buttons">>;
 export { EntityViewer };

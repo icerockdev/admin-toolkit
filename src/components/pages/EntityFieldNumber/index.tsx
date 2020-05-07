@@ -50,7 +50,7 @@ const EntityFieldNumber: FC<IProps> = ({
       />
     </div>
   ) : (
-    <div onClick={onClick}>{val || <div>&nbsp;</div>}</div>
+    <div onClick={onClick}>{val || 0}</div>
   );
 };
 

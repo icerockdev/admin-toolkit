@@ -230,7 +230,12 @@ export class Entity extends Page {
           throw new Error(result?.error || ENTITY_ERRORS.CANT_LOAD_ITEMS);
 
         this.fetchItems();
-        this.parent?.history.push(this.menu.url);
+
+        if (this.parent?.history?.length && this.parent?.history.goBack) {
+          this.parent?.history.goBack();
+        } else if (this.parent?.history?.push) {
+          this.parent?.history.push(this.menu.url);
+        }
       } catch (e) {
         this.parent?.notifications.showError(e.message);
         this.isLoading = false;
@@ -238,6 +243,14 @@ export class Entity extends Page {
     }).bind(this)();
   };
 
+  @action
+  onEditCancel = () => {
+    if (this.parent?.history?.length && this.parent?.history.goBack) {
+      this.parent?.history.goBack();
+    } else if (this.parent?.history?.push) {
+      this.parent?.history.push(this.menu.url);
+    }
+  };
   @action
   createItem = () => {
     this.updateItemInstance = flow(function* (this: Entity) {
@@ -286,11 +299,13 @@ export class Entity extends Page {
     this.editorFieldErrors = this.fields.reduce(
       (obj, field) =>
         (!field.required || field.type === 'boolean' || !!data[field.name]) &&
-        (!field.validator || field.validator(data[field.name]))
+        (!field.validator || !field.validator(data[field.name]))
           ? obj
           : {
               ...obj,
-              [field.name]: ENTITY_ERRORS.FIELD_IS_REQUIRED,
+              [field.name]:
+                (field.validator && field.validator(data[field.name])) ||
+                ENTITY_ERRORS.FIELD_IS_REQUIRED,
             },
       {}
     );
@@ -307,12 +322,16 @@ export class Entity extends Page {
       this.isLoading = true;
       this.error = '';
 
+      if (Object.keys(this.editorFieldErrors).length) {
+        this.editorFieldErrors = {};
+      }
+
       try {
         if (!this.api?.get?.url || !this.getItemsFn) {
           throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
         }
 
-        const result: Unwrap<typeof this.createItemsFn> = yield this.parent?.auth?.withToken(
+        const result: Unwrap<typeof this.getItemsFn> = yield this.parent?.auth?.withToken(
           this.getItemsFn,
           {
             id,
@@ -562,6 +581,7 @@ export class Entity extends Page {
         url={this.menu.url}
         errors={this.editorFieldErrors}
         onSave={() => {}}
+        onCancel={this.onEditCancel}
         onResetFieldError={this.resetFieldError}
         isEditing={false}
         isLoading={this.isLoading}
@@ -616,6 +636,7 @@ export class Entity extends Page {
         errors={this.editorFieldErrors}
         url={this.menu.url}
         onSave={this.updateItem}
+        onCancel={this.onEditCancel}
         onResetFieldError={this.resetFieldError}
         isLoading={this.isLoading}
         setEditorData={this.setEditorData}
@@ -665,6 +686,7 @@ export class Entity extends Page {
         errors={this.editorFieldErrors}
         url={this.menu.url}
         onSave={this.createItem}
+        onCancel={this.onEditCancel}
         onResetFieldError={this.resetFieldError}
         isEditing
         isLoading={this.isLoading}

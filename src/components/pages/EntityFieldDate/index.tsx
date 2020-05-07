@@ -3,6 +3,7 @@
 import React, { FC, MouseEventHandler, useCallback } from 'react';
 import { DatePicker } from '@material-ui/pickers';
 import format from 'date-fns/format';
+import parseISO from 'date-fns/parseISO';
 import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
 
 type IProps = {
@@ -33,7 +34,7 @@ const EntityFieldDate: FC<IProps> = ({
   return isEditing ? (
     <div>
       <DatePicker
-        value={value ? new Date(value) : null}
+        value={value && parseISO(value) ? parseISO(value) : null}
         onChange={onChange}
         format="dd.MM.yyyy"
         error={!!error}
@@ -44,7 +45,11 @@ const EntityFieldDate: FC<IProps> = ({
     </div>
   ) : (
     <div onClick={onClick}>
-      {value ? format(new Date(value), 'dd.MM.yyyy') : <div>&nbsp;</div>}
+      {value && parseISO(value) ? (
+        format(parseISO(value), 'dd.MM.yyyy')
+      ) : (
+        <div>&nbsp;</div>
+      )}
     </div>
   );
 };

@@ -32,6 +32,7 @@ type IProps = WithStyles<typeof styles> & {
   getItem: (id: any) => void;
   cancelGetItem: () => void;
   onSave: () => void;
+  onCancel: () => void;
   onResetFieldError: (field: string) => void;
   withToken?: (req: any, args: any) => any;
 };
@@ -43,10 +44,9 @@ const EntityViewer = withStyles(styles)(
       id,
       fields,
       errors,
-      url,
       onSave,
+      onCancel,
       onResetFieldError,
-      viewable,
       isLoading,
       data,
       setEditorData,
@@ -135,11 +135,10 @@ const EntityViewer = withStyles(styles)(
 
                         <Grid item>
                           <Button
-                            type="submit"
+                            type="button"
                             color="default"
                             variant="outlined"
-                            to={isCreating || !viewable ? url : `${url}/${id}`}
-                            component={RouterLink}
+                            onClick={onCancel}
                           >
                             Отмена
                           </Button>

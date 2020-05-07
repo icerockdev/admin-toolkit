@@ -76,7 +76,7 @@ export default new Config({
         new Entity({
             title: 'Sample entity',
             editable: true,
-            viewable: false,
+            viewable: true,
             creatable: true,
             exportable: true,
             selectable: false,
@@ -146,8 +146,9 @@ export default new Config({
                 {
                     type: 'number',
                     name: 'number',
-                    label: 'Количество',
+                    label: 'Количество (1)',
                     sortable: true,
+                    validator: function (val) { return String(val) === '1' ? '' : 'Должно быть 1'; },
                     options: {
                         accuracy: 4,
                     },

@@ -43,6 +43,7 @@ export declare class Entity extends Page {
     fetchItemsCancel: () => void;
     updateItemInstance?: CancellablePromise<any>;
     updateItem: () => void;
+    onEditCancel: () => void;
     createItem: () => void;
     resetFieldError: (field: string) => void;
     validateSubmitFields: (data: Record<string, any>) => boolean;
