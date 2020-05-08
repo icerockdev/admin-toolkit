@@ -148,11 +148,27 @@ export default new Config({
                     name: 'number',
                     label: 'Количество (1)',
                     sortable: true,
-                    validator: function (val) { return String(val) === '1' ? '' : 'Должно быть 1'; },
+                    validator: function (val) {
+                        return String(val) === '1' ? '' : 'Должно быть 1';
+                    },
                     options: {
                         accuracy: 4,
                     },
                 },
+                {
+                    name: 'requiredInEdit',
+                    label: 'Обязательное в редакторе',
+                    type: 'string',
+                    required: true,
+                    hideInCreate: true,
+                },
+                {
+                    name: 'requiredInCreate',
+                    label: 'Обязательное при создании',
+                    type: 'string',
+                    required: true,
+                    hideInEdit: true,
+                }
             ],
             fetchItemsFn: function () {
                 var props = [];

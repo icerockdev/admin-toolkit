@@ -12,6 +12,6 @@ export default (function (theme) { return ({
         },
         '& svg': {
             verticalAlign: 'middle',
-        }
+        },
     },
 }); });

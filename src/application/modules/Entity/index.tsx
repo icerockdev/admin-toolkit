@@ -6,6 +6,8 @@ import {
   ENTITY_ERRORS,
   ENTITY_SORT_DIRS,
   ENTITY_REFERENCE_FIELDS,
+  IFilterValue,
+  IEntityField,
 } from '~/application/types/entity';
 import { Page } from '~/application/modules/Page';
 import { EntityList } from '../../../containers/pages/EntityList';
@@ -20,6 +22,7 @@ import { Unwrap } from '~/application/types/common';
 import { EntityBreadcrumbs } from '~/containers/pages/EntityBreadcrumbs';
 import { Typography } from '@material-ui/core';
 import { saveAs } from 'file-saver';
+import { parseQuery } from '~/utils/query';
 
 export class Entity extends Page {
   // Props
@@ -210,7 +213,7 @@ export class Entity extends Page {
       try {
         const data = toJS(this.editorData);
 
-        if (!this.validateSubmitFields(data)) {
+        if (!this.validateSubmitFields(data, false)) {
           throw new Error(ENTITY_ERRORS.INCORRECT_INPUT);
         }
 
@@ -251,6 +254,7 @@ export class Entity extends Page {
       this.parent?.history.push(this.menu.url);
     }
   };
+
   @action
   createItem = () => {
     this.updateItemInstance = flow(function* (this: Entity) {
@@ -260,7 +264,7 @@ export class Entity extends Page {
       try {
         const data = toJS(this.editorData);
 
-        if (!this.validateSubmitFields(data)) {
+        if (!this.validateSubmitFields(data, true)) {
           throw new Error(ENTITY_ERRORS.INCORRECT_INPUT);
         }
 
@@ -294,21 +298,33 @@ export class Entity extends Page {
     delete this.editorFieldErrors[field];
   };
 
+  isValidField = (field: IEntityField, value: any) =>
+    (!field.required || field.type === 'boolean' || !!value) &&
+    (!field.validator || !field.validator(value));
+
   @action
-  validateSubmitFields = (data: Record<string, any>): boolean => {
-    this.editorFieldErrors = this.fields.reduce(
-      (obj, field) =>
-        (!field.required || field.type === 'boolean' || !!data[field.name]) &&
-        (!field.validator || !field.validator(data[field.name]))
-          ? obj
-          : {
-              ...obj,
-              [field.name]:
-                (field.validator && field.validator(data[field.name])) ||
-                ENTITY_ERRORS.FIELD_IS_REQUIRED,
-            },
-      {}
-    );
+  validateSubmitFields = (
+    data: Record<string, any>,
+    isCreating = false
+  ): boolean => {
+    this.editorFieldErrors = this.fields
+      .filter(
+        (field) =>
+          (isCreating && !field.hideInCreate) ||
+          (!isCreating && !field.hideInEdit)
+      )
+      .reduce(
+        (obj, field) =>
+          this.isValidField(field, data[field.name])
+            ? obj
+            : {
+                ...obj,
+                [field.name]:
+                  (field.validator && field.validator(data[field.name])) ||
+                  ENTITY_ERRORS.FIELD_IS_REQUIRED,
+              },
+        {}
+      );
 
     return Object.keys(this.editorFieldErrors).length === 0;
   };
@@ -397,6 +413,8 @@ export class Entity extends Page {
   @action
   onMount = () => {
     this.fetchItems();
+    this.getFiltersFromHash();
+    reaction(() => this.filters, this.setFiltersWindowHash);
   };
 
   @action
@@ -736,4 +754,28 @@ export class Entity extends Page {
       </Switch>
     ));
   }
+
+  @action
+  setFiltersWindowHash = () => {
+    const filters = this.filters
+      .filter((filter) => !!filter.value)
+      .reduce((obj, filter) => ({ ...obj, [filter.name]: filter.value }), {});
+
+    const params = new URLSearchParams(filters);
+
+    window.location.hash = params.toString();
+  };
+
+  @action
+  getFiltersFromHash = () => {
+    const hash = window.location.hash.slice(1, window.location.hash.length);
+    const query = parseQuery(hash);
+    const filters: IFilterValue[] = this.fields
+      .filter(
+        (field) => field.filterable && Object.keys(query).includes(field.name)
+      )
+      .map((field) => ({ value: query[field.name], name: field.name }));
+
+    this.setFilters(filters);
+  };
 }

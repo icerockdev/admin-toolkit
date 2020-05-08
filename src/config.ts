@@ -129,6 +129,20 @@ export default new Config({
             accuracy: 4,
           },
         },
+        {
+          name: 'requiredInEdit',
+          label: 'Обязательное в редакторе',
+          type: 'string',
+          required: true,
+          hideInCreate: true,
+        },
+        {
+          name: 'requiredInCreate',
+          label: 'Обязательное при создании',
+          type: 'string',
+          required: true,
+          hideInEdit: true,
+        },
       ],
 
       fetchItemsFn: (...props) =>

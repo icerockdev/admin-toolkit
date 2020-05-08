@@ -1,7 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React from 'react';
-import { IEntityProps, ENTITY_SORT_DIRS } from '../../types/entity';
+import { IEntityProps, ENTITY_SORT_DIRS, IFilterValue, IEntityField } from '../../types/entity';
 import { Page } from '../Page';
 import { CancellablePromise } from 'mobx/lib/api/flow';
 export declare class Entity extends Page {
@@ -33,7 +33,7 @@ export declare class Entity extends Page {
     selected: any[];
     filterData: Record<string, any>;
     constructor(fields?: Partial<IEntityProps>);
-    setFilters: (filters: import("../../types/entity").IFilterValue[]) => void;
+    setFilters: (filters: IFilterValue[]) => void;
     setPage: (page: number) => void;
     setPerPage: (items: number) => void;
     setSelected: (selected: any[]) => void;
@@ -46,7 +46,8 @@ export declare class Entity extends Page {
     onEditCancel: () => void;
     createItem: () => void;
     resetFieldError: (field: string) => void;
-    validateSubmitFields: (data: Record<string, any>) => boolean;
+    isValidField: (field: IEntityField, value: any) => boolean;
+    validateSubmitFields: (data: Record<string, any>, isCreating?: boolean) => boolean;
     getItemsInstance?: CancellablePromise<any>;
     getItem: (id: any) => void;
     getItemsCancel: () => void;
@@ -110,4 +111,6 @@ export declare class Entity extends Page {
         id: string;
     }) => JSX.Element;
     get output(): () => JSX.Element;
+    setFiltersWindowHash: () => void;
+    getFiltersFromHash: () => void;
 }

@@ -85,6 +85,7 @@ import { EntityViewer } from '../../../containers/pages/EntityViewer';
 import { EntityBreadcrumbs } from '../../../containers/pages/EntityBreadcrumbs';
 import { Typography } from '@material-ui/core';
 import { saveAs } from 'file-saver';
+import { parseQuery } from '../../../utils/query';
 var Entity = /** @class */ (function (_super) {
     __extends(Entity, _super);
     function Entity(fields) {
@@ -243,7 +244,7 @@ var Entity = /** @class */ (function (_super) {
                         case 1:
                             _q.trys.push([1, 3, , 4]);
                             data = toJS(this.editorData);
-                            if (!this.validateSubmitFields(data)) {
+                            if (!this.validateSubmitFields(data, false)) {
                                 throw new Error(ENTITY_ERRORS.INCORRECT_INPUT);
                             }
                             if (!((_b = (_a = this.api) === null || _a === void 0 ? void 0 : _a.update) === null || _b === void 0 ? void 0 : _b.url) || !this.updateItemsFn) {
@@ -297,7 +298,7 @@ var Entity = /** @class */ (function (_super) {
                         case 1:
                             _j.trys.push([1, 3, , 4]);
                             data = toJS(this.editorData);
-                            if (!this.validateSubmitFields(data)) {
+                            if (!this.validateSubmitFields(data, true)) {
                                 throw new Error(ENTITY_ERRORS.INCORRECT_INPUT);
                             }
                             if (!((_b = (_a = this.api) === null || _a === void 0 ? void 0 : _a.create) === null || _b === void 0 ? void 0 : _b.url) || !this.createItemsFn) {
@@ -328,11 +329,20 @@ var Entity = /** @class */ (function (_super) {
         _this.resetFieldError = function (field) {
             delete _this.editorFieldErrors[field];
         };
-        _this.validateSubmitFields = function (data) {
-            _this.editorFieldErrors = _this.fields.reduce(function (obj, field) {
+        _this.isValidField = function (field, value) {
+            return (!field.required || field.type === 'boolean' || !!value) &&
+                (!field.validator || !field.validator(value));
+        };
+        _this.validateSubmitFields = function (data, isCreating) {
+            if (isCreating === void 0) { isCreating = false; }
+            _this.editorFieldErrors = _this.fields
+                .filter(function (field) {
+                return (isCreating && !field.hideInCreate) ||
+                    (!isCreating && !field.hideInEdit);
+            })
+                .reduce(function (obj, field) {
                 var _a;
-                return (!field.required || field.type === 'boolean' || !!data[field.name]) &&
-                    (!field.validator || !field.validator(data[field.name]))
+                return _this.isValidField(field, data[field.name])
                     ? obj
                     : __assign(__assign({}, obj), (_a = {}, _a[field.name] = (field.validator && field.validator(data[field.name])) ||
                         ENTITY_ERRORS.FIELD_IS_REQUIRED, _a));
@@ -395,6 +405,8 @@ var Entity = /** @class */ (function (_super) {
         };
         _this.onMount = function () {
             _this.fetchItems();
+            _this.getFiltersFromHash();
+            reaction(function () { return _this.filters; }, _this.setFiltersWindowHash);
         };
         _this.onUnmount = function () {
             _this.fetchItemsCancel();
@@ -434,6 +446,24 @@ var Entity = /** @class */ (function (_super) {
                 }
             });
         }); };
+        _this.setFiltersWindowHash = function () {
+            var filters = _this.filters
+                .filter(function (filter) { return !!filter.value; })
+                .reduce(function (obj, filter) {
+                var _a;
+                return (__assign(__assign({}, obj), (_a = {}, _a[filter.name] = filter.value, _a)));
+            }, {});
+            var params = new URLSearchParams(filters);
+            window.location.hash = params.toString();
+        };
+        _this.getFiltersFromHash = function () {
+            var hash = window.location.hash.slice(1, window.location.hash.length);
+            var query = parseQuery(hash);
+            var filters = _this.fields
+                .filter(function (field) { return field.filterable && Object.keys(query).includes(field.name); })
+                .map(function (field) { return ({ value: query[field.name], name: field.name }); });
+            _this.setFilters(filters);
+        };
         if (fields) {
             Object.assign(_this, fields);
         }
@@ -926,6 +956,12 @@ var Entity = /** @class */ (function (_super) {
     __decorate([
         computed
     ], Entity.prototype, "output", null);
+    __decorate([
+        action
+    ], Entity.prototype, "setFiltersWindowHash", void 0);
+    __decorate([
+        action
+    ], Entity.prototype, "getFiltersFromHash", void 0);
     return Entity;
 }(Page));
 export { Entity };
