@@ -197,11 +197,14 @@ new Entity({
 - `entity.ListHead`, `entity.ListBody`, `entity.ListFooter` - overridable parts of `entity.List` component
 - `entity.EditorHead`, `entity.EditorBody`, `entity.EditorFooter` - overridable parts of `entity.Editor` component
 - `entity.ViewerHead`, `entity.ViewerHeadButtons`, `entity.ViewerBody`, `entity.ViewerFooter` - overridable parts of `entity.Viewer` component
+- `entity.ListExtra` - if not null, renders entity list as accordeons, expanding by click with ListExtra's component as accordeon content
 - `entity.CreatorHead`, `entity.CreatorHeadButtons`, `entity.CreatorBody`, `entity.CreatorFooter` - overridable parts of `entity.Creator` component
 - `entity.isLoading: boolean` - is item currently loading / updating
 - `entity.items: number` - how many items per page should be displayed in view list
 - `entity.itemsPerPage: number[]` - available options for items
 - `entity.page: number` - current page
+- `entity.exportData` - used to export data in preferred format (currently .csv)
+- `entity.setFiltersWindowHash`, `getFiltersFromHash` - syncing filters with page url using url hash
 
 #### Entity fields
 Entity.fields is an array of objects. Every field can has following types: `string`, `date`, `boolean`, `select`, `phone`, `richtext`, `base64image`. `custom` or `referenceSelect`.
@@ -225,7 +228,7 @@ Every field is rendered by predefined or custom component, which accepts common 
 
 
 #### Custom Fields
-```
+```typescript
   {
     name: "type", 
     label: "Тип",
