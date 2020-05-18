@@ -58,7 +58,7 @@ new AuthProvider({
 
 ## JWTAuthProvider
 
-JWTAuthProvider is extension of AuthProvider, but it has `tokenRefreshOption` to fetch renewed access token, using refresh token. Also, authRequestFn returns `tokens` field with access and refresh token pair:
+JWTAuthProvider is extension of AuthProvider, but it has `tokenRefreshFn` to fetch renewed access token, using refresh token. Also, authRequestFn returns `tokens` field with access and refresh token pair:
 
 ```javascript
 new AuthProvider({
@@ -188,7 +188,7 @@ new Entity({
 ```
 
 #### Methods and values
-
+(extends Page methods and values)
 - `entity.canView: boolean` - if entity can be viewed by current user
 - `entity.canEdit: boolean` - if entity can be edited by current user
 - `entity.canCreate: boolean` - if entity can be created by current user
