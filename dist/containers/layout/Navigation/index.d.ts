@@ -19,5 +19,5 @@ declare type IProps = WithStyles<typeof styles> & {
     }[];
     onLogout?: () => void;
 };
-declare const Navigation: React.ComponentType<Pick<React.PropsWithChildren<IProps>, "children" | "logo" | "links" | "account" | "onLogout"> & import("@material-ui/core").StyledComponentProps<"title" | "link" | "logo" | "toolbar" | "appbar" | "links">>;
+declare const Navigation: React.ComponentType<Pick<React.PropsWithChildren<IProps>, "children" | "logo" | "links" | "account" | "onLogout"> & import("@material-ui/core").StyledComponentProps<"title" | "link" | "logo" | "toolbar" | "appbar" | "links" | "tabs">>;
 export { Navigation };

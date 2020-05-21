@@ -33,6 +33,7 @@ import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import omit from 'ramda/es/omit';
 
 type IProps = WithStyles<typeof styles> & {
   isLoading: boolean;
@@ -42,7 +43,15 @@ type IProps = WithStyles<typeof styles> & {
   sortBy: string;
   sortDir: typeof ENTITY_SORT_DIRS[keyof typeof ENTITY_SORT_DIRS];
   selected: any[];
-  extra: (({ id }: { id: any }) => JSX.Element) | null;
+  extra:
+    | (({
+        id,
+        onClose,
+      }: {
+        id: any;
+        onClose: (id: any) => void;
+      }) => JSX.Element)
+    | null;
   canView: boolean;
   canEdit: boolean;
   canSelect?: boolean;
@@ -121,6 +130,11 @@ const EntityList = observer(
           (canSelect ? 1 : 0) +
           (extra ? 1 : 0),
         [visibleFields, canEdit, canView, canSelect]
+      );
+
+      const onExtraClose = useCallback(
+        (id) => setExpanded(omit([id], expanded)),
+        [setExpanded, expanded]
       );
 
       if (isLoading) {
@@ -236,7 +250,10 @@ const EntityList = observer(
                     {!!extra && expanded[entry.id] && (
                       <TableRow>
                         <TableCell colSpan={colSpan}>
-                          {createElement(extra, { id: entry.id })}
+                          {createElement(extra, {
+                            id: entry.id,
+                            onClose: onExtraClose,
+                          })}
                         </TableCell>
                       </TableRow>
                     )}

@@ -155,7 +155,6 @@ export type IEntityUpdateFunction = (
 
 export interface IEntityCreateFunctionProps {
   url: string;
-  id: any;
   token?: string;
   data: Record<string, any>;
 }

@@ -6,6 +6,9 @@ declare const _default: (theme: Theme) => {
         height: string;
         display: string;
         justifyContent: string;
+        '& .MuiInputLabel-outlined': {
+            whiteSpace: string;
+        };
     };
     formControl: {
         margin: string;

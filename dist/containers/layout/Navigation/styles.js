@@ -9,6 +9,9 @@ export default (function (theme) {
         },
         toolbar: {
             height: '78px',
+            '& .MuiTabs-scrollButtons svg': {
+                fill: theme.palette.primary.main,
+            },
         },
         title: {
             // marginLeft: theme.spacing(2),
@@ -22,6 +25,11 @@ export default (function (theme) {
         logo: {
             maxHeight: 54,
         },
+        tabs: {
+            '& a': {
+                minWidth: 0,
+            },
+        },
         link: {
             color: '#a5b0bf',
             fontSize: '12px',
@@ -30,6 +38,7 @@ export default (function (theme) {
             textDecoration: 'none',
             padding: '0 16px',
             position: 'relative',
+            whiteSpace: 'nowrap',
             '&.active': {
                 color: '#282f36',
                 '&::after': {

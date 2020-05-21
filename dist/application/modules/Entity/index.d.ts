@@ -61,8 +61,9 @@ export declare class Entity extends Page {
     get ListHeadTitle(): () => JSX.Element;
     get ListHeadButtons(): () => JSX.Element;
     get ListHead(): () => JSX.Element;
-    get ListExtra(): (({ id }: {
+    get ListExtra(): (({ id, onClose, }: {
         id: any;
+        onClose: (id: any) => void;
     }) => JSX.Element) | null;
     get ListBody(): () => JSX.Element;
     get ListFooter(): () => JSX.Element;

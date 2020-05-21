@@ -12,8 +12,9 @@ declare type IProps = WithStyles<typeof styles> & {
     sortBy: string;
     sortDir: typeof ENTITY_SORT_DIRS[keyof typeof ENTITY_SORT_DIRS];
     selected: any[];
-    extra: (({ id }: {
+    extra: (({ id, onClose, }: {
         id: any;
+        onClose: (id: any) => void;
     }) => JSX.Element) | null;
     canView: boolean;
     canEdit: boolean;

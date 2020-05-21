@@ -29,6 +29,7 @@ import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
+import omit from 'ramda/es/omit';
 var EntityList = observer(withStyles(styles)(function (_a) {
     var classes = _a.classes, isLoading = _a.isLoading, fields = _a.fields, data = _a.data, url = _a.url, extra = _a.extra, selected = _a.selected, sortBy = _a.sortBy, sortDir = _a.sortDir, canView = _a.canView, canEdit = _a.canEdit, canSelect = _a.canSelect, onSortChange = _a.onSortChange, setSelected = _a.setSelected, withToken = _a.withToken;
     var _b = useState({}), expanded = _b[0], setExpanded = _b[1];
@@ -62,6 +63,7 @@ var EntityList = observer(withStyles(styles)(function (_a) {
             (canSelect ? 1 : 0) +
             (extra ? 1 : 0);
     }, [visibleFields, canEdit, canView, canSelect]);
+    var onExtraClose = useCallback(function (id) { return setExpanded(omit([id], expanded)); }, [setExpanded, expanded]);
     if (isLoading) {
         return (React.createElement("div", { className: classes.loader },
             React.createElement(CircularProgress, null)));
@@ -96,6 +98,9 @@ var EntityList = observer(withStyles(styles)(function (_a) {
                                 canView && (React.createElement(Button, { to: url + "/" + entry.id + "/", component: RouterLink },
                                     React.createElement(VisibilityIcon, null))))))),
                     !!extra && expanded[entry.id] && (React.createElement(TableRow, null,
-                        React.createElement(TableCell, { colSpan: colSpan }, createElement(extra, { id: entry.id })))))); }))))));
+                        React.createElement(TableCell, { colSpan: colSpan }, createElement(extra, {
+                            id: entry.id,
+                            onClose: onExtraClose,
+                        })))))); }))))));
 }));
 export { EntityList };

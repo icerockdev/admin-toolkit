@@ -189,7 +189,6 @@ export interface IEntityUpdateFunctionResult {
 export declare type IEntityUpdateFunction = (props: IEntityUpdateFunctionProps) => Promise<IEntityUpdateFunctionResult>;
 export interface IEntityCreateFunctionProps {
     url: string;
-    id: any;
     token?: string;
     data: Record<string, any>;
 }

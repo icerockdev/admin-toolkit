@@ -493,7 +493,15 @@ export class Entity extends Page {
   }
 
   @computed
-  get ListExtra(): (({ id }: { id: any }) => JSX.Element) | null {
+  get ListExtra():
+    | (({
+        id,
+        onClose,
+      }: {
+        id: any;
+        onClose: (id: any) => void;
+      }) => JSX.Element)
+    | null {
     return null;
   }
 

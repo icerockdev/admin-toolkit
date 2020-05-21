@@ -1,9 +1,16 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { FC } from 'react';
+import React, { FC, useState, useMemo, useEffect, useCallback } from 'react';
 import styles from './styles';
-import { withStyles, AppBar, Toolbar, WithStyles } from '@material-ui/core';
-import { Link, NavLink } from 'react-router-dom';
+import {
+  withStyles,
+  AppBar,
+  Toolbar,
+  WithStyles,
+  Tabs,
+  Tab,
+} from '@material-ui/core';
+import { Link, NavLink, useHistory } from 'react-router-dom';
 import { Account } from '../Account';
 
 type IProps = WithStyles<typeof styles> & {
@@ -13,6 +20,16 @@ type IProps = WithStyles<typeof styles> & {
   onLogout?: () => void;
 };
 
+const LinkTab = (props: any) => (
+  <Tab
+    component="a"
+    onClick={(event: any) => {
+      event.preventDefault();
+    }}
+    {...props}
+  />
+);
+
 const NavigationUnstyled: FC<IProps> = ({
   classes,
   logo,
@@ -20,6 +37,22 @@ const NavigationUnstyled: FC<IProps> = ({
   account,
   onLogout,
 }) => {
+  const history = useHistory();
+  const [location, setLocation] = useState(window.location.pathname.toString());
+
+  useEffect(() => {
+    history.listen(() => setLocation(history.location.pathname));
+  }, [history]);
+
+  const onTabChange = useCallback((_, tab) => history.push(links[tab].url), [
+    history,
+  ]);
+
+  const activeTab = useMemo(
+    () => links.findIndex((link) => link.url === location) || 0,
+    [location]
+  );
+
   return (
     <AppBar position="static" className={classes.appbar}>
       <Toolbar className={classes.toolbar}>
@@ -34,15 +67,20 @@ const NavigationUnstyled: FC<IProps> = ({
           </Link>
         )}
 
-        {links && links.length > 0 && (
-          <div className={classes.links}>
-            {links.map(({ name, url }) => (
-              <NavLink key={name} className={classes.link} to={url}>
-                {name}
-              </NavLink>
-            ))}
-          </div>
-        )}
+        <Tabs
+          onChange={onTabChange}
+          value={activeTab}
+          indicatorColor="primary"
+          textColor="primary"
+          variant="scrollable"
+          scrollButtons="auto"
+          aria-label="scrollable auto tabs example"
+          className={classes.tabs}
+        >
+          {links.map(({ name, url }) => (
+            <Tab label={name} key={url} />
+          ))}
+        </Tabs>
 
         {account && (
           <Account
