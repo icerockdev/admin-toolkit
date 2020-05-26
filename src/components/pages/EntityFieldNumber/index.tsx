@@ -47,6 +47,7 @@ const EntityFieldNumber: FC<IProps> = ({
         error={!!error}
         helperText={error}
         variant="outlined"
+        inputProps={{ step: 'any' }}
       />
     </div>
   ) : (
