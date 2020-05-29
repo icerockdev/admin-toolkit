@@ -78,7 +78,7 @@ const NavigationUnstyled: FC<IProps> = ({
           className={classes.tabs}
         >
           {links.map(({ name, url }) => (
-            <Tab label={name} key={url} />
+            <Tab label={name} key={url} className={classes.tab} />
           ))}
         </Tabs>
 
