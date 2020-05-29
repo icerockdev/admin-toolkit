@@ -5,5 +5,10 @@ import { Theme } from '@material-ui/core';
 export default (theme: Theme) => ({
   wrapper: {
     marginTop: theme.spacing(4),
+    padding: 0,
+
+    '& .MuiButton-root, & .MuiOutlinedInput-root': {
+      borderRadius: 0,
+    },
   },
 });

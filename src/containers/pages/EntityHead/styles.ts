@@ -7,6 +7,7 @@ export default (theme: Theme) => ({
     margin: '5px 0',
     display: 'flex',
     justifyContent: 'center',
+    padding: '10px 24px',
 
     '& > *': {
       margin: '5px 0',
