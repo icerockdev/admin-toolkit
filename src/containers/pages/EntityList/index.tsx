@@ -23,7 +23,7 @@ import {
   Checkbox,
 } from '@material-ui/core';
 import { IEntityField, ENTITY_SORT_DIRS } from '~/application/';
-import VisibilityIcon from '@material-ui/icons/Visibility';
+import LaunchIcon from '@material-ui/icons/Launch';
 import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink } from 'react-router-dom';
 import { EntityHeadSortable } from '~/components/pages/EntityHeadSortable';
@@ -34,6 +34,7 @@ import { observer } from 'mobx-react';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import omit from 'ramda/es/omit';
+import classnames from 'classnames';
 
 type IProps = WithStyles<typeof styles> & {
   isLoading: boolean;
@@ -126,7 +127,8 @@ const EntityList = observer(
       const colSpan = useMemo(
         () =>
           visibleFields.length +
-          (canView || canEdit ? 1 : 0) +
+          (canView ? 1 : 0) +
+          (canEdit ? 1 : 0) +
           (canSelect ? 1 : 0) +
           (extra ? 1 : 0),
         [visibleFields, canEdit, canView, canSelect]
@@ -180,7 +182,8 @@ const EntityList = observer(
                     )
                   )}
 
-                  {(canView || canEdit) && <TableCell />}
+                  {canView && <TableCell />}
+                  {canEdit && <TableCell />}
                 </TableRow>
               </TableHead>
 
@@ -223,26 +226,36 @@ const EntityList = observer(
                         </TableCell>
                       ))}
 
-                      {(canEdit || canView) && (
-                        <TableCell size="small" align="right">
-                          <ButtonGroup variant="text">
-                            {canEdit && (
-                              <Button
-                                to={`${url}/${entry.id}/edit`}
-                                component={RouterLink}
-                              >
-                                <EditIcon />
-                              </Button>
-                            )}
-                            {canView && (
-                              <Button
-                                to={`${url}/${entry.id}/`}
-                                component={RouterLink}
-                              >
-                                <VisibilityIcon />
-                              </Button>
-                            )}
-                          </ButtonGroup>
+                      {canEdit && (
+                        <TableCell
+                          size="small"
+                          align="right"
+                          className={classes.button}
+                        >
+                          <Button
+                            to={`${url}/${entry.id}/edit`}
+                            component={RouterLink}
+                          >
+                            <EditIcon />
+                          </Button>
+                        </TableCell>
+                      )}
+
+                      {canView && (
+                        <TableCell
+                          size="small"
+                          align="right"
+                          className={classnames(
+                            classes.button,
+                            classes.button_active
+                          )}
+                        >
+                          <Button
+                            to={`${url}/${entry.id}/`}
+                            component={RouterLink}
+                          >
+                            <LaunchIcon />
+                          </Button>
                         </TableCell>
                       )}
                     </TableRow>
