@@ -11,6 +11,14 @@ export default (theme: Theme) => ({
     '& .MuiInputLabel-outlined': {
       whiteSpace: 'nowrap',
     },
+
+    '& > *': {
+      marginRight: 10,
+
+      '&:last-child': {
+        marginRight: 0,
+      },
+    },
   },
   formControl: {
     margin: `0 ${theme.spacing(1)}px 0 0`,
@@ -49,5 +57,13 @@ export default (theme: Theme) => ({
     height: 36,
     width: 36,
     padding: 0,
+  },
+  filterButton: {
+    padding: 0,
+    minWidth: 36,
+
+    '& span': {
+      width: 'auto',
+    },
   },
 });

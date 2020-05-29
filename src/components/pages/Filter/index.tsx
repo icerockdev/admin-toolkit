@@ -1,21 +1,28 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { ChangeEvent, useCallback, Fragment, useMemo } from 'react';
+import React, {
+  ChangeEvent,
+  useCallback,
+  Fragment,
+  useMemo,
+  useState,
+} from 'react';
 
 import {
   withStyles,
   WithStyles,
-  FormControl,
-  InputLabel,
-  Select,
   MenuItem,
   IconButton,
+  Menu,
+  ListItemText,
+  Button,
 } from '@material-ui/core';
 
 import styles from './styles';
 import { IEntityProps, IFilterValue } from '~/application/types/entity';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
+import FilterIcon from '@material-ui/icons/FilterList';
 import { EntityField } from '~/application/components/EntityField';
 import { observer } from 'mobx-react';
 
@@ -41,16 +48,14 @@ const Filter = withStyles(styles)(
       applyFilter,
       withToken,
     }: IProps) => {
-      const onSelectField = useCallback(
-        (event: ChangeEvent<{ name?: string | undefined; value: unknown }>) => {
-          if (!event.target.value) return;
+      const [buttonRef, setButtonRef] = useState<any>(null);
 
-          setFilters([
-            ...filters,
-            { name: String(event.target.value), value: '' },
-          ]);
+      const onSelectField = useCallback(
+        (value) => {
+          setFilters([...filters, { name: String(value), value: '' }]);
+          setButtonRef(null);
         },
-        [setFilters, filters]
+        [setButtonRef, setFilters, filters]
       );
 
       const setFilterValue = useCallback(
@@ -103,33 +108,52 @@ const Filter = withStyles(styles)(
         [applyFilter]
       );
 
+      const onMenuOpen = useCallback((event) => setButtonRef(event.target), [
+        setButtonRef,
+      ]);
+
+      const onMenuClose = useCallback((event) => setButtonRef(null), [
+        setButtonRef,
+      ]);
+
       return (
         <form className={classes.wrapper} onSubmit={onSubmit}>
-          {selectableFields.length > 0 && (
-            <FormControl variant="outlined" className={classes.formControl}>
-              <InputLabel htmlFor="field" className={classes.label}>
-                Фильтр
-              </InputLabel>
+          <Button
+            aria-controls="customized-menu"
+            aria-haspopup="true"
+            variant="outlined"
+            color="primary"
+            onClick={onMenuOpen}
+            className={classes.filterButton}
+          >
+            <FilterIcon />
+          </Button>
 
-              <Select
-                variant="outlined"
-                id="field"
-                name="field"
-                label="Фильтр"
-                value=""
-                onChange={onSelectField}
-                className={classes.select}
+          <Menu
+            id="customized-menu"
+            elevation={0}
+            getContentAnchorEl={null}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'right',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            anchorEl={buttonRef}
+            onClose={onMenuClose}
+            open={buttonRef}
+          >
+            {selectableFields.map((field) => (
+              <MenuItem
+                key={field.name}
+                onClick={() => onSelectField(field.name)}
               >
-                <MenuItem value="">...</MenuItem>
-
-                {selectableFields.map((field) => (
-                  <MenuItem key={field.name} value={field.name}>
-                    {field.label || field.name}
-                  </MenuItem>
-                ))}
-              </Select>
-            </FormControl>
-          )}
+                <ListItemText primary={field.label || field.name} />
+              </MenuItem>
+            ))}
+          </Menu>
 
           {currentFilters.map(
             (field, i) =>
@@ -156,6 +180,7 @@ const Filter = withStyles(styles)(
                 </div>
               )
           )}
+
           {currentFilters.length > 0 && (
             <Fragment>
               <IconButton
