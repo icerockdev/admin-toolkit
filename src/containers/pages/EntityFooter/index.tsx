@@ -1,18 +1,20 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React, { FC, useCallback } from 'react';
-import { Paper, TablePagination } from '@material-ui/core';
+import { TablePagination, WithStyles, withStyles } from '@material-ui/core';
+import styles from './styles';
 
-interface IProps {
+type IProps = WithStyles<typeof styles> & {
   itemsPerPage: number[];
   items: number;
   totalCount: number;
   page: number;
   setPage: (count: number) => void;
   setPerPage: (count: number) => void;
-}
+};
 
-const EntityFooter: FC<IProps> = ({
+const EntityFooterUnconnected: FC<IProps> = ({
+  classes,
   totalCount,
   page,
   itemsPerPage,
@@ -37,8 +39,11 @@ const EntityFooter: FC<IProps> = ({
       page={page}
       onChangePage={onChangePage}
       onChangeRowsPerPage={onChangeRowsPerPage}
+      className={classes.pager}
     />
   );
 };
+
+const EntityFooter = withStyles(styles)(EntityFooterUnconnected);
 
 export { EntityFooter };
