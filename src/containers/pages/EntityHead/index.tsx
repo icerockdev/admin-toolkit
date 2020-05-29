@@ -64,30 +64,32 @@ const EntityHeadUnstyled: FC<IProps> = ({
         />
       )}
 
-      {buttons && <div className={classes.buttons}>{buttons}</div>}
+      <div className={classes.buttons}>
+        {buttons}
 
-      {canExport && (
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={onExport}
-          className={classes.export}
-        >
-          Экспорт
-        </Button>
-      )}
+        {canExport && (
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={onExport}
+            className={classes.export}
+          >
+            Экспорт
+          </Button>
+        )}
 
-      {canCreate && url && (
-        <Button
-          type="button"
-          variant="contained"
-          color="primary"
-          component={RouterLink}
-          to={`${url}/create`}
-        >
-          Создать
-        </Button>
-      )}
+        {canCreate && url && (
+          <Button
+            type="button"
+            variant="contained"
+            color="primary"
+            component={RouterLink}
+            to={`${url}/create`}
+          >
+            Создать
+          </Button>
+        )}
+      </div>
     </Grid>
   );
 };

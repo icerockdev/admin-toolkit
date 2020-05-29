@@ -118,42 +118,19 @@ const Filter = withStyles(styles)(
 
       return (
         <form className={classes.wrapper} onSubmit={onSubmit}>
-          <Button
-            aria-controls="customized-menu"
-            aria-haspopup="true"
-            variant="outlined"
-            color="primary"
-            onClick={onMenuOpen}
-            className={classes.filterButton}
-          >
-            <FilterIcon />
-          </Button>
-
-          <Menu
-            id="customized-menu"
-            elevation={0}
-            getContentAnchorEl={null}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-            anchorEl={buttonRef}
-            onClose={onMenuClose}
-            open={buttonRef}
-          >
-            {selectableFields.map((field) => (
-              <MenuItem
-                key={field.name}
-                onClick={() => onSelectField(field.name)}
+          {currentFilters.length > 0 && (
+            <Fragment>
+              <Button
+                onClick={applyFilter}
+                tabIndex={0}
+                color="primary"
+                variant="outlined"
+                className={classes.filterButton}
               >
-                <ListItemText primary={field.label || field.name} />
-              </MenuItem>
-            ))}
-          </Menu>
+                <CheckIcon />
+              </Button>
+            </Fragment>
+          )}
 
           {currentFilters.map(
             (field, i) =>
@@ -181,17 +158,45 @@ const Filter = withStyles(styles)(
               )
           )}
 
-          {currentFilters.length > 0 && (
-            <Fragment>
-              <IconButton
+          {selectableFields.length > 0 && (
+            <>
+              <Button
+                aria-controls="customized-menu"
+                aria-haspopup="true"
+                variant="outlined"
                 color="primary"
-                onClick={applyFilter}
-                className={classes.iconButton}
-                tabIndex={0}
+                onClick={onMenuOpen}
+                className={classes.filterButton}
               >
-                <CheckIcon />
-              </IconButton>
-            </Fragment>
+                <FilterIcon />
+              </Button>
+
+              <Menu
+                id="customized-menu"
+                elevation={0}
+                getContentAnchorEl={null}
+                anchorOrigin={{
+                  vertical: 'bottom',
+                  horizontal: 'right',
+                }}
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                anchorEl={buttonRef}
+                onClose={onMenuClose}
+                open={buttonRef}
+              >
+                {selectableFields.map((field) => (
+                  <MenuItem
+                    key={field.name}
+                    onClick={() => onSelectField(field.name)}
+                  >
+                    <ListItemText primary={field.label || field.name} />
+                  </MenuItem>
+                ))}
+              </Menu>
+            </>
           )}
         </form>
       );

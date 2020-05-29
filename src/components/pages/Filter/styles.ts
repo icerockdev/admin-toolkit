@@ -4,9 +4,12 @@ import { Theme } from '@material-ui/core';
 
 export default (theme: Theme) => ({
   wrapper: {
-    height: '36px',
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'flex-start',
+    flexWrap: 'wrap' as 'wrap',
+    flexDirection: 'row-reverse' as 'row-reverse',
+    paddingLeft: 10,
+    margin: '0 !important',
 
     '& .MuiInputLabel-outlined': {
       whiteSpace: 'nowrap',
@@ -14,10 +17,8 @@ export default (theme: Theme) => ({
 
     '& > *': {
       marginRight: 10,
-
-      '&:last-child': {
-        marginRight: 0,
-      },
+      marginTop: 5,
+      marginBottom: 5,
     },
   },
   formControl: {
@@ -33,7 +34,6 @@ export default (theme: Theme) => ({
     display: 'flex',
     boxShadow: 'inset rgba(0, 0, 0, 1) 0 0 1px',
     borderRadius: '0 4px 4px 0',
-    marginRight: 5,
 
     '& .select': {
       padding: '10px 34px 7px 14px',
@@ -61,6 +61,7 @@ export default (theme: Theme) => ({
   filterButton: {
     padding: 0,
     minWidth: 36,
+    height: 36,
 
     '& span': {
       width: 'auto',
