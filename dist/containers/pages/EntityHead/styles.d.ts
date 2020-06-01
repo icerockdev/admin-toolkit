@@ -3,11 +3,10 @@
 import { Theme } from '@material-ui/core';
 declare const _default: (theme: Theme) => {
     header: {
-        margin: string;
         display: string;
         justifyContent: string;
         padding: string;
-        alignItems: "flex-start";
+        alignItems: "center";
         flexWrap: "nowrap";
         '& .MuiButton-label': {
             fontWeight: string;

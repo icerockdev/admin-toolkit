@@ -1,11 +1,10 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 export default (function (theme) { return ({
     header: {
-        margin: '5px 0',
         display: 'flex',
         justifyContent: 'center',
-        padding: '10px 24px',
-        alignItems: 'flex-start',
+        padding: '32px 19px 24px 24px',
+        alignItems: 'center',
         flexWrap: 'nowrap',
         '& .MuiButton-label': {
             fontWeight: 'bold',

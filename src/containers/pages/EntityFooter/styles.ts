@@ -4,7 +4,7 @@ import { Theme } from '@material-ui/core';
 
 export default (theme: Theme) => ({
   pager: {
-    margin: '30px 20px 0 20px',
+    margin: '30px 20px 20px 20px',
     paddingTop: '20px !important',
     borderTop: '1px solid #dddddd',
 
