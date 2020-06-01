@@ -18,8 +18,8 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 import React, { useMemo, useCallback, useState, Fragment, createElement, } from 'react';
-import { TableContainer, Table, TableCell, TableHead, TableRow, TableBody, Paper, CircularProgress, Button, ButtonGroup, withStyles, Checkbox, } from '@material-ui/core';
-import VisibilityIcon from '@material-ui/icons/Visibility';
+import { TableContainer, Table, TableCell, TableHead, TableRow, TableBody, Paper, CircularProgress, Button, withStyles, Checkbox, } from '@material-ui/core';
+import LaunchIcon from '@material-ui/icons/Launch';
 import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink } from 'react-router-dom';
 import { EntityHeadSortable } from '../../../components/pages/EntityHeadSortable';
@@ -30,6 +30,7 @@ import { observer } from 'mobx-react';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import omit from 'ramda/es/omit';
+import classnames from 'classnames';
 var EntityList = observer(withStyles(styles)(function (_a) {
     var classes = _a.classes, isLoading = _a.isLoading, fields = _a.fields, data = _a.data, url = _a.url, extra = _a.extra, selected = _a.selected, sortBy = _a.sortBy, sortDir = _a.sortDir, canView = _a.canView, canEdit = _a.canEdit, canSelect = _a.canSelect, onSortChange = _a.onSortChange, setSelected = _a.setSelected, withToken = _a.withToken;
     var _b = useState({}), expanded = _b[0], setExpanded = _b[1];
@@ -59,7 +60,8 @@ var EntityList = observer(withStyles(styles)(function (_a) {
     }, [selected, setSelected, isAllSelected, data]);
     var colSpan = useMemo(function () {
         return visibleFields.length +
-            (canView || canEdit ? 1 : 0) +
+            (canView ? 1 : 0) +
+            (canEdit ? 1 : 0) +
             (canSelect ? 1 : 0) +
             (extra ? 1 : 0);
     }, [visibleFields, canEdit, canView, canSelect]);
@@ -81,7 +83,8 @@ var EntityList = observer(withStyles(styles)(function (_a) {
                                 React.createElement("b", null, field.label || field.name))) : (React.createElement(TableCell, { key: field.name },
                                 React.createElement("b", null, field.label || field.name)));
                         }),
-                        (canView || canEdit) && React.createElement(TableCell, null))),
+                        canView && React.createElement(TableCell, null),
+                        canEdit && React.createElement(TableCell, null))),
                 React.createElement(TableBody, null, data.map(function (entry, i) { return (React.createElement(Fragment, { key: i },
                     React.createElement(TableRow, { hover: true },
                         extra && (React.createElement(TableCell, { onClick: function () { return onRowClick(entry.id); } }, expanded[entry.id] ? (React.createElement(KeyboardArrowDownIcon, null)) : (React.createElement(KeyboardArrowRightIcon, null)))),
@@ -91,12 +94,12 @@ var EntityList = observer(withStyles(styles)(function (_a) {
                                 } }))),
                         visibleFields.map(function (field) { return (React.createElement(TableCell, { key: field.name, onClick: function () { return onRowClick(entry.id); } },
                             React.createElement(EntityField, { name: field.name, fields: fields, data: entry, withToken: withToken }))); }),
-                        (canEdit || canView) && (React.createElement(TableCell, { size: "small", align: "right" },
-                            React.createElement(ButtonGroup, { variant: "text" },
-                                canEdit && (React.createElement(Button, { to: url + "/" + entry.id + "/edit", component: RouterLink },
-                                    React.createElement(EditIcon, null))),
-                                canView && (React.createElement(Button, { to: url + "/" + entry.id + "/", component: RouterLink },
-                                    React.createElement(VisibilityIcon, null))))))),
+                        canEdit && (React.createElement(TableCell, { size: "small", align: "right", className: classes.button },
+                            React.createElement(Button, { to: url + "/" + entry.id + "/edit", component: RouterLink },
+                                React.createElement(EditIcon, null)))),
+                        canView && (React.createElement(TableCell, { size: "small", align: "right", className: classnames(classes.button, classes.button_active) },
+                            React.createElement(Button, { to: url + "/" + entry.id + "/", component: RouterLink },
+                                React.createElement(LaunchIcon, null))))),
                     !!extra && expanded[entry.id] && (React.createElement(TableRow, null,
                         React.createElement(TableCell, { colSpan: colSpan }, createElement(extra, {
                             id: entry.id,

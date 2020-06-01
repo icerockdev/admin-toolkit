@@ -1,11 +1,19 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 export default (function (theme) { return ({
     wrapper: {
-        height: '36px',
         display: 'flex',
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-start',
+        flexWrap: 'wrap',
+        flexDirection: 'row-reverse',
+        paddingLeft: 10,
+        margin: '0 !important',
         '& .MuiInputLabel-outlined': {
             whiteSpace: 'nowrap',
+        },
+        '& > *': {
+            marginRight: 10,
+            marginTop: 5,
+            marginBottom: 5,
         },
     },
     formControl: {
@@ -21,7 +29,7 @@ export default (function (theme) { return ({
         display: 'flex',
         boxShadow: 'inset rgba(0, 0, 0, 1) 0 0 1px',
         borderRadius: '0 4px 4px 0',
-        marginRight: 5,
+        backgroundColor: 'white',
         '& .select': {
             padding: '10px 34px 7px 14px',
         },
@@ -44,5 +52,13 @@ export default (function (theme) { return ({
         height: 36,
         width: 36,
         padding: 0,
+    },
+    filterButton: {
+        padding: 0,
+        minWidth: 36,
+        height: 36,
+        '& span': {
+            width: 'auto',
+        },
     },
 }); });

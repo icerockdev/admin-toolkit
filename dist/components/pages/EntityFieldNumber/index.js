@@ -13,6 +13,6 @@ var EntityFieldNumber = function (_a) {
         parseFloat(parseFloat(value).toFixed((options === null || options === void 0 ? void 0 : options.accuracy) || 6))) ||
         0;
     return isEditing ? (React.createElement("div", null,
-        React.createElement(TextField, { type: "number", label: label, value: value || '', onChange: onChange, error: !!error, helperText: error, variant: "outlined" }))) : (React.createElement("div", { onClick: onClick }, val || 0));
+        React.createElement(TextField, { type: "number", label: label, value: value || '', onChange: onChange, error: !!error, helperText: error, variant: "outlined", inputProps: { step: 'any' } }))) : (React.createElement("div", { onClick: onClick }, val || 0));
 };
 export { EntityFieldNumber };

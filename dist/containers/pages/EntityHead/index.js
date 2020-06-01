@@ -13,9 +13,10 @@ var EntityHeadUnstyled = function (_a) {
     return (React.createElement(Grid, { container: true, justify: "space-between", alignItems: "center", className: classes.header },
         title,
         filters && (React.createElement(Filter, { filterData: filterData, fields: fields, filters: filters, setFilters: setFilters, applyFilter: applyFilter, clearFilter: clearFilter, withToken: withToken })),
-        buttons && React.createElement("div", { className: classes.buttons }, buttons),
-        canExport && (React.createElement(Button, { variant: "outlined", color: "primary", onClick: onExport, className: classes.export }, "\u042D\u043A\u0441\u043F\u043E\u0440\u0442")),
-        canCreate && url && (React.createElement(Button, { type: "button", variant: "contained", color: "primary", component: RouterLink, to: url + "/create" }, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C"))));
+        React.createElement("div", { className: classes.buttons },
+            buttons,
+            canExport && (React.createElement(Button, { variant: "outlined", color: "primary", onClick: onExport, className: classes.export }, "\u042D\u043A\u0441\u043F\u043E\u0440\u0442")),
+            canCreate && url && (React.createElement(Button, { type: "button", variant: "contained", color: "primary", component: RouterLink, to: url + "/create" }, "\u0421\u043E\u0437\u0434\u0430\u0442\u044C")))));
 };
 var EntityHead = withStyles(styles)(EntityHeadUnstyled);
 export { EntityHead };

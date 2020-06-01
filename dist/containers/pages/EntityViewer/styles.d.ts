@@ -8,6 +8,7 @@ declare const _default: (theme: Theme) => {
     };
     wrap: {
         marginBottom: number;
+        margin: number;
         '& .MuiFormControl-root': {
             width: string;
         };

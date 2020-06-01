@@ -25,7 +25,9 @@ var NavigationUnstyled = function (_a) {
     useEffect(function () {
         history.listen(function () { return setLocation(history.location.pathname); });
     }, [history]);
-    var onTabChange = useCallback(function (_, tab) { return history.push(links[tab].url); }, [history]);
+    var onTabChange = useCallback(function (_, tab) { return history.push(links[tab].url); }, [
+        history,
+    ]);
     var activeTab = useMemo(function () { return links.findIndex(function (link) { return link.url === location; }) || 0; }, [location]);
     return (React.createElement(AppBar, { position: "static", className: classes.appbar },
         React.createElement(Toolbar, { className: classes.toolbar },
@@ -33,7 +35,7 @@ var NavigationUnstyled = function (_a) {
                 React.createElement("img", { src: logo.url, title: logo.title, className: classes.logo, alt: logo.title }))),
             React.createElement(Tabs, { onChange: onTabChange, value: activeTab, indicatorColor: "primary", textColor: "primary", variant: "scrollable", scrollButtons: "auto", "aria-label": "scrollable auto tabs example", className: classes.tabs }, links.map(function (_a) {
                 var name = _a.name, url = _a.url;
-                return (React.createElement(Tab, { label: name, key: url }));
+                return (React.createElement(Tab, { label: name, key: url, className: classes.tab }));
             })),
             account && (React.createElement(Account, { email: account.email, username: account.username, role: account.role, onLogout: onLogout })))));
 };

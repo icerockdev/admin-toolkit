@@ -17,22 +17,21 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
-import React, { useCallback, Fragment, useMemo } from 'react';
-import { withStyles, FormControl, InputLabel, Select, MenuItem, IconButton, } from '@material-ui/core';
+import React, { useCallback, Fragment, useMemo, useState, } from 'react';
+import { withStyles, MenuItem, IconButton, Menu, ListItemText, Button, } from '@material-ui/core';
 import styles from './styles';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
+import FilterIcon from '@material-ui/icons/FilterList';
 import { EntityField } from '../../../application/components/EntityField';
 import { observer } from 'mobx-react';
 var Filter = withStyles(styles)(observer(function (_a) {
     var classes = _a.classes, fields = _a.fields, filters = _a.filters, filterData = _a.filterData, setFilters = _a.setFilters, applyFilter = _a.applyFilter, withToken = _a.withToken;
-    var onSelectField = useCallback(function (event) {
-        if (!event.target.value)
-            return;
-        setFilters(__spreadArrays(filters, [
-            { name: String(event.target.value), value: '' },
-        ]));
-    }, [setFilters, filters]);
+    var _b = useState(null), buttonRef = _b[0], setButtonRef = _b[1];
+    var onSelectField = useCallback(function (value) {
+        setFilters(__spreadArrays(filters, [{ name: String(value), value: '' }]));
+        setButtonRef(null);
+    }, [setButtonRef, setFilters, filters]);
     var setFilterValue = useCallback(function (i) { return function (value) {
         setFilters(filters.map(function (filter, index) {
             return i === index ? __assign(__assign({}, filter), { value: value }) : filter;
@@ -57,12 +56,16 @@ var Filter = withStyles(styles)(observer(function (_a) {
         event.preventDefault();
         applyFilter();
     }, [applyFilter]);
+    var onMenuOpen = useCallback(function (event) { return setButtonRef(event.target); }, [
+        setButtonRef,
+    ]);
+    var onMenuClose = useCallback(function (event) { return setButtonRef(null); }, [
+        setButtonRef,
+    ]);
     return (React.createElement("form", { className: classes.wrapper, onSubmit: onSubmit },
-        selectableFields.length > 0 && (React.createElement(FormControl, { variant: "outlined", className: classes.formControl },
-            React.createElement(InputLabel, { htmlFor: "field", className: classes.label }, "\u0424\u0438\u043B\u044C\u0442\u0440"),
-            React.createElement(Select, { variant: "outlined", id: "field", name: "field", label: "\u0424\u0438\u043B\u044C\u0442\u0440", value: "", onChange: onSelectField, className: classes.select },
-                React.createElement(MenuItem, { value: "" }, "..."),
-                selectableFields.map(function (field) { return (React.createElement(MenuItem, { key: field.name, value: field.name }, field.label || field.name)); })))),
+        currentFilters.length > 0 && (React.createElement(Fragment, null,
+            React.createElement(Button, { onClick: applyFilter, tabIndex: 0, color: "primary", variant: "outlined", className: classes.filterButton },
+                React.createElement(CheckIcon, null)))),
         currentFilters.map(function (field, i) {
             var _a;
             return field && (React.createElement("div", { className: classes.input, key: field.name },
@@ -70,8 +73,16 @@ var Filter = withStyles(styles)(observer(function (_a) {
                 React.createElement(IconButton, { color: "secondary", onClick: removeFilter(i), className: classes.clear, tabIndex: 0 },
                     React.createElement(ClearIcon, null))));
         }),
-        currentFilters.length > 0 && (React.createElement(Fragment, null,
-            React.createElement(IconButton, { color: "primary", onClick: applyFilter, className: classes.iconButton, tabIndex: 0 },
-                React.createElement(CheckIcon, null))))));
+        selectableFields.length > 0 && (React.createElement(React.Fragment, null,
+            React.createElement(Button, { "aria-controls": "customized-menu", "aria-haspopup": "true", variant: "outlined", color: "primary", onClick: onMenuOpen, className: classes.filterButton },
+                React.createElement(FilterIcon, null)),
+            React.createElement(Menu, { id: "customized-menu", elevation: 0, getContentAnchorEl: null, anchorOrigin: {
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                }, transformOrigin: {
+                    vertical: 'top',
+                    horizontal: 'right',
+                }, anchorEl: buttonRef, onClose: onMenuClose, open: buttonRef }, selectableFields.map(function (field) { return (React.createElement(MenuItem, { key: field.name, onClick: function () { return onSelectField(field.name); } },
+                React.createElement(ListItemText, { primary: field.label || field.name }))); }))))));
 }));
 export { Filter };

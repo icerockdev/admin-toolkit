@@ -25,9 +25,23 @@ export default (function (theme) {
         logo: {
             maxHeight: 54,
         },
+        tab: {
+            height: '100%',
+            fontWeight: 500,
+            fontSize: '12px',
+            lineHeight: '14px',
+        },
         tabs: {
+            height: '100%',
             '& a': {
                 minWidth: 0,
+            },
+            '& .MuiTabs-flexContainer': {
+                height: '100%',
+            },
+            '& .MuiTab-root': {
+                minWidth: 'auto',
+                padding: '2px 16px',
             },
         },
         link: {

@@ -3,11 +3,19 @@
 import { Theme } from '@material-ui/core';
 declare const _default: (theme: Theme) => {
     wrapper: {
-        height: string;
         display: string;
         justifyContent: string;
+        flexWrap: "wrap";
+        flexDirection: "row-reverse";
+        paddingLeft: number;
+        margin: string;
         '& .MuiInputLabel-outlined': {
             whiteSpace: string;
+        };
+        '& > *': {
+            marginRight: number;
+            marginTop: number;
+            marginBottom: number;
         };
     };
     formControl: {
@@ -23,7 +31,7 @@ declare const _default: (theme: Theme) => {
         display: string;
         boxShadow: string;
         borderRadius: string;
-        marginRight: number;
+        backgroundColor: string;
         '& .select': {
             padding: string;
         };
@@ -46,6 +54,14 @@ declare const _default: (theme: Theme) => {
         height: number;
         width: number;
         padding: number;
+    };
+    filterButton: {
+        padding: number;
+        minWidth: number;
+        height: number;
+        '& span': {
+            width: string;
+        };
     };
 };
 export default _default;

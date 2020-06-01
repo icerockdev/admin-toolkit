@@ -4,11 +4,10 @@ import { Theme } from '@material-ui/core';
 
 export default (theme: Theme) => ({
   header: {
-    margin: '5px 0',
     display: 'flex',
     justifyContent: 'center',
-    padding: '10px 24px',
-    alignItems: 'flex-start' as 'flex-start',
+    padding: '32px 19px 24px 24px',
+    alignItems: 'center' as 'center',
     flexWrap: 'nowrap' as 'nowrap',
 
     '& .MuiButton-label': {

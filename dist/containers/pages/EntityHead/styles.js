@@ -4,6 +4,26 @@ export default (function (theme) { return ({
         margin: '5px 0',
         display: 'flex',
         justifyContent: 'center',
+        padding: '10px 24px',
+        alignItems: 'flex-start',
+        flexWrap: 'nowrap',
+        '& .MuiButton-label': {
+            fontWeight: 'bold',
+            fontSize: '14px',
+            lineHeight: '16px',
+            height: 24,
+        },
+        '& .MuiInputBase-input': {},
+        '& .MuiButton-outlinedPrimary': {
+            backgroundColor: 'white',
+            border: '1px solid #EBEBEB !important',
+        },
+        '& .MuiOutlinedInput-notchedOutline': {
+            border: 'none',
+        },
+        '& h4': {
+            whiteSpace: 'nowrap',
+        },
         '& > *': {
             margin: '5px 0',
         },
@@ -13,9 +33,12 @@ export default (function (theme) { return ({
         fontSize: '34px',
         fontWeight: 900,
         flexGrow: 1,
+        whiteSpace: 'nowrap',
     },
     buttons: {
         marginRight: theme.spacing(1),
+        flexWrap: 'nowrap',
+        display: 'flex',
     },
     export: {
         marginRight: theme.spacing(1),

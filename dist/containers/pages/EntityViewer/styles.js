@@ -6,6 +6,7 @@ export default (function (theme) { return ({
     },
     wrap: {
         marginBottom: theme.spacing(4),
+        margin: 0,
         '& .MuiFormControl-root': {
             width: '100%',
         },

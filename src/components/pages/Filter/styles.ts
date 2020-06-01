@@ -34,6 +34,7 @@ export default (theme: Theme) => ({
     display: 'flex',
     boxShadow: 'inset rgba(0, 0, 0, 1) 0 0 1px',
     borderRadius: '0 4px 4px 0',
+    backgroundColor: 'white',
 
     '& .select': {
       padding: '10px 34px 7px 14px',

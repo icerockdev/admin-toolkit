@@ -23,5 +23,5 @@ declare type IProps = WithStyles<typeof styles> & {
     onSortChange: (field: string) => void;
     withToken?: (req: any, args: any) => void;
 };
-declare const EntityList: React.ComponentType<Pick<IProps, "data" | "isLoading" | "withToken" | "url" | "selected" | "onSortChange" | "fields" | "extra" | "sortBy" | "sortDir" | "canView" | "canEdit" | "canSelect" | "setSelected"> & import("@material-ui/core").StyledComponentProps<"table" | "loader">>;
+declare const EntityList: React.ComponentType<Pick<IProps, "data" | "isLoading" | "withToken" | "url" | "selected" | "onSortChange" | "fields" | "extra" | "sortBy" | "sortDir" | "canView" | "canEdit" | "canSelect" | "setSelected"> & import("@material-ui/core").StyledComponentProps<"button" | "table" | "loader" | "button_active">>;
 export { EntityList };
