@@ -171,31 +171,33 @@ const Filter = withStyles(styles)(
                 <FilterIcon />
               </Button>
 
-              <Menu
-                id="customized-menu"
-                elevation={0}
-                getContentAnchorEl={null}
-                anchorOrigin={{
-                  vertical: 'bottom',
-                  horizontal: 'right',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                anchorEl={buttonRef}
-                onClose={onMenuClose}
-                open={buttonRef}
-              >
-                {selectableFields.map((field) => (
-                  <MenuItem
-                    key={field.name}
-                    onClick={() => onSelectField(field.name)}
-                  >
-                    <ListItemText primary={field.label || field.name} />
-                  </MenuItem>
-                ))}
-              </Menu>
+              {buttonRef && (
+                <Menu
+                  id="customized-menu"
+                  elevation={0}
+                  getContentAnchorEl={null}
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right',
+                  }}
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  anchorEl={buttonRef}
+                  onClose={onMenuClose}
+                  open={!!buttonRef}
+                >
+                  {selectableFields.map((field) => (
+                    <MenuItem
+                      key={field.name}
+                      onClick={() => onSelectField(field.name)}
+                    >
+                      <ListItemText primary={field.label || field.name} />
+                    </MenuItem>
+                  ))}
+                </Menu>
+              )}
             </>
           )}
         </form>

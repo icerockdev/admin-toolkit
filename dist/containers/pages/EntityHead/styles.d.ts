@@ -6,7 +6,7 @@ declare const _default: (theme: Theme) => {
         display: string;
         justifyContent: string;
         padding: string;
-        alignItems: "center";
+        alignItems: "flex-start";
         flexWrap: "nowrap";
         '& .MuiButton-label': {
             fontWeight: string;

@@ -30,6 +30,9 @@ export default (function (theme) { return ({
         boxShadow: 'inset rgba(0, 0, 0, 1) 0 0 1px',
         borderRadius: '0 4px 4px 0',
         backgroundColor: 'white',
+        height: 50,
+        alignItems: 'center',
+        paddingTop: 13,
         '& .select': {
             padding: '10px 34px 7px 14px',
         },
@@ -49,14 +52,14 @@ export default (function (theme) { return ({
         transform: 'translate(10px, 12px) scale(0.9)',
     },
     iconButton: {
-        height: 36,
-        width: 36,
+        height: 50,
+        width: 50,
         padding: 0,
     },
     filterButton: {
         padding: 0,
-        minWidth: 36,
-        height: 36,
+        minWidth: 50,
+        height: 50,
         '& span': {
             width: 'auto',
         },

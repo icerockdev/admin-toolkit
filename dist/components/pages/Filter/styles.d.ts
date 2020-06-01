@@ -32,6 +32,9 @@ declare const _default: (theme: Theme) => {
         boxShadow: string;
         borderRadius: string;
         backgroundColor: string;
+        height: number;
+        alignItems: string;
+        paddingTop: number;
         '& .select': {
             padding: string;
         };
