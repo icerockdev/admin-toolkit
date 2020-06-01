@@ -7,14 +7,14 @@ export default (theme: Theme) => ({
     display: 'flex',
     justifyContent: 'center',
     padding: '32px 19px 24px 24px',
-    alignItems: 'center' as 'center',
+    alignItems: 'flex-start' as 'flex-start',
     flexWrap: 'nowrap' as 'nowrap',
 
     '& .MuiButton-label': {
       fontWeight: 'bold',
       fontSize: '14px',
       lineHeight: '16px',
-      height: 24,
+      height: 38,
     },
 
     '& .MuiInputBase-input': {},

@@ -1,7 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 export default (function (theme) { return ({
     pager: {
-        margin: '30px 20px 0 20px',
+        margin: '30px 20px 20px 20px',
         paddingTop: '20px !important',
         borderTop: '1px solid #dddddd',
         '& .MuiIconButton-root': {
