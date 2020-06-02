@@ -6,6 +6,7 @@ import React, {
   useState,
   Fragment,
   createElement,
+  ReactNode,
 } from 'react';
 import {
   TableContainer,
@@ -17,7 +18,6 @@ import {
   Paper,
   CircularProgress,
   Button,
-  ButtonGroup,
   withStyles,
   WithStyles,
   Checkbox,
@@ -59,6 +59,11 @@ type IProps = WithStyles<typeof styles> & {
   setSelected: (items: any[]) => void;
   onSortChange: (field: string) => void;
   withToken?: (req: any, args: any) => void;
+
+  firstRow?: ReactNode;
+  lastRow?: ReactNode;
+  before?: ReactNode;
+  after?: ReactNode;
 };
 
 const EntityList = observer(
@@ -79,6 +84,10 @@ const EntityList = observer(
       onSortChange,
       setSelected,
       withToken,
+      before = null,
+      after = null,
+      firstRow = null,
+      lastRow = null,
     }: IProps) => {
       const [expanded, setExpanded] = useState<Record<any, boolean>>({});
 
@@ -149,6 +158,7 @@ const EntityList = observer(
 
       return (
         <Paper>
+          {before}
           <TableContainer>
             <Table className={classes.table}>
               <TableHead>
@@ -188,6 +198,7 @@ const EntityList = observer(
               </TableHead>
 
               <TableBody>
+                {firstRow}
                 {data.map((entry, i) => (
                   <Fragment key={i}>
                     <TableRow hover>
@@ -272,9 +283,11 @@ const EntityList = observer(
                     )}
                   </Fragment>
                 ))}
+                {lastRow}
               </TableBody>
             </Table>
           </TableContainer>
+          {after}
         </Paper>
       );
     }

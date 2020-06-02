@@ -76,13 +76,13 @@ var Filter = withStyles(styles)(observer(function (_a) {
         selectableFields.length > 0 && (React.createElement(React.Fragment, null,
             React.createElement(Button, { "aria-controls": "customized-menu", "aria-haspopup": "true", variant: "outlined", color: "primary", onClick: onMenuOpen, className: classes.filterButton },
                 React.createElement(FilterIcon, null)),
-            React.createElement(Menu, { id: "customized-menu", elevation: 0, getContentAnchorEl: null, anchorOrigin: {
+            buttonRef && (React.createElement(Menu, { id: "customized-menu", elevation: 0, getContentAnchorEl: null, anchorOrigin: {
                     vertical: 'bottom',
                     horizontal: 'right',
                 }, transformOrigin: {
                     vertical: 'top',
                     horizontal: 'right',
-                }, anchorEl: buttonRef, onClose: onMenuClose, open: buttonRef }, selectableFields.map(function (field) { return (React.createElement(MenuItem, { key: field.name, onClick: function () { return onSelectField(field.name); } },
-                React.createElement(ListItemText, { primary: field.label || field.name }))); }))))));
+                }, anchorEl: buttonRef, onClose: onMenuClose, open: !!buttonRef }, selectableFields.map(function (field) { return (React.createElement(MenuItem, { key: field.name, onClick: function () { return onSelectField(field.name); } },
+                React.createElement(ListItemText, { primary: field.label || field.name }))); })))))));
 }));
 export { Filter };
