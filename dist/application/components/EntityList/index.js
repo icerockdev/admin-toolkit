@@ -32,12 +32,15 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import omit from 'ramda/es/omit';
 import classnames from 'classnames';
 var EntityList = observer(withStyles(styles)(function (_a) {
-    var classes = _a.classes, isLoading = _a.isLoading, fields = _a.fields, data = _a.data, url = _a.url, extra = _a.extra, selected = _a.selected, sortBy = _a.sortBy, sortDir = _a.sortDir, canView = _a.canView, canEdit = _a.canEdit, canSelect = _a.canSelect, onSortChange = _a.onSortChange, setSelected = _a.setSelected, withToken = _a.withToken, _b = _a.before, before = _b === void 0 ? null : _b, _c = _a.after, after = _c === void 0 ? null : _c, _d = _a.firstRow, firstRow = _d === void 0 ? null : _d, _e = _a.lastRow, lastRow = _e === void 0 ? null : _e;
+    var classes = _a.classes, isLoading = _a.isLoading, fields = _a.fields, data = _a.data, url = _a.url, extra = _a.extra, selected = _a.selected, sortBy = _a.sortBy, sortDir = _a.sortDir, canView = _a.canView, canEdit = _a.canEdit, canSelect = _a.canSelect, onSortChange = _a.onSortChange, setSelected = _a.setSelected, withToken = _a.withToken, onRowClick = _a.onRowClick, _b = _a.before, before = _b === void 0 ? null : _b, _c = _a.after, after = _c === void 0 ? null : _c, _d = _a.firstRow, firstRow = _d === void 0 ? null : _d, _e = _a.lastRow, lastRow = _e === void 0 ? null : _e;
     var _f = useState({}), expanded = _f[0], setExpanded = _f[1];
     var visibleFields = useMemo(function () { return fields.filter(function (field) { return !field.hideInList; }); }, [fields]);
     var history = useHistory();
-    var onRowClick = useCallback(function (id) {
+    var onRowClicked = useCallback(function (id) {
         var _a;
+        if (onRowClick) {
+            return onRowClick(id);
+        }
         if (extra) {
             return setExpanded(__assign(__assign({}, expanded), (_a = {}, _a[id] = !expanded[id], _a)));
         }
@@ -47,7 +50,7 @@ var EntityList = observer(withStyles(styles)(function (_a) {
         if (canEdit) {
             return history.push(url + "/" + id + "/edit");
         }
-    }, [canView, canEdit, history, url, extra, expanded, setExpanded]);
+    }, [canView, canEdit, history, url, extra, expanded, setExpanded, onRowClick]);
     var onSelect = useCallback(function (id, includes) {
         setSelected(!includes ? selected.filter(function (el) { return el !== id; }) : __spreadArrays(selected, [id]));
     }, [selected, setSelected]);
@@ -90,12 +93,12 @@ var EntityList = observer(withStyles(styles)(function (_a) {
                     firstRow,
                     data.map(function (entry, i) { return (React.createElement(Fragment, { key: i },
                         React.createElement(TableRow, { hover: true },
-                            extra && (React.createElement(TableCell, { onClick: function () { return onRowClick(entry.id); } }, expanded[entry.id] ? (React.createElement(KeyboardArrowDownIcon, null)) : (React.createElement(KeyboardArrowRightIcon, null)))),
+                            extra && (React.createElement(TableCell, { onClick: function () { return onRowClicked(entry.id); } }, expanded[entry.id] ? (React.createElement(KeyboardArrowDownIcon, null)) : (React.createElement(KeyboardArrowRightIcon, null)))),
                             canSelect && (React.createElement(TableCell, null,
                                 React.createElement(Checkbox, { checked: selected.includes(entry.id), onChange: function (_, includes) {
                                         return onSelect(entry.id, includes);
                                     } }))),
-                            visibleFields.map(function (field) { return (React.createElement(TableCell, { key: field.name, onClick: function () { return onRowClick(entry.id); } },
+                            visibleFields.map(function (field) { return (React.createElement(TableCell, { key: field.name, onClick: function () { return onRowClicked(entry.id); } },
                                 React.createElement(EntityField, { name: field.name, fields: fields, data: entry, withToken: withToken }))); }),
                             canEdit && (React.createElement(TableCell, { size: "small", align: "right", className: classes.button },
                                 React.createElement(Button, { to: url + "/" + entry.id + "/edit", component: RouterLink },

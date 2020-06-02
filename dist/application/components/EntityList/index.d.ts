@@ -1,3 +1,5 @@
+/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+
 import React, { ReactNode } from 'react';
 import { WithStyles } from '@material-ui/core';
 import { IEntityField, ENTITY_SORT_DIRS } from '../..';
@@ -20,10 +22,11 @@ declare type IProps = WithStyles<typeof styles> & {
     setSelected: (items: any[]) => void;
     onSortChange: (field: string) => void;
     withToken?: (req: any, args: any) => void;
+    onRowClick?: (id: any) => void;
     firstRow?: ReactNode;
     lastRow?: ReactNode;
     before?: ReactNode;
     after?: ReactNode;
 };
-declare const EntityList: React.ComponentType<Pick<IProps, "data" | "isLoading" | "withToken" | "url" | "after" | "selected" | "onSortChange" | "fields" | "extra" | "sortBy" | "sortDir" | "canView" | "canEdit" | "canSelect" | "setSelected" | "before" | "firstRow" | "lastRow"> & import("@material-ui/core").StyledComponentProps<"button" | "table" | "loader" | "button_active">>;
+declare const EntityList: React.ComponentType<Pick<IProps, "data" | "isLoading" | "withToken" | "url" | "after" | "selected" | "onSortChange" | "fields" | "extra" | "sortBy" | "sortDir" | "canView" | "canEdit" | "canSelect" | "setSelected" | "onRowClick" | "before" | "firstRow" | "lastRow"> & import("@material-ui/core").StyledComponentProps<"button" | "table" | "loader" | "button_active">>;
 export { EntityList };

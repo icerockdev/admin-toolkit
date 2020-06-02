@@ -59,6 +59,7 @@ type IProps = WithStyles<typeof styles> & {
   setSelected: (items: any[]) => void;
   onSortChange: (field: string) => void;
   withToken?: (req: any, args: any) => void;
+  onRowClick?: (id: any) => void;
 
   firstRow?: ReactNode;
   lastRow?: ReactNode;
@@ -84,6 +85,7 @@ const EntityList = observer(
       onSortChange,
       setSelected,
       withToken,
+      onRowClick,
       before = null,
       after = null,
       firstRow = null,
@@ -98,8 +100,12 @@ const EntityList = observer(
 
       const history = useHistory();
 
-      const onRowClick = useCallback(
+      const onRowClicked = useCallback(
         (id: any) => {
+          if (onRowClick) {
+            return onRowClick(id);
+          }
+
           if (extra) {
             return setExpanded({ ...expanded, [id]: !expanded[id] });
           }
@@ -112,7 +118,16 @@ const EntityList = observer(
             return history.push(`${url}/${id}/edit`);
           }
         },
-        [canView, canEdit, history, url, extra, expanded, setExpanded]
+        [
+          canView,
+          canEdit,
+          history,
+          url,
+          extra,
+          expanded,
+          setExpanded,
+          onRowClick,
+        ]
       );
 
       const onSelect = useCallback(
@@ -203,7 +218,7 @@ const EntityList = observer(
                   <Fragment key={i}>
                     <TableRow hover>
                       {extra && (
-                        <TableCell onClick={() => onRowClick(entry.id)}>
+                        <TableCell onClick={() => onRowClicked(entry.id)}>
                           {expanded[entry.id] ? (
                             <KeyboardArrowDownIcon />
                           ) : (
@@ -226,7 +241,7 @@ const EntityList = observer(
                       {visibleFields.map((field) => (
                         <TableCell
                           key={field.name}
-                          onClick={() => onRowClick(entry.id)}
+                          onClick={() => onRowClicked(entry.id)}
                         >
                           <EntityField
                             name={field.name}
