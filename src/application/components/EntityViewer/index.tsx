@@ -12,11 +12,9 @@ import {
 } from '@material-ui/core';
 
 import styles from './styles';
-import { IEntityField, getEntityFieldRenderer } from '~/application';
+import { IEntityField } from '~/application';
 import { observer } from 'mobx-react';
-import { Link as RouterLink } from 'react-router-dom';
-import { EntityField } from '../../../application/components/EntityField';
-import { toJS } from 'mobx';
+import { EntityField } from '../EntityField';
 
 type IProps = WithStyles<typeof styles> & {
   url: string;

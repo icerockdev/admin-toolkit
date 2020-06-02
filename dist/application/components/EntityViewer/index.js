@@ -14,7 +14,7 @@ import React, { useMemo, useEffect, useCallback } from 'react';
 import { withStyles, Paper, Grid, Button, CircularProgress, } from '@material-ui/core';
 import styles from './styles';
 import { observer } from 'mobx-react';
-import { EntityField } from '../../../application/components/EntityField';
+import { EntityField } from '../EntityField';
 var EntityViewer = withStyles(styles)(observer(function (_a) {
     var classes = _a.classes, id = _a.id, fields = _a.fields, errors = _a.errors, onSave = _a.onSave, onCancel = _a.onCancel, onResetFieldError = _a.onResetFieldError, isLoading = _a.isLoading, data = _a.data, setEditorData = _a.setEditorData, getItem = _a.getItem, cancelGetItem = _a.cancelGetItem, withToken = _a.withToken, isEditing = _a.isEditing;
     var isCreating = useMemo(function () { return typeof id === 'undefined'; }, [id]);

@@ -10,16 +10,16 @@ import {
   IEntityField,
 } from '~/application/types/entity';
 import { Page } from '~/application/modules/Page';
-import { EntityList } from '../../../containers/pages/EntityList';
-import { EntityHead } from '../../../containers/pages/EntityHead';
-import { EntityFooter } from '../../../containers/pages/EntityFooter';
+import { EntityList } from '../../components/EntityList';
+import { EntityHead } from '../../components/EntityHead';
+import { EntityFooter } from '../../components/EntityFooter';
 import { computed, observable, action, reaction, flow, toJS } from 'mobx';
 import { CancellablePromise } from 'mobx/lib/api/flow';
 import { Switch, Route, RouteComponentProps } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { EntityViewer } from '../../../containers/pages/EntityViewer';
+import { EntityViewer } from '../../components/EntityViewer';
 import { Unwrap } from '~/application/types/common';
-import { EntityBreadcrumbs } from '~/containers/pages/EntityBreadcrumbs';
+import { EntityBreadcrumbs } from '~/application/components/EntityBreadcrumbs';
 import { Typography } from '@material-ui/core';
 import { saveAs } from 'file-saver';
 import { parseQuery } from '~/utils/query';

@@ -28,7 +28,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink } from 'react-router-dom';
 import { EntityHeadSortable } from '~/components/pages/EntityHeadSortable';
 import styles from './styles';
-import { EntityField } from '../../../application/components/EntityField';
+import { EntityField } from '../EntityField';
 import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
