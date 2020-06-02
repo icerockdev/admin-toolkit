@@ -3,7 +3,7 @@
 import { Page } from '~/application';
 
 export default new Page({
-  title: 'Sample page',
+  title: 'Page',
   menu: {
     enabled: true,
     url: '/test',

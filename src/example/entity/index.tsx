@@ -1,5 +1,5 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
-
+import React from 'react';
 import { Entity } from '~/application';
 import {
   fetchEntityItemsFn,
@@ -11,7 +11,7 @@ import {
 import { SAMPLE_ENTITY_FIELDS } from './fields';
 
 export default new Entity({
-  title: 'Sample entity',
+  title: 'Entity',
   editable: true,
   viewable: true,
   creatable: true,

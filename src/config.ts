@@ -5,9 +5,12 @@ import logo from '~/assets/logo512.png';
 import entity from './example/entity';
 import page from './example/page';
 import auth from './example/auth';
+import jwtAuth from './example/jwtAuth';
+import custom from './example/custom';
 
 export default new Config({
   logo,
   auth,
-  pages: [page, entity],
+  // auth: jwtAuth,
+  pages: [page, entity, custom],
 });

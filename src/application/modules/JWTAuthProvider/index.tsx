@@ -19,8 +19,8 @@ const EMPTY_TOKENS = {
 export type IJWTTokenRefreshFn = (
   refresh: string
 ) => Promise<{
-  access: '';
-  refresh: '';
+  access: string;
+  refresh: string;
 }>;
 
 export type IJWTAuthRequestFn = (

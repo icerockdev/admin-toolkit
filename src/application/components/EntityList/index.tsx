@@ -65,6 +65,7 @@ type IProps = WithStyles<typeof styles> & {
   lastRow?: ReactNode;
   before?: ReactNode;
   after?: ReactNode;
+  header?: ReactNode;
 };
 
 const EntityList = observer(
