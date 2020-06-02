@@ -3,8 +3,8 @@
 import { IAuthProviderProps } from '../../types/auth';
 import { AuthProvider } from '../AuthProvider';
 export declare type IJWTTokenRefreshFn = (refresh: string) => Promise<{
-    access: '';
-    refresh: '';
+    access: string;
+    refresh: string;
 }>;
 export declare type IJWTAuthRequestFn = (email: string, password: string) => Promise<{
     user: IAuthProviderProps['user'];

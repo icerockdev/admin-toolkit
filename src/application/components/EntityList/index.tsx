@@ -63,9 +63,9 @@ type IProps = WithStyles<typeof styles> & {
 
   firstRow?: ReactNode;
   lastRow?: ReactNode;
+  tableHead?: ReactNode;
   before?: ReactNode;
   after?: ReactNode;
-  header?: ReactNode;
 };
 
 const EntityList = observer(
@@ -91,6 +91,7 @@ const EntityList = observer(
       after = null,
       firstRow = null,
       lastRow = null,
+      tableHead = null,
     }: IProps) => {
       const [expanded, setExpanded] = useState<Record<any, boolean>>({});
 
@@ -177,41 +178,43 @@ const EntityList = observer(
           {before}
           <TableContainer>
             <Table className={classes.table}>
-              <TableHead>
-                <TableRow>
-                  {extra && <TableCell />}
+              {tableHead || (
+                <TableHead>
+                  <TableRow>
+                    {extra && <TableCell />}
 
-                  {canSelect && (
-                    <TableCell>
-                      <Checkbox
-                        onChange={onSelectAll}
-                        checked={isAllSelected}
-                      />
-                    </TableCell>
-                  )}
-
-                  {visibleFields.map((field) =>
-                    field.sortable ? (
-                      <EntityHeadSortable
-                        active={sortBy === field.name}
-                        direction={sortDir}
-                        key={field.name}
-                        field={field.name}
-                        onSortChange={onSortChange}
-                      >
-                        <b>{field.label || field.name}</b>
-                      </EntityHeadSortable>
-                    ) : (
-                      <TableCell key={field.name}>
-                        <b>{field.label || field.name}</b>
+                    {canSelect && (
+                      <TableCell>
+                        <Checkbox
+                          onChange={onSelectAll}
+                          checked={isAllSelected}
+                        />
                       </TableCell>
-                    )
-                  )}
+                    )}
 
-                  {canView && <TableCell />}
-                  {canEdit && <TableCell />}
-                </TableRow>
-              </TableHead>
+                    {visibleFields.map((field) =>
+                      field.sortable ? (
+                        <EntityHeadSortable
+                          active={sortBy === field.name}
+                          direction={sortDir}
+                          key={field.name}
+                          field={field.name}
+                          onSortChange={onSortChange}
+                        >
+                          <b>{field.label || field.name}</b>
+                        </EntityHeadSortable>
+                      ) : (
+                        <TableCell key={field.name}>
+                          <b>{field.label || field.name}</b>
+                        </TableCell>
+                      )
+                    )}
+
+                    {canView && <TableCell />}
+                    {canEdit && <TableCell />}
+                  </TableRow>
+                </TableHead>
+              )}
 
               <TableBody>
                 {firstRow}

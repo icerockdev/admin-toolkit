@@ -95,8 +95,8 @@ export class Entity extends Page {
 
   @action
   setSort = (field: string) => {
-    if (field !== this.sortBy && this.sortDir !== ENTITY_SORT_DIRS.ASC) {
-      this.sortDir = ENTITY_SORT_DIRS.ASC;
+    if (field !== this.sortBy && this.sortDir !== ENTITY_SORT_DIRS.DESC) {
+      this.sortDir = ENTITY_SORT_DIRS.DESC;
     }
 
     if (field === this.sortBy) {

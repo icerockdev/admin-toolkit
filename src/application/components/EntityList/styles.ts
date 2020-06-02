@@ -11,7 +11,7 @@ export default (theme: Theme) => ({
   },
   table: {
     '& td, & th': {
-      padding: '4px 16px',
+      padding: '4px 8px',
       fontSize: '12px',
       lineHeight: '14px',
     },

@@ -32,8 +32,8 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import omit from 'ramda/es/omit';
 import classnames from 'classnames';
 var EntityList = observer(withStyles(styles)(function (_a) {
-    var classes = _a.classes, isLoading = _a.isLoading, fields = _a.fields, data = _a.data, url = _a.url, extra = _a.extra, selected = _a.selected, sortBy = _a.sortBy, sortDir = _a.sortDir, canView = _a.canView, canEdit = _a.canEdit, canSelect = _a.canSelect, onSortChange = _a.onSortChange, setSelected = _a.setSelected, withToken = _a.withToken, onRowClick = _a.onRowClick, _b = _a.before, before = _b === void 0 ? null : _b, _c = _a.after, after = _c === void 0 ? null : _c, _d = _a.firstRow, firstRow = _d === void 0 ? null : _d, _e = _a.lastRow, lastRow = _e === void 0 ? null : _e;
-    var _f = useState({}), expanded = _f[0], setExpanded = _f[1];
+    var classes = _a.classes, isLoading = _a.isLoading, fields = _a.fields, data = _a.data, url = _a.url, extra = _a.extra, selected = _a.selected, sortBy = _a.sortBy, sortDir = _a.sortDir, canView = _a.canView, canEdit = _a.canEdit, canSelect = _a.canSelect, onSortChange = _a.onSortChange, setSelected = _a.setSelected, withToken = _a.withToken, onRowClick = _a.onRowClick, _b = _a.before, before = _b === void 0 ? null : _b, _c = _a.after, after = _c === void 0 ? null : _c, _d = _a.firstRow, firstRow = _d === void 0 ? null : _d, _e = _a.lastRow, lastRow = _e === void 0 ? null : _e, _f = _a.tableHead, tableHead = _f === void 0 ? null : _f;
+    var _g = useState({}), expanded = _g[0], setExpanded = _g[1];
     var visibleFields = useMemo(function () { return fields.filter(function (field) { return !field.hideInList; }); }, [fields]);
     var history = useHistory();
     var onRowClicked = useCallback(function (id) {
@@ -50,7 +50,16 @@ var EntityList = observer(withStyles(styles)(function (_a) {
         if (canEdit) {
             return history.push(url + "/" + id + "/edit");
         }
-    }, [canView, canEdit, history, url, extra, expanded, setExpanded, onRowClick]);
+    }, [
+        canView,
+        canEdit,
+        history,
+        url,
+        extra,
+        expanded,
+        setExpanded,
+        onRowClick,
+    ]);
     var onSelect = useCallback(function (id, includes) {
         setSelected(!includes ? selected.filter(function (el) { return el !== id; }) : __spreadArrays(selected, [id]));
     }, [selected, setSelected]);
@@ -77,7 +86,7 @@ var EntityList = observer(withStyles(styles)(function (_a) {
         before,
         React.createElement(TableContainer, null,
             React.createElement(Table, { className: classes.table },
-                React.createElement(TableHead, null,
+                tableHead || (React.createElement(TableHead, null,
                     React.createElement(TableRow, null,
                         extra && React.createElement(TableCell, null),
                         canSelect && (React.createElement(TableCell, null,
@@ -88,7 +97,7 @@ var EntityList = observer(withStyles(styles)(function (_a) {
                                 React.createElement("b", null, field.label || field.name)));
                         }),
                         canView && React.createElement(TableCell, null),
-                        canEdit && React.createElement(TableCell, null))),
+                        canEdit && React.createElement(TableCell, null)))),
                 React.createElement(TableBody, null,
                     firstRow,
                     data.map(function (entry, i) { return (React.createElement(Fragment, { key: i },

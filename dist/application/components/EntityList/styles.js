@@ -8,7 +8,7 @@ export default (function (theme) { return ({
     },
     table: {
         '& td, & th': {
-            padding: theme.spacing(),
+            padding: '4px 8px',
             fontSize: '12px',
             lineHeight: '14px',
         },

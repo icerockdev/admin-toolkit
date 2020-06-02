@@ -10,7 +10,7 @@ declare const _default: (theme: Theme) => {
     };
     table: {
         '& td, & th': {
-            padding: number;
+            padding: string;
             fontSize: string;
             lineHeight: string;
         };

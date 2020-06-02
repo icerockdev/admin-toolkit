@@ -133,8 +133,8 @@ var Entity = /** @class */ (function (_super) {
             _this.selected = selected;
         };
         _this.setSort = function (field) {
-            if (field !== _this.sortBy && _this.sortDir !== ENTITY_SORT_DIRS.ASC) {
-                _this.sortDir = ENTITY_SORT_DIRS.ASC;
+            if (field !== _this.sortBy && _this.sortDir !== ENTITY_SORT_DIRS.DESC) {
+                _this.sortDir = ENTITY_SORT_DIRS.DESC;
             }
             if (field === _this.sortBy) {
                 _this.sortDir =

@@ -22,7 +22,11 @@ const EntityHeadSortable: FC<IProps> = ({
 
   return (
     <TableCell>
-      <TableSortLabel active={active} direction={direction} onClick={onClick}>
+      <TableSortLabel
+        active={active}
+        direction={active ? direction : ENTITY_SORT_DIRS.DESC}
+        onClick={onClick}
+      >
         {children}
       </TableSortLabel>
     </TableCell>
