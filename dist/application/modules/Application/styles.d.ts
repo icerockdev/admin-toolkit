@@ -7,6 +7,21 @@ declare const _default: (theme: Theme) => {
         '& .MuiButton-root, & .MuiOutlinedInput-root': {
             borderRadius: number;
         };
+        '& .datepicker .MuiFormHelperText-contained ': {
+            position: string;
+            top: number;
+            left: number;
+            whiteSpace: string;
+        };
+        '& .datepicker_range input': {
+            width: number;
+        };
+        '& .datepicker_datetime input': {
+            width: number;
+        };
+        '& .datepicker_date input': {
+            width: number;
+        };
     };
 };
 export default _default;

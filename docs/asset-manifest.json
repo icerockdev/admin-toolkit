@@ -1,19 +1,19 @@
 {
   "files": {
-    "main.js": "/admin-toolkit/static/js/main.8b667473.chunk.js",
-    "main.js.map": "/admin-toolkit/static/js/main.8b667473.chunk.js.map",
+    "main.js": "/admin-toolkit/static/js/main.3e6cd0e4.chunk.js",
+    "main.js.map": "/admin-toolkit/static/js/main.3e6cd0e4.chunk.js.map",
     "runtime-main.js": "/admin-toolkit/static/js/runtime-main.aad961bc.js",
     "runtime-main.js.map": "/admin-toolkit/static/js/runtime-main.aad961bc.js.map",
-    "static/js/2.e1785105.chunk.js": "/admin-toolkit/static/js/2.e1785105.chunk.js",
-    "static/js/2.e1785105.chunk.js.map": "/admin-toolkit/static/js/2.e1785105.chunk.js.map",
+    "static/js/2.b92870ec.chunk.js": "/admin-toolkit/static/js/2.b92870ec.chunk.js",
+    "static/js/2.b92870ec.chunk.js.map": "/admin-toolkit/static/js/2.b92870ec.chunk.js.map",
     "index.html": "/admin-toolkit/index.html",
-    "precache-manifest.36573715638ed3d17fc1a944c8a37cf6.js": "/admin-toolkit/precache-manifest.36573715638ed3d17fc1a944c8a37cf6.js",
+    "precache-manifest.601943ec07122cf6ebb30040312c2f43.js": "/admin-toolkit/precache-manifest.601943ec07122cf6ebb30040312c2f43.js",
     "service-worker.js": "/admin-toolkit/service-worker.js",
-    "static/js/2.e1785105.chunk.js.LICENSE.txt": "/admin-toolkit/static/js/2.e1785105.chunk.js.LICENSE.txt"
+    "static/js/2.b92870ec.chunk.js.LICENSE.txt": "/admin-toolkit/static/js/2.b92870ec.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.aad961bc.js",
-    "static/js/2.e1785105.chunk.js",
-    "static/js/main.8b667473.chunk.js"
+    "static/js/2.b92870ec.chunk.js",
+    "static/js/main.3e6cd0e4.chunk.js"
   ]
 }

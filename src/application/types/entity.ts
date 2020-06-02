@@ -13,11 +13,13 @@ import { EntityFieldNumber } from '~/components/pages/EntityFieldNumber';
 import { EntityFieldDateTime } from '~/components/pages/EntityFieldDatetime';
 import { EntityFieldReferenceSelect } from '~/components/pages/EntityFieldReferenceSelect';
 import { Entity } from '../modules';
+import { EntityFieldDateRange } from '~/components/pages/EntityFieldDateRange';
 
 export const ENTITY_FIELD_RENDERS = {
   string: EntityFieldString,
   date: EntityFieldDate,
   datetime: EntityFieldDateTime,
+  daterange: EntityFieldDateRange,
   boolean: EntityFieldBoolean,
   select: EntityFieldSelect,
   phone: EntityFieldPhone,

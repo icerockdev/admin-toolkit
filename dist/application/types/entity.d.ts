@@ -1,6 +1,5 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-/// <reference types="styled-jsx" />
 /// <reference types="@emotion/core" />
 import { IPageProps } from './page';
 import { FC } from 'react';
@@ -28,6 +27,14 @@ export declare const ENTITY_FIELD_RENDERS: {
         isEditing?: boolean | undefined;
         error?: string | undefined;
         handler?: ((val: any) => void) | undefined;
+        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
+    } & Record<string, any>>;
+    daterange: FC<{
+        label: string;
+        value: any;
+        isEditing?: boolean | undefined;
+        error?: string | undefined;
+        handler?: ((val: string) => void) | undefined;
         onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
     } & Record<string, any>>;
     boolean: FC<{

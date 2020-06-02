@@ -1,7 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import { IEntityField } from '~/application';
-import { EntityFieldDate } from '~/components/pages/EntityFieldDate';
 
 export const SAMPLE_ENTITY_FIELDS: IEntityField[] = [
   {
@@ -48,7 +47,15 @@ export const SAMPLE_ENTITY_FIELDS: IEntityField[] = [
     name: 'createdTime',
     label: 'Дата и время',
     sortable: true,
+    filterable: true,
     type: 'datetime',
+  },
+  {
+    name: 'dateRange',
+    label: 'Период',
+    sortable: true,
+    filterable: true,
+    type: 'daterange',
   },
   {
     name: 'visible',

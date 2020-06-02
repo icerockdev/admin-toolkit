@@ -4,7 +4,8 @@ import React, { FC, MouseEventHandler, useCallback } from 'react';
 import { DatePicker } from '@material-ui/pickers';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
-import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
+import { TextField } from '@material-ui/core';
+import { isValid } from 'date-fns';
 
 type IProps = {
   label: string;
@@ -24,23 +25,21 @@ const EntityFieldDate: FC<IProps> = ({
   onClick,
 }) => {
   const onChange = useCallback(
-    (value: MaterialUiPickersDate) => {
-      if (!handler) return;
-      handler(value?.toISOString());
+    (value) => {
+      if (!value || !handler || !isValid(value)) return;
+      handler(value.toISOString());
     },
     [value, handler]
   );
 
   return isEditing ? (
-    <div>
+    <div className="datepicker datepicker_date">
       <DatePicker
-        value={value && parseISO(value) ? parseISO(value) : null}
+        renderInput={(props) => (
+          <TextField variant="outlined" {...props} helperText={label} />
+        )}
+        value={value}
         onChange={onChange}
-        format="dd.MM.yyyy"
-        error={!!error}
-        helperText={error}
-        inputVariant="outlined"
-        label={label}
       />
     </div>
   ) : (

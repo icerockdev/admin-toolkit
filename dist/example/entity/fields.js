@@ -44,7 +44,15 @@ export var SAMPLE_ENTITY_FIELDS = [
         name: 'createdTime',
         label: 'Дата и время',
         sortable: true,
+        filterable: true,
         type: 'datetime',
+    },
+    {
+        name: 'dateRange',
+        label: 'Период',
+        sortable: true,
+        filterable: true,
+        type: 'daterange',
     },
     {
         name: 'visible',

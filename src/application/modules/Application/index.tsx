@@ -15,9 +15,9 @@ import {
   ThemeProvider,
 } from '@material-ui/core';
 import styles from './styles';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import { ForgotPassword } from '~/containers/login/ForgotPassword';
+import DateFnsAdapter from '@material-ui/pickers/adapter/date-fns'; // choose your lib
+import { LocalizationProvider } from '@material-ui/pickers';
 
 type IProps = WithStyles<typeof styles> & {
   config: Config;
@@ -85,7 +85,7 @@ const Application = withStyles(styles)(
 
     return (
       <ThemeProvider theme={config.theme}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+        <LocalizationProvider dateAdapter={DateFnsAdapter}>
           <CssBaseline />
 
           <Router history={config.history}>
@@ -117,7 +117,7 @@ const Application = withStyles(styles)(
           </Router>
 
           <config.notifications.Output />
-        </MuiPickersUtilsProvider>
+        </LocalizationProvider>
       </ThemeProvider>
     );
   })

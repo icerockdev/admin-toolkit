@@ -1,10 +1,11 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React, { FC, MouseEventHandler, useCallback } from 'react';
-import { DateTimePicker } from '@material-ui/pickers';
+import { DatePicker, DateTimePicker } from '@material-ui/pickers';
 import format from 'date-fns/format';
-import { MaterialUiPickersDate } from '@material-ui/pickers/typings/date';
-import { parseISO } from 'date-fns';
+import parseISO from 'date-fns/parseISO';
+import { TextField } from '@material-ui/core';
+import { isValid } from 'date-fns';
 
 type IProps = {
   label: string;
@@ -24,29 +25,28 @@ const EntityFieldDateTime: FC<IProps> = ({
   onClick,
 }) => {
   const onChange = useCallback(
-    (value: MaterialUiPickersDate) => {
-      if (!handler) return;
-      handler(value?.toISOString());
+    (value) => {
+      if (!value || !handler || !isValid(value)) return;
+      handler(value.toISOString());
     },
     [value, handler]
   );
 
   return isEditing ? (
-    <div>
+    <div className="datepicker datepicker_datetime">
       <DateTimePicker
-        value={value && parseISO(value) ? parseISO(value) : null}
+        renderInput={(props) => (
+          <TextField variant="outlined" {...props} helperText={label} />
+        )}
+        value={value}
         onChange={onChange}
-        format="dd.MM.yyyy HH:ii"
-        error={!!error}
-        helperText={error}
-        inputVariant="outlined"
-        label={label}
+        ampm={false}
       />
     </div>
   ) : (
     <div onClick={onClick}>
       {value && parseISO(value) ? (
-        format(parseISO(value), 'dd.MM.yyyy HH:ii')
+        format(parseISO(value), 'dd.MM.yyyy')
       ) : (
         <div>&nbsp;</div>
       )}
