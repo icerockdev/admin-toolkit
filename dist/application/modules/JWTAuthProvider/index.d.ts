@@ -29,6 +29,7 @@ export declare class JWTAuthProvider extends AuthProvider {
     }) => void;
     sendAuthRequestCancel: () => void;
     logout: () => void;
+    tokenRefreshInstanceInstance?: any;
     withToken: (req: any, args: any) => Promise<any>;
     getPersistedCredentials: () => {
         user?: {

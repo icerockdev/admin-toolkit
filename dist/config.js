@@ -3,11 +3,10 @@ import { Config } from './application';
 import logo from './assets/logo512.png';
 import entity from './example/entity';
 import page from './example/page';
-import auth from './example/auth';
+import jwtAuth from './example/jwtAuth';
 import custom from './example/custom';
 export default new Config({
     logo: logo,
-    auth: auth,
-    // auth: jwtAuth,
+    auth: jwtAuth,
     pages: [page, entity, custom],
 });

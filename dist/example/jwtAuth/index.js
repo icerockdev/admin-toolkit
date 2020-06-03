@@ -22,6 +22,15 @@ export default new JWTAuthProvider({
         });
     },
     tokenRefreshFn: function (refresh) {
-        return Promise.resolve({ access: 'accessToken', refresh: 'refreshToken' });
+        console.log('Refreshing JWT tokens');
+        var seed = Math.random() * 65535;
+        return new Promise(function (resolve) {
+            return setTimeout(function () {
+                return resolve({
+                    access: "accessToken_" + seed,
+                    refresh: "refreshToken_" + seed,
+                });
+            }, 3000);
+        });
     },
 });

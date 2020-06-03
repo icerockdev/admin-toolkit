@@ -55,10 +55,10 @@ export default new CustomEntity({
     exportable: true,
     selectable: false,
     api: {
-        list: { url: '/list', method: 'get' },
-        update: { url: '/update', method: 'patch' },
-        create: { url: '/create', method: 'post' },
-        get: { url: '/get', method: 'get' },
+        list: { url: '/custom/list', method: 'get' },
+        update: { url: '/custom/update', method: 'patch' },
+        create: { url: '/custom/create', method: 'post' },
+        get: { url: '/custom/get', method: 'get' },
     },
     menu: {
         enabled: true,
