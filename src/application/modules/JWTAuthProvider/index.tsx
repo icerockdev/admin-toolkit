@@ -143,15 +143,22 @@ export class JWTAuthProvider extends AuthProvider {
           };
 
           this.tokenRefreshInstanceInstance = null;
-        } else {
-          await this.tokenRefreshInstanceInstance;
-        }
 
-        if (this.tokens.access && this.tokens.refresh) {
-          return await req({
-            ...args,
-            token: `Bearer ${this.tokens.access}`,
-          });
+          if (tokens && tokens.access && tokens.refresh) {
+            return await req({
+              ...args,
+              token: `Bearer ${tokens.access}`,
+            });
+          }
+        } else {
+          const tokens = await this.tokenRefreshInstanceInstance;
+
+          if (tokens && tokens.access && tokens.refresh) {
+            return await req({
+              ...args,
+              token: `Bearer ${tokens.access}`,
+            });
+          }
         }
 
         this.user = EMPTY_USER;
