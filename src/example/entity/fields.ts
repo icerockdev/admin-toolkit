@@ -56,6 +56,10 @@ export const SAMPLE_ENTITY_FIELDS: IEntityField[] = [
     sortable: true,
     filterable: true,
     type: 'daterange',
+    hideInCreate: true,
+    hideInEdit: true,
+    hideInExport: true,
+    hideInList: true,
   },
   {
     name: 'visible',

@@ -12,6 +12,7 @@ type IProps = {
   label: string;
   value: any;
   isEditing?: boolean;
+  isFiltering?: boolean;
   error?: string;
   handler?: (val: string) => void;
   onClick?: MouseEventHandler<HTMLDivElement>;
@@ -22,7 +23,7 @@ const EntityFieldDateRange: FC<IProps> = ({
   handler,
   label,
   error,
-  isEditing,
+  isFiltering,
   onClick,
 }) => {
   const onChange = useCallback(
@@ -50,7 +51,9 @@ const EntityFieldDateRange: FC<IProps> = ({
     );
   }, [value]);
 
-  return isEditing ? (
+  if (!isFiltering) return null;
+
+  return (
     <div className="datepicker datepicker_range">
       <DateRangePicker
         renderInput={(startProps, endProps) => (
@@ -72,14 +75,6 @@ const EntityFieldDateRange: FC<IProps> = ({
         value={parsed}
         onChange={onChange}
       />
-    </div>
-  ) : (
-    <div onClick={onClick}>
-      {value && parseISO(value) ? (
-        format(parseISO(value), 'dd.MM.yyyy')
-      ) : (
-        <div>&nbsp;</div>
-      )}
     </div>
   );
 };

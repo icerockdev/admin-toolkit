@@ -36,7 +36,12 @@ const EntityFieldDateTime: FC<IProps> = ({
     <div className="datepicker datepicker_datetime">
       <DateTimePicker
         renderInput={(props) => (
-          <TextField variant="outlined" {...props} helperText={label} />
+          <TextField
+            variant="outlined"
+            {...props}
+            label={label}
+            helperText=""
+          />
         )}
         value={value}
         onChange={onChange}

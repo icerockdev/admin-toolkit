@@ -126,15 +126,15 @@ var JWTAuthProvider = /** @class */ (function (_super) {
             _this.tokens = EMPTY_TOKENS;
         };
         _this.withToken = function (req, args) { return __awaiter(_this, void 0, void 0, function () {
-            var result, tokens, tokens;
+            var result, tokens;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, req(__assign(__assign({}, args), { token: "Bearer " + this.tokens.access }))];
                     case 1:
                         result = _a.sent();
-                        if (!((result === null || result === void 0 ? void 0 : result.error) === UNAUTHORIZED)) return [3 /*break*/, 9];
-                        if (!this.tokenRefreshFn) return [3 /*break*/, 9];
-                        if (!!this.tokenRefreshInstanceInstance) return [3 /*break*/, 5];
+                        if (!((result === null || result === void 0 ? void 0 : result.error) === UNAUTHORIZED)) return [3 /*break*/, 8];
+                        if (!this.tokenRefreshFn) return [3 /*break*/, 8];
+                        if (!!this.tokenRefreshInstanceInstance) return [3 /*break*/, 3];
                         this.tokenRefreshInstanceInstance = flow(function () {
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
@@ -154,21 +154,20 @@ var JWTAuthProvider = /** @class */ (function (_super) {
                             refresh: tokens.refresh,
                         };
                         this.tokenRefreshInstanceInstance = null;
-                        if (!(tokens && tokens.access && tokens.refresh)) return [3 /*break*/, 4];
-                        return [4 /*yield*/, req(__assign(__assign({}, args), { token: "Bearer " + tokens.access }))];
-                    case 3: return [2 /*return*/, _a.sent()];
-                    case 4: return [3 /*break*/, 8];
-                    case 5: return [4 /*yield*/, this.tokenRefreshInstanceInstance];
-                    case 6:
-                        tokens = _a.sent();
-                        if (!(tokens && tokens.access && tokens.refresh)) return [3 /*break*/, 8];
-                        return [4 /*yield*/, req(__assign(__assign({}, args), { token: "Bearer " + tokens.access }))];
-                    case 7: return [2 /*return*/, _a.sent()];
-                    case 8:
+                        return [3 /*break*/, 5];
+                    case 3: return [4 /*yield*/, this.tokenRefreshInstanceInstance];
+                    case 4:
+                        _a.sent();
+                        _a.label = 5;
+                    case 5:
+                        if (!(this.tokens.access && this.tokens.refresh)) return [3 /*break*/, 7];
+                        return [4 /*yield*/, req(__assign(__assign({}, args), { token: "Bearer " + this.tokens.access }))];
+                    case 6: return [2 /*return*/, _a.sent()];
+                    case 7:
                         this.user = EMPTY_USER;
                         this.tokens = EMPTY_TOKENS;
-                        _a.label = 9;
-                    case 9: return [2 /*return*/, result];
+                        _a.label = 8;
+                    case 8: return [2 /*return*/, result];
                 }
             });
         }); };
