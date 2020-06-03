@@ -28,6 +28,18 @@ export default new JWTAuthProvider({
       resolve({ error: '' });
     }),
 
-  tokenRefreshFn: (refresh: string) =>
-    Promise.resolve({ access: 'accessToken', refresh: 'refreshToken' }),
+  tokenRefreshFn: (refresh: string) => {
+    console.log('Refreshing JWT tokens');
+    const seed = Math.random() * 65535;
+    return new Promise((resolve) =>
+      setTimeout(
+        () =>
+          resolve({
+            access: `accessToken_${seed}`,
+            refresh: `refreshToken_${seed}`,
+          }),
+        3000
+      )
+    );
+  },
 });

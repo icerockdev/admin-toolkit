@@ -6,6 +6,7 @@ import {
   IEntityCreateFunction,
   IEntityGetFunction,
   Entity,
+  UNAUTHORIZED,
 } from '~/application';
 import { SAMPLE_ENTITY_1, SAMPLE_ENTITY_2 } from './mocked_data';
 

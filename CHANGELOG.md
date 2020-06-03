@@ -1,9 +1,6 @@
 # CHANGELOG
 
-## v0.1.28-7
+## v0.1.29
 
-- Fixed changelog content
+- Added withToken refresh concurrency
 
-## v0.1.28-6
-
-- Added npm publish action

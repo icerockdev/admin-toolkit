@@ -10,6 +10,7 @@ import { computed, observable, action, reaction, toJS } from 'mobx';
 import { flow } from 'mobx';
 import { AuthProvider } from '../AuthProvider';
 import { Unwrap } from '~/application/types/common';
+import { CancellablePromise } from 'mobx/lib/api/flow';
 
 const EMPTY_TOKENS = {
   access: '',
@@ -114,6 +115,8 @@ export class JWTAuthProvider extends AuthProvider {
     this.tokens = EMPTY_TOKENS;
   };
 
+  tokenRefreshInstanceInstance?: any;
+
   @action
   withToken = async (req: any, args: any) => {
     const result = await req({
@@ -123,22 +126,37 @@ export class JWTAuthProvider extends AuthProvider {
 
     if (result?.error === UNAUTHORIZED) {
       if (this.tokenRefreshFn) {
-        const { access, refresh } = await this.tokenRefreshFn(
-          this.tokens.refresh
-        );
+        if (!this.tokenRefreshInstanceInstance) {
+          this.tokenRefreshInstanceInstance = flow(function* (
+            this: JWTAuthProvider
+          ) {
+            if (!this.tokenRefreshFn) return { access: '', refresh: '' };
 
-        if (access && refresh) {
-          this.tokens = { access, refresh };
+            return yield this.tokenRefreshFn(this.tokens.refresh);
+          }).bind(this)();
 
+          const tokens = await this.tokenRefreshInstanceInstance;
+
+          this.tokens = {
+            access: tokens.access || '',
+            refresh: tokens.refresh,
+          };
+
+          this.tokenRefreshInstanceInstance = null;
+        } else {
+          await this.tokenRefreshInstanceInstance;
+        }
+
+        if (this.tokens.access && this.tokens.refresh) {
           return await req({
             ...args,
-            token: `Bearer ${access}`,
+            token: `Bearer ${this.tokens.access}`,
           });
         }
-      }
 
-      this.user = EMPTY_USER;
-      this.tokens = EMPTY_TOKENS;
+        this.user = EMPTY_USER;
+        this.tokens = EMPTY_TOKENS;
+      }
     }
 
     return result;
