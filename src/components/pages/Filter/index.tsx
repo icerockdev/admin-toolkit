@@ -100,6 +100,15 @@ const Filter = withStyles(styles)(
         [filterableFields, filters]
       );
 
+      const onCancel = useCallback(
+        (event) => {
+          event.preventDefault();
+          setFilters([]);
+          applyFilter();
+        },
+        [applyFilter]
+      );
+
       const onSubmit = useCallback(
         (event) => {
           event.preventDefault();
@@ -171,6 +180,20 @@ const Filter = withStyles(styles)(
                 className={classes.filterButton}
               >
                 <CheckIcon />
+              </Button>
+            </Fragment>
+          )}
+
+          {currentFilters.length > 0 && (
+            <Fragment>
+              <Button
+                onClick={onCancel}
+                tabIndex={0}
+                color="secondary"
+                variant="outlined"
+                className={classes.filterButton}
+              >
+                <ClearIcon />
               </Button>
             </Fragment>
           )}
