@@ -23,6 +23,7 @@ export default (function (theme) { return ({
         boxSizing: 'border-box',
         borderLeft: "1px solid rgba(0, 0, 0, 0.23)",
         padding: '7px !important',
+        width: 56,
         '& a': {
             color: theme.palette.primary.main,
             minWidth: 'auto',

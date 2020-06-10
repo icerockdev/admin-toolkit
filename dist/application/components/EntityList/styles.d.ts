@@ -25,6 +25,7 @@ declare const _default: (theme: Theme) => {
         boxSizing: "border-box";
         borderLeft: string;
         padding: string;
+        width: number;
         '& a': {
             color: string;
             minWidth: string;

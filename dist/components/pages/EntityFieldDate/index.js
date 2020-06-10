@@ -24,6 +24,6 @@ var EntityFieldDate = function (_a) {
         handler(value.toISOString());
     }, [value, handler]);
     return isEditing ? (React.createElement("div", { className: "datepicker datepicker_date" },
-        React.createElement(DatePicker, { renderInput: function (props) { return (React.createElement(TextField, __assign({ variant: "outlined" }, props, { helperText: label }))); }, value: value, onChange: onChange }))) : (React.createElement("div", { onClick: onClick }, value && parseISO(value) ? (format(parseISO(value), 'dd.MM.yyyy')) : (React.createElement("div", null, "\u00A0"))));
+        React.createElement(DatePicker, { renderInput: function (props) { return (React.createElement(TextField, __assign({ variant: "outlined" }, props, { label: label, helperText: "" }))); }, value: value, onChange: onChange }))) : (React.createElement("div", { onClick: onClick }, value && parseISO(value) ? (format(parseISO(value), 'dd.MM.yyyy')) : (React.createElement("div", null, "\u00A0"))));
 };
 export { EntityFieldDate };

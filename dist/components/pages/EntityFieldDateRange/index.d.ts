@@ -5,6 +5,7 @@ declare type IProps = {
     label: string;
     value: any;
     isEditing?: boolean;
+    isFiltering?: boolean;
     error?: string;
     handler?: (val: string) => void;
     onClick?: MouseEventHandler<HTMLDivElement>;

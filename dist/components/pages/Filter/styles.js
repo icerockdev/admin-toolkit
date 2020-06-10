@@ -15,6 +15,21 @@ export default (function (theme) { return ({
             marginTop: 5,
             marginBottom: 5,
         },
+        '& .datepicker .MuiFormHelperText-contained ': {
+            position: 'absolute',
+            top: -13,
+            left: 0,
+            whiteSpace: 'nowrap',
+        },
+        '& .datepicker_range input': {
+            width: 90,
+        },
+        '& .datepicker_datetime input': {
+            width: 130,
+        },
+        '& .datepicker_date input': {
+            width: 90,
+        },
     },
     formControl: {
         margin: "0 " + theme.spacing(1) + "px 0 0",

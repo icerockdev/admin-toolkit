@@ -12,12 +12,11 @@ var __assign = (this && this.__assign) || function () {
 };
 import React, { useCallback, useMemo } from 'react';
 import { DateRangePicker } from '@material-ui/pickers';
-import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 import { TextField } from '@material-ui/core';
 import { isValid } from 'date-fns';
 var EntityFieldDateRange = function (_a) {
-    var value = _a.value, handler = _a.handler, label = _a.label, error = _a.error, isEditing = _a.isEditing, onClick = _a.onClick;
+    var value = _a.value, handler = _a.handler, label = _a.label, error = _a.error, isFiltering = _a.isFiltering, onClick = _a.onClick;
     var onChange = useCallback(function (value) {
         if (!value || !handler)
             return;
@@ -32,9 +31,11 @@ var EntityFieldDateRange = function (_a) {
             return [null, null];
         return split.map(function (date) { return (isValid(new Date(date)) && parseISO(date)) || null; });
     }, [value]);
-    return isEditing ? (React.createElement("div", { className: "datepicker datepicker_range" },
+    if (!isFiltering)
+        return null;
+    return (React.createElement("div", { className: "datepicker datepicker_range" },
         React.createElement(DateRangePicker, { renderInput: function (startProps, endProps) { return (React.createElement(React.Fragment, null,
                 React.createElement(TextField, __assign({}, startProps, { variant: "outlined", helperText: label, label: "" })),
-                React.createElement(TextField, __assign({}, endProps, { variant: "outlined", helperText: "", label: "" })))); }, value: parsed, onChange: onChange }))) : (React.createElement("div", { onClick: onClick }, value && parseISO(value) ? (format(parseISO(value), 'dd.MM.yyyy')) : (React.createElement("div", null, "\u00A0"))));
+                React.createElement(TextField, __assign({}, endProps, { variant: "outlined", helperText: "", label: "" })))); }, value: parsed, onChange: onChange })));
 };
 export { EntityFieldDateRange };

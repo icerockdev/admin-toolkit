@@ -17,6 +17,21 @@ declare const _default: (theme: Theme) => {
             marginTop: number;
             marginBottom: number;
         };
+        '& .datepicker .MuiFormHelperText-contained ': {
+            position: string;
+            top: number;
+            left: number;
+            whiteSpace: string;
+        };
+        '& .datepicker_range input': {
+            width: number;
+        };
+        '& .datepicker_datetime input': {
+            width: number;
+        };
+        '& .datepicker_date input': {
+            width: number;
+        };
     };
     formControl: {
         margin: string;

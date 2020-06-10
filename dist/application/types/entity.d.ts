@@ -33,6 +33,7 @@ export declare const ENTITY_FIELD_RENDERS: {
         label: string;
         value: any;
         isEditing?: boolean | undefined;
+        isFiltering?: boolean | undefined;
         error?: string | undefined;
         handler?: ((val: string) => void) | undefined;
         onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;

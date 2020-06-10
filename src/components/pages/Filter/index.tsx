@@ -118,46 +118,6 @@ const Filter = withStyles(styles)(
 
       return (
         <form className={classes.wrapper} onSubmit={onSubmit}>
-          {currentFilters.length > 0 && (
-            <Fragment>
-              <Button
-                onClick={applyFilter}
-                tabIndex={0}
-                color="primary"
-                variant="outlined"
-                className={classes.filterButton}
-              >
-                <CheckIcon />
-              </Button>
-            </Fragment>
-          )}
-
-          {currentFilters.map(
-            (field, i) =>
-              field && (
-                <div className={classes.input} key={field.name}>
-                  <EntityField
-                    name={field.name}
-                    fields={fields}
-                    data={{ ...filterData, [field.name]: filters[i].value }}
-                    handler={setFilterValue(i)}
-                    withToken={withToken}
-                    isEditing
-                    isFiltering
-                  />
-
-                  <IconButton
-                    color="secondary"
-                    onClick={removeFilter(i)}
-                    className={classes.clear}
-                    tabIndex={0}
-                  >
-                    <ClearIcon />
-                  </IconButton>
-                </div>
-              )
-          )}
-
           {selectableFields.length > 0 && (
             <>
               <Button
@@ -199,6 +159,46 @@ const Filter = withStyles(styles)(
                 </Menu>
               )}
             </>
+          )}
+
+          {currentFilters.length > 0 && (
+            <Fragment>
+              <Button
+                onClick={applyFilter}
+                tabIndex={0}
+                color="primary"
+                variant="outlined"
+                className={classes.filterButton}
+              >
+                <CheckIcon />
+              </Button>
+            </Fragment>
+          )}
+
+          {currentFilters.map(
+            (field, i) =>
+              field && (
+                <div className={classes.input} key={field.name}>
+                  <EntityField
+                    name={field.name}
+                    fields={fields}
+                    data={{ ...filterData, [field.name]: filters[i].value }}
+                    handler={setFilterValue(i)}
+                    withToken={withToken}
+                    isEditing
+                    isFiltering
+                  />
+
+                  <IconButton
+                    color="secondary"
+                    onClick={removeFilter(i)}
+                    className={classes.clear}
+                    tabIndex={0}
+                  >
+                    <ClearIcon />
+                  </IconButton>
+                </div>
+              )
           )}
         </form>
       );
