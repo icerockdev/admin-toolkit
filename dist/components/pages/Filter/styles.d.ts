@@ -9,6 +9,9 @@ declare const _default: (theme: Theme) => {
         flexDirection: "row-reverse";
         paddingLeft: number;
         margin: string;
+        '@media(max-width: 640px)': {
+            width: string;
+        };
         '& .MuiInputLabel-outlined': {
             whiteSpace: string;
         };
@@ -25,6 +28,9 @@ declare const _default: (theme: Theme) => {
         };
         '& .datepicker_range input': {
             width: number;
+        };
+        '& .datepicker_range .MuiPickersDateRangePickerInput-rangeInputsContainer': {
+            flexDirection: string;
         };
         '& .datepicker_datetime input': {
             width: number;

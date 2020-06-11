@@ -4,10 +4,13 @@ import { Theme } from '@material-ui/core';
 declare const _default: (theme: Theme) => {
     header: {
         display: string;
-        justifyContent: string;
         padding: string;
+        justifyContent: string;
         alignItems: "flex-start";
         flexWrap: "nowrap";
+        '@media(max-width: 640px)': {
+            flexDirection: "column";
+        };
         '& .MuiButton-label': {
             fontWeight: string;
             fontSize: string;
@@ -40,6 +43,12 @@ declare const _default: (theme: Theme) => {
         marginRight: number;
         flexWrap: "nowrap";
         display: "flex";
+        '@media(max-width: 640px)': {
+            width: string;
+            alignItems: string;
+            justifyContent: string;
+            paddingRight: number;
+        };
     };
     export: {
         marginRight: number;

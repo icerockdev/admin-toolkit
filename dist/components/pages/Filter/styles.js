@@ -7,6 +7,9 @@ export default (function (theme) { return ({
         flexDirection: 'row-reverse',
         paddingLeft: 10,
         margin: '0 !important',
+        '@media(max-width: 640px)': {
+            width: '100%',
+        },
         '& .MuiInputLabel-outlined': {
             whiteSpace: 'nowrap',
         },
@@ -23,6 +26,9 @@ export default (function (theme) { return ({
         },
         '& .datepicker_range input': {
             width: 90,
+        },
+        '& .datepicker_range .MuiPickersDateRangePickerInput-rangeInputsContainer': {
+            flexDirection: 'row !important',
         },
         '& .datepicker_datetime input': {
             width: 130,

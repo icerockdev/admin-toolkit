@@ -2,10 +2,13 @@
 export default (function (theme) { return ({
     header: {
         display: 'flex',
-        justifyContent: 'center',
         padding: '32px 19px 24px 24px',
+        justifyContent: 'center',
         alignItems: 'flex-start',
         flexWrap: 'nowrap',
+        '@media(max-width: 640px)': {
+            flexDirection: 'column',
+        },
         '& .MuiButton-label': {
             fontWeight: 'bold',
             fontSize: '14px',
@@ -38,6 +41,12 @@ export default (function (theme) { return ({
         marginRight: theme.spacing(1),
         flexWrap: 'nowrap',
         display: 'flex',
+        '@media(max-width: 640px)': {
+            width: '100%',
+            alignItems: 'flex-end',
+            justifyContent: 'flex-end',
+            paddingRight: 10,
+        },
     },
     export: {
         marginRight: theme.spacing(1),

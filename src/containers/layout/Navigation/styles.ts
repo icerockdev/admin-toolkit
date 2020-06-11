@@ -15,6 +15,12 @@ export default (theme: Theme) =>
       '& .MuiTabs-scrollButtons svg': {
         fill: theme.palette.primary.main,
       },
+
+      '@media(max-width: 640px)': {
+        '& .logo': {
+          display: 'none',
+        },
+      },
     },
     title: {
       // marginLeft: theme.spacing(2),

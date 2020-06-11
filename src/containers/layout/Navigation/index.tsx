@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 import { Link, NavLink, useHistory } from 'react-router-dom';
 import { Account } from '../Account';
+import classnames from 'classnames';
 
 type IProps = WithStyles<typeof styles> & {
   logo?: { url?: string; title?: string };
@@ -57,7 +58,7 @@ const NavigationUnstyled: FC<IProps> = ({
     <AppBar position="static" className={classes.appbar}>
       <Toolbar className={classes.toolbar}>
         {logo && (
-          <Link to="/" className={classes.title}>
+          <Link to="/" className={classnames('logo', classes.title)}>
             <img
               src={logo.url}
               title={logo.title}
