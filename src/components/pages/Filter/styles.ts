@@ -36,6 +36,10 @@ export default (theme: Theme) => ({
       width: 90,
     },
 
+    '& .datepicker_range .MuiPickersDateRangePickerInput-rangeInputsContainer': {
+      flexDirection: 'row !important',
+    },
+
     '& .datepicker_datetime input': {
       width: 130,
     },
