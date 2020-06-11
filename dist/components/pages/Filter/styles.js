@@ -45,7 +45,7 @@ export default (function (theme) { return ({
         boxShadow: 'inset rgba(0, 0, 0, 1) 0 0 1px',
         borderRadius: '0 4px 4px 0',
         backgroundColor: 'white',
-        height: 50,
+        minHeight: 50,
         alignItems: 'center',
         paddingTop: 13,
         '& .select': {

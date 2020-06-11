@@ -15,7 +15,7 @@ declare const _default: (theme: Theme) => {
             height: number;
         };
         '& .MuiInputBase-input': {};
-        '& .MuiButton-outlinedPrimary': {
+        '& .MuiButton-outlinedPrimary, & .MuiButton-outlinedSecondary': {
             backgroundColor: string;
             border: string;
         };

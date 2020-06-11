@@ -13,7 +13,7 @@ export default (function (theme) { return ({
             height: 38,
         },
         '& .MuiInputBase-input': {},
-        '& .MuiButton-outlinedPrimary': {
+        '& .MuiButton-outlinedPrimary, & .MuiButton-outlinedSecondary': {
             backgroundColor: 'white',
             border: '1px solid #EBEBEB !important',
         },
