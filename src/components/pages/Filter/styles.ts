@@ -11,6 +11,10 @@ export default (theme: Theme) => ({
     paddingLeft: 10,
     margin: '0 !important',
 
+    '@media(max-width: 640px)': {
+      width: '100%',
+    },
+
     '& .MuiInputLabel-outlined': {
       whiteSpace: 'nowrap',
     },

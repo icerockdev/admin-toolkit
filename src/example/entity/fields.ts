@@ -52,7 +52,7 @@ export const SAMPLE_ENTITY_FIELDS: IEntityField[] = [
   },
   {
     name: 'dateRange',
-    label: 'Период',
+    label: 'Период с двумя датами (от и до)',
     sortable: true,
     filterable: true,
     type: 'daterange',

@@ -5,10 +5,14 @@ import { Theme } from '@material-ui/core';
 export default (theme: Theme) => ({
   header: {
     display: 'flex',
-    justifyContent: 'center',
     padding: '32px 19px 24px 24px',
+    justifyContent: 'center',
     alignItems: 'flex-start' as 'flex-start',
     flexWrap: 'nowrap' as 'nowrap',
+
+    '@media(max-width: 640px)': {
+      flexDirection: 'column' as 'column',
+    },
 
     '& .MuiButton-label': {
       fontWeight: 'bold',
@@ -47,6 +51,13 @@ export default (theme: Theme) => ({
     marginRight: theme.spacing(1),
     flexWrap: 'nowrap' as 'nowrap',
     display: 'flex' as 'flex',
+
+    '@media(max-width: 640px)': {
+      width: '100%',
+      alignItems: 'flex-end',
+      justifyContent: 'flex-end',
+      paddingRight: 10,
+    },
   },
   export: {
     marginRight: theme.spacing(1),
