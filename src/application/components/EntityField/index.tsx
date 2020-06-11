@@ -34,7 +34,7 @@ const EntityField: FC<IProps> = ({
   }
 
   return createElement(
-    field.type === 'custom' && field.component
+    field.component
       ? field.component
       : getEntityFieldRenderer(field.type || typeof data[field.name]),
     {

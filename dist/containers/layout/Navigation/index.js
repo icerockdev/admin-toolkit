@@ -15,6 +15,7 @@ import styles from './styles';
 import { withStyles, AppBar, Toolbar, Tabs, Tab, } from '@material-ui/core';
 import { Link, useHistory } from 'react-router-dom';
 import { Account } from '../Account';
+import classnames from 'classnames';
 var LinkTab = function (props) { return (React.createElement(Tab, __assign({ component: "a", onClick: function (event) {
         event.preventDefault();
     } }, props))); };
@@ -31,7 +32,7 @@ var NavigationUnstyled = function (_a) {
     var activeTab = useMemo(function () { return links.findIndex(function (link) { return link.url === location; }) || 0; }, [location]);
     return (React.createElement(AppBar, { position: "static", className: classes.appbar },
         React.createElement(Toolbar, { className: classes.toolbar },
-            logo && (React.createElement(Link, { to: "/", className: classes.title },
+            logo && (React.createElement(Link, { to: "/", className: classnames('logo', classes.title) },
                 React.createElement("img", { src: logo.url, title: logo.title, className: classes.logo, alt: logo.title }))),
             React.createElement(Tabs, { onChange: onTabChange, value: activeTab, indicatorColor: "primary", textColor: "primary", variant: "scrollable", scrollButtons: "auto", "aria-label": "scrollable auto tabs example", className: classes.tabs }, links.map(function (_a) {
                 var name = _a.name, url = _a.url;
