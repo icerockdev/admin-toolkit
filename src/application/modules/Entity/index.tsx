@@ -488,6 +488,7 @@ export class Entity extends Page {
         onExport={this.exportData}
         canExport={this.exportable}
         canCreate={this.creatable && this.canCreate}
+        entity={this}
       />
     ));
   }
@@ -523,6 +524,7 @@ export class Entity extends Page {
         setSelected={this.setSelected}
         onSortChange={this.setSort}
         withToken={this.parent?.auth?.withToken}
+        entity={this}
       />
     ));
   }
@@ -617,6 +619,7 @@ export class Entity extends Page {
         cancelGetItem={this.getItemsCancel}
         withToken={this.parent?.auth?.withToken}
         viewable={this.viewable}
+        entity={this}
       />
     ));
   }
@@ -671,6 +674,7 @@ export class Entity extends Page {
         cancelGetItem={this.getItemsCancel}
         withToken={this.parent?.auth?.withToken}
         viewable={this.viewable}
+        entity={this}
         isEditing
       />
     ));
@@ -722,6 +726,7 @@ export class Entity extends Page {
         cancelGetItem={this.getItemsCancel}
         viewable={this.viewable}
         withToken={this.parent?.auth?.withToken}
+        entity={this}
       />
     ));
   }

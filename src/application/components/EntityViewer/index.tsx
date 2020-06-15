@@ -15,6 +15,7 @@ import styles from './styles';
 import { IEntityField } from '~/application';
 import { observer } from 'mobx-react';
 import { EntityField } from '../EntityField';
+import { Entity } from '~/application/modules';
 
 type IProps = WithStyles<typeof styles> & {
   url: string;
@@ -25,6 +26,7 @@ type IProps = WithStyles<typeof styles> & {
   isLoading: boolean;
   data: Record<string, any>;
   viewable: boolean;
+  entity: Entity;
 
   setEditorData: (data: Record<string, any>) => void;
   getItem: (id: any) => void;
@@ -52,6 +54,7 @@ const EntityViewer = withStyles(styles)(
       cancelGetItem,
       withToken,
       isEditing,
+      entity,
     }: IProps) => {
       const isCreating = useMemo(() => typeof id === 'undefined', [id]);
 
@@ -121,6 +124,7 @@ const EntityViewer = withStyles(styles)(
                           error={errors[field.name]}
                           handler={onFieldChange(field.name)}
                           withToken={withToken}
+                          entity={entity}
                         />
                       </div>
                     </div>

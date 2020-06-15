@@ -35,6 +35,7 @@ import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import omit from 'ramda/es/omit';
 import classnames from 'classnames';
+import { Entity } from '~/application/modules';
 
 type IProps = WithStyles<typeof styles> & {
   isLoading: boolean;
@@ -44,6 +45,7 @@ type IProps = WithStyles<typeof styles> & {
   sortBy: string;
   sortDir: typeof ENTITY_SORT_DIRS[keyof typeof ENTITY_SORT_DIRS];
   selected: any[];
+  entity: Entity;
   extra:
     | (({
         id,
@@ -74,6 +76,7 @@ const EntityList = observer(
       classes,
       isLoading,
       fields,
+      entity,
       data,
       url,
       extra,
@@ -252,6 +255,7 @@ const EntityList = observer(
                             fields={fields}
                             data={entry}
                             withToken={withToken}
+                            entity={entity}
                           />
                         </TableCell>
                       ))}

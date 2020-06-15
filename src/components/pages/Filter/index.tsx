@@ -1,12 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, {
-  ChangeEvent,
-  useCallback,
-  Fragment,
-  useMemo,
-  useState,
-} from 'react';
+import React, { useCallback, Fragment, useMemo, useState } from 'react';
 
 import {
   withStyles,
@@ -25,11 +19,13 @@ import ClearIcon from '@material-ui/icons/Clear';
 import FilterIcon from '@material-ui/icons/FilterList';
 import { EntityField } from '~/application/components/EntityField';
 import { observer } from 'mobx-react';
+import { Entity } from '~/application';
 
 type IProps = WithStyles<typeof styles> & {
   fields: IEntityProps['fields'];
   filters: IFilterValue[];
   filterData: Record<string, any>;
+  entity: Entity;
 
   clearFilter: () => void;
   applyFilter: () => void;
@@ -47,6 +43,7 @@ const Filter = withStyles(styles)(
       setFilters,
       applyFilter,
       withToken,
+      entity,
     }: IProps) => {
       const [buttonRef, setButtonRef] = useState<any>(null);
 
@@ -208,6 +205,7 @@ const Filter = withStyles(styles)(
                     data={{ ...filterData, [field.name]: filters[i].value }}
                     handler={setFilterValue(i)}
                     withToken={withToken}
+                    entity={entity}
                     isEditing
                     isFiltering
                   />

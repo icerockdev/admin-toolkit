@@ -6,6 +6,7 @@ import styles from './styles';
 import { Link as RouterLink } from 'react-router-dom';
 import { IEntityProps } from '~/application';
 import { Filter } from '~/components/pages/Filter';
+import { Entity } from '~/application/modules';
 
 type IProps = WithStyles<typeof styles> & {
   title: ReactElement;
@@ -16,6 +17,8 @@ type IProps = WithStyles<typeof styles> & {
   filters: IEntityProps['filters'];
   fields: IEntityProps['fields'];
   filterData: Record<string, any>;
+  entity: Entity;
+
   setFilters: (filters: IEntityProps['filters']) => void;
   applyFilter: () => void;
   onExport: () => void;
@@ -32,6 +35,7 @@ const EntityHeadUnstyled: FC<IProps> = ({
   canExport,
   url,
   filterData,
+  entity,
 
   setFilters,
   applyFilter,
@@ -61,6 +65,7 @@ const EntityHeadUnstyled: FC<IProps> = ({
           applyFilter={applyFilter}
           clearFilter={clearFilter}
           withToken={withToken}
+          entity={entity}
         />
       )}
 
