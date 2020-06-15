@@ -1,26 +1,13 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, {
-  FC,
-  MouseEventHandler,
-  useCallback,
-  useMemo,
-  useState,
-  useEffect,
-} from 'react';
+import React, { FC, useCallback, useState, useEffect } from 'react';
 import MUIRichTextEditor from 'mui-rte';
 import { convertFromHTML } from 'draft-js';
 import { convertToRaw, ContentState } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
+import { IEntityFieldProps } from '~/application';
 
-type IProps = {
-  label: string;
-  value: any;
-  isEditing?: boolean;
-  handler?: (val: any) => void;
-  error?: string;
-  onClick?: MouseEventHandler<HTMLDivElement>;
-} & Record<string, any>;
+type IProps = IEntityFieldProps & {};
 
 const EntityFieldRichText: FC<IProps> = ({
   label,

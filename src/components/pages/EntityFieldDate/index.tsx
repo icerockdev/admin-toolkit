@@ -6,15 +6,9 @@ import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 import { TextField } from '@material-ui/core';
 import { isValid } from 'date-fns';
+import { IEntityFieldProps } from '~/application';
 
-type IProps = {
-  label: string;
-  value: any;
-  isEditing?: boolean;
-  error?: string;
-  handler?: (val: any) => void;
-  onClick?: MouseEventHandler<HTMLDivElement>;
-} & Record<string, any>;
+type IProps = IEntityFieldProps & {};
 
 const EntityFieldDate: FC<IProps> = ({
   value,

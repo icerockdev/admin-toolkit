@@ -8,23 +8,15 @@ import { TextField } from '@material-ui/core';
 import { isValid } from 'date-fns';
 import { ParsableDate } from '@material-ui/pickers/src/constants/prop-types';
 
-type IProps = {
-  label: string;
-  value: any;
-  isEditing?: boolean;
-  isFiltering?: boolean;
-  error?: string;
-  handler?: (val: string) => void;
-  onClick?: MouseEventHandler<HTMLDivElement>;
-} & Record<string, any>;
+import { IEntityFieldProps } from '~/application';
+
+type IProps = IEntityFieldProps & {};
 
 const EntityFieldDateRange: FC<IProps> = ({
   value,
   handler,
   label,
-  error,
   isFiltering,
-  onClick,
 }) => {
   const onChange = useCallback(
     (value) => {

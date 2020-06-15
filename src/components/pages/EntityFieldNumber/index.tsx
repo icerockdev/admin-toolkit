@@ -2,16 +2,9 @@
 
 import React, { FC, MouseEventHandler, useCallback } from 'react';
 import { TextField } from '@material-ui/core';
+import { IEntityFieldProps } from '~/application';
 
-type IProps = {
-  label: string;
-  value: any;
-  error?: string;
-  isEditing?: boolean;
-  onClick?: MouseEventHandler<HTMLDivElement>;
-  handler?: (val: any) => void;
-  options?: { accuracy?: number };
-} & Record<string, any>;
+type IProps = IEntityFieldProps & {};
 
 const EntityFieldNumber: FC<IProps> = ({
   label,

@@ -8,7 +8,7 @@ import { EntityFieldSelect } from '~/components/pages/EntityFieldSelect';
 import { EntityFieldPhone } from '~/components/pages/EntityFieldPhone';
 import { EntityFieldRichText } from '~/components/pages/EntityFieldRichText';
 import { EntityFieldBase64Image } from '~/components/pages/EntityFieldBase64';
-import { FC } from 'react';
+import { FC, MouseEventHandler } from 'react';
 import { EntityFieldNumber } from '~/components/pages/EntityFieldNumber';
 import { EntityFieldDateTime } from '~/components/pages/EntityFieldDatetime';
 import { EntityFieldReferenceSelect } from '~/components/pages/EntityFieldReferenceSelect';
@@ -188,4 +188,20 @@ export type IEntityGetFunction = (
 export type IEntityReferenceProps = {
   getMany: (entity: Entity) => Promise<Record<string, any>>;
   getOne?: (id: any) => Promise<Record<string, any>>;
+};
+
+export type IEntityFieldProps = {
+  name: string;
+  fields: IEntityField[];
+  data?: Record<string, any>;
+  label?: string;
+  error?: string;
+  isEditing?: boolean;
+  entity?: Entity;
+  isFiltering?: boolean;
+  handler?: (val: any) => void;
+  withToken?: (req: any, args: any) => void;
+  value?: any;
+  onClick?: MouseEventHandler<any>;
+  options?: Record<string, any>;
 };

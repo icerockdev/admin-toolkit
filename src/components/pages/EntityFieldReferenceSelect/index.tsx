@@ -9,18 +9,10 @@ import React, {
   useEffect,
 } from 'react';
 import { Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
-import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
+import { IEntityFieldProps } from '~/application';
 
-type IProps = {
-  label: string;
-  value: any;
-  isEditing?: boolean;
-  handler?: (val: any) => void;
-  error?: string;
-  onClick?: MouseEventHandler<HTMLDivElement>;
-  options?: Record<any, any>;
-} & Record<string, any>;
+type IProps = IEntityFieldProps & {};
 
 const EntityFieldReferenceSelect: FC<IProps> = observer(
   ({ label, value, handler, error, isEditing, onClick, options }) => {

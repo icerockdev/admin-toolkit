@@ -1,17 +1,11 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { FC, MouseEventHandler, useCallback } from 'react';
+import React, { FC, useCallback } from 'react';
 import { TextField } from '@material-ui/core';
 import InputMask from 'react-input-mask';
+import { IEntityFieldProps } from '~/application';
 
-type IProps = {
-  label: string;
-  value: any;
-  isEditing?: boolean;
-  handler?: (val: any) => void;
-  error?: string;
-  onClick?: MouseEventHandler<HTMLDivElement>;
-} & Record<string, any>;
+type IProps = IEntityFieldProps & {};
 
 const EntityFieldPhone: FC<IProps> = ({
   label,

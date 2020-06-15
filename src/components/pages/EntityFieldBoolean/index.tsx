@@ -1,18 +1,12 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { FC, MouseEventHandler, useCallback } from 'react';
+import React, { FC, useCallback } from 'react';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
+import { IEntityFieldProps } from '~/application';
 import { Checkbox, FormControlLabel } from '@material-ui/core';
 
-type IProps = {
-  label: string;
-  value: any;
-  isEditing?: boolean;
-  error?: string;
-  handler?: (val: any) => void;
-  onClick?: MouseEventHandler<HTMLDivElement>;
-} & Record<string, any>;
+type IProps = IEntityFieldProps & {};
 
 const EntityFieldBoolean: FC<IProps> = ({
   value,

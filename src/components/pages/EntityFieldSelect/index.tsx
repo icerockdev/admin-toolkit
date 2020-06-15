@@ -1,25 +1,10 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, {
-  FC,
-  MouseEventHandler,
-  useCallback,
-  useRef,
-  useMemo,
-  useEffect,
-  useState,
-} from 'react';
+import React, { FC, useCallback, useRef, useEffect, useState } from 'react';
 import { Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import { IEntityFieldProps } from '~/application';
 
-type IProps = {
-  label: string;
-  value: any;
-  isEditing?: boolean;
-  handler?: (val: any) => void;
-  error?: string;
-  onClick?: MouseEventHandler<HTMLDivElement>;
-  options?: Record<any, any>;
-} & Record<string, any>;
+type IProps = IEntityFieldProps & {};
 
 const EntityFieldSelect: FC<IProps> = ({
   label,

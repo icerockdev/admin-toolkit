@@ -10,7 +10,7 @@ var EntityField = function (_a) {
     if (!field) {
         return React.createElement("div", null);
     }
-    return createElement(field.type === 'custom' && field.component
+    return createElement(field.component
         ? field.component
         : getEntityFieldRenderer(field.type || typeof data[field.name]), {
         value: Object.prototype.hasOwnProperty.call(data, field.name)

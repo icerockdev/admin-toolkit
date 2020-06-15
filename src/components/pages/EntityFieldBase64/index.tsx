@@ -17,16 +17,9 @@ import {
 } from '@material-ui/core';
 import ImageIcon from '@material-ui/icons/Image';
 import styles from './styles';
+import { IEntityFieldProps } from '~/application';
 
-type IProps = WithStyles<typeof styles> & {
-  label: string;
-  value: any;
-  error?: string;
-  isEditing?: boolean;
-  onClick?: MouseEventHandler<HTMLDivElement>;
-  handler?: (val: any) => void;
-  options?: Record<any, any>;
-} & Record<string, any>;
+type IProps = IEntityFieldProps & WithStyles<typeof styles> & {};
 
 const EntityFieldBase64Image = withStyles(styles)(
   ({
