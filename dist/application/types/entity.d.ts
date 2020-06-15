@@ -2,106 +2,22 @@
 
 /// <reference types="@emotion/core" />
 import { IPageProps } from './page';
-import { FC } from 'react';
+import { FC, MouseEventHandler } from 'react';
 import { Entity } from '../modules';
 export declare const ENTITY_FIELD_RENDERS: {
-    string: FC<{
-        label: string;
-        value: any;
-        error?: string | undefined;
-        isEditing?: boolean | undefined;
-        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-        handler?: ((val: any) => void) | undefined;
-    } & Record<string, any>>;
-    date: FC<{
-        label: string;
-        value: any;
-        isEditing?: boolean | undefined;
-        error?: string | undefined;
-        handler?: ((val: any) => void) | undefined;
-        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-    } & Record<string, any>>;
-    datetime: FC<{
-        label: string;
-        value: any;
-        isEditing?: boolean | undefined;
-        error?: string | undefined;
-        handler?: ((val: any) => void) | undefined;
-        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-    } & Record<string, any>>;
-    daterange: FC<{
-        label: string;
-        value: any;
-        isEditing?: boolean | undefined;
-        isFiltering?: boolean | undefined;
-        error?: string | undefined;
-        handler?: ((val: string) => void) | undefined;
-        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-    } & Record<string, any>>;
-    boolean: FC<{
-        label: string;
-        value: any;
-        isEditing?: boolean | undefined;
-        error?: string | undefined;
-        handler?: ((val: any) => void) | undefined;
-        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-    } & Record<string, any>>;
-    select: FC<{
-        label: string;
-        value: any;
-        isEditing?: boolean | undefined;
-        handler?: ((val: any) => void) | undefined;
-        error?: string | undefined;
-        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-        options?: Record<any, any> | undefined;
-    } & Record<string, any>>;
-    phone: FC<{
-        label: string;
-        value: any;
-        isEditing?: boolean | undefined;
-        handler?: ((val: any) => void) | undefined;
-        error?: string | undefined;
-        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-    } & Record<string, any>>;
-    richtext: FC<{
-        label: string;
-        value: any;
-        isEditing?: boolean | undefined;
-        handler?: ((val: any) => void) | undefined;
-        error?: string | undefined;
-        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-    } & Record<string, any>>;
-    base64image: import("react").ComponentType<Pick<{
+    string: FC<IEntityFieldProps>;
+    date: FC<IEntityFieldProps>;
+    datetime: FC<IEntityFieldProps>;
+    daterange: FC<IEntityFieldProps>;
+    boolean: FC<IEntityFieldProps>;
+    select: FC<IEntityFieldProps>;
+    phone: FC<IEntityFieldProps>;
+    richtext: FC<IEntityFieldProps>;
+    base64image: import("react").ComponentType<Pick<IEntityFieldProps & {
         classes: Record<"label" | "image" | "formControl" | "outlinedInput" | "preview", string>;
-    } & {
-        label: string;
-        value: any;
-        error?: string | undefined;
-        isEditing?: boolean | undefined;
-        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-        handler?: ((val: any) => void) | undefined;
-        options?: Record<any, any> | undefined;
-    } & Record<string, any>, string> & import("@material-ui/styles").StyledComponentProps<"label" | "image" | "formControl" | "outlinedInput" | "preview">>;
-    number: FC<{
-        label: string;
-        value: any;
-        error?: string | undefined;
-        isEditing?: boolean | undefined;
-        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-        handler?: ((val: any) => void) | undefined;
-        options?: {
-            accuracy?: number | undefined;
-        } | undefined;
-    } & Record<string, any>>;
-    referenceSelect: FC<{
-        label: string;
-        value: any;
-        isEditing?: boolean | undefined;
-        handler?: ((val: any) => void) | undefined;
-        error?: string | undefined;
-        onClick?: ((event: import("react").MouseEvent<HTMLDivElement, MouseEvent>) => void) | undefined;
-        options?: Record<any, any> | undefined;
-    } & Record<string, any>>;
+    }, "data" | "label" | "error" | "withToken" | "onClick" | "name" | "value" | "handler" | "isEditing" | "options" | "fields" | "entity" | "isFiltering"> & import("@material-ui/styles").StyledComponentProps<"label" | "image" | "formControl" | "outlinedInput" | "preview">>;
+    number: FC<IEntityFieldProps>;
+    referenceSelect: FC<IEntityFieldProps>;
 };
 export declare const ENTITY_REFERENCE_FIELDS: {
     referenceSelect: boolean;
@@ -218,4 +134,19 @@ export declare type IEntityGetFunction = (props: IEntityGetFunctionProps) => Pro
 export declare type IEntityReferenceProps = {
     getMany: (entity: Entity) => Promise<Record<string, any>>;
     getOne?: (id: any) => Promise<Record<string, any>>;
+};
+export declare type IEntityFieldProps = {
+    name: string;
+    fields: IEntityField[];
+    data?: Record<string, any>;
+    label?: string;
+    error?: string;
+    isEditing?: boolean;
+    entity?: Entity;
+    isFiltering?: boolean;
+    handler?: (val: any) => void;
+    withToken?: (req: any, args: any) => void;
+    value?: any;
+    onClick?: MouseEventHandler<any>;
+    options?: Record<string, any>;
 };

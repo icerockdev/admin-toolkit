@@ -4,6 +4,7 @@ import React from 'react';
 import { WithStyles } from '@material-ui/core';
 import styles from './styles';
 import { IEntityField } from '../..';
+import { Entity } from '../../modules';
 declare type IProps = WithStyles<typeof styles> & {
     url: string;
     id?: string;
@@ -13,6 +14,7 @@ declare type IProps = WithStyles<typeof styles> & {
     isLoading: boolean;
     data: Record<string, any>;
     viewable: boolean;
+    entity: Entity;
     setEditorData: (data: Record<string, any>) => void;
     getItem: (id: any) => void;
     cancelGetItem: () => void;
@@ -21,5 +23,5 @@ declare type IProps = WithStyles<typeof styles> & {
     onResetFieldError: (field: string) => void;
     withToken?: (req: any, args: any) => any;
 };
-declare const EntityViewer: React.ComponentType<Pick<IProps, "data" | "isLoading" | "withToken" | "id" | "url" | "isEditing" | "onSave" | "fields" | "errors" | "onCancel" | "onResetFieldError" | "setEditorData" | "getItem" | "cancelGetItem" | "viewable"> & import("@material-ui/core").StyledComponentProps<"grid" | "wrap" | "field" | "loader" | "buttons">>;
+declare const EntityViewer: React.ComponentType<Pick<IProps, "data" | "isLoading" | "withToken" | "id" | "url" | "isEditing" | "onSave" | "fields" | "entity" | "errors" | "onCancel" | "onResetFieldError" | "setEditorData" | "getItem" | "cancelGetItem" | "viewable"> & import("@material-ui/core").StyledComponentProps<"grid" | "wrap" | "field" | "loader" | "buttons">>;
 export { EntityViewer };

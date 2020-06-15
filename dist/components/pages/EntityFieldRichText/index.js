@@ -1,5 +1,5 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
-import React, { useCallback, useState, useEffect, } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import MUIRichTextEditor from 'mui-rte';
 import { convertFromHTML } from 'draft-js';
 import { convertToRaw, ContentState } from 'draft-js';

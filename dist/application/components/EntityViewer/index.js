@@ -16,7 +16,7 @@ import styles from './styles';
 import { observer } from 'mobx-react';
 import { EntityField } from '../EntityField';
 var EntityViewer = withStyles(styles)(observer(function (_a) {
-    var classes = _a.classes, id = _a.id, fields = _a.fields, errors = _a.errors, onSave = _a.onSave, onCancel = _a.onCancel, onResetFieldError = _a.onResetFieldError, isLoading = _a.isLoading, data = _a.data, setEditorData = _a.setEditorData, getItem = _a.getItem, cancelGetItem = _a.cancelGetItem, withToken = _a.withToken, isEditing = _a.isEditing;
+    var classes = _a.classes, id = _a.id, fields = _a.fields, errors = _a.errors, onSave = _a.onSave, onCancel = _a.onCancel, onResetFieldError = _a.onResetFieldError, isLoading = _a.isLoading, data = _a.data, setEditorData = _a.setEditorData, getItem = _a.getItem, cancelGetItem = _a.cancelGetItem, withToken = _a.withToken, isEditing = _a.isEditing, entity = _a.entity;
     var isCreating = useMemo(function () { return typeof id === 'undefined'; }, [id]);
     var visibleFields = useMemo(function () {
         return fields.filter(function (field) {
@@ -52,7 +52,7 @@ var EntityViewer = withStyles(styles)(observer(function (_a) {
                         field.label || field.name,
                         isEditing && field.required && React.createElement("span", null, " *"))),
                     React.createElement("div", { className: "field" },
-                        React.createElement(EntityField, { name: field.name, data: data, fields: fields, isEditing: isEditing, error: errors[field.name], handler: onFieldChange(field.name), withToken: withToken })))); }),
+                        React.createElement(EntityField, { name: field.name, data: data, fields: fields, isEditing: isEditing, error: errors[field.name], handler: onFieldChange(field.name), withToken: withToken, entity: entity })))); }),
                 isEditing && (React.createElement("div", { className: classes.field + " " + classes.buttons },
                     React.createElement(Grid, { container: true, spacing: 1 },
                         React.createElement(Grid, { item: true, style: { flex: 1 } }),

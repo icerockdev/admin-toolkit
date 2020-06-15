@@ -197,7 +197,7 @@ export type IEntityFieldProps = {
   label?: string;
   error?: string;
   isEditing?: boolean;
-  entity?: Entity;
+  entity: Entity;
   isFiltering?: boolean;
   handler?: (val: any) => void;
   withToken?: (req: any, args: any) => void;

@@ -17,7 +17,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
-import React, { useCallback, Fragment, useMemo, useState, } from 'react';
+import React, { useCallback, Fragment, useMemo, useState } from 'react';
 import { withStyles, MenuItem, IconButton, Menu, ListItemText, Button, } from '@material-ui/core';
 import styles from './styles';
 import CheckIcon from '@material-ui/icons/Check';
@@ -26,7 +26,7 @@ import FilterIcon from '@material-ui/icons/FilterList';
 import { EntityField } from '../../../application/components/EntityField';
 import { observer } from 'mobx-react';
 var Filter = withStyles(styles)(observer(function (_a) {
-    var classes = _a.classes, fields = _a.fields, filters = _a.filters, filterData = _a.filterData, setFilters = _a.setFilters, applyFilter = _a.applyFilter, withToken = _a.withToken;
+    var classes = _a.classes, fields = _a.fields, filters = _a.filters, filterData = _a.filterData, setFilters = _a.setFilters, applyFilter = _a.applyFilter, withToken = _a.withToken, entity = _a.entity;
     var _b = useState(null), buttonRef = _b[0], setButtonRef = _b[1];
     var onSelectField = useCallback(function (value) {
         setFilters(__spreadArrays(filters, [{ name: String(value), value: '' }]));
@@ -88,7 +88,7 @@ var Filter = withStyles(styles)(observer(function (_a) {
         currentFilters.map(function (field, i) {
             var _a;
             return field && (React.createElement("div", { className: classes.input, key: field.name },
-                React.createElement(EntityField, { name: field.name, fields: fields, data: __assign(__assign({}, filterData), (_a = {}, _a[field.name] = filters[i].value, _a)), handler: setFilterValue(i), withToken: withToken, isEditing: true, isFiltering: true }),
+                React.createElement(EntityField, { name: field.name, fields: fields, data: __assign(__assign({}, filterData), (_a = {}, _a[field.name] = filters[i].value, _a)), handler: setFilterValue(i), withToken: withToken, entity: entity, isEditing: true, isFiltering: true }),
                 React.createElement(IconButton, { color: "secondary", onClick: removeFilter(i), className: classes.clear, tabIndex: 0 },
                     React.createElement(ClearIcon, null))));
         })));

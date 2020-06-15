@@ -16,7 +16,7 @@ import parseISO from 'date-fns/parseISO';
 import { TextField } from '@material-ui/core';
 import { isValid } from 'date-fns';
 var EntityFieldDateRange = function (_a) {
-    var value = _a.value, handler = _a.handler, label = _a.label, error = _a.error, isFiltering = _a.isFiltering, onClick = _a.onClick;
+    var value = _a.value, handler = _a.handler, label = _a.label, isFiltering = _a.isFiltering;
     var onChange = useCallback(function (value) {
         if (!value || !handler)
             return;

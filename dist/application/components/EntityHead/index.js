@@ -5,14 +5,14 @@ import styles from './styles';
 import { Link as RouterLink } from 'react-router-dom';
 import { Filter } from '../../../components/pages/Filter';
 var EntityHeadUnstyled = function (_a) {
-    var classes = _a.classes, title = _a.title, buttons = _a.buttons, filters = _a.filters, fields = _a.fields, canCreate = _a.canCreate, canExport = _a.canExport, url = _a.url, filterData = _a.filterData, setFilters = _a.setFilters, applyFilter = _a.applyFilter, withToken = _a.withToken, onExport = _a.onExport;
+    var classes = _a.classes, title = _a.title, buttons = _a.buttons, filters = _a.filters, fields = _a.fields, canCreate = _a.canCreate, canExport = _a.canExport, url = _a.url, filterData = _a.filterData, entity = _a.entity, setFilters = _a.setFilters, applyFilter = _a.applyFilter, withToken = _a.withToken, onExport = _a.onExport;
     var clearFilter = useCallback(function () {
         setFilters([]);
         applyFilter();
     }, [setFilters, filters, applyFilter]);
     return (React.createElement(Grid, { container: true, justify: "space-between", alignItems: "center", className: classes.header },
         title,
-        filters && (React.createElement(Filter, { filterData: filterData, fields: fields, filters: filters, setFilters: setFilters, applyFilter: applyFilter, clearFilter: clearFilter, withToken: withToken })),
+        filters && (React.createElement(Filter, { filterData: filterData, fields: fields, filters: filters, setFilters: setFilters, applyFilter: applyFilter, clearFilter: clearFilter, withToken: withToken, entity: entity })),
         React.createElement("div", { className: classes.buttons },
             buttons,
             canExport && (React.createElement(Button, { variant: "outlined", color: "primary", onClick: onExport, className: classes.export }, "\u042D\u043A\u0441\u043F\u043E\u0440\u0442")),

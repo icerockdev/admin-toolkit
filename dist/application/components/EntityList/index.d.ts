@@ -4,6 +4,7 @@ import React, { ReactNode } from 'react';
 import { WithStyles } from '@material-ui/core';
 import { IEntityField, ENTITY_SORT_DIRS } from '../..';
 import styles from './styles';
+import { Entity } from '../../modules';
 declare type IProps = WithStyles<typeof styles> & {
     isLoading: boolean;
     fields: IEntityField[];
@@ -12,6 +13,7 @@ declare type IProps = WithStyles<typeof styles> & {
     sortBy: string;
     sortDir: typeof ENTITY_SORT_DIRS[keyof typeof ENTITY_SORT_DIRS];
     selected: any[];
+    entity: Entity;
     extra: (({ id, onClose, }: {
         id: any;
         onClose: (id: any) => void;
@@ -29,5 +31,5 @@ declare type IProps = WithStyles<typeof styles> & {
     before?: ReactNode;
     after?: ReactNode;
 };
-declare const EntityList: React.ComponentType<Pick<IProps, "data" | "isLoading" | "withToken" | "url" | "after" | "selected" | "onSortChange" | "fields" | "extra" | "sortBy" | "sortDir" | "canView" | "canEdit" | "canSelect" | "setSelected" | "onRowClick" | "before" | "firstRow" | "lastRow" | "tableHead"> & import("@material-ui/core").StyledComponentProps<"button" | "table" | "loader" | "button_active">>;
+declare const EntityList: React.ComponentType<Pick<IProps, "data" | "isLoading" | "withToken" | "url" | "after" | "selected" | "fields" | "entity" | "onSortChange" | "extra" | "sortBy" | "sortDir" | "canView" | "canEdit" | "canSelect" | "setSelected" | "onRowClick" | "before" | "firstRow" | "lastRow" | "tableHead"> & import("@material-ui/core").StyledComponentProps<"button" | "table" | "loader" | "button_active">>;
 export { EntityList };

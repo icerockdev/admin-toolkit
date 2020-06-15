@@ -14,6 +14,7 @@ const EntityField: FC<IProps> = ({
   isEditing,
   isFiltering,
   handler,
+  entity,
   withToken = (cb, args) => cb(args),
 }) => {
   const field = useMemo(() => fields.find((field) => field.name === name), [
@@ -40,11 +41,12 @@ const EntityField: FC<IProps> = ({
       isEditing,
       isFiltering,
       handler,
+      entity,
       options: field.options || {},
       data, // for custom fields
       fields, // for custom fields
       withToken, // for custom fields
-    }
+    } as IEntityFieldProps
   );
 };
 

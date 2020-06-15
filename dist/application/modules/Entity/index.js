@@ -510,7 +510,7 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function () {
                 var _a, _b;
-                return (React.createElement(EntityHead, { filterData: _this.filterData, title: React.createElement(_this.ListHeadTitle, null), buttons: React.createElement(_this.ListHeadButtons, null), filters: _this.filters, fields: _this.fields, setFilters: _this.setFilters, url: _this.menu.url, applyFilter: _this.fetchItems, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken, onExport: _this.exportData, canExport: _this.exportable, canCreate: _this.creatable && _this.canCreate }));
+                return (React.createElement(EntityHead, { filterData: _this.filterData, title: React.createElement(_this.ListHeadTitle, null), buttons: React.createElement(_this.ListHeadButtons, null), filters: _this.filters, fields: _this.fields, setFilters: _this.setFilters, url: _this.menu.url, applyFilter: _this.fetchItems, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken, onExport: _this.exportData, canExport: _this.exportable, canCreate: _this.creatable && _this.canCreate, entity: _this }));
             });
         },
         enumerable: true,
@@ -528,7 +528,7 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function () {
                 var _a, _b;
-                return (React.createElement(EntityList, { fields: _this.fields, data: _this.data, extra: _this.ListExtra, isLoading: _this.isLoading, url: _this.menu.url, selected: _this.selected, sortBy: _this.sortBy, sortDir: _this.sortDir, canView: _this.viewable, canEdit: _this.editable && _this.canEdit, canSelect: _this.selectable, setSelected: _this.setSelected, onSortChange: _this.setSort, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken }));
+                return (React.createElement(EntityList, { fields: _this.fields, data: _this.data, extra: _this.ListExtra, isLoading: _this.isLoading, url: _this.menu.url, selected: _this.selected, sortBy: _this.sortBy, sortDir: _this.sortDir, canView: _this.viewable, canEdit: _this.editable && _this.canEdit, canSelect: _this.selectable, setSelected: _this.setSelected, onSortChange: _this.setSort, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken, entity: _this }));
             });
         },
         enumerable: true,
@@ -601,7 +601,7 @@ var Entity = /** @class */ (function (_super) {
             return observer(function (_a) {
                 var id = _a.id;
                 var _b, _c;
-                return (React.createElement(EntityViewer, { id: id, fields: _this.fields, url: _this.menu.url, errors: _this.editorFieldErrors, onSave: function () { }, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isEditing: false, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, viewable: _this.viewable }));
+                return (React.createElement(EntityViewer, { id: id, fields: _this.fields, url: _this.menu.url, errors: _this.editorFieldErrors, onSave: function () { }, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isEditing: false, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, viewable: _this.viewable, entity: _this }));
             });
         },
         enumerable: true,
@@ -658,7 +658,7 @@ var Entity = /** @class */ (function (_super) {
             return observer(function (_a) {
                 var id = _a.id;
                 var _b, _c;
-                return (React.createElement(EntityViewer, { id: id, fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.updateItem, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, viewable: _this.viewable, isEditing: true }));
+                return (React.createElement(EntityViewer, { id: id, fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.updateItem, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, viewable: _this.viewable, entity: _this, isEditing: true }));
             });
         },
         enumerable: true,
@@ -705,7 +705,7 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function () {
                 var _a, _b;
-                return (React.createElement(EntityViewer, { fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.createItem, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isEditing: true, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.createEmptyItem, cancelGetItem: _this.getItemsCancel, viewable: _this.viewable, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken }));
+                return (React.createElement(EntityViewer, { fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.createItem, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isEditing: true, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.createEmptyItem, cancelGetItem: _this.getItemsCancel, viewable: _this.viewable, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken, entity: _this }));
             });
         },
         enumerable: true,

@@ -14,6 +14,7 @@ const EntityFieldSelect: FC<IProps> = ({
   isEditing,
   onClick,
   options,
+  entity,
 }) => {
   const onChange = useCallback(
     (event) => {
