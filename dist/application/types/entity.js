@@ -1,15 +1,15 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
-import { EntityFieldString } from '../../components/pages/EntityFieldString';
-import { EntityFieldBoolean } from '../../components/pages/EntityFieldBoolean';
-import { EntityFieldDate } from '../../components/pages/EntityFieldDate';
-import { EntityFieldSelect } from '../../components/pages/EntityFieldSelect';
-import { EntityFieldPhone } from '../../components/pages/EntityFieldPhone';
-import { EntityFieldRichText } from '../../components/pages/EntityFieldRichText';
-import { EntityFieldBase64Image } from '../../components/pages/EntityFieldBase64';
-import { EntityFieldNumber } from '../../components/pages/EntityFieldNumber';
-import { EntityFieldDateTime } from '../../components/pages/EntityFieldDatetime';
-import { EntityFieldReferenceSelect } from '../../components/pages/EntityFieldReferenceSelect';
-import { EntityFieldDateRange } from '../../components/pages/EntityFieldDateRange';
+import { EntityFieldString } from '../components/EntityFieldString';
+import { EntityFieldBoolean } from '../components/EntityFieldBoolean';
+import { EntityFieldDate } from '../components/EntityFieldDate';
+import { EntityFieldSelect } from '../components/EntityFieldSelect';
+import { EntityFieldPhone } from '../components/EntityFieldPhone';
+import { EntityFieldRichText } from '../components/EntityFieldRichText';
+import { EntityFieldBase64Image } from '../components/EntityFieldBase64';
+import { EntityFieldNumber } from '../components/EntityFieldNumber';
+import { EntityFieldDateTime } from '../components/EntityFieldDatetime';
+import { EntityFieldReferenceSelect } from '../components/EntityFieldReferenceSelect';
+import { EntityFieldDateRange } from '../components/EntityFieldDateRange';
 export var ENTITY_FIELD_RENDERS = {
     string: EntityFieldString,
     date: EntityFieldDate,

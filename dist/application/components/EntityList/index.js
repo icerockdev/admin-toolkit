@@ -22,7 +22,7 @@ import { TableContainer, Table, TableCell, TableHead, TableRow, TableBody, Paper
 import LaunchIcon from '@material-ui/icons/Launch';
 import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink } from 'react-router-dom';
-import { EntityHeadSortable } from '../../../components/pages/EntityHeadSortable';
+import { EntityHeadSortable } from '../EntityHeadSortable';
 import styles from './styles';
 import { EntityField } from '../EntityField';
 import { useHistory } from 'react-router-dom';
