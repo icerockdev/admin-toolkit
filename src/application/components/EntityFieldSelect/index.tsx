@@ -7,6 +7,7 @@ import { IEntityFieldProps } from '~/application';
 type IProps = IEntityFieldProps & {};
 
 const EntityFieldSelect: FC<IProps> = ({
+  name,
   label,
   value,
   handler,

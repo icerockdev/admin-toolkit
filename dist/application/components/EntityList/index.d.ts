@@ -31,5 +31,5 @@ declare type IProps = WithStyles<typeof styles> & {
     before?: ReactNode;
     after?: ReactNode;
 };
-declare const EntityList: React.ComponentType<Pick<IProps, "data" | "isLoading" | "withToken" | "url" | "after" | "selected" | "fields" | "entity" | "onSortChange" | "extra" | "sortBy" | "sortDir" | "canView" | "canEdit" | "canSelect" | "setSelected" | "onRowClick" | "before" | "firstRow" | "lastRow" | "tableHead"> & import("@material-ui/core").StyledComponentProps<"button" | "table" | "loader" | "button_active">>;
+declare const EntityList: React.ComponentType<Pick<IProps, "data" | "isLoading" | "withToken" | "url" | "after" | "selected" | "entity" | "fields" | "onSortChange" | "extra" | "sortBy" | "sortDir" | "canView" | "canEdit" | "canSelect" | "setSelected" | "onRowClick" | "before" | "firstRow" | "lastRow" | "tableHead"> & import("@material-ui/core").StyledComponentProps<"button" | "table" | "loader" | "button_active">>;
 export { EntityList };

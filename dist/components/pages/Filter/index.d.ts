@@ -15,5 +15,5 @@ declare type IProps = WithStyles<typeof styles> & {
     setFilters: (filters: IFilterValue[]) => void;
     withToken?: (req: any, args: any) => void;
 };
-declare const Filter: React.ComponentType<Pick<IProps, "withToken" | "fields" | "entity" | "filters" | "filterData" | "setFilters" | "applyFilter" | "clearFilter"> & import("@material-ui/core").StyledComponentProps<"input" | "label" | "select" | "clear" | "formControl" | "wrapper" | "iconButton" | "filterButton">>;
+declare const Filter: React.ComponentType<Pick<IProps, "withToken" | "entity" | "fields" | "filters" | "filterData" | "setFilters" | "applyFilter" | "clearFilter"> & import("@material-ui/core").StyledComponentProps<"input" | "label" | "select" | "clear" | "formControl" | "wrapper" | "iconButton" | "filterButton">>;
 export { Filter };

@@ -26,7 +26,7 @@ import { IEntityField, ENTITY_SORT_DIRS } from '~/application/';
 import LaunchIcon from '@material-ui/icons/Launch';
 import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink } from 'react-router-dom';
-import { EntityHeadSortable } from '~/components/pages/EntityHeadSortable';
+import { EntityHeadSortable } from '~/application/components/EntityHeadSortable';
 import styles from './styles';
 import { EntityField } from '../EntityField';
 import { useHistory } from 'react-router-dom';

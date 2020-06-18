@@ -20,6 +20,7 @@ import FilterIcon from '@material-ui/icons/FilterList';
 import { EntityField } from '~/application/components/EntityField';
 import { observer } from 'mobx-react';
 import { Entity } from '~/application';
+import { toJS } from 'mobx';
 
 type IProps = WithStyles<typeof styles> & {
   fields: IEntityProps['fields'];

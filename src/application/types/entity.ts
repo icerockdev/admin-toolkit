@@ -1,19 +1,19 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import { IPageProps } from './page';
-import { EntityFieldString } from '~/components/pages/EntityFieldString';
-import { EntityFieldBoolean } from '~/components/pages/EntityFieldBoolean';
-import { EntityFieldDate } from '~/components/pages/EntityFieldDate';
-import { EntityFieldSelect } from '~/components/pages/EntityFieldSelect';
-import { EntityFieldPhone } from '~/components/pages/EntityFieldPhone';
-import { EntityFieldRichText } from '~/components/pages/EntityFieldRichText';
-import { EntityFieldBase64Image } from '~/components/pages/EntityFieldBase64';
+import { EntityFieldString } from '~/application/components/EntityFieldString';
+import { EntityFieldBoolean } from '~/application/components/EntityFieldBoolean';
+import { EntityFieldDate } from '~/application/components/EntityFieldDate';
+import { EntityFieldSelect } from '~/application/components/EntityFieldSelect';
+import { EntityFieldPhone } from '~/application/components/EntityFieldPhone';
+import { EntityFieldRichText } from '~/application/components/EntityFieldRichText';
+import { EntityFieldBase64Image } from '~/application/components/EntityFieldBase64';
 import { FC, MouseEventHandler } from 'react';
-import { EntityFieldNumber } from '~/components/pages/EntityFieldNumber';
-import { EntityFieldDateTime } from '~/components/pages/EntityFieldDatetime';
-import { EntityFieldReferenceSelect } from '~/components/pages/EntityFieldReferenceSelect';
+import { EntityFieldNumber } from '~/application/components/EntityFieldNumber';
+import { EntityFieldDateTime } from '~/application/components/EntityFieldDatetime';
+import { EntityFieldReferenceSelect } from '~/application/components/EntityFieldReferenceSelect';
 import { Entity } from '../modules';
-import { EntityFieldDateRange } from '~/components/pages/EntityFieldDateRange';
+import { EntityFieldDateRange } from '~/application/components/EntityFieldDateRange';
 
 export const ENTITY_FIELD_RENDERS = {
   string: EntityFieldString,
@@ -197,7 +197,7 @@ export type IEntityFieldProps = {
   label?: string;
   error?: string;
   isEditing?: boolean;
-  entity: Entity;
+  entity?: Entity;
   isFiltering?: boolean;
   handler?: (val: any) => void;
   withToken?: (req: any, args: any) => void;

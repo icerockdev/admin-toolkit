@@ -20,5 +20,5 @@ declare type IProps = WithStyles<typeof styles> & {
     onExport: () => void;
     withToken?: (req: any, args: any) => void;
 };
-declare const EntityHead: React.ComponentType<Pick<React.PropsWithChildren<IProps>, "title" | "children" | "withToken" | "url" | "fields" | "entity" | "filters" | "filterData" | "setFilters" | "applyFilter" | "buttons" | "canCreate" | "canExport" | "onExport"> & import("@material-ui/core").StyledComponentProps<"title" | "header" | "buttons" | "export">>;
+declare const EntityHead: React.ComponentType<Pick<React.PropsWithChildren<IProps>, "title" | "children" | "withToken" | "url" | "entity" | "fields" | "filters" | "filterData" | "setFilters" | "applyFilter" | "buttons" | "canCreate" | "canExport" | "onExport"> & import("@material-ui/core").StyledComponentProps<"title" | "header" | "buttons" | "export">>;
 export { EntityHead };

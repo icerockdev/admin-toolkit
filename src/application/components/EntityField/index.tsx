@@ -37,6 +37,7 @@ const EntityField: FC<IProps> = ({
       label: `${field.label || field.name}${
         field.required && isEditing ? ' *' : ''
       }`,
+      name,
       error,
       isEditing,
       isFiltering,
