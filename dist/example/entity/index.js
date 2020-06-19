@@ -1,3 +1,5 @@
+/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+
 import { Entity } from '../../application';
 import { fetchEntityItemsFn, updateEntityFn, createEntityFn, getEntityFn, getEntityTypeVariants, } from './api';
 import { SAMPLE_ENTITY_FIELDS } from './fields';
