@@ -7,6 +7,7 @@ import React, {
   Fragment,
   createElement,
   ReactNode,
+  MouseEvent,
 } from 'react';
 import {
   TableContainer,
@@ -61,7 +62,7 @@ type IProps = WithStyles<typeof styles> & {
   setSelected: (items: any[]) => void;
   onSortChange: (field: string) => void;
   withToken?: (req: any, args: any) => void;
-  onRowClick?: (id: any) => void;
+  onRowClick?: (id: any, event: MouseEvent<any>) => void;
 
   firstRow?: ReactNode;
   lastRow?: ReactNode;
@@ -106,9 +107,9 @@ const EntityList = observer(
       const history = useHistory();
 
       const onRowClicked = useCallback(
-        (id: any) => {
+        (id: any, event: MouseEvent<any>) => {
           if (onRowClick) {
-            return onRowClick(id);
+            return onRowClick(id, event);
           }
 
           if (extra) {
@@ -225,7 +226,9 @@ const EntityList = observer(
                   <Fragment key={i}>
                     <TableRow hover>
                       {extra && (
-                        <TableCell onClick={() => onRowClicked(entry.id)}>
+                        <TableCell
+                          onClick={(event) => onRowClicked(entry.id, event)}
+                        >
                           {expanded[entry.id] ? (
                             <KeyboardArrowDownIcon />
                           ) : (
@@ -248,7 +251,7 @@ const EntityList = observer(
                       {visibleFields.map((field) => (
                         <TableCell
                           key={field.name}
-                          onClick={() => onRowClicked(entry.id)}
+                          onClick={(event) => onRowClicked(entry.id, event)}
                         >
                           <EntityField
                             name={field.name}
