@@ -144,6 +144,11 @@ var Entity = /** @class */ (function (_super) {
             }
             _this.sortBy = field;
         };
+        _this.getFilters = function () {
+            return (_this.filters.length > 0 &&
+                toJS(_this.filters).filter(function (el) { return el.name && el.value !== ''; })) ||
+                [];
+        };
         _this.fetchItems = function () {
             _this.fetchItemsCancel();
             _this.fetchItemsInstance = flow(function () {
@@ -163,9 +168,7 @@ var Entity = /** @class */ (function (_super) {
                             if (!((_b = (_a = this.api) === null || _a === void 0 ? void 0 : _a.list) === null || _b === void 0 ? void 0 : _b.url) || !this.fetchItemsFn) {
                                 throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
                             }
-                            filter = (this.filters.length > 0 &&
-                                toJS(this.filters).filter(function (el) { return el.name && el.value !== ''; })) ||
-                                [];
+                            filter = this.getFilters();
                             return [4 /*yield*/, (_d = (_c = this.parent) === null || _c === void 0 ? void 0 : _c.auth) === null || _d === void 0 ? void 0 : _d.withToken(this.fetchItemsFn, {
                                     url: ((_f = (_e = this.api) === null || _e === void 0 ? void 0 : _e.list) === null || _f === void 0 ? void 0 : _f.url) || '',
                                     filter: filter,
@@ -421,7 +424,7 @@ var Entity = /** @class */ (function (_super) {
                             return [2 /*return*/];
                         return [4 /*yield*/, ((_b = (_a = this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken(this.fetchItemsFn, {
                                 url: (_d = (_c = this.api) === null || _c === void 0 ? void 0 : _c.list) === null || _d === void 0 ? void 0 : _d.url,
-                                filter: this.filters,
+                                filter: this.getFilters(),
                                 page: 0,
                                 count: 1000,
                                 sortDir: 'DESC',
@@ -447,9 +450,7 @@ var Entity = /** @class */ (function (_super) {
             });
         }); };
         _this.setFiltersWindowHash = function () {
-            var filters = _this.filters
-                .filter(function (filter) { return !!filter.value; })
-                .reduce(function (obj, filter) {
+            var filters = _this.getFilters().reduce(function (obj, filter) {
                 var _a;
                 return (__assign(__assign({}, obj), (_a = {}, _a[filter.name] = filter.value, _a)));
             }, {});

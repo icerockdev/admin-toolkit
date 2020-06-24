@@ -36,10 +36,10 @@ var EntityList = observer(withStyles(styles)(function (_a) {
     var _g = useState({}), expanded = _g[0], setExpanded = _g[1];
     var visibleFields = useMemo(function () { return fields.filter(function (field) { return !field.hideInList; }); }, [fields]);
     var history = useHistory();
-    var onRowClicked = useCallback(function (id) {
+    var onRowClicked = useCallback(function (id, event) {
         var _a;
         if (onRowClick) {
-            return onRowClick(id);
+            return onRowClick(id, event);
         }
         if (extra) {
             return setExpanded(__assign(__assign({}, expanded), (_a = {}, _a[id] = !expanded[id], _a)));
@@ -102,12 +102,12 @@ var EntityList = observer(withStyles(styles)(function (_a) {
                     firstRow,
                     data.map(function (entry, i) { return (React.createElement(Fragment, { key: i },
                         React.createElement(TableRow, { hover: true },
-                            extra && (React.createElement(TableCell, { onClick: function () { return onRowClicked(entry.id); } }, expanded[entry.id] ? (React.createElement(KeyboardArrowDownIcon, null)) : (React.createElement(KeyboardArrowRightIcon, null)))),
+                            extra && (React.createElement(TableCell, { onClick: function (event) { return onRowClicked(entry.id, event); } }, expanded[entry.id] ? (React.createElement(KeyboardArrowDownIcon, null)) : (React.createElement(KeyboardArrowRightIcon, null)))),
                             canSelect && (React.createElement(TableCell, null,
                                 React.createElement(Checkbox, { checked: selected.includes(entry.id), onChange: function (_, includes) {
                                         return onSelect(entry.id, includes);
                                     } }))),
-                            visibleFields.map(function (field) { return (React.createElement(TableCell, { key: field.name, onClick: function () { return onRowClicked(entry.id); } },
+                            visibleFields.map(function (field) { return (React.createElement(TableCell, { key: field.name, onClick: function (event) { return onRowClicked(entry.id, event); } },
                                 React.createElement(EntityField, { name: field.name, fields: fields, data: entry, withToken: withToken, entity: entity }))); }),
                             canEdit && (React.createElement(TableCell, { size: "small", align: "right", className: classes.button },
                                 React.createElement(Button, { to: url + "/" + entry.id + "/edit", component: RouterLink },

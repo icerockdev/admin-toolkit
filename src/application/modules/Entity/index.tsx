@@ -111,6 +111,11 @@ export class Entity extends Page {
 
   fetchItemsInstance?: CancellablePromise<any>;
 
+  getFilters = (): IEntityProps['filters'] =>
+    (this.filters.length > 0 &&
+      toJS(this.filters).filter((el) => el.name && el.value !== '')) ||
+    [];
+
   @action
   fetchItems = () => {
     this.fetchItemsCancel();
@@ -126,10 +131,7 @@ export class Entity extends Page {
           throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
         }
 
-        const filter =
-          (this.filters.length > 0 &&
-            toJS(this.filters).filter((el) => el.name && el.value !== '')) ||
-          [];
+        const filter = this.getFilters();
 
         const result: Unwrap<typeof this.fetchItemsFn> = yield this.parent?.auth?.withToken(
           this.fetchItemsFn,
@@ -412,9 +414,9 @@ export class Entity extends Page {
 
   @action
   onMount = () => {
-    this.fetchItems();
     this.getFiltersFromHash();
     reaction(() => this.filters, this.setFiltersWindowHash);
+    this.fetchItems();
   };
 
   @action
@@ -428,7 +430,7 @@ export class Entity extends Page {
 
     const response = await this.parent?.auth?.withToken(this.fetchItemsFn, {
       url: this.api?.list?.url,
-      filter: this.filters,
+      filter: this.getFilters(),
       page: 0,
       count: 1000,
       sortDir: 'DESC',
@@ -770,9 +772,10 @@ export class Entity extends Page {
 
   @action
   setFiltersWindowHash = () => {
-    const filters = this.filters
-      .filter((filter) => !!filter.value)
-      .reduce((obj, filter) => ({ ...obj, [filter.name]: filter.value }), {});
+    const filters = this.getFilters().reduce(
+      (obj, filter) => ({ ...obj, [filter.name]: filter.value }),
+      {}
+    );
 
     const params = new URLSearchParams(filters);
 

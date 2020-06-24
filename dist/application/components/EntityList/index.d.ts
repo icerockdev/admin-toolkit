@@ -1,6 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { ReactNode } from 'react';
+import React, { ReactNode, MouseEvent } from 'react';
 import { WithStyles } from '@material-ui/core';
 import { IEntityField, ENTITY_SORT_DIRS } from '../..';
 import styles from './styles';
@@ -24,7 +24,7 @@ declare type IProps = WithStyles<typeof styles> & {
     setSelected: (items: any[]) => void;
     onSortChange: (field: string) => void;
     withToken?: (req: any, args: any) => void;
-    onRowClick?: (id: any) => void;
+    onRowClick?: (id: any, event: MouseEvent<any>) => void;
     firstRow?: ReactNode;
     lastRow?: ReactNode;
     tableHead?: ReactNode;
