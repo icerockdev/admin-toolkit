@@ -20,7 +20,7 @@ var EntityFieldDateRange = function (_a) {
     var onChange = useCallback(function (value) {
         if (!value || !handler)
             return;
-        var filtered = value.map(function (val) { return (val && val.toISOString()) || ''; });
+        var filtered = value.map(function (val) { return (val && val.valueOf() && val.toISOString()) || ''; });
         handler(filtered.join(','));
     }, [value, handler]);
     var parsed = useMemo(function () {
