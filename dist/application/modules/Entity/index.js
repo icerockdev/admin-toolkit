@@ -407,9 +407,9 @@ var Entity = /** @class */ (function (_super) {
             _this.editorData = {};
         };
         _this.onMount = function () {
-            _this.fetchItems();
             _this.getFiltersFromHash();
             reaction(function () { return _this.filters; }, _this.setFiltersWindowHash);
+            _this.fetchItems();
         };
         _this.onUnmount = function () {
             _this.fetchItemsCancel();

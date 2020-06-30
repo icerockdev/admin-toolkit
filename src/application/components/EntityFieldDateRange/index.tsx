@@ -23,7 +23,7 @@ const EntityFieldDateRange: FC<IProps> = ({
       if (!value || !handler) return;
 
       const filtered = value.map(
-        (val: Date) => (val && val.toISOString()) || ''
+        (val: Date) => (val && val.valueOf() && val.toISOString()) || ''
       );
 
       handler(filtered.join(','));
