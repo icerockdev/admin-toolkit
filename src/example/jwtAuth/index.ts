@@ -1,6 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import { JWTAuthProvider } from '~/application';
+import { JWTAuthProvider, IAuthPasswUpdateFn } from '~/application';
 import { Unwrap } from '~/application/types/common';
 import { IJWTAuthRequestFn } from '~/application/modules/JWTAuthProvider';
 
@@ -28,6 +28,16 @@ export default new JWTAuthProvider({
       resolve({ error: '' });
     }),
 
+  authPasswUpdateFn: (token, password, passwordRepeat) =>
+    new Promise((resolve) => {
+      console.log('Resetting password with: ', {
+        token,
+        password,
+        passwordRepeat,
+      });
+      resolve({ error: '' });
+    }),
+
   tokenRefreshFn: (refresh: string) => {
     console.log('Refreshing JWT tokens');
     const seed = Math.random() * 65535;
@@ -42,4 +52,7 @@ export default new JWTAuthProvider({
       )
     );
   },
+
+  newPasswordValidator: (password: string) =>
+    password.length > 5 ? '' : 'Password must be at least 6 symbols long',
 });

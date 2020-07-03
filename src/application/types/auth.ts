@@ -21,6 +21,14 @@ export type IAuthRequestFn = (
 ) => Promise<{ user: IAuthProviderProps['user']; error: string }>;
 
 export type IAuthPasswRestoreFn = (email: string) => Promise<{ error: string }>;
+export type IAuthPasswUpdateFn = (
+  token: string,
+  password: string,
+  passwordRepeat?: string
+) => Promise<{ error: string }>;
+export type IAuthNewPasswordValidator = (
+  password: string
+) => string | undefined;
 
 export interface IAuthProviderProps {
   user: {
@@ -37,4 +45,6 @@ export interface IAuthProviderProps {
 
   authRequestFn?: IAuthRequestFn;
   authPasswRestoreFn?: IAuthPasswRestoreFn;
+  authPasswUpdateFn?: IAuthPasswUpdateFn;
+  newPasswordValidator?: IAuthNewPasswordValidator;
 }

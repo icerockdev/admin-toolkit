@@ -18,6 +18,7 @@ import styles from './styles';
 import { ForgotPassword } from '~/containers/login/ForgotPassword';
 import DateFnsAdapter from '@material-ui/pickers/adapter/date-fns'; // choose your lib
 import { LocalizationProvider } from '@material-ui/pickers';
+import { ResetPassword } from '~/containers/login/ResetPassword';
 
 type IProps = WithStyles<typeof styles> & {
   config: Config;
@@ -67,6 +68,16 @@ const Application = withStyles(styles)(
                 render={() => (
                   <ForgotPassword
                     onSubmit={config.auth?.sendAuthPasswRestore}
+                  />
+                )}
+              />
+
+              <Route
+                path="/reset-password/:token"
+                render={(params) => (
+                  <ResetPassword
+                    onSubmit={config.auth?.sendAuthPasswUpdate}
+                    token={params.match.params.token}
                   />
                 )}
               />

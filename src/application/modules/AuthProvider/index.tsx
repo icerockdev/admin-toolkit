@@ -17,8 +17,10 @@ export class AuthProvider {
   @observable user: IAuthProviderProps['user'] = EMPTY_USER;
   @observable authRequestFn?: IAuthProviderProps['authRequestFn'];
   @observable authPasswRestoreFn?: IAuthProviderProps['authPasswRestoreFn'];
+  @observable authPasswUpdateFn?: IAuthProviderProps['authPasswUpdateFn'];
   @observable roleTitles?: Record<any, string>;
   @observable persist?: IAuthProviderProps['persist'] = true;
+  @observable newPasswordValidator?: IAuthProviderProps['newPasswordValidator'];
 
   constructor(fields?: Partial<IAuthProviderProps>) {
     if (fields) {
@@ -71,6 +73,7 @@ export class AuthProvider {
         this.user = response.user;
       } catch (e) {
         this.error = e;
+        this.parent?.notifications.showError(e.toString());
       } finally {
         this.isLoading = false;
       }
@@ -107,6 +110,7 @@ export class AuthProvider {
         this.parent?.history.push('/');
       } catch (e) {
         this.error = e;
+        this.parent?.notifications.showError(e.toString());
       } finally {
         this.isLoading = false;
       }
@@ -118,7 +122,71 @@ export class AuthProvider {
       this.sendAuthPasswRestoreInstance &&
       this.sendAuthPasswRestoreInstance.cancel
     ) {
-      this.sendAuthPasswRestoreInstance.cancel();
+      try {
+        this.sendAuthPasswRestoreInstance.cancel();
+      } catch (e) {}
+    }
+  };
+
+  sendAuthPasswUpdateInstance?: CancellablePromise<any>;
+
+  @action
+  sendAuthPasswUpdate = ({
+    token,
+    password,
+    passwordRepeat,
+  }: {
+    token: string;
+    password: string;
+    passwordRepeat: string;
+  }) => {
+    this.sendAuthPasswRestoreCancel();
+
+    this.sendAuthPasswUpdateInstance = flow(function* sendAuthPasswUpdate(
+      this: AuthProvider
+    ) {
+      if (!this.authPasswUpdateFn) return;
+
+      this.isLoading = true;
+
+      try {
+        if (password !== passwordRepeat) {
+          throw new Error(`Passwords doesn't match`);
+        }
+
+        if (this.newPasswordValidator && this.newPasswordValidator(password)) {
+          throw new Error(this.newPasswordValidator(password));
+        }
+
+        const response = yield this.authPasswUpdateFn(
+          token,
+          password,
+          passwordRepeat
+        ).catch(() => null);
+
+        if (!response || response.error) {
+          throw new Error(response.error);
+        }
+
+        this.parent?.notifications.showSuccess('You can now log in');
+        this.parent?.history.push('/');
+      } catch (e) {
+        this.error = e;
+        this.parent?.notifications.showError(e.toString());
+      } finally {
+        this.isLoading = false;
+      }
+    }).bind(this)();
+  };
+
+  sendAuthPasswUpdateCancel = () => {
+    if (
+      this.sendAuthPasswUpdateInstance &&
+      this.sendAuthPasswUpdateInstance.cancel
+    ) {
+      try {
+        this.sendAuthPasswUpdateInstance.cancel();
+      } catch (e) {}
     }
   };
 
