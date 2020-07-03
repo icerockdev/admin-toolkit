@@ -8,8 +8,10 @@ export declare class AuthProvider {
     user: IAuthProviderProps['user'];
     authRequestFn?: IAuthProviderProps['authRequestFn'];
     authPasswRestoreFn?: IAuthProviderProps['authPasswRestoreFn'];
+    authPasswUpdateFn?: IAuthProviderProps['authPasswUpdateFn'];
     roleTitles?: Record<any, string>;
     persist?: IAuthProviderProps['persist'];
+    newPasswordValidator?: IAuthProviderProps['newPasswordValidator'];
     constructor(fields?: Partial<IAuthProviderProps>);
     isLoading: boolean;
     error: string;
@@ -24,6 +26,13 @@ export declare class AuthProvider {
         email: string;
     }) => void;
     sendAuthPasswRestoreCancel: () => void;
+    sendAuthPasswUpdateInstance?: CancellablePromise<any>;
+    sendAuthPasswUpdate: ({ token, password, passwordRepeat, }: {
+        token: string;
+        password: string;
+        passwordRepeat: string;
+    }) => void;
+    sendAuthPasswUpdateCancel: () => void;
     getPersistedCredentials: () => {
         user?: {
             id?: number | undefined;

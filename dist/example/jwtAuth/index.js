@@ -21,6 +21,16 @@ export default new JWTAuthProvider({
             resolve({ error: '' });
         });
     },
+    authPasswUpdateFn: function (token, password, passwordRepeat) {
+        return new Promise(function (resolve) {
+            console.log('Resetting password with: ', {
+                token: token,
+                password: password,
+                passwordRepeat: passwordRepeat,
+            });
+            resolve({ error: '' });
+        });
+    },
     tokenRefreshFn: function (refresh) {
         console.log('Refreshing JWT tokens');
         var seed = Math.random() * 65535;
@@ -32,5 +42,8 @@ export default new JWTAuthProvider({
                 });
             }, 3000);
         });
+    },
+    newPasswordValidator: function (password) {
+        return password.length > 5 ? '' : 'Password must be at least 6 symbols long';
     },
 });

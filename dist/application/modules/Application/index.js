@@ -10,6 +10,7 @@ import styles from './styles';
 import { ForgotPassword } from '../../../containers/login/ForgotPassword';
 import DateFnsAdapter from '@material-ui/pickers/adapter/date-fns'; // choose your lib
 import { LocalizationProvider } from '@material-ui/pickers';
+import { ResetPassword } from '../../../containers/login/ResetPassword';
 var Application = withStyles(styles)(observer(function (_a) {
     var classes = _a.classes, config = _a.config;
     var _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
@@ -40,6 +41,10 @@ var Application = withStyles(styles)(observer(function (_a) {
                     React.createElement(Route, { path: "/restore", render: function () {
                             var _a;
                             return (React.createElement(ForgotPassword, { onSubmit: (_a = config.auth) === null || _a === void 0 ? void 0 : _a.sendAuthPasswRestore }));
+                        } }),
+                    React.createElement(Route, { path: "/reset-password/:token", render: function (params) {
+                            var _a;
+                            return (React.createElement(ResetPassword, { onSubmit: (_a = config.auth) === null || _a === void 0 ? void 0 : _a.sendAuthPasswUpdate, token: params.match.params.token }));
                         } }),
                     React.createElement(SignIn, { onSubmit: config.auth.sendAuthRequest, onForgotScreenClick: onForgotPassword }))),
             React.createElement(config.notifications.Output, null)));

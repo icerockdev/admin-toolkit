@@ -69,26 +69,28 @@ var AuthProvider = /** @class */ (function () {
             _this.sendAuthRequestCancel();
             _this.sendAuthRequestInstance = flow(function sendAuthRequest() {
                 var response, e_1;
-                return __generator(this, function (_a) {
-                    switch (_a.label) {
+                var _a;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
                         case 0:
                             if (!this.authRequestFn)
                                 return [2 /*return*/];
                             this.isLoading = true;
-                            _a.label = 1;
+                            _b.label = 1;
                         case 1:
-                            _a.trys.push([1, 3, 4, 5]);
+                            _b.trys.push([1, 3, 4, 5]);
                             return [4 /*yield*/, this.authRequestFn(email, password).catch(function () { return null; })];
                         case 2:
-                            response = _a.sent();
+                            response = _b.sent();
                             if (!response || response.error) {
                                 throw new Error(response.error);
                             }
                             this.user = response.user;
                             return [3 /*break*/, 5];
                         case 3:
-                            e_1 = _a.sent();
+                            e_1 = _b.sent();
                             this.error = e_1;
+                            (_a = this.parent) === null || _a === void 0 ? void 0 : _a.notifications.showError(e_1.toString());
                             return [3 /*break*/, 5];
                         case 4:
                             this.isLoading = false;
@@ -108,19 +110,19 @@ var AuthProvider = /** @class */ (function () {
             _this.sendAuthPasswRestoreCancel();
             _this.sendAuthPasswRestoreInstance = flow(function sendAuthPasswRestore() {
                 var response, e_2;
-                var _a, _b;
-                return __generator(this, function (_c) {
-                    switch (_c.label) {
+                var _a, _b, _c;
+                return __generator(this, function (_d) {
+                    switch (_d.label) {
                         case 0:
                             if (!this.authPasswRestoreFn)
                                 return [2 /*return*/];
                             this.isLoading = true;
-                            _c.label = 1;
+                            _d.label = 1;
                         case 1:
-                            _c.trys.push([1, 3, 4, 5]);
+                            _d.trys.push([1, 3, 4, 5]);
                             return [4 /*yield*/, this.authPasswRestoreFn(email).catch(function () { return null; })];
                         case 2:
-                            response = _c.sent();
+                            response = _d.sent();
                             if (!response || response.error) {
                                 throw new Error(response.error);
                             }
@@ -128,8 +130,9 @@ var AuthProvider = /** @class */ (function () {
                             (_b = this.parent) === null || _b === void 0 ? void 0 : _b.history.push('/');
                             return [3 /*break*/, 5];
                         case 3:
-                            e_2 = _c.sent();
+                            e_2 = _d.sent();
                             this.error = e_2;
+                            (_c = this.parent) === null || _c === void 0 ? void 0 : _c.notifications.showError(e_2.toString());
                             return [3 /*break*/, 5];
                         case 4:
                             this.isLoading = false;
@@ -142,7 +145,62 @@ var AuthProvider = /** @class */ (function () {
         this.sendAuthPasswRestoreCancel = function () {
             if (_this.sendAuthPasswRestoreInstance &&
                 _this.sendAuthPasswRestoreInstance.cancel) {
-                _this.sendAuthPasswRestoreInstance.cancel();
+                try {
+                    _this.sendAuthPasswRestoreInstance.cancel();
+                }
+                catch (e) { }
+            }
+        };
+        this.sendAuthPasswUpdate = function (_a) {
+            var token = _a.token, password = _a.password, passwordRepeat = _a.passwordRepeat;
+            _this.sendAuthPasswRestoreCancel();
+            _this.sendAuthPasswUpdateInstance = flow(function sendAuthPasswUpdate() {
+                var response, e_3;
+                var _a, _b, _c;
+                return __generator(this, function (_d) {
+                    switch (_d.label) {
+                        case 0:
+                            if (!this.authPasswUpdateFn)
+                                return [2 /*return*/];
+                            this.isLoading = true;
+                            _d.label = 1;
+                        case 1:
+                            _d.trys.push([1, 3, 4, 5]);
+                            if (password !== passwordRepeat) {
+                                throw new Error("Passwords doesn't match");
+                            }
+                            if (this.newPasswordValidator && this.newPasswordValidator(password)) {
+                                throw new Error(this.newPasswordValidator(password));
+                            }
+                            return [4 /*yield*/, this.authPasswUpdateFn(token, password, passwordRepeat).catch(function () { return null; })];
+                        case 2:
+                            response = _d.sent();
+                            if (!response || response.error) {
+                                throw new Error(response.error);
+                            }
+                            (_a = this.parent) === null || _a === void 0 ? void 0 : _a.notifications.showSuccess('You can now log in');
+                            (_b = this.parent) === null || _b === void 0 ? void 0 : _b.history.push('/');
+                            return [3 /*break*/, 5];
+                        case 3:
+                            e_3 = _d.sent();
+                            this.error = e_3;
+                            (_c = this.parent) === null || _c === void 0 ? void 0 : _c.notifications.showError(e_3.toString());
+                            return [3 /*break*/, 5];
+                        case 4:
+                            this.isLoading = false;
+                            return [7 /*endfinally*/];
+                        case 5: return [2 /*return*/];
+                    }
+                });
+            }).bind(_this)();
+        };
+        this.sendAuthPasswUpdateCancel = function () {
+            if (_this.sendAuthPasswUpdateInstance &&
+                _this.sendAuthPasswUpdateInstance.cancel) {
+                try {
+                    _this.sendAuthPasswUpdateInstance.cancel();
+                }
+                catch (e) { }
             }
         };
         this.getPersistedCredentials = function () {
@@ -208,10 +266,16 @@ var AuthProvider = /** @class */ (function () {
     ], AuthProvider.prototype, "authPasswRestoreFn", void 0);
     __decorate([
         observable
+    ], AuthProvider.prototype, "authPasswUpdateFn", void 0);
+    __decorate([
+        observable
     ], AuthProvider.prototype, "roleTitles", void 0);
     __decorate([
         observable
     ], AuthProvider.prototype, "persist", void 0);
+    __decorate([
+        observable
+    ], AuthProvider.prototype, "newPasswordValidator", void 0);
     __decorate([
         observable
     ], AuthProvider.prototype, "isLoading", void 0);
@@ -224,6 +288,9 @@ var AuthProvider = /** @class */ (function () {
     __decorate([
         action
     ], AuthProvider.prototype, "sendAuthPasswRestore", void 0);
+    __decorate([
+        action
+    ], AuthProvider.prototype, "sendAuthPasswUpdate", void 0);
     __decorate([
         action
     ], AuthProvider.prototype, "logout", void 0);
