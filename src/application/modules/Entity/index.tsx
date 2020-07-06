@@ -66,11 +66,6 @@ export class Entity extends Page {
     if (fields) {
       Object.assign(this, fields);
     }
-
-    reaction(
-      () => [this.page, this.items, this.sortBy, this.sortDir],
-      this.fetchItems
-    );
   }
 
   @action
@@ -416,6 +411,14 @@ export class Entity extends Page {
   onMount = () => {
     this.getFiltersFromHash();
     reaction(() => this.filters, this.setFiltersWindowHash);
+    reaction(() => this.filters, this.setFiltersWindowHash);
+    reaction(
+      () => [this.items, this.sortBy, this.sortDir],
+      () => {
+        this.setPage(0);
+        this.fetchItems();
+      }
+    );
     this.fetchItems();
   };
 

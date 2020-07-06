@@ -409,6 +409,11 @@ var Entity = /** @class */ (function (_super) {
         _this.onMount = function () {
             _this.getFiltersFromHash();
             reaction(function () { return _this.filters; }, _this.setFiltersWindowHash);
+            reaction(function () { return _this.filters; }, _this.setFiltersWindowHash);
+            reaction(function () { return [_this.items, _this.sortBy, _this.sortDir]; }, function () {
+                _this.setPage(0);
+                _this.fetchItems();
+            });
             _this.fetchItems();
         };
         _this.onUnmount = function () {
@@ -468,7 +473,6 @@ var Entity = /** @class */ (function (_super) {
         if (fields) {
             Object.assign(_this, fields);
         }
-        reaction(function () { return [_this.page, _this.items, _this.sortBy, _this.sortDir]; }, _this.fetchItems);
         return _this;
     }
     Object.defineProperty(Entity.prototype, "canEdit", {

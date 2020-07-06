@@ -85,7 +85,6 @@ const ResetPasswordUnstyled: FC<IProps> = ({ classes, onSubmit, token }) => {
               className={classes.marginTop}
               defaultValue={passwordRepeat}
               onChange={onPasswordRepeatChange}
-              autoFocus
             />
 
             <Button

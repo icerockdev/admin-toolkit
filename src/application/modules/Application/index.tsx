@@ -19,6 +19,7 @@ import { ForgotPassword } from '~/containers/login/ForgotPassword';
 import DateFnsAdapter from '@material-ui/pickers/adapter/date-fns'; // choose your lib
 import { LocalizationProvider } from '@material-ui/pickers';
 import { ResetPassword } from '~/containers/login/ResetPassword';
+import ruLocale from 'date-fns/locale/ru';
 
 type IProps = WithStyles<typeof styles> & {
   config: Config;
@@ -96,7 +97,7 @@ const Application = withStyles(styles)(
 
     return (
       <ThemeProvider theme={config.theme}>
-        <LocalizationProvider dateAdapter={DateFnsAdapter}>
+        <LocalizationProvider dateAdapter={DateFnsAdapter} locale={ruLocale}>
           <CssBaseline />
 
           <Router history={config.history}>

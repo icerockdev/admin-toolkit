@@ -24,7 +24,7 @@ var ResetPasswordUnstyled = function (_a) {
                 React.createElement(Typography, { align: "center", component: "h3", className: classes.header }, "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u043D\u043E\u0432\u044B\u0439 \u043F\u0430\u0440\u043E\u043B\u044C"),
                 React.createElement("form", { noValidate: true, onSubmit: onSubmitCapture },
                     React.createElement(TextField, { variant: "outlined", margin: "normal", required: true, fullWidth: true, id: "password", label: "Password", name: "password", className: classes.marginTop, defaultValue: password, onChange: onPasswordChange, autoFocus: true }),
-                    React.createElement(TextField, { variant: "outlined", margin: "normal", required: true, fullWidth: true, id: "password", label: "Password repeat", name: "passwordRepeat", className: classes.marginTop, defaultValue: passwordRepeat, onChange: onPasswordRepeatChange, autoFocus: true }),
+                    React.createElement(TextField, { variant: "outlined", margin: "normal", required: true, fullWidth: true, id: "password", label: "Password repeat", name: "passwordRepeat", className: classes.marginTop, defaultValue: passwordRepeat, onChange: onPasswordRepeatChange }),
                     React.createElement(Button, { type: "submit", fullWidth: true, variant: "contained", color: "primary", className: classes.marginTop, disabled: !password.length ||
                             !passwordRepeat.length ||
                             password !== passwordRepeat }, "\u0412\u043E\u0441\u0441\u0442\u0430\u043D\u043E\u0432\u0438\u0442\u044C"))))));

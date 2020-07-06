@@ -48,6 +48,7 @@ const EntityFieldDateRange: FC<IProps> = ({
   return (
     <div className="datepicker datepicker_range">
       <DateRangePicker
+        mask="__.__.____"
         renderInput={(startProps, endProps) => (
           <>
             <TextField
