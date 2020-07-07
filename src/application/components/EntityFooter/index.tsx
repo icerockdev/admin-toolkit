@@ -22,9 +22,9 @@ const labelDisplayedRows = (page: number, items: number) => ({
   to: number;
   count: number;
 }) =>
-  `Страница ${page + 1} из ${
-    Math.ceil(count / items) + 1
-  }, Результаты ${from}-${to} из ${count}`;
+  `Страница ${page + 1} из ${Math.ceil(
+    count / items
+  )}, Результаты ${from}-${to} из ${count}`;
 
 const EntityFooterUnconnected: FC<IProps> = ({
   classes,

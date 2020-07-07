@@ -413,11 +413,7 @@ var Entity = /** @class */ (function (_super) {
         _this.onMount = function () {
             _this.getFiltersFromHash();
             reaction(function () { return _this.filters; }, _this.setFiltersWindowHash);
-            reaction(function () { return _this.filters; }, _this.setFiltersWindowHash);
-            reaction(function () { return [_this.items, _this.sortBy, _this.sortDir]; }, function () {
-                _this.setPage(0);
-                _this.fetchItems();
-            });
+            reaction(function () { return [_this.items, _this.sortBy, _this.sortDir]; }, _this.applyFilter);
             _this.fetchItems();
         };
         _this.onUnmount = function () {
