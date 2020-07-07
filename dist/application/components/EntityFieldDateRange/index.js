@@ -34,7 +34,7 @@ var EntityFieldDateRange = function (_a) {
     if (!isFiltering)
         return null;
     return (React.createElement("div", { className: "datepicker datepicker_range" },
-        React.createElement(DateRangePicker, { renderInput: function (startProps, endProps) { return (React.createElement(React.Fragment, null,
+        React.createElement(DateRangePicker, { mask: "__.__.____", renderInput: function (startProps, endProps) { return (React.createElement(React.Fragment, null,
                 React.createElement(TextField, __assign({}, startProps, { variant: "outlined", helperText: label, label: "" })),
                 React.createElement(TextField, __assign({}, endProps, { variant: "outlined", helperText: "", label: "" })))); }, value: parsed, onChange: onChange })));
 };

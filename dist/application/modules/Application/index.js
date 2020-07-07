@@ -11,6 +11,7 @@ import { ForgotPassword } from '../../../containers/login/ForgotPassword';
 import DateFnsAdapter from '@material-ui/pickers/adapter/date-fns'; // choose your lib
 import { LocalizationProvider } from '@material-ui/pickers';
 import { ResetPassword } from '../../../containers/login/ResetPassword';
+import ruLocale from 'date-fns/locale/ru';
 var Application = withStyles(styles)(observer(function (_a) {
     var classes = _a.classes, config = _a.config;
     var _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p;
@@ -50,7 +51,7 @@ var Application = withStyles(styles)(observer(function (_a) {
             React.createElement(config.notifications.Output, null)));
     }
     return (React.createElement(ThemeProvider, { theme: config.theme },
-        React.createElement(LocalizationProvider, { dateAdapter: DateFnsAdapter },
+        React.createElement(LocalizationProvider, { dateAdapter: DateFnsAdapter, locale: ruLocale },
             React.createElement(CssBaseline, null),
             React.createElement(Router, { history: config.history },
                 React.createElement(Navigation, { links: links, logo: { url: config.logo, title: config.title }, account: {

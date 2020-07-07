@@ -111,6 +111,11 @@ export class Entity extends Page {
       toJS(this.filters).filter((el) => el.name && el.value !== '')) ||
     [];
 
+  applyFilter = () => {
+    this.page = 0;
+    this.fetchItems();
+  };
+
   @action
   fetchItems = () => {
     this.fetchItemsCancel();
@@ -411,14 +416,7 @@ export class Entity extends Page {
   onMount = () => {
     this.getFiltersFromHash();
     reaction(() => this.filters, this.setFiltersWindowHash);
-    reaction(() => this.filters, this.setFiltersWindowHash);
-    reaction(
-      () => [this.items, this.sortBy, this.sortDir],
-      () => {
-        this.setPage(0);
-        this.fetchItems();
-      }
-    );
+    reaction(() => [this.items, this.sortBy, this.sortDir], this.applyFilter);
     this.fetchItems();
   };
 
@@ -488,7 +486,7 @@ export class Entity extends Page {
         fields={this.fields}
         setFilters={this.setFilters}
         url={this.menu.url}
-        applyFilter={this.fetchItems}
+        applyFilter={this.applyFilter}
         withToken={this.parent?.auth?.withToken}
         onExport={this.exportData}
         canExport={this.exportable}

@@ -40,6 +40,7 @@ export declare class Entity extends Page {
     setSort: (field: string) => void;
     fetchItemsInstance?: CancellablePromise<any>;
     getFilters: () => IFilterValue[];
+    applyFilter: () => void;
     fetchItems: () => void;
     fetchItemsCancel: () => void;
     updateItemInstance?: CancellablePromise<any>;

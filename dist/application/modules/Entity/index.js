@@ -149,6 +149,10 @@ var Entity = /** @class */ (function (_super) {
                 toJS(_this.filters).filter(function (el) { return el.name && el.value !== ''; })) ||
                 [];
         };
+        _this.applyFilter = function () {
+            _this.page = 0;
+            _this.fetchItems();
+        };
         _this.fetchItems = function () {
             _this.fetchItemsCancel();
             _this.fetchItemsInstance = flow(function () {
@@ -515,7 +519,7 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function () {
                 var _a, _b;
-                return (React.createElement(EntityHead, { filterData: _this.filterData, title: React.createElement(_this.ListHeadTitle, null), buttons: React.createElement(_this.ListHeadButtons, null), filters: _this.filters, fields: _this.fields, setFilters: _this.setFilters, url: _this.menu.url, applyFilter: _this.fetchItems, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken, onExport: _this.exportData, canExport: _this.exportable, canCreate: _this.creatable && _this.canCreate, entity: _this }));
+                return (React.createElement(EntityHead, { filterData: _this.filterData, title: React.createElement(_this.ListHeadTitle, null), buttons: React.createElement(_this.ListHeadButtons, null), filters: _this.filters, fields: _this.fields, setFilters: _this.setFilters, url: _this.menu.url, applyFilter: _this.applyFilter, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken, onExport: _this.exportData, canExport: _this.exportable, canCreate: _this.creatable && _this.canCreate, entity: _this }));
             });
         },
         enumerable: true,

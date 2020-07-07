@@ -13,6 +13,19 @@ type IProps = WithStyles<typeof styles> & {
   setPerPage: (count: number) => void;
 };
 
+const labelDisplayedRows = (page: number, items: number) => ({
+  from,
+  to,
+  count,
+}: {
+  from: number;
+  to: number;
+  count: number;
+}) =>
+  `Страница ${page + 1} из ${
+    Math.ceil(count / items) + 1
+  }, Результаты ${from}-${to} из ${count}`;
+
 const EntityFooterUnconnected: FC<IProps> = ({
   classes,
   totalCount,
@@ -40,6 +53,7 @@ const EntityFooterUnconnected: FC<IProps> = ({
       onChangePage={onChangePage}
       onChangeRowsPerPage={onChangeRowsPerPage}
       className={classes.pager}
+      labelDisplayedRows={labelDisplayedRows(page, items)}
     />
   );
 };
