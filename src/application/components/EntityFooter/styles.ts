@@ -3,6 +3,19 @@
 import { Theme } from '@material-ui/core';
 
 export default (theme: Theme) => ({
+  floater: {
+    width: '100%',
+    bottom: 0,
+    left: 0,
+    backgroundColor: '#fefefe',
+    boxShadow: 'rgba(0, 0, 0, 0.1) 0 -3px 3px',
+
+    '& .MuiTablePagination-root': {
+      padding: 10,
+      margin: 0,
+      paddingTop: '10px !important',
+    },
+  },
   pager: {
     margin: '30px 20px 20px 20px',
     paddingTop: '20px !important',

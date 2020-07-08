@@ -16,7 +16,10 @@ export const fetchEntityItemsFn: IEntityFetchFunction = ({ ...props }) =>
 
     setTimeout(resolve, 500, {
       data: {
-        list: [SAMPLE_ENTITY_1, SAMPLE_ENTITY_2],
+        list: [...new Array(props.count)].map((_, index) => ({
+          ...SAMPLE_ENTITY_1,
+          id: index,
+        })),
         totalPages: 10,
       },
     });
