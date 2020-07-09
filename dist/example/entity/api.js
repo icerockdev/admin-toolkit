@@ -54,7 +54,7 @@ export var fetchEntityItemsFn = function (_a) {
         setTimeout(resolve, 500, {
             data: {
                 list: [SAMPLE_ENTITY_1, SAMPLE_ENTITY_2],
-                totalPages: 10,
+                totalCount: 100,
             },
         });
     });
