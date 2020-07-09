@@ -2,6 +2,18 @@
 
 import { Theme } from '@material-ui/core';
 declare const _default: (theme: Theme) => {
+    floater: {
+        width: string;
+        bottom: number;
+        left: number;
+        backgroundColor: string;
+        boxShadow: string;
+        '& .MuiTablePagination-root': {
+            padding: number;
+            margin: number;
+            paddingTop: string;
+        };
+    };
     pager: {
         margin: string;
         paddingTop: string;

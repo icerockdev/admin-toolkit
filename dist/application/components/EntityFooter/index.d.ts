@@ -11,5 +11,5 @@ declare type IProps = WithStyles<typeof styles> & {
     setPage: (count: number) => void;
     setPerPage: (count: number) => void;
 };
-declare const EntityFooter: React.ComponentType<Pick<React.PropsWithChildren<IProps>, "children" | "page" | "totalCount" | "itemsPerPage" | "items" | "setPage" | "setPerPage"> & import("@material-ui/core").StyledComponentProps<"pager">>;
+declare const EntityFooter: React.ComponentType<Pick<React.PropsWithChildren<IProps>, "children" | "page" | "totalCount" | "itemsPerPage" | "items" | "setPage" | "setPerPage"> & import("@material-ui/core").StyledComponentProps<"floater" | "pager">>;
 export { EntityFooter };
