@@ -1,12 +1,11 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import {
-  IEntityFetchFunction,
-  IEntityUpdateFunction,
-  IEntityCreateFunction,
-  IEntityGetFunction,
   Entity,
-  UNAUTHORIZED,
+  IEntityCreateFunction,
+  IEntityFetchFunction,
+  IEntityGetFunction,
+  IEntityUpdateFunction,
 } from '~/application';
 import { SAMPLE_ENTITY_1, SAMPLE_ENTITY_2 } from './mocked_data';
 
@@ -20,7 +19,7 @@ export const fetchEntityItemsFn: IEntityFetchFunction = ({ ...props }) =>
           ...SAMPLE_ENTITY_1,
           id: index,
         })),
-        totalPages: 10,
+        totalPages: 100,
       },
     });
   });

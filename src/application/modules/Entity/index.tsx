@@ -415,8 +415,12 @@ export class Entity extends Page {
   @action
   onMount = () => {
     this.getFiltersFromHash();
-    reaction(() => this.filters, this.setFiltersWindowHash);
+    reaction(
+      () => [this.filters, this.sortBy, this.sortDir, this.page, this.items],
+      this.setFiltersWindowHash
+    );
     reaction(() => [this.items, this.sortBy, this.sortDir], this.applyFilter);
+    reaction(() => this.page, this.fetchItems);
     this.fetchItems();
   };
 
@@ -778,7 +782,13 @@ export class Entity extends Page {
       {}
     );
 
-    const params = new URLSearchParams(filters);
+    const params = new URLSearchParams({
+      ...filters,
+      _page: this.page.toString(),
+      _sortBy: this.sortBy.toString(),
+      _sortDir: this.sortDir.toString(),
+      _items: this.items.toString(),
+    });
 
     window.location.hash = params.toString();
   };
@@ -794,5 +804,24 @@ export class Entity extends Page {
       .map((field) => ({ value: query[field.name], name: field.name }));
 
     this.setFilters(filters);
+
+    if (query._page && parseInt(query._page)) {
+      this.page = parseInt(query._page);
+    }
+
+    if (query._sortDir && ['asc', 'desc'].includes(query._sortDir)) {
+      this.sortDir = query._sortDir === 'asc' ? 'asc' : 'desc';
+    }
+
+    if (
+      query._sortBy &&
+      this.fields.some((field) => field.name === query._sortBy)
+    ) {
+      this.sortBy = query._sortBy;
+    }
+
+    if (query._items && parseInt(query._items)) {
+      this.items = parseInt(query._items);
+    }
   };
 }

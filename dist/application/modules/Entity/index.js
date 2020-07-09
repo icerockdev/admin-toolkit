@@ -412,8 +412,9 @@ var Entity = /** @class */ (function (_super) {
         };
         _this.onMount = function () {
             _this.getFiltersFromHash();
-            reaction(function () { return _this.filters; }, _this.setFiltersWindowHash);
+            reaction(function () { return [_this.filters, _this.sortBy, _this.sortDir, _this.page]; }, _this.setFiltersWindowHash);
             reaction(function () { return [_this.items, _this.sortBy, _this.sortDir]; }, _this.applyFilter);
+            reaction(function () { return _this.page; }, _this.fetchItems);
             _this.fetchItems();
         };
         _this.onUnmount = function () {
@@ -459,7 +460,7 @@ var Entity = /** @class */ (function (_super) {
                 var _a;
                 return (__assign(__assign({}, obj), (_a = {}, _a[filter.name] = filter.value, _a)));
             }, {});
-            var params = new URLSearchParams(filters);
+            var params = new URLSearchParams(__assign(__assign({}, filters), { _page: _this.page.toString(), _sortBy: _this.sortBy.toString(), _sortDir: _this.sortDir.toString() }));
             window.location.hash = params.toString();
         };
         _this.getFiltersFromHash = function () {
@@ -469,6 +470,16 @@ var Entity = /** @class */ (function (_super) {
                 .filter(function (field) { return field.filterable && Object.keys(query).includes(field.name); })
                 .map(function (field) { return ({ value: query[field.name], name: field.name }); });
             _this.setFilters(filters);
+            if (query._page && parseInt(query._page)) {
+                _this.page = parseInt(query._page);
+            }
+            if (query._sortDir && ['asc', 'desc'].includes(query._sortDir)) {
+                _this.sortDir = query._sortDir === 'asc' ? 'asc' : 'desc';
+            }
+            if (query._sortBy &&
+                _this.fields.some(function (field) { return field.name === query._sortBy; })) {
+                _this.sortBy = query._sortBy;
+            }
         };
         if (fields) {
             Object.assign(_this, fields);
