@@ -416,7 +416,7 @@ export class Entity extends Page {
   onMount = () => {
     this.getFiltersFromHash();
     reaction(
-      () => [this.filters, this.sortBy, this.sortDir, this.page],
+      () => [this.filters, this.sortBy, this.sortDir, this.page, this.items],
       this.setFiltersWindowHash
     );
     reaction(() => [this.items, this.sortBy, this.sortDir], this.applyFilter);
@@ -787,6 +787,7 @@ export class Entity extends Page {
       _page: this.page.toString(),
       _sortBy: this.sortBy.toString(),
       _sortDir: this.sortDir.toString(),
+      _items: this.items.toString(),
     });
 
     window.location.hash = params.toString();
@@ -817,6 +818,10 @@ export class Entity extends Page {
       this.fields.some((field) => field.name === query._sortBy)
     ) {
       this.sortBy = query._sortBy;
+    }
+
+    if (query._items && parseInt(query._items)) {
+      this.items = parseInt(query._items);
     }
   };
 }
