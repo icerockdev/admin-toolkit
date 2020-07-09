@@ -2,11 +2,11 @@
 import React from 'react';
 import { Entity } from '~/application';
 import {
-  fetchEntityItemsFn,
-  updateEntityFn,
   createEntityFn,
+  fetchEntityItemsFn,
   getEntityFn,
   getEntityTypeVariants,
+  updateEntityFn,
 } from './api';
 import { SAMPLE_ENTITY_FIELDS } from './fields';
 
