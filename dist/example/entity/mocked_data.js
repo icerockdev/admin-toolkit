@@ -4,8 +4,8 @@ export var SAMPLE_ENTITY_1 = {
     type: 1,
     phone: '+7 000 000 000',
     title: 'First one',
-    created: new Date().toISOString(),
-    createdTime: new Date().toISOString(),
+    created: '2020-05-27T10:56:56.281+0000',
+    createdTime: '2020-05-27T10:56:56.281+0000',
     number: '0.123123123',
     visible: true,
 };
@@ -14,8 +14,8 @@ export var SAMPLE_ENTITY_2 = {
     type: 2,
     phone: '+7 000 000 000',
     title: 'First one',
-    created: new Date().toISOString(),
-    createdTime: new Date().toISOString(),
+    created: '2020-05-27T10:56:56.281+0000',
+    createdTime: '2020-05-27T10:56:56.281+0000',
     number: 0.123123123,
     visible: true,
 };

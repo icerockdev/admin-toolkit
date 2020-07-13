@@ -10,12 +10,12 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { DatePicker } from '@material-ui/pickers';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 import { TextField } from '@material-ui/core';
-import { isValid } from 'date-fns';
+import { formatISO, isValid } from 'date-fns';
 var EntityFieldDate = function (_a) {
     var value = _a.value, handler = _a.handler, label = _a.label, error = _a.error, isEditing = _a.isEditing, onClick = _a.onClick;
     var onChange = useCallback(function (value) {
@@ -23,7 +23,11 @@ var EntityFieldDate = function (_a) {
             return;
         handler(value.toISOString());
     }, [value, handler]);
+    var parsedValue = useMemo(function () {
+        var date = parseISO(value);
+        return (date && isValid(date) && formatISO(date)) || "";
+    }, [value]);
     return isEditing ? (React.createElement("div", { className: "datepicker datepicker_date" },
-        React.createElement(DatePicker, { renderInput: function (props) { return (React.createElement(TextField, __assign({ variant: "outlined" }, props, { label: label, helperText: "" }))); }, value: value, onChange: onChange }))) : (React.createElement("div", { onClick: onClick }, value && parseISO(value) ? (format(parseISO(value), 'dd.MM.yyyy')) : (React.createElement("div", null, "\u00A0"))));
+        React.createElement(DatePicker, { renderInput: function (props) { return (React.createElement(TextField, __assign({ variant: "outlined" }, props, { label: label, helperText: "" }))); }, value: parsedValue, onChange: onChange }))) : (React.createElement("div", { onClick: onClick }, value && parseISO(value) ? (format(parseISO(value), 'dd.MM.yyyy')) : (React.createElement("div", null, "\u00A0"))));
 };
 export { EntityFieldDate };

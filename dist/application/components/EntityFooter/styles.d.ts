@@ -8,6 +8,7 @@ declare const _default: (theme: Theme) => {
         left: number;
         backgroundColor: string;
         boxShadow: string;
+        zIndex: number;
         '& .MuiTablePagination-root': {
             padding: number;
             margin: number;

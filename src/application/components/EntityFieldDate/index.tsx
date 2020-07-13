@@ -26,7 +26,11 @@ const EntityFieldDate: FC<IProps> = ({
     [value, handler]
   );
 
-  const parsedValue = useMemo(() => formatISO(parseISO(value)), [value]);
+  const parsedValue = useMemo(() => {
+    const date = parseISO(value);
+
+    return (date && isValid(date) && formatISO(date)) || '';
+  }, [value]);
 
   return isEditing ? (
     <div className="datepicker datepicker_date">
@@ -45,8 +49,8 @@ const EntityFieldDate: FC<IProps> = ({
     </div>
   ) : (
     <div onClick={onClick}>
-      {value && parseISO(value) ? (
-        format(parseISO(value), 'dd.MM.yyyy')
+      {parsedValue ? (
+        format(parseISO(parsedValue), 'dd.MM.yyyy')
       ) : (
         <div>&nbsp;</div>
       )}

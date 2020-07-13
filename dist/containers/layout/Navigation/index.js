@@ -31,7 +31,10 @@ var NavigationUnstyled = function (_a) {
     var onTabChange = useCallback(function (_, tab) { return history.push(links[tab].url); }, [
         history,
     ]);
-    var activeTab = useMemo(function () { return links.findIndex(function (link) { return link.url === location; }) || 0; }, [location]);
+    var activeTab = useMemo(function () {
+        var active = links.findIndex(function (link) { return link.url === location; });
+        return active >= 0 ? active : 0;
+    }, [location]);
     useEffect(function () {
         if (!appbar.current || !wrapper.current)
             return;
