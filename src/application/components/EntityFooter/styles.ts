@@ -9,6 +9,7 @@ export default (theme: Theme) => ({
     left: 0,
     backgroundColor: '#fefefe',
     boxShadow: 'rgba(0, 0, 0, 0.1) 0 -3px 3px',
+    zIndex: 1,
 
     '& .MuiTablePagination-root': {
       padding: 10,

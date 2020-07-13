@@ -1,4 +1,15 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -46,6 +57,13 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 import { SAMPLE_ENTITY_1, SAMPLE_ENTITY_2 } from './mocked_data';
 export var fetchEntityItemsFn = function (_a) {
     var props = __rest(_a, []);
@@ -53,8 +71,8 @@ export var fetchEntityItemsFn = function (_a) {
         console.log('Fetching with props:', props);
         setTimeout(resolve, 500, {
             data: {
-                list: [SAMPLE_ENTITY_1, SAMPLE_ENTITY_2],
-                totalCount: 100,
+                list: __spreadArrays(new Array(props.count)).map(function (_, index) { return (__assign(__assign({}, SAMPLE_ENTITY_1), { id: index })); }),
+                totalPages: 100,
             },
         });
     });
