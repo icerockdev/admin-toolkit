@@ -1,11 +1,11 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { FC, MouseEventHandler, useCallback } from 'react';
-import { DatePicker, DateTimePicker } from '@material-ui/pickers';
+import React, { FC, useCallback, useMemo } from 'react';
+import { DateTimePicker } from '@material-ui/pickers';
 import format from 'date-fns/format';
 import parseISO from 'date-fns/parseISO';
 import { TextField } from '@material-ui/core';
-import { isValid } from 'date-fns';
+import { formatISO, isValid } from 'date-fns';
 import { IEntityFieldProps } from '~/application';
 
 type IProps = IEntityFieldProps & {};
@@ -26,6 +26,8 @@ const EntityFieldDateTime: FC<IProps> = ({
     [value, handler]
   );
 
+  const parsedValue = useMemo(() => formatISO(parseISO(value)), [value]);
+
   return isEditing ? (
     <div className="datepicker datepicker_datetime">
       <DateTimePicker
@@ -37,7 +39,7 @@ const EntityFieldDateTime: FC<IProps> = ({
             helperText=""
           />
         )}
-        value={value}
+        value={parsedValue}
         onChange={onChange}
         ampm={false}
       />
@@ -45,7 +47,7 @@ const EntityFieldDateTime: FC<IProps> = ({
   ) : (
     <div onClick={onClick}>
       {value && parseISO(value) ? (
-        format(parseISO(value), 'dd.MM.yyyy')
+        format(parseISO(value), 'dd.MM.yyyy HH:mm')
       ) : (
         <div>&nbsp;</div>
       )}

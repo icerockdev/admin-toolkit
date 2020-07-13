@@ -58,10 +58,10 @@ const NavigationUnstyled: FC<IProps> = ({
     history,
   ]);
 
-  const activeTab = useMemo(
-    () => links.findIndex((link) => link.url === location) || 0,
-    [location]
-  );
+  const activeTab = useMemo(() => {
+    const active = links.findIndex((link) => link.url === location);
+    return active >= 0 ? active : 0;
+  }, [location]);
 
   useEffect(() => {
     if (!appbar.current || !wrapper.current) return;
