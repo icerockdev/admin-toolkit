@@ -54,6 +54,7 @@ export interface IEntityField {
     validator?: (val: any) => string;
     options?: Record<any, any>;
     component?: FC<any>;
+    hideInView?: boolean;
     hideInList?: boolean;
     hideInEdit?: boolean;
     hideInCreate?: boolean;

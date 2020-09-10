@@ -577,7 +577,7 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function (_a) {
                 var id = _a.id, _b = _a.isEditing, isEditing = _b === void 0 ? false : _b, _c = _a.isCreating, isCreating = _c === void 0 ? false : _c, buttons = _a.buttons;
-                return (React.createElement(EntityBreadcrumbs, { data: _this.editorData, fields: _this.fields, id: id, name: _this.title, url: _this.menu.url, viewable: _this.viewable, isEditing: isEditing, isCreating: isCreating, buttons: buttons }));
+                return (React.createElement(EntityBreadcrumbs, { data: _this.editorData, fields: _this.fields, id: id, name: _this.title, url: _this.menu.url, isEditing: isEditing, isCreating: isCreating, buttons: buttons, viewable: _this.viewable, editable: _this.editable }));
             });
         },
         enumerable: true,

@@ -22,7 +22,10 @@ var EntityViewer = withStyles(styles)(observer(function (_a) {
         return fields.filter(function (field) {
             return (isEditing && !isCreating && !field.hideInEdit) ||
                 (isCreating && !field.hideInCreate) ||
-                (!isEditing && !isCreating && !field.hideInList);
+                (!isEditing &&
+                    !isCreating &&
+                    !field.hideInList &&
+                    !field.hideInView);
         });
     }, [fields, isEditing, isCreating]);
     var onFieldChange = useCallback(function (f) { return function (value) {

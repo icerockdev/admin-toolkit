@@ -64,7 +64,10 @@ const EntityViewer = withStyles(styles)(
             (field) =>
               (isEditing && !isCreating && !field.hideInEdit) ||
               (isCreating && !field.hideInCreate) ||
-              (!isEditing && !isCreating && !field.hideInList)
+              (!isEditing &&
+                !isCreating &&
+                !field.hideInList &&
+                !field.hideInView)
           ),
         [fields, isEditing, isCreating]
       );

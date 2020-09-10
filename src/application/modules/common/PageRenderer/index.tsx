@@ -1,7 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React, { FC, useEffect } from 'react';
-import { Page } from '~/application/modules/Page';
+import { Page } from '~/application/modules/pages/Page';
 import { observer } from 'mobx-react';
 
 interface IProps {

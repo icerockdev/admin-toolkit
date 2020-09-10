@@ -8,16 +8,21 @@ import {
   ENTITY_REFERENCE_FIELDS,
   IFilterValue,
   IEntityField,
+  IEntityFetchFunction,
+  IEntityFetchFunctionResult,
+  IEntityUpdateFunctionResult,
+  IEntityCreateFunctionResult,
+  IEntityGetFunctionResult,
 } from '~/application/types/entity';
-import { Page } from '~/application/modules/Page';
-import { EntityList } from '../../components/EntityList';
-import { EntityHead } from '../../components/EntityHead';
-import { EntityFooter } from '../../components/EntityFooter';
+import { Page } from '~/application/modules/pages/Page';
+import { EntityList } from '../../../components/EntityList';
+import { EntityHead } from '../../../components/EntityHead';
+import { EntityFooter } from '../../../components/EntityFooter';
 import { computed, observable, action, reaction, flow, toJS } from 'mobx';
 import { CancellablePromise } from 'mobx/lib/api/flow';
 import { Switch, Route, RouteComponentProps } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { EntityViewer } from '../../components/EntityViewer';
+import { EntityViewer } from '../../../components/EntityViewer';
 import { Unwrap } from '~/application/types/common';
 import { EntityBreadcrumbs } from '~/application/components/EntityBreadcrumbs';
 import { Typography } from '@material-ui/core';
@@ -133,7 +138,7 @@ export class Entity extends Page {
 
         const filter = this.getFilters();
 
-        const result: Unwrap<typeof this.fetchItemsFn> = yield this.parent?.auth?.withToken(
+        const result: IEntityFetchFunctionResult = yield this.parent?.auth?.withToken(
           this.fetchItemsFn,
           {
             url: this.api?.list?.url || '',
@@ -223,7 +228,7 @@ export class Entity extends Page {
           throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
         }
 
-        const result: Unwrap<typeof this.updateItemsFn> = yield this.parent?.auth?.withToken(
+        const result: IEntityUpdateFunctionResult = yield this.parent?.auth?.withToken(
           this.updateItemsFn,
           {
             url: this.api?.update?.url || '',
@@ -274,7 +279,7 @@ export class Entity extends Page {
           throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
         }
 
-        const result: Unwrap<typeof this.createItemsFn> = yield this.parent?.auth?.withToken(
+        const result: IEntityCreateFunctionResult = yield this.parent?.auth?.withToken(
           this.createItemsFn,
           {
             url: this.api?.create?.url || '',
@@ -349,7 +354,7 @@ export class Entity extends Page {
           throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
         }
 
-        const result: Unwrap<typeof this.getItemsFn> = yield this.parent?.auth?.withToken(
+        const result: IEntityGetFunctionResult = yield this.parent?.auth?.withToken(
           this.getItemsFn,
           {
             id,
@@ -581,10 +586,11 @@ export class Entity extends Page {
           id={id}
           name={this.title}
           url={this.menu.url}
-          viewable={this.viewable}
           isEditing={isEditing}
           isCreating={isCreating}
           buttons={buttons}
+          viewable={this.viewable}
+          editable={this.editable}
         />
       )
     );

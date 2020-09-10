@@ -1,7 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React, { useMemo, Fragment, useCallback } from 'react';
-import { Config } from '../Config';
+import { Config } from '../../config/Config';
 import { observer } from 'mobx-react';
 import { Switch, Route, Redirect, Router } from 'react-router-dom';
 import { SignIn } from '~/containers/login/SignIn';

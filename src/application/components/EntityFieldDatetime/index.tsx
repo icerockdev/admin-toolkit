@@ -29,7 +29,7 @@ const EntityFieldDateTime: FC<IProps> = ({
   const parsedValue = useMemo(() => {
     const date = parseISO(value);
 
-    return (date && isValid(date) && formatISO(date)) || '';
+    return (date && isValid(date) && formatISO(date)) || null;
   }, [value]);
 
   return isEditing ? (

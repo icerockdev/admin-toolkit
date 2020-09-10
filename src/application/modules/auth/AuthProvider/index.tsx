@@ -9,7 +9,7 @@ import {
 import { computed, observable, action, reaction, toJS } from 'mobx';
 import { flow } from 'mobx';
 import { CancellablePromise } from 'mobx/lib/api/flow';
-import { Config } from '../Config';
+import { Config } from '../../config/Config';
 
 export class AuthProvider {
   // From props

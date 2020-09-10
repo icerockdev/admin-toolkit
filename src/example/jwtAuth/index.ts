@@ -2,7 +2,7 @@
 
 import { JWTAuthProvider, IAuthPasswUpdateFn } from '~/application';
 import { Unwrap } from '~/application/types/common';
-import { IJWTAuthRequestFn } from '~/application/modules/JWTAuthProvider';
+import { IJWTAuthRequestFn } from '~/application/modules/auth/JWTAuthProvider';
 
 export default new JWTAuthProvider({
   authRequestFn: (

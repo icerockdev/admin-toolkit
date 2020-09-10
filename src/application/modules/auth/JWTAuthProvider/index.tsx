@@ -1,16 +1,14 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import {
+  AUTH_ERRORS,
   EMPTY_USER,
   IAuthProviderProps,
-  AUTH_ERRORS,
   UNAUTHORIZED,
 } from '~/application/types/auth';
-import { computed, observable, action, reaction, toJS } from 'mobx';
-import { flow } from 'mobx';
+import { action, computed, flow, observable, reaction } from 'mobx';
 import { AuthProvider } from '../AuthProvider';
 import { Unwrap } from '~/application/types/common';
-import { CancellablePromise } from 'mobx/lib/api/flow';
 
 const EMPTY_TOKENS = {
   access: '',

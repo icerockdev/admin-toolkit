@@ -3,7 +3,7 @@
 import { IConfigProps } from '~/application/types/config';
 import { Theme, createMuiTheme } from '@material-ui/core';
 import { createBrowserHistory } from 'history';
-import { Notifications } from '../Notification';
+import { Notifications } from '../../common/Notification';
 
 export class Config {
   name: IConfigProps['name'] = '';
