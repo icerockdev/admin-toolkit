@@ -1,7 +1,7 @@
 import React from 'react';
 import { CrudlEntity } from '~/application/modules/pages/CrudlEntity';
 import api from '~/example/base/api';
-import { CrudlField } from '~/application/modules/pages/CrudlEntity/items/CrudlField';
+import { BASE_FIELDS } from '~/example/base/fields';
 
 export type IFields = {
   name: string;
@@ -10,8 +10,6 @@ export type IFields = {
   status: number;
 };
 
-const field = new CrudlField<IFields>('name', {});
-
 export default new CrudlEntity<IFields>('Base', '/base', api, {
-  fields: [field],
+  fields: BASE_FIELDS,
 });

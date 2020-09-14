@@ -10,6 +10,7 @@ import { CrudlListFooter } from '~/application/modules/pages/CrudlEntity/compone
 import { CrudlListHeader } from '~/application/modules/pages/CrudlEntity/components/renderers/list/CrudlListHeader';
 import { CrudlListButtons } from '~/application/modules/pages/CrudlEntity/components/renderers/list/CrudlListButtons';
 import { CrudlListFilters } from '~/application/modules/pages/CrudlEntity/components/renderers/list/CrudlListFilters';
+import { CrudlListTable } from '~/application/modules/pages/CrudlEntity/components/renderers/list/CrudlListTable';
 
 export class CrudlListRenderer extends CrudlRendererComponent {
   constructor(props?: Partial<CrudlListRendererProps>) {
@@ -34,7 +35,7 @@ export class CrudlListRenderer extends CrudlRendererComponent {
   Buttons: CrudlListRendererProps['buttons'] = CrudlListButtons;
   Filters: CrudlListRendererProps['filters'] = CrudlListFilters;
   Pagination: CrudlListRendererProps['pagination'] = CrudlListPagination;
-  Table: CrudlListRendererProps['table'] = CrudlListPagination;
+  Table: CrudlListRendererProps['table'] = CrudlListTable;
 
   @computed
   get output() {

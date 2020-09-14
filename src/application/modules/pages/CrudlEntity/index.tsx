@@ -35,6 +35,7 @@ export class CrudlEntity<Fields = {}> extends Page {
 
     if (options.fields) this.fieldsList = options.fields;
     if (options.features) this.features = options.features;
+    if (options.rows) this.rows = options.rows;
 
     this.renderer =
       options.renderer ||
@@ -62,6 +63,7 @@ export class CrudlEntity<Fields = {}> extends Page {
   @observable storage: CrudlStorage<Fields> = new CrudlStorage();
   @observable controller: CrudlController<Fields> = new CrudlController(this);
   @observable mode?: CrudlActionEnum;
+  @observable rows = 25;
 
   @observable fieldsList: CrudlField<Fields>[] = [];
 

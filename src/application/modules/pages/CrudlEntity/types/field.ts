@@ -14,5 +14,5 @@ export type CrudlFieldProps<ValueType> = {
   required?: boolean;
 
   validator?: (val: ValueType) => string | null | undefined;
-  features?: Record<CrudlFieldFeature, boolean>;
+  features?: Partial<Record<CrudlFieldFeature, boolean>>;
 };

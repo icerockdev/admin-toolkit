@@ -23,5 +23,6 @@ export interface CrudlEntityOptions<Fields = {}> extends Partial<IPageProps> {
   renderer: CrudlRenderer<CrudlEntity<Fields>>;
   fields: CrudlField<Fields>[];
   features: CrudlEntityFeatures;
+  rows?: number;
   list?: Partial<CrudlListRendererProps>;
 }
