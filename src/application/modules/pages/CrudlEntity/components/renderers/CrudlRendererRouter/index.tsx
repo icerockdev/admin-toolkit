@@ -16,33 +16,29 @@ class CrudlRendererRouterUnconnected extends PureComponent<IProps> {
     const { entity, list } = this.props;
 
     return (
-      <>
-        <h1>{entity.title} (remove it)</h1>
+      <Switch>
+        <Route path={entity.url} component={list.output} />
 
-        <Switch>
-          <Route path={entity.url} component={list.output} />
+        {/*{features.read && (*/}
+        {/*  <Route path={`${url}/:id`} component={this.readComponent.render} />*/}
+        {/*)}*/}
 
-          {/*{features.read && (*/}
-          {/*  <Route path={`${url}/:id`} component={this.readComponent.render} />*/}
-          {/*)}*/}
+        {/*{features.create && (*/}
+        {/*  <Route*/}
+        {/*    path={`${url}/create`}*/}
+        {/*    component={this.createComponent.render}*/}
+        {/*  />*/}
+        {/*)}*/}
 
-          {/*{features.create && (*/}
-          {/*  <Route*/}
-          {/*    path={`${url}/create`}*/}
-          {/*    component={this.createComponent.render}*/}
-          {/*  />*/}
-          {/*)}*/}
+        {/*{features.update && (*/}
+        {/*  <Route*/}
+        {/*    path={`${url}/:id/edit`}*/}
+        {/*    component={this.updateComponent.render}*/}
+        {/*  />*/}
+        {/*)}*/}
 
-          {/*{features.update && (*/}
-          {/*  <Route*/}
-          {/*    path={`${url}/:id/edit`}*/}
-          {/*    component={this.updateComponent.render}*/}
-          {/*  />*/}
-          {/*)}*/}
-
-          <Redirect to={entity.url || ''} />
-        </Switch>
-      </>
+        <Redirect to={entity.url || ''} />
+      </Switch>
     );
   }
 }

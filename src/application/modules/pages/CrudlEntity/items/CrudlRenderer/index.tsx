@@ -19,6 +19,8 @@ export class CrudlRenderer<E extends CrudlEntity<any>> {
   @observable create: CrudlRendererComponent = new CrudlRendererComponent();
   @observable update: CrudlRendererComponent = new CrudlRendererComponent();
 
+  // @observable wrapper: CrudlRendererComponent = new CrudlRendererComponent();
+
   @computed
   get output(): JSX.Element {
     return <CrudlRendererRouter list={this.list} />;

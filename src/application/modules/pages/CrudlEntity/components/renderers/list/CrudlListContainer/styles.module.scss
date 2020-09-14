@@ -1,0 +1,31 @@
+@import './src/application/modules/pages/CrudlEntity/styles/variables';
+
+.grid {
+  display: grid;
+  grid-template:
+    'title filters buttons' 40px
+    'content content content' 200vh
+    / 1fr auto auto;
+  grid-row-gap: $gap;
+  grid-column-gap: $gap;
+}
+
+.title {
+  background: red;
+  grid-area: title;
+}
+
+.buttons {
+  background: blue;
+  grid-area: buttons;
+}
+
+.filters {
+  background: green;
+  grid-area: filters;
+}
+
+.content {
+  background: yellow;
+  grid-area: content;
+}

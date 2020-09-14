@@ -1,0 +1,14 @@
+@import './src/application/modules/pages/CrudlEntity/styles/variables';
+
+.placeholder {
+  height: $pagination_height - $gap;
+}
+
+.floater {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: $pagination_height;
+  background: cyan;
+}
