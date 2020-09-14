@@ -1,27 +1,25 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { createElement } from 'react';
+import React from 'react';
 import { Page } from '~/application/modules/pages/Page';
-import { computed, extendObservable, observable } from 'mobx';
+import { computed, extendObservable, observable, reaction } from 'mobx';
 import { CrudlApi } from './items/CrudlApi';
 import { CrudlRenderer } from './items/CrudlRenderer';
-import { CrudlEntityOptions } from '~/application/modules/pages/CrudlEntity/types';
-import { Provider } from 'mobx-react';
 import {
-  CRUDL_DEFAULT_FEATURES,
-  CRUDL_DEFAULT_RENDERER,
-} from '~/application/modules/pages/CrudlEntity/defaults';
+  CrudlActionEnum,
+  CrudlEntityOptions,
+} from '~/application/modules/pages/CrudlEntity/types';
+import { Provider } from 'mobx-react';
+import { CRUDL_DEFAULT_FEATURES } from '~/application/modules/pages/CrudlEntity/defaults';
+import { CrudlField } from '~/application/modules/pages/CrudlEntity/items/CrudlField';
+import { CrudlStorage } from '~/application/modules/pages/CrudlEntity/items/CrudlStorage';
+import { CrudlController } from '~/application/modules/pages/CrudlEntity/items/CrudlController';
 
 export class CrudlEntity<Fields = {}> extends Page {
-  @observable
-  options: CrudlEntityOptions<Fields>;
-  @observable
-  renderer: CrudlRenderer<CrudlEntity<Fields>> = CRUDL_DEFAULT_RENDERER;
-
   constructor(
     public title: string,
     public url: string,
-    protected api: CrudlApi,
+    public api: CrudlApi<Fields>,
 
     options: Partial<CrudlEntityOptions<Fields>> = {}
   ) {
@@ -35,25 +33,56 @@ export class CrudlEntity<Fields = {}> extends Page {
       },
     });
 
-    this.options = {
-      renderer: CRUDL_DEFAULT_RENDERER,
-      fields: [],
-      title: '',
-      ...options,
-      features: {
-        // TODO: create: this.api.createItem and so on for all features instead of CRUDL_DEFAULT
-        ...CRUDL_DEFAULT_FEATURES,
-        ...options.features,
-      },
-    };
+    if (options.fields) this.fieldsList = options.fields;
+    if (options.features) this.features = options.features;
 
-    extendObservable(this, { api });
+    this.renderer =
+      options.renderer ||
+      new CrudlRenderer({
+        list: options.list,
+        // TODO: read options
+        // TODO: create options,
+        // TODO: update options
+      });
+
+    extendObservable(this, { api, title, url });
+
+    // React on changes of mode
+    reaction(() => this.mode, this.controller.onActionChange);
+
+    // Update withToken for api
+    reaction(
+      () => this.parent?.auth?.withToken,
+      () => this.api.useWithToken(this.parent?.auth?.withToken)
+    );
+  }
+
+  @observable features: CrudlEntityOptions['features'] = CRUDL_DEFAULT_FEATURES;
+  @observable renderer: CrudlRenderer = new CrudlRenderer();
+  @observable storage: CrudlStorage<Fields> = new CrudlStorage();
+  @observable controller: CrudlController<Fields> = new CrudlController(this);
+  @observable mode?: CrudlActionEnum;
+
+  @observable fieldsList: CrudlField<Fields>[] = [];
+
+  @computed
+  get fields() {
+    return this.fieldsList.reduce(
+      (acc, field) => ({
+        ...acc,
+        [field.name]: field,
+      }),
+      {} as Record<keyof Fields, Fields[keyof Fields]>
+    );
+  }
+
+  @computed
+  get fieldsOrder() {
+    return this.fieldsList.map((field) => field.name);
   }
 
   @computed
   get output() {
-    return () => (
-      <Provider entity={this}>{this.options.renderer.output}</Provider>
-    );
+    return () => <Provider entity={this}>{this.renderer.output}</Provider>;
   }
 }

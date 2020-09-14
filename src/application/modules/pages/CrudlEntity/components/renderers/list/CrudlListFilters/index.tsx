@@ -3,10 +3,10 @@ import { CrudlListRendererProps } from '~/application/modules/pages/CrudlEntity/
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 
-const CrudlListWrapper: CrudlListRendererProps['wrapper'] = ({ children }) => (
-  <div className={classNames(styles.wrap, 'crudl-list__wrapper')}>
-    {children}
+const CrudlListFilters: CrudlListRendererProps['filters'] = () => (
+  <div className={classNames(styles.fitlers, 'crudl-list__filters')}>
+    FILTERS
   </div>
 );
 
-export { CrudlListWrapper };
+export { CrudlListFilters };

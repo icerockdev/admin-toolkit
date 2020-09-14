@@ -5,6 +5,7 @@ import {
   EMPTY_USER,
   IAuthProviderProps,
   UNAUTHORIZED,
+  WithTokenFunction,
 } from '~/application/types/auth';
 import { action, computed, flow, observable, reaction } from 'mobx';
 import { AuthProvider } from '../AuthProvider';
@@ -113,51 +114,54 @@ export class JWTAuthProvider extends AuthProvider {
     this.tokens = EMPTY_TOKENS;
   };
 
-  tokenRefreshInstanceInstance?: any;
+  tokenRefreshInstance?: any;
 
   @action
-  withToken = async (req: any, args: any) => {
-    const result = await req({
+  withToken: WithTokenFunction = async (req: any, args: any) => {
+    return await req({
       ...args,
       token: `Bearer ${this.tokens.access}`,
-    });
-
-    if (result?.error === UNAUTHORIZED) {
-      if (this.tokenRefreshFn) {
-        if (!this.tokenRefreshInstanceInstance) {
-          this.tokenRefreshInstanceInstance = flow(function* (
-            this: JWTAuthProvider
-          ) {
-            if (!this.tokenRefreshFn) return { access: '', refresh: '' };
-
-            return yield this.tokenRefreshFn(this.tokens.refresh);
-          }).bind(this)();
-
-          const tokens = await this.tokenRefreshInstanceInstance;
-
-          this.tokens = {
-            access: tokens.access || '',
-            refresh: tokens.refresh,
-          };
-
-          this.tokenRefreshInstanceInstance = null;
-        } else {
-          await this.tokenRefreshInstanceInstance;
+    })
+      .then((result: any) => {
+        if (result?.error === UNAUTHORIZED) {
+          throw new Error(UNAUTHORIZED);
         }
 
-        if (this.tokens.access && this.tokens.refresh) {
-          return await req({
-            ...args,
-            token: `Bearer ${this.tokens.access}`,
-          });
+        return result;
+      })
+      .catch(async (e: Error) => {
+        if (e.message === UNAUTHORIZED && this.tokenRefreshFn) {
+          // If there's other updater, wait for it
+          if (!this.tokenRefreshInstance) {
+            this.tokenRefreshInstance = flow(function* (this: JWTAuthProvider) {
+              if (!this.tokenRefreshFn) return { access: '', refresh: '' };
+
+              return yield this.tokenRefreshFn(this.tokens.refresh);
+            }).bind(this)();
+
+            const tokens = await this.tokenRefreshInstance;
+
+            this.tokens = {
+              access: tokens.access || '',
+              refresh: tokens.refresh,
+            };
+
+            this.tokenRefreshInstance = null;
+          } else {
+            await this.tokenRefreshInstance;
+          }
+
+          if (this.tokens.access && this.tokens.refresh) {
+            return await req({
+              ...args,
+              token: `Bearer ${this.tokens.access}`,
+            });
+          }
+
+          this.user = EMPTY_USER;
+          this.tokens = EMPTY_TOKENS;
         }
-
-        this.user = EMPTY_USER;
-        this.tokens = EMPTY_TOKENS;
-      }
-    }
-
-    return result;
+      });
   };
 
   getPersistedCredentials = (): {

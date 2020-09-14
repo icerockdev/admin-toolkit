@@ -5,6 +5,7 @@ import {
   EMPTY_USER,
   IAuthProviderProps,
   UNAUTHORIZED,
+  WithTokenFunction,
 } from '~/application/types/auth';
 import { computed, observable, action, reaction, toJS } from 'mobx';
 import { flow } from 'mobx';
@@ -212,7 +213,7 @@ export class AuthProvider {
   };
 
   @action
-  withToken = async (req: any, args: any) => {
+  withToken: WithTokenFunction = async (req: any, args: any) => {
     const result = await req({ ...args, token: this.user.token });
 
     if (result.error === UNAUTHORIZED) {

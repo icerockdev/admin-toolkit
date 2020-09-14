@@ -8,43 +8,50 @@ import { CrudlListTitle } from '~/application/modules/pages/CrudlEntity/componen
 import { CrudlListPagination } from '~/application/modules/pages/CrudlEntity/components/renderers/list/CrudlListPagination';
 import { CrudlListFooter } from '~/application/modules/pages/CrudlEntity/components/renderers/list/CrudlListFooter';
 import { CrudlListHeader } from '~/application/modules/pages/CrudlEntity/components/renderers/list/CrudlListHeader';
+import { CrudlListButtons } from '~/application/modules/pages/CrudlEntity/components/renderers/list/CrudlListButtons';
+import { CrudlListFilters } from '~/application/modules/pages/CrudlEntity/components/renderers/list/CrudlListFilters';
 
 export class CrudlListRenderer extends CrudlRendererComponent {
   constructor(props?: Partial<CrudlListRendererProps>) {
     super();
 
+    if (props?.wrapper) this.Wrapper = props.wrapper;
+    if (props?.container) this.Container = props.container;
     if (props?.header) this.Header = props.header;
     if (props?.footer) this.Footer = props.footer;
     if (props?.title) this.Title = props.title;
     if (props?.buttons) this.Buttons = props.buttons;
-    if (props?.wrapper) this.Wrapper = props.wrapper;
-    if (props?.container) this.Container = props.container;
+    if (props?.filters) this.Filters = props?.filters;
     if (props?.pagination) this.Pagination = props.pagination;
+    if (props?.table) this.Table = props.table;
   }
 
-  Buttons: CrudlListRendererProps['buttons'] = () => <div>BUTTONS</div>;
-  Filters: CrudlListRendererProps['filters'] = () => <div>FILTERS</div>;
-
-  Header: CrudlListRendererProps['header'] = CrudlListHeader;
   Wrapper: CrudlListRendererProps['wrapper'] = CrudlListWrapper;
   Container: CrudlListRendererProps['container'] = CrudlListContainer;
-  Title: CrudlListRendererProps['title'] = CrudlListTitle;
-  Pagination: CrudlListRendererProps['pagination'] = CrudlListPagination;
+  Header: CrudlListRendererProps['header'] = CrudlListHeader;
   Footer: CrudlListRendererProps['footer'] = CrudlListFooter;
+  Title: CrudlListRendererProps['title'] = CrudlListTitle;
+  Buttons: CrudlListRendererProps['buttons'] = CrudlListButtons;
+  Filters: CrudlListRendererProps['filters'] = CrudlListFilters;
+  Pagination: CrudlListRendererProps['pagination'] = CrudlListPagination;
+  Table: CrudlListRendererProps['table'] = CrudlListPagination;
 
   @computed
   get output() {
     return () => (
       <this.Wrapper>
         <this.Header />
+
         <this.Container
           title={this.Title}
           buttons={this.Buttons}
           filters={this.Filters}
         >
-          CONTENT
+          <this.Table />
         </this.Container>
+
         <this.Footer />
+
         <this.Pagination />
       </this.Wrapper>
     );

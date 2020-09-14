@@ -1,14 +1,22 @@
-export type IBaseEntityApiUrls = Record<string, string>;
+import { CrudlEntity } from '~/application/modules/pages/CrudlEntity';
+import { CrudlActionEnum } from '~/application/modules/pages/CrudlEntity/types/index';
 
-export interface IBaseEntityApiMethods
-  extends Record<string, (...args: any[]) => any> {
-  create: AbstractGetFunction;
-  read: AbstractGetFunction;
-  update: AbstractGetFunction;
-  delete: AbstractGetFunction;
-  list: AbstractGetFunction;
+export type IBaseEntityApiUrls = Partial<Record<CrudlActionEnum, string>>;
+
+export type CrudlGetListProps = {
+  entity: CrudlEntity;
+  url: string;
+};
+
+export type CrudlGetListResult<Fields> = {
+  data: Fields[];
+  count: number;
+};
+
+export interface IBaseEntityApiMethods<Fields> {
+  list: (props: CrudlGetListProps) => Promise<CrudlGetListResult<Fields>>;
 }
 
-export type AbstractGetFunction = () => void;
+export type CrudlGetList = () => void;
 
 export type IBaseEntityApiHost = string;

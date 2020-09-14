@@ -48,3 +48,8 @@ export interface IAuthProviderProps {
   authPasswUpdateFn?: IAuthPasswUpdateFn;
   newPasswordValidator?: IAuthNewPasswordValidator;
 }
+
+export type WithTokenFunction = (
+  req: Function,
+  args: Record<string, any>
+) => Promise<any>;
