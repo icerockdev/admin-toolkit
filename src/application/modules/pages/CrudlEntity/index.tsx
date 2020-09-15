@@ -16,7 +16,9 @@ import { CrudlData } from '~/application/modules/pages/CrudlEntity/items/CrudlDa
 import { CrudlController } from '~/application/modules/pages/CrudlEntity/items/CrudlController';
 import { CrudlFilters } from '~/application/modules/pages/CrudlEntity/items/CrudlFilters';
 
-export class CrudlEntity<Fields = Record<string, any>> extends Page {
+export class CrudlEntity<
+  Fields extends Record<string, any> = Record<string, any>
+> extends Page {
   constructor(
     public title: string,
     public url: string,
@@ -34,9 +36,11 @@ export class CrudlEntity<Fields = Record<string, any>> extends Page {
       },
     });
 
+    extendObservable(this, { api, title, url });
+
     if (options.fields) this.fieldsList = options.fields;
     if (options.features) this.features = options.features;
-    if (options.rows) this.data.rows = options.rows;
+    if (options.rows) this.filters.rows = options.rows;
 
     this.renderer =
       options.renderer ||
@@ -47,8 +51,6 @@ export class CrudlEntity<Fields = Record<string, any>> extends Page {
         // TODO: update options
       });
 
-    extendObservable(this, { api, title, url });
-
     // Update withToken for api
     reaction(
       () => this.parent?.auth?.withToken,
@@ -58,19 +60,22 @@ export class CrudlEntity<Fields = Record<string, any>> extends Page {
     // React on changes of mode
     reaction(() => this.mode, this.controller.onActionChange);
 
+    // Get filters from url
     this.filters.restoreFilters();
-    reaction(() => [this.filters.value], this.filters.persistFilters);
 
     // React on changes of list props
     reaction(
       () => [
-        this.data.sortBy,
-        this.data.sortDir,
-        this.data.page,
-        this.data.rows,
+        this.filters.sortBy,
+        this.filters.sortDir,
+        this.filters.page,
+        this.filters.rows,
         this.filters.value,
       ],
-      this.controller.onListLoad
+      () => {
+        this.filters.persistFilters();
+        this.controller.onListLoad();
+      }
     );
   }
 
@@ -79,8 +84,8 @@ export class CrudlEntity<Fields = Record<string, any>> extends Page {
   @observable data: CrudlData<Fields> = new CrudlData();
   @observable mode?: CrudlActionEnum;
   @observable fieldsList: CrudlField<Fields>[] = [];
-  @observable controller = new CrudlController(this);
   @observable filters = new CrudlFilters(this);
+  @observable controller = new CrudlController<Fields>(this);
 
   @computed
   get fields() {

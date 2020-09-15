@@ -15,23 +15,24 @@ const CrudlListTheadItem: FC<IProps> = observer(({ field }) => {
   const sortable = field.options.features?.sort;
 
   const onSortChange = useCallback(() => {
-    const { sortDir, sortBy } = entity.data;
+    const { sortDir, sortBy } = entity.filters;
 
     if (sortBy === field.name) {
-      entity.data.sortDir = sortDir === SortDir.ASC ? SortDir.DESC : undefined;
+      entity.filters.sortDir =
+        sortDir === SortDir.ASC ? SortDir.DESC : undefined;
 
       if (sortDir === SortDir.DESC) {
-        entity.data.sortBy = undefined;
+        entity.filters.sortBy = undefined;
       }
 
       return;
     }
 
-    entity.data.sortDir = SortDir.ASC;
-    entity.data.sortBy = field.name.toString();
-  }, [entity.data, field]);
+    entity.filters.sortDir = SortDir.ASC;
+    entity.filters.sortBy = field.name.toString();
+  }, [entity.filters, field]);
 
-  const { sortDir, sortBy } = entity.data;
+  const { sortDir, sortBy } = entity.filters;
 
   return (
     <TableCell

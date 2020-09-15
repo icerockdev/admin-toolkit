@@ -8,8 +8,8 @@ import { observer } from 'mobx-react';
 interface IProps {}
 
 const CrudlListPagination: FC<IProps> = observer(() => {
-  const { data } = useEntity();
-  const { rows, page, count, rowsSelectOptions } = data;
+  const entity = useEntity();
+  const { rows, page, count, rowsSelectOptions } = entity.filters;
 
   const labelDisplayedRows = useCallback(
     ({ from, to, count }: { from: number; to: number; count: number }) => {
@@ -24,16 +24,16 @@ const CrudlListPagination: FC<IProps> = observer(() => {
 
   const onRowsChange = useCallback(
     (event) => {
-      data.rows = event.target.value;
+      entity.filters.rows = event.target.value;
     },
-    [data]
+    [entity.filters]
   );
 
   const onPageChange = useCallback(
     (_, val: number) => {
-      data.page = val;
+      entity.filters.page = val;
     },
-    [data]
+    [entity.filters]
   );
 
   return (

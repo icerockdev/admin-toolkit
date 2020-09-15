@@ -1,4 +1,4 @@
-import { action, extendObservable, observable } from 'mobx';
+import { action, extendObservable, observable, toJS } from 'mobx';
 import {
   CrudlGetListProps,
   CrudlGetListResult,
@@ -7,6 +7,7 @@ import {
   IBaseEntityApiUrls,
 } from '~/application/modules/pages/CrudlEntity/types/api';
 import { UNAUTHORIZED, WithTokenFunction } from '~/application';
+import { CrudlEntity } from '~/application/modules/pages/CrudlEntity';
 
 export class CrudlApi<Fields = {}> {
   constructor(
@@ -27,11 +28,21 @@ export class CrudlApi<Fields = {}> {
     this.withToken = withToken ? withToken : this.withToken;
   };
 
-  getList = async (): Promise<CrudlGetListResult<Fields>> => {
+  getList = async (
+    entity: CrudlEntity<Fields>
+  ): Promise<CrudlGetListResult<Fields>> => {
+    const { sortBy, sortDir, page, rows, valuesForList } = entity.filters;
+    const url = `${this.host}/${this.urls.list || ''}`;
+
     const result: CrudlGetListResult<Fields> = await this.withToken(
       this.methods.list,
       {
-        url: this.urls.list,
+        url,
+        filters: toJS(valuesForList),
+        sortBy,
+        sortDir,
+        limit: rows,
+        offset: page * rows,
       } as CrudlGetListProps
     );
 

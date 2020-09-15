@@ -6,6 +6,11 @@ export type IBaseEntityApiUrls = Partial<Record<CrudlActionEnum, string>>;
 export type CrudlGetListProps = {
   entity: CrudlEntity;
   url: string;
+  filters: Record<string, string>;
+  sortBy: string;
+  sortDir: string;
+  limit: number;
+  offset: number;
 };
 
 export type CrudlGetListResult<Fields> = {

@@ -25,7 +25,8 @@ const CrudlListTable: FC<IProps> = observer(() => {
   }, [entity.fields]);
 
   const {
-    data: { isLoading, list, rows },
+    data: { isLoading, list },
+    filters: { rows },
   } = entity;
 
   return (
