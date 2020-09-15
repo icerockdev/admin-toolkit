@@ -1,0 +1,31 @@
+@import './src/application/modules/pages/CrudlEntity/styles/variables';
+
+.filter {
+  height: $filter_input_height;
+  background: white;
+  display: flex;
+  flex-direction: row;
+}
+
+.input {
+  flex: 1 0 200px;
+}
+
+.close {
+  flex: 0 0 $filter_input_height;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #bbbbbb;
+  border-left: none;
+  cursor: pointer;
+  width: $filter_input_height;
+
+  &:hover {
+    opacity: 1;
+  }
+
+  svg {
+    fill: $danger;
+  }
+}

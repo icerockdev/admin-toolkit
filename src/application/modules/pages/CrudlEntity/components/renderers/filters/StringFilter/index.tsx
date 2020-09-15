@@ -2,7 +2,7 @@ import React, { FC, useCallback, useEffect, useState } from 'react';
 import { TextField } from '@material-ui/core';
 import { CrudlFilterComponentProps } from '~/application/modules/pages/CrudlEntity/types/filters';
 import styles from './styles.module.scss';
-import { Close } from '@material-ui/icons';
+import { CrudlFilterWrapper } from '~/application/modules/pages/CrudlEntity/components/filters/CrudlFilterWrapper';
 
 const StringFilter: FC<CrudlFilterComponentProps> = ({
   label,
@@ -32,19 +32,17 @@ const StringFilter: FC<CrudlFilterComponentProps> = ({
   }, [initialValue]);
 
   return (
-    <div className={styles.input}>
-      <TextField
-        label={label}
-        value={value || ''}
-        onChange={onChangeHandler}
-        variant="outlined"
-        onBlur={onBlur}
-      />
-
-      <div className={styles.close} onClick={onClear}>
-        <Close />
+    <CrudlFilterWrapper onClear={onClear}>
+      <div className={styles.input}>
+        <TextField
+          label={label}
+          value={value || ''}
+          onChange={onChangeHandler}
+          variant="outlined"
+          onBlur={onBlur}
+        />
       </div>
-    </div>
+    </CrudlFilterWrapper>
   );
 };
 

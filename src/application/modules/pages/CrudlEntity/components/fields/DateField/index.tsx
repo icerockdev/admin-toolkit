@@ -2,6 +2,7 @@ import { CrudlField } from '~/application/modules/pages/CrudlEntity/items/CrudlF
 import { observable } from 'mobx';
 import { format, parseISO } from 'date-fns/esm';
 import React from 'react';
+import { DateFilter } from '~/application/modules/pages/CrudlEntity/components/renderers/filters/DateFilter';
 
 export type DateFieldParser = (val: string) => Date;
 export type DateFieldFormatter = (val: Date) => string;
@@ -53,5 +54,17 @@ export class DateField<
   @observable
   List: CrudlField['List'] = ({ value }) => (
     <div>{this.formatValue(value)}</div>
+  );
+
+  @observable
+  Filter: CrudlField['Filter'] = ({ value, onChange, onReset }) => (
+    <DateFilter
+      label={this.label}
+      name={this.name}
+      value={value}
+      onChange={onChange}
+      onReset={onReset}
+      isRange={!this.filterExact}
+    />
   );
 }

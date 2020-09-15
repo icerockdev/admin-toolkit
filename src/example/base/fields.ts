@@ -34,6 +34,7 @@ export const BASE_FIELDS = [
       20: 'Неактивен',
       30: 'Заблокирован',
     },
+    autocomplete: true,
     features: {
       sort: true,
       filter: true,

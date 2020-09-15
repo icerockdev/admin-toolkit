@@ -23,17 +23,3 @@
     transform: translate(14px, 16px) scale(1);
   }
 }
-
-.close {
-  flex: 0 0 $filter_input_height;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid #dddddd;
-  border-left: none;
-  cursor: pointer;
-
-  svg {
-    fill: $danger;
-  }
-}
