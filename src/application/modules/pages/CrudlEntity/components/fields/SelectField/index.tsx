@@ -1,6 +1,7 @@
 import { CrudlField } from '~/application/modules/pages/CrudlEntity/items/CrudlField';
 import { observable } from 'mobx';
 import React from 'react';
+import { SelectFilter } from '~/application/modules/pages/CrudlEntity/components/renderers/filters/SelectFilter';
 
 export type SelectFieldOptions = CrudlField['options'] & {
   options?: Record<any, any>;
@@ -36,5 +37,18 @@ export class SelectField<
   @observable
   List: CrudlField['List'] = ({ value }) => (
     <div>{this.formatValue(value)}</div>
+  );
+
+  @observable
+  Filter: CrudlField['Filter'] = ({ value, onReset, onChange }) => (
+    <SelectFilter
+      label={this.label}
+      name={this.name}
+      value={value}
+      onChange={onChange}
+      onReset={onReset}
+      variants={this.variants}
+      autocomplete={this.autocomplete}
+    />
   );
 }

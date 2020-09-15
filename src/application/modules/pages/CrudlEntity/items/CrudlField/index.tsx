@@ -44,5 +44,15 @@ export class CrudlField<T extends Record<string, any> = Record<string, any>> {
   public ListHead: FC = () => <div>{this.label}</div>;
 
   @observable
-  public Filter: FC<CrudlFilterComponentProps> = StringFilter;
+  public Filter: FC<
+    Pick<CrudlFilterComponentProps, 'value' | 'onReset' | 'onChange'>
+  > = ({ value, onReset, onChange }) => (
+    <StringFilter
+      value={value}
+      name={this.name}
+      label={this.label}
+      onChange={onChange}
+      onReset={onReset}
+    />
+  );
 }

@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { equals, omit, reject } from 'ramda';
-import { SelectFilter } from '~/application/modules/pages/CrudlEntity/components/renderers/filters/SelectFilter';
+import { CrudlFilterSelector } from '~/application/modules/pages/CrudlEntity/components/filters/CrudlFilterSelector';
 
 const CrudlFiltersRenderer = observer(() => {
   const entity = useEntity();
@@ -45,7 +45,7 @@ const CrudlFiltersRenderer = observer(() => {
 
   return (
     <div className={classNames(styles.filters, 'crudl-list__filters')}>
-      <SelectFilter
+      <CrudlFilterSelector
         fields={filterable}
         onSelect={onAdd}
         selected={entity.filters.selected}
@@ -53,8 +53,6 @@ const CrudlFiltersRenderer = observer(() => {
 
       {selected.map((field, i) => (
         <field.Filter
-          label={field.label}
-          name={field.name}
           onReset={onFieldReset}
           onChange={onFieldChange}
           value={entity.filters.value[field.name] || ''}

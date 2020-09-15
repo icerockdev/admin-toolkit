@@ -3,7 +3,7 @@ import { computed, observable } from 'mobx';
 import React from 'react';
 import { pickBy } from 'ramda';
 import { CrudlField } from '~/application/modules/pages/CrudlEntity/items/CrudlField';
-import { CrudlFiltersRenderer } from '~/application/modules/pages/CrudlEntity/components/renderers/filters/CrudlFiltersRenderer';
+import { CrudlFiltersRenderer } from '~/application/modules/pages/CrudlEntity/components/filters/CrudlFiltersRenderer';
 import qs from 'query-string';
 
 export class CrudlFilters<F extends Record<string, any> = Record<string, any>> {
