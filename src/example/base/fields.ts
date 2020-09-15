@@ -1,6 +1,7 @@
 import { CrudlField } from '~/application/modules/pages/CrudlEntity/items/CrudlField';
 import { IFields } from '~/example/base/index';
 import { DateField } from '~/application/modules/pages/CrudlEntity/components/fields/DateField';
+import { IntegerField } from '~/application/modules/pages/CrudlEntity/components/fields/IntegerField';
 
 export const BASE_FIELDS = [
   new CrudlField<IFields>('name', {
@@ -10,8 +11,9 @@ export const BASE_FIELDS = [
       filter: true,
     },
   }),
-  new CrudlField<IFields>('age', {
+  new IntegerField<IFields>('age', {
     label: 'Возраст',
+    accuracy: 2,
     features: {
       sort: true,
       filter: true,

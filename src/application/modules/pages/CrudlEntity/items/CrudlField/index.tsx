@@ -36,4 +36,8 @@ export class CrudlField<T extends Record<string, any> = Record<string, any>> {
 
   @observable
   public ListHead: FC = () => <div>{this.label}</div>;
+
+  public asString(val: any) {
+    return val.toString();
+  }
 }

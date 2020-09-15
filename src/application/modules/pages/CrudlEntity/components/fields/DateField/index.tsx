@@ -1,5 +1,5 @@
 import { CrudlField } from '~/application/modules/pages/CrudlEntity/items/CrudlField';
-import { computed, observable } from 'mobx';
+import { observable } from 'mobx';
 import { format, parseISO } from 'date-fns/esm';
 import React from 'react';
 
@@ -44,6 +44,10 @@ export class DateField<
   formatValue(val: string): string {
     const date = this.parser(val);
     return this.formatter(date);
+  }
+
+  asString(val: string) {
+    return this.formatValue(val);
   }
 
   @observable
