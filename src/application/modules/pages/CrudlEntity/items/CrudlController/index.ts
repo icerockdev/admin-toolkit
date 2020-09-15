@@ -25,11 +25,11 @@ function* getList<T extends Record<string, any>>(
   controller: CrudlController<T>
 ) {
   try {
-    controller.entity.storage.isLoading = true;
-    controller.entity.storage.list = yield controller.entity.api.getList();
+    controller.entity.data.isLoading = true;
+    controller.entity.data.list = yield controller.entity.api.getList();
   } catch (e) {
     controller.entity.parent?.notifications.showError(e.toString());
   } finally {
-    controller.entity.storage.isLoading = false;
+    controller.entity.data.isLoading = false;
   }
 }

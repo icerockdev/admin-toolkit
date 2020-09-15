@@ -5,7 +5,14 @@ import { observer } from 'mobx-react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { CrudlListEmptyRows } from '~/application/modules/pages/CrudlEntity/components/renderers/list/CrudlListEmptyRows';
-import { Table, TableBody, TableHead } from '@material-ui/core';
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from '@material-ui/core';
 
 interface IProps {}
 
@@ -17,28 +24,35 @@ const CrudlListTable: FC<IProps> = observer(() => {
   }, [entity.fields]);
 
   const {
-    storage: { isLoading, list },
+    data: { isLoading, list },
     rows,
   } = entity;
 
   console.log({ isLoading }, fields.length);
 
   return (
-    <Table className={classNames(styles.table, 'crudl-list__table')}>
-      <TableHead>
-        {fields.map((field) => (
-          <CrudlListTheadItem field={field} key={field.name} />
-        ))}
-      </TableHead>
+    <TableContainer component={Paper}>
+      <Table
+        className={classNames(styles.table, 'crudl-list__table')}
+        size="small"
+      >
+        <TableHead>
+          <TableRow>
+            {fields.map((field) => (
+              <CrudlListTheadItem field={field} key={field.name} />
+            ))}
+          </TableRow>
+        </TableHead>
 
-      <TableBody>
-        {isLoading ? (
-          <CrudlListEmptyRows rows={rows} cols={fields.length} />
-        ) : (
-          <div>ROWS</div>
-        )}
-      </TableBody>
-    </Table>
+        <TableBody>
+          {isLoading ? (
+            <CrudlListEmptyRows rows={rows} cols={fields.length} />
+          ) : (
+            <div>ROWS</div>
+          )}
+        </TableBody>
+      </Table>
+    </TableContainer>
   );
 });
 

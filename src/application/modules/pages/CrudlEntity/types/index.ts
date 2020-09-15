@@ -26,3 +26,8 @@ export interface CrudlEntityOptions<Fields = {}> extends Partial<IPageProps> {
   rows?: number;
   list?: Partial<CrudlListRendererProps>;
 }
+
+export enum SortDir {
+  ASC = 'asc',
+  DESC = 'desc',
+}

@@ -11,7 +11,7 @@ const CrudlListTitle: CrudlListRendererProps['title'] = observer(() => {
   return (
     <h1 className={classNames(styles.title, 'crudl-list__title')}>
       {entity.title}
-      {entity.storage.isLoading ? ' (loading)' : null}
+      {entity.data.isLoading ? ' (loading)' : null}
     </h1>
   );
 });

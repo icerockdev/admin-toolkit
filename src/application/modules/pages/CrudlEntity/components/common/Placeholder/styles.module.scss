@@ -11,5 +11,6 @@
   background: #e0e0e0;
   height: 1em;
   display: inline-block;
-  animation: pulse infinite alternate 0.5s;
+  animation: pulse infinite alternate linear 0.5s;
+  border-radius: 4px;
 }

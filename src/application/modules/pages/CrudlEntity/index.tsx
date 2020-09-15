@@ -12,7 +12,7 @@ import {
 import { Provider } from 'mobx-react';
 import { CRUDL_DEFAULT_FEATURES } from '~/application/modules/pages/CrudlEntity/defaults';
 import { CrudlField } from '~/application/modules/pages/CrudlEntity/items/CrudlField';
-import { CrudlStorage } from '~/application/modules/pages/CrudlEntity/items/CrudlStorage';
+import { CrudlData } from '~/application/modules/pages/CrudlEntity/items/CrudlData';
 import { CrudlController } from '~/application/modules/pages/CrudlEntity/items/CrudlController';
 
 export class CrudlEntity<Fields = {}> extends Page {
@@ -60,7 +60,7 @@ export class CrudlEntity<Fields = {}> extends Page {
 
   @observable features: CrudlEntityOptions['features'] = CRUDL_DEFAULT_FEATURES;
   @observable renderer: CrudlRenderer = new CrudlRenderer();
-  @observable storage: CrudlStorage<Fields> = new CrudlStorage();
+  @observable data: CrudlData<Fields> = new CrudlData();
   @observable controller: CrudlController<Fields> = new CrudlController(this);
   @observable mode?: CrudlActionEnum;
   @observable rows = 25;
