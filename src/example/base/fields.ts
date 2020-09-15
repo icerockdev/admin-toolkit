@@ -2,6 +2,7 @@ import { CrudlField } from '~/application/modules/pages/CrudlEntity/items/CrudlF
 import { IFields } from '~/example/base/index';
 import { DateField } from '~/application/modules/pages/CrudlEntity/components/fields/DateField';
 import { IntegerField } from '~/application/modules/pages/CrudlEntity/components/fields/IntegerField';
+import { SelectField } from '~/application/modules/pages/CrudlEntity/components/fields/SelectField';
 
 export const BASE_FIELDS = [
   new CrudlField<IFields>('name', {
@@ -26,8 +27,13 @@ export const BASE_FIELDS = [
       filter: true,
     },
   }),
-  new CrudlField<IFields>('status', {
+  new SelectField<IFields>('status', {
     label: 'Статус',
+    options: {
+      10: 'Активен',
+      20: 'Неактивен',
+      30: 'Заблокирован',
+    },
     features: {
       sort: true,
       filter: true,
