@@ -4,6 +4,7 @@ import api from '~/example/base/api';
 import { BASE_FIELDS } from '~/example/base/fields';
 
 export type IFields = {
+  id: number;
   name: string;
   age: number;
   role: string;

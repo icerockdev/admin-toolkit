@@ -37,6 +37,7 @@ const CrudlFiltersRenderer = observer(() => {
           onReset={onFieldReset}
           onChange={onFieldChange}
           value={entity.filters.value[field.name] || ''}
+          key={field.name}
         />
       ))}
     </div>

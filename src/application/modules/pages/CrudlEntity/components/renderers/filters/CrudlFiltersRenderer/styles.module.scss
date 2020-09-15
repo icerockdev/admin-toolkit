@@ -1,3 +1,10 @@
 .filters {
   display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: flex-end;
+
+  & > * {
+    margin: 5px 5px;
+  }
 }

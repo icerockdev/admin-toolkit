@@ -3,15 +3,17 @@
 .grid {
   display: grid;
   grid-template:
-    'title filters buttons' 40px
-    'content content content' auto
-    / 1fr auto auto;
+    'title title' auto
+    'filters buttons' auto
+    'content content' 1fr
+    / 1fr auto;
   grid-row-gap: $gap;
   grid-column-gap: $gap;
 }
 
 .title {
   grid-area: title;
+  min-width: 120px;
 }
 
 .buttons {
