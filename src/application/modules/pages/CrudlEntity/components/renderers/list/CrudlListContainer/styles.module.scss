@@ -8,7 +8,7 @@
     'content content' 1fr
     / 1fr auto;
   grid-row-gap: $gap;
-  grid-column-gap: $gap;
+  grid-column-gap: 0;
 }
 
 .title {
