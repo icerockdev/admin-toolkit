@@ -14,6 +14,7 @@ import { CRUDL_DEFAULT_FEATURES } from '~/application/modules/pages/CrudlEntity/
 import { CrudlField } from '~/application/modules/pages/CrudlEntity/items/CrudlField';
 import { CrudlData } from '~/application/modules/pages/CrudlEntity/items/CrudlData';
 import { CrudlController } from '~/application/modules/pages/CrudlEntity/items/CrudlController';
+import { CrudlFilters } from '~/application/modules/pages/CrudlEntity/items/CrudlFilters';
 
 export class CrudlEntity<Fields = Record<string, any>> extends Page {
   constructor(
@@ -72,9 +73,10 @@ export class CrudlEntity<Fields = Record<string, any>> extends Page {
   @observable features: CrudlEntityOptions['features'] = CRUDL_DEFAULT_FEATURES;
   @observable renderer: CrudlRenderer = new CrudlRenderer();
   @observable data: CrudlData<Fields> = new CrudlData();
-  @observable controller: CrudlController<Fields> = new CrudlController(this);
   @observable mode?: CrudlActionEnum;
   @observable fieldsList: CrudlField<Fields>[] = [];
+  @observable controller = new CrudlController(this);
+  @observable filters = new CrudlFilters(this);
 
   @computed
   get fields() {

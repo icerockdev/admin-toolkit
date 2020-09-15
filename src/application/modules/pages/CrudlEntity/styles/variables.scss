@@ -1,2 +1,8 @@
 $gap: 10px;
 $pagination_height: 64px;
+
+@mixin phone {
+  @media (max-width: 768px) {
+    @content;
+  }
+}

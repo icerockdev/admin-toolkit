@@ -16,16 +16,16 @@ export class SelectField<
   ) {
     super(name, props);
 
-    if (options) this.options = options;
+    if (options) this.variants = options;
     if (!autocomplete) this.autocomplete = false;
   }
 
-  @observable options: Record<any, any> = {};
+  @observable variants: Record<any, any> = {};
   @observable autocomplete = true;
 
   formatValue(val: any): any {
-    return Object.prototype.hasOwnProperty.call(this.options, val)
-      ? this.options[val]
+    return Object.prototype.hasOwnProperty.call(this.variants, val)
+      ? this.variants[val]
       : val;
   }
 
