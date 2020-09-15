@@ -1,15 +1,19 @@
 import { CrudlApi } from '~/application/modules/pages/CrudlEntity/items/CrudlApi';
 import { IFields } from '~/example/base/index';
-import { CrudlActionEnum } from '~/application/modules/pages/CrudlEntity/types';
-import { SAMPLE_BASE_DATA } from '~/example/base/mock';
+import { GenerateBaseData } from '~/example/base/mock';
+import { CrudlGetListResult } from '~/application/modules/pages/CrudlEntity/types';
+
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
 export default new CrudlApi<IFields>(
   {
-    [CrudlActionEnum.list]: async () =>
-      Promise.resolve({
-        data: SAMPLE_BASE_DATA,
-        count: 10,
-      }),
+    list: async (): Promise<CrudlGetListResult<IFields>> =>
+      delay(500).then(() => ({
+        data: GenerateBaseData(25),
+        count: 100,
+        status: 200,
+        error: '',
+      })),
   },
   {},
   'old host'

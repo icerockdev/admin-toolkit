@@ -1,4 +1,11 @@
-import React, { FC, useMemo } from 'react';
+import React, {
+  FC,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useEntity } from '~/utils/hooks';
 import { CrudlListTheadItem } from '~/application/modules/pages/CrudlEntity/components/renderers/list/CrudlListTheadItem';
 import { observer } from 'mobx-react';
@@ -25,15 +32,14 @@ const CrudlListTable: FC<IProps> = observer(() => {
   }, [entity.fields]);
 
   const {
-    data: { isLoading, list },
-    rows,
+    data: { isLoading, list, rows },
   } = entity;
 
   return (
-    <TableContainer component={Paper}>
+    <TableContainer component={Paper} className={styles.container}>
       <Table
         className={classNames(styles.table, 'crudl-list__table')}
-        size="small"
+        size="medium"
       >
         <TableHead>
           <TableRow className="crudl-list__table-head-row">
@@ -48,8 +54,8 @@ const CrudlListTable: FC<IProps> = observer(() => {
 
           {!isLoading &&
             !!list &&
-            list.map((item: Record<string, any>) => (
-              <CrudlListRow key={item.id} values={item} />
+            list.map((item: Record<string, any>, i: number) => (
+              <CrudlListRow values={item} key={`${item.id}-${i}`} />
             ))}
         </TableBody>
       </Table>

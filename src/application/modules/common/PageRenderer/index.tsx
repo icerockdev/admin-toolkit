@@ -18,7 +18,7 @@ const PageRenderer: FC<IProps> = observer(({ page }) => {
   }, []);
 
   return (
-    <div className="renderer">
+    <div className="renderer" style={{ height: '100%' }}>
       <page.output />
     </div>
   );

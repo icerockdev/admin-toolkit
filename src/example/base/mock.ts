@@ -1,6 +1,11 @@
 import { IFields } from '~/example/base/index';
 
-export const SAMPLE_BASE_DATA: IFields[] = [
-  { name: 'First Name', age: 23, role: 'Manager', status: 20 },
-  { name: 'Another one', age: 13, role: 'Boss', status: 10 },
-];
+export const GenerateBaseData = (items: number) =>
+  [...new Array(items)].map(
+    (_, i): IFields => ({
+      name: `Person ${i + 1}`,
+      age: Math.random() * 80,
+      role: 'User',
+      status: 20,
+    })
+  );

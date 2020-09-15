@@ -16,8 +16,6 @@ const CrudlListRow: FC<IProps> = observer(({ values }) => {
     (field) => field.showInList
   ) as CrudlField[];
 
-  console.log({ fields, entity });
-
   return (
     <TableRow className="crudl-list__field-value-row">
       {fields.map((field) => (

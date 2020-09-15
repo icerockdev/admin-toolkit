@@ -1,13 +1,16 @@
+import React, { FC } from 'react';
 import { computed, extendObservable, observable } from 'mobx';
 import {
   CrudlFieldListProps,
   CrudlFieldProps,
 } from '~/application/modules/pages/CrudlEntity/types/field';
-import React, { FC } from 'react';
 
 export class CrudlField<T extends Record<string, any> = Record<string, any>> {
   @observable
-  showInList = true;
+  public showInList = true;
+
+  @observable
+  public listColumnSize = '10%';
 
   constructor(
     public name: string,
@@ -23,9 +26,14 @@ export class CrudlField<T extends Record<string, any> = Record<string, any>> {
     return this.options.label || this.name;
   }
 
-  @observable
-  List: FC<CrudlFieldListProps> = ({ value }) => <div>{value}</div>;
+  @computed
+  get key() {
+    return this.name;
+  }
 
   @observable
-  ListHead: FC = () => <div>{this.label}</div>;
+  public List: FC<CrudlFieldListProps> = ({ value }) => <div>{value}</div>;
+
+  @observable
+  public ListHead: FC = () => <div>{this.label}</div>;
 }

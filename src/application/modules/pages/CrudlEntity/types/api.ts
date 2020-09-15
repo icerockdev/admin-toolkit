@@ -11,6 +11,8 @@ export type CrudlGetListProps = {
 export type CrudlGetListResult<Fields> = {
   data: Fields[];
   count: number;
+  status?: number;
+  error?: string;
 };
 
 export interface IBaseEntityApiMethods<Fields> {

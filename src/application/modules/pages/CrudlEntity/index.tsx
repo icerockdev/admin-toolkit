@@ -35,7 +35,7 @@ export class CrudlEntity<Fields = Record<string, any>> extends Page {
 
     if (options.fields) this.fieldsList = options.fields;
     if (options.features) this.features = options.features;
-    if (options.rows) this.rows = options.rows;
+    if (options.rows) this.data.rows = options.rows;
 
     this.renderer =
       options.renderer ||
@@ -59,7 +59,12 @@ export class CrudlEntity<Fields = Record<string, any>> extends Page {
 
     // React on changes of list props
     reaction(
-      () => [this.data.sortBy, this.data.sortDir],
+      () => [
+        this.data.sortBy,
+        this.data.sortDir,
+        this.data.page,
+        this.data.rows,
+      ],
       this.controller.onListLoad
     );
   }
@@ -69,8 +74,6 @@ export class CrudlEntity<Fields = Record<string, any>> extends Page {
   @observable data: CrudlData<Fields> = new CrudlData();
   @observable controller: CrudlController<Fields> = new CrudlController(this);
   @observable mode?: CrudlActionEnum;
-  @observable rows = 25;
-
   @observable fieldsList: CrudlField<Fields>[] = [];
 
   @computed

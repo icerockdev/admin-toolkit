@@ -51,9 +51,8 @@ export class CrudlListRenderer extends CrudlRendererComponent {
           <this.Table />
         </this.Container>
 
-        <this.Footer />
-
         <this.Pagination />
+        <this.Footer />
       </this.Wrapper>
     );
   }

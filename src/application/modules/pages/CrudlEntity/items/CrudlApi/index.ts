@@ -28,9 +28,12 @@ export class CrudlApi<Fields = {}> {
   };
 
   getList = async (): Promise<CrudlGetListResult<Fields>> => {
-    const result = await this.withToken(this.methods.list, {
-      url: this.urls.list,
-    } as CrudlGetListProps);
+    const result: CrudlGetListResult<Fields> = await this.withToken(
+      this.methods.list,
+      {
+        url: this.urls.list,
+      } as CrudlGetListProps
+    );
 
     if (result.status === 401) {
       throw new Error(UNAUTHORIZED);
@@ -40,6 +43,6 @@ export class CrudlApi<Fields = {}> {
       throw new Error(result.error);
     }
 
-    return result.data;
+    return result;
   };
 }
