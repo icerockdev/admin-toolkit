@@ -7,5 +7,7 @@ export const GenerateBaseData = (items: number) =>
       age: Math.random() * 80,
       role: 'User',
       status: 20,
+      birthDate: new Date().toISOString(),
+      description: 'Lorem Ipsum and etc',
     })
   );

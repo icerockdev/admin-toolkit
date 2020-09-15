@@ -8,6 +8,8 @@ export type IFields = {
   age: number;
   role: string;
   status: number;
+  birthDate: string;
+  description: string;
 };
 
 export default new CrudlEntity<IFields>('Base', '/base', api, {
