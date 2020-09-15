@@ -58,6 +58,9 @@ export class CrudlEntity<Fields = Record<string, any>> extends Page {
     // React on changes of mode
     reaction(() => this.mode, this.controller.onActionChange);
 
+    this.filters.restoreFilters();
+    reaction(() => [this.filters.value], this.filters.persistFilters);
+
     // React on changes of list props
     reaction(
       () => [
