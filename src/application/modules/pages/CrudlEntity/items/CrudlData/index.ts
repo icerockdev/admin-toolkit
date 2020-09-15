@@ -1,7 +1,7 @@
 import { observable } from 'mobx';
 import { SortDir } from '~/application/modules/pages/CrudlEntity/types';
 
-export class CrudlData<Fields = {}> {
+export class CrudlData<Fields = Record<string, any>> {
   @observable
   isLoading: boolean = true;
 

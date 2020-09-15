@@ -13,6 +13,7 @@ import {
   TableHead,
   TableRow,
 } from '@material-ui/core';
+import { CrudlListRow } from '~/application/modules/pages/CrudlEntity/components/renderers/list/CrudlListRow';
 
 interface IProps {}
 
@@ -28,8 +29,6 @@ const CrudlListTable: FC<IProps> = observer(() => {
     rows,
   } = entity;
 
-  console.log({ isLoading }, fields.length);
-
   return (
     <TableContainer component={Paper}>
       <Table
@@ -37,19 +36,21 @@ const CrudlListTable: FC<IProps> = observer(() => {
         size="small"
       >
         <TableHead>
-          <TableRow>
+          <TableRow className="crudl-list__table-head-row">
             {fields.map((field) => (
-              <CrudlListTheadItem field={field} key={field.name} />
+              <CrudlListTheadItem field={field} key={field.name.toString()} />
             ))}
           </TableRow>
         </TableHead>
 
         <TableBody>
-          {isLoading ? (
-            <CrudlListEmptyRows rows={rows} cols={fields.length} />
-          ) : (
-            <div>ROWS</div>
-          )}
+          {isLoading && <CrudlListEmptyRows rows={rows} cols={fields.length} />}
+
+          {!isLoading &&
+            !!list &&
+            list.map((item: Record<string, any>) => (
+              <CrudlListRow key={item.id} values={item} />
+            ))}
         </TableBody>
       </Table>
     </TableContainer>

@@ -4,6 +4,7 @@ import { TableCell, TableSortLabel } from '@material-ui/core';
 import { useEntity } from '~/utils/hooks';
 import { SortDir } from '~/application/modules/pages/CrudlEntity/types';
 import { observer } from 'mobx-react';
+import classNames from 'classnames';
 
 interface IProps {
   field: CrudlField<any>;
@@ -11,7 +12,6 @@ interface IProps {
 
 const CrudlListTheadItem: FC<IProps> = observer(({ field }) => {
   const entity = useEntity();
-  const label = useMemo(() => field.options.label || field.name, [field]);
   const sortable = field.options.features?.sort;
 
   const onSortChange = useCallback(() => {
@@ -34,17 +34,22 @@ const CrudlListTheadItem: FC<IProps> = observer(({ field }) => {
   const { sortDir, sortBy } = entity.data;
 
   return (
-    <TableCell>
+    <TableCell
+      className={classNames(
+        'crudl-list__table-head-field',
+        `crudl-list__table-head-field_${field.name}`
+      )}
+    >
       {sortable ? (
         <TableSortLabel
           active={sortBy === field.name}
           direction={sortDir}
           onClick={onSortChange}
         >
-          {label}
+          <field.ListHead />
         </TableSortLabel>
       ) : (
-        label
+        <field.ListHead />
       )}
     </TableCell>
   );

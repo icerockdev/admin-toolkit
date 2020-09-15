@@ -15,7 +15,7 @@ import { CrudlField } from '~/application/modules/pages/CrudlEntity/items/CrudlF
 import { CrudlData } from '~/application/modules/pages/CrudlEntity/items/CrudlData';
 import { CrudlController } from '~/application/modules/pages/CrudlEntity/items/CrudlController';
 
-export class CrudlEntity<Fields = {}> extends Page {
+export class CrudlEntity<Fields = Record<string, any>> extends Page {
   constructor(
     public title: string,
     public url: string,
@@ -48,13 +48,19 @@ export class CrudlEntity<Fields = {}> extends Page {
 
     extendObservable(this, { api, title, url });
 
-    // React on changes of mode
-    reaction(() => this.mode, this.controller.onActionChange);
-
     // Update withToken for api
     reaction(
       () => this.parent?.auth?.withToken,
       () => this.api.useWithToken(this.parent?.auth?.withToken)
+    );
+
+    // React on changes of mode
+    reaction(() => this.mode, this.controller.onActionChange);
+
+    // React on changes of list props
+    reaction(
+      () => [this.data.sortBy, this.data.sortDir],
+      this.controller.onListLoad
     );
   }
 
@@ -74,7 +80,7 @@ export class CrudlEntity<Fields = {}> extends Page {
         ...acc,
         [field.name]: field,
       }),
-      {} as Record<keyof Fields, Fields[keyof Fields]>
+      {} as Record<keyof Fields, CrudlField<Fields>>
     );
   }
 
