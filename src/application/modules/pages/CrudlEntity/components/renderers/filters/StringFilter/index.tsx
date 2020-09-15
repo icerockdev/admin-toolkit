@@ -21,6 +21,10 @@ const StringFilter: FC<CrudlFilterComponentProps> = ({
     onChange(name, value);
   }, [onChange, value, name]);
 
+  const onClear = useCallback(() => {
+    onReset(name);
+  }, [onReset]);
+
   useEffect(() => {
     if (initialValue !== value) {
       setValue(initialValue);
@@ -37,7 +41,7 @@ const StringFilter: FC<CrudlFilterComponentProps> = ({
         onBlur={onBlur}
       />
 
-      <div className={styles.close}>
+      <div className={styles.close} onClick={onClear}>
         <Close />
       </div>
     </div>

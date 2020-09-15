@@ -1,0 +1,15 @@
+@import './src/application/modules/pages/CrudlEntity/styles/variables';
+
+.button {
+  padding: 0 !important;
+  min-width: $filter_input_height !important;
+  width: $filter_input_height !important;
+  height: $filter_input_height !important;
+  background: white !important;
+  box-sizing: border-box;
+  margin: 5px !important;
+
+  span {
+    width: auto;
+  }
+}

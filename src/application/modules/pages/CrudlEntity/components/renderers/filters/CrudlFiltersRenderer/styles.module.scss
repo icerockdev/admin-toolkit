@@ -2,7 +2,8 @@
   display: flex;
   flex-wrap: wrap;
   align-items: flex-end;
-  justify-content: flex-end;
+  flex-direction: row-reverse;
+  justify-content: flex-start;
 
   & > * {
     margin: 5px 5px;
