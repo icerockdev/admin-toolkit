@@ -3,11 +3,13 @@ import { computed, observable } from 'mobx';
 import React from 'react';
 import { pickBy } from 'ramda';
 import { CrudlField } from '~/application/modules/pages/CrudlEntity/items/CrudlField';
+import { CrudlFiltersRenderer } from '~/application/modules/pages/CrudlEntity/components/renderers/filters/CrudlFiltersRenderer';
 
 export class CrudlFilters<F extends Record<string, any> = Record<string, any>> {
   constructor(protected entity: CrudlEntity<F>) {}
 
   @observable value: Record<string, string> = {};
+  @observable selected: string[] = [];
 
   @computed
   get fields() {
@@ -18,6 +20,6 @@ export class CrudlFilters<F extends Record<string, any> = Record<string, any>> {
 
   @computed
   get Filters() {
-    return <div>CURRENT FILTERS</div>;
+    return <CrudlFiltersRenderer />;
   }
 }

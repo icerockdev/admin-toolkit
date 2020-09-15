@@ -16,6 +16,7 @@ export type CrudlFieldProps<ValueType> = {
   validator?: (val: ValueType) => string | null | undefined;
   features?: Partial<Record<CrudlFieldFeature, boolean>>;
   listColumnSize?: string;
+  allowEmptyFilter?: boolean;
 };
 
 export type CrudlFieldListProps<T extends any = any> = {

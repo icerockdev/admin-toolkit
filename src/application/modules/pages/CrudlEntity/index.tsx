@@ -65,6 +65,7 @@ export class CrudlEntity<Fields = Record<string, any>> extends Page {
         this.data.sortDir,
         this.data.page,
         this.data.rows,
+        this.filters.value,
       ],
       this.controller.onListLoad
     );
