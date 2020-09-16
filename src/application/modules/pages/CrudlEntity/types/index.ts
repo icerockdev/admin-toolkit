@@ -3,6 +3,7 @@ import { CrudlField } from '~/application/modules/pages/CrudlEntity/items/CrudlF
 import { IPageProps } from '~/application';
 import { CrudlEntity } from '~/application/modules/pages/CrudlEntity';
 import { CrudlListRendererProps } from '~/application/modules/pages/CrudlEntity/types/renderer';
+import { CrudlEntityReferenceProps } from '~/application/modules/pages/CrudlEntity/types/reference';
 
 export * from './api';
 
@@ -25,6 +26,7 @@ export interface CrudlEntityOptions<Fields = {}> extends Partial<IPageProps> {
   features: CrudlEntityFeatures;
   rows?: number;
   list?: Partial<CrudlListRendererProps>;
+  references?: Record<string, CrudlEntityReferenceProps>;
 }
 
 export enum SortDir {

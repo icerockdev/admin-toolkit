@@ -8,11 +8,10 @@ const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 export default new CrudlApi<IFields>(
   {
     list: async ({ url, ...props }): Promise<CrudlGetListResult<IFields>> => {
-      console.log(`GET ${url}`);
-      console.log({ url, ...props });
+      console.log(`GET ${url}`, { url, ...props });
 
       return delay(500).then(() => ({
-        data: GenerateBaseData(25),
+        data: GenerateBaseData(props.limit),
         count: 100,
         status: 200,
         error: '',

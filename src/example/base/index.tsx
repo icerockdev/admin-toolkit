@@ -15,4 +15,12 @@ export type IFields = {
 
 export default new CrudlEntity<IFields>('Base', '/base', api, {
   fields: BASE_FIELDS,
+  references: {
+    roles: {
+      all: (...props) => {
+        console.log({ ...props });
+        return Promise.resolve({});
+      },
+    },
+  },
 });

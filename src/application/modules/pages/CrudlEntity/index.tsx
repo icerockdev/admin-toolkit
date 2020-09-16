@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Page } from '~/application/modules/pages/Page';
-import { computed, extendObservable, observable, reaction } from 'mobx';
+import { computed, extendObservable, observable, reaction, toJS } from 'mobx';
 import { CrudlApi } from './items/CrudlApi';
 import { CrudlRenderer } from './items/CrudlRenderer';
 import {
@@ -15,6 +15,7 @@ import { CrudlField } from '~/application/modules/pages/CrudlEntity/items/CrudlF
 import { CrudlData } from '~/application/modules/pages/CrudlEntity/items/CrudlData';
 import { CrudlController } from '~/application/modules/pages/CrudlEntity/items/CrudlController';
 import { CrudlFilters } from '~/application/modules/pages/CrudlEntity/items/CrudlFilters';
+import { CrudlEntityReferenceProps } from '~/application/modules/pages/CrudlEntity/types/reference';
 
 export class CrudlEntity<
   Fields extends Record<string, any> = Record<string, any>
@@ -40,8 +41,10 @@ export class CrudlEntity<
 
     if (options.fields) this.fieldsList = options.fields;
     if (options.features) this.features = options.features;
+    if (options.references) this.references = options.references;
     if (options.rows) this.filters.rows = options.rows;
 
+    // Initialize renderer
     this.renderer =
       options.renderer ||
       new CrudlRenderer({
@@ -51,6 +54,12 @@ export class CrudlEntity<
         // TODO: update options
       });
 
+    // Initialize ref fields storage
+    this.data.createReferenceData(this.references);
+
+    // Get filters from url
+    this.filters.restoreFilters();
+
     // Update withToken for api
     reaction(
       () => this.parent?.auth?.withToken,
@@ -59,9 +68,6 @@ export class CrudlEntity<
 
     // React on changes of mode
     reaction(() => this.mode, this.controller.onActionChange);
-
-    // Get filters from url
-    this.filters.restoreFilters();
 
     // React on changes of list props
     reaction(
@@ -80,8 +86,10 @@ export class CrudlEntity<
   }
 
   @observable features: CrudlEntityOptions['features'] = CRUDL_DEFAULT_FEATURES;
+  @observable references: Record<string, CrudlEntityReferenceProps> = {};
+
   @observable renderer: CrudlRenderer = new CrudlRenderer();
-  @observable data: CrudlData<Fields> = new CrudlData();
+  @observable data: CrudlData = new CrudlData();
   @observable mode?: CrudlActionEnum;
   @observable fieldsList: CrudlField<Fields>[] = [];
   @observable filters = new CrudlFilters(this);
@@ -105,6 +113,7 @@ export class CrudlEntity<
 
   @computed
   get output() {
+    console.log(toJS(this.data.references));
     return () => <Provider entity={this}>{this.renderer.output}</Provider>;
   }
 }
