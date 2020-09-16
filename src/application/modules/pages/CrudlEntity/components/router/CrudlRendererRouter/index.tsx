@@ -16,12 +16,7 @@ const CrudlRendererRouter: FC<IProps> = observer(({ list, read }) => {
   const location = useLocation();
   const entity = useEntity();
 
-  const id = useMemo(() => {
-    const re = new RegExp(`${entity.url.replace(/\//gim, '\\/')}\\\/([^/]+)`);
-    const match = location.pathname.match(re);
-
-    return parseInt((match && match[1]) || '', 10) || null;
-  }, [location.pathname]);
+  const id = entity.controller.getIdFromUrl();
 
   const action = useMemo<CrudlActionEnum>(() => {
     switch (location.pathname) {
@@ -36,14 +31,13 @@ const CrudlRendererRouter: FC<IProps> = observer(({ list, read }) => {
     }
   }, [entity, location.pathname, id]);
 
-  const onEnter = useCallback<CrudlRendererReaction>(
-    () => (entity.mode = action),
-    [entity, action]
-  );
+  const onEnter = useCallback<CrudlRendererReaction>(() => {
+    entity.mode = action;
+  }, [entity, action]);
 
   useEffect(() => {
     onEnter(action, id);
-  }, [action]);
+  }, [action, id]);
 
   const { features, url } = entity;
 
@@ -57,7 +51,9 @@ const CrudlRendererRouter: FC<IProps> = observer(({ list, read }) => {
 
       <Route path={entity.url} component={list.output} exact />
 
-      {features.read && <Route path={`${url}/:id`} component={read.output} />}
+      {features.read && (
+        <Route path={`${url}/:id`} component={read.output} exact />
+      )}
 
       {/*{features.create && (*/}
       {/*  <Route*/}

@@ -3,11 +3,13 @@ import { CrudlReadRendererProps } from '~/application/modules/pages/CrudlEntity/
 import { computed } from 'mobx';
 import { observer } from 'mobx-react';
 import { CrudlRendererComponent } from '~/application/modules/pages/CrudlEntity/components/renderers/CrudlRendererComponent';
-import { CrudlReadWrapper } from '~/application/modules/pages/CrudlEntity/components/router/CrudlReadWrapper';
+import { CrudlReadWrapper } from '~/application/modules/pages/CrudlEntity/components/renderers/read/CrudlReadWrapper';
 import { CrudlReadContainer } from '~/application/modules/pages/CrudlEntity/components/renderers/read/CrudlReadContainer';
 import { CrudlReadHeader } from '~/application/modules/pages/CrudlEntity/components/renderers/read/CrudlReadHeader';
 import { CrudlReadFooter } from '~/application/modules/pages/CrudlEntity/components/renderers/read/CrudlReadFooter';
 import { CrudlReadTitle } from '~/application/modules/pages/CrudlEntity/components/renderers/read/CrudlReadTitle';
+import { CrudlReadButtons } from '~/application/modules/pages/CrudlEntity/components/renderers/read/CrudlReadButtons';
+import { CrudlReadBreadcrumbs } from '~/application/modules/pages/CrudlEntity/components/renderers/read/CrudlReadBreadcrumbs';
 
 export class CrudlReadRenderer extends CrudlRendererComponent {
   constructor(props?: Partial<CrudlReadRendererProps>) {
@@ -27,10 +29,8 @@ export class CrudlReadRenderer extends CrudlRendererComponent {
   Header: CrudlReadRendererProps['header'] = CrudlReadHeader;
   Footer: CrudlReadRendererProps['footer'] = CrudlReadFooter;
   Title: CrudlReadRendererProps['title'] = CrudlReadTitle;
-  Buttons: CrudlReadRendererProps['buttons'] = () => <div>BUTTONS</div>;
-  Breadcrumbs: CrudlReadRendererProps['breadcrumbs'] = () => (
-    <div>BREADCRUMBS</div>
-  );
+  Buttons: CrudlReadRendererProps['buttons'] = CrudlReadButtons;
+  Breadcrumbs: CrudlReadRendererProps['breadcrumbs'] = CrudlReadBreadcrumbs;
 
   @computed
   get output() {

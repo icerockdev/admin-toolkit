@@ -1,20 +1,15 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import { IConfigProps } from '~/application/types/config';
-import { Theme, createMuiTheme } from '@material-ui/core';
 import { createBrowserHistory } from 'history';
 import { Notifications } from '../../common/Notification';
+import createMuiTheme, {
+  ThemeOptions,
+} from '@material-ui/core/styles/createMuiTheme';
+import { observable } from 'mobx';
+import { DEFAULT_THEME } from '~/styles';
 
 export class Config {
-  name: IConfigProps['name'] = '';
-  pages: IConfigProps['pages'] = [];
-  auth?: IConfigProps['auth'];
-  logo?: IConfigProps['logo'];
-  title?: IConfigProps['title'];
-  theme: Theme = createMuiTheme({});
-  history = createBrowserHistory();
-  notifications = new Notifications();
-
   constructor(fields?: Partial<IConfigProps>) {
     if (fields) {
       Object.assign(this, fields);
@@ -29,5 +24,21 @@ export class Config {
     if (this.auth) {
       this.auth.parent = this;
     }
+
+    if (fields?.theme)
+      this.themeInstance = createMuiTheme({
+        ...DEFAULT_THEME,
+        ...fields.theme,
+      });
   }
+
+  @observable name: IConfigProps['name'] = '';
+  @observable pages: IConfigProps['pages'] = [];
+  @observable auth?: IConfigProps['auth'];
+  @observable logo?: IConfigProps['logo'];
+  @observable title?: IConfigProps['title'];
+  @observable theme: ThemeOptions = {};
+  @observable history = createBrowserHistory();
+  @observable notifications = new Notifications();
+  @observable themeInstance = createMuiTheme(DEFAULT_THEME);
 }

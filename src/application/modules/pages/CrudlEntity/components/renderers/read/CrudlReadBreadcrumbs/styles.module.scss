@@ -1,0 +1,10 @@
+@import './src/application/modules/pages/CrudlEntity/styles/variables';
+
+.breadcrumbs {
+  padding: $gap;
+  display: flex;
+}
+
+.crumb {
+  margin: 0 5px;
+}

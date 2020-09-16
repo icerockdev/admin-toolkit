@@ -4,7 +4,8 @@
   display: flex;
   flex-wrap: wrap;
 
-  button {
+  button,
+  :global(a.MuiButton-root) {
     height: $filter_input_height;
     margin: 5px;
     padding: 0 10px !important;

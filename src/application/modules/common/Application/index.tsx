@@ -59,7 +59,7 @@ const Application = withStyles(styles)(
 
     if (!config.auth?.isLogged && config.auth?.sendAuthRequest) {
       return (
-        <ThemeProvider theme={config.theme}>
+        <ThemeProvider theme={config.themeInstance}>
           <CssBaseline />
 
           <Router history={config.history}>
@@ -96,7 +96,7 @@ const Application = withStyles(styles)(
     }
 
     return (
-      <ThemeProvider theme={config.theme}>
+      <ThemeProvider theme={config.themeInstance}>
         <LocalizationProvider dateAdapter={DateFnsAdapter} locale={ruLocale}>
           <CssBaseline />
 

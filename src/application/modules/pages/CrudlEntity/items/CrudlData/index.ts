@@ -13,11 +13,8 @@ export class CrudlData<
 
   @observable isLoading: boolean = true;
 
-  @observable list?: Fields[];
-  @observable read: CrudlDataRead<Fields> = {
-    data: {},
-    id: 0,
-  };
+  @observable list: Fields[] = [];
+  @observable read: Partial<Fields> = {};
 
   @observable editor?: Record<number, Fields>;
 
