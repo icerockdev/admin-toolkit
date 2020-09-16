@@ -11,20 +11,23 @@ interface IProps {}
 const CrudlReadBreadcrumbs: FC<IProps> = observer(() => {
   const entity = useEntity();
 
-  const title = useMemo(
-    () => entity.getItemTitle(entity.data.read) || entity.title,
-    [entity.data.read]
-  );
+  const title = useMemo(() => entity.getItemTitle(entity.data.read), [
+    entity.data.read,
+  ]);
 
   return (
     <Paper
       className={classNames(styles.breadcrumbs, 'crudl-read__breadcrumbs')}
     >
-      <Link to={entity.url} component={RouterLink}>
+      <Link to={entity.url} component={RouterLink} className={styles.entity}>
         {entity.title}
       </Link>
-      <div className={styles.crumb}>/</div>
-      <div className={styles.current}>{title}</div>
+      {title && (
+        <>
+          <div className={styles.crumb}>/</div>
+          <div className={styles.current}>{title}</div>
+        </>
+      )}
     </Paper>
   );
 });

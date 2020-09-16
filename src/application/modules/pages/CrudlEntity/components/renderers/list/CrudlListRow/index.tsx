@@ -25,7 +25,7 @@ const CrudlListRow: FC<IProps> = observer(({ values }) => {
   }, [entity.url, history, values]);
 
   return (
-    <TableRow className="crudl-list__field-value-row" onClick={onClick}>
+    <TableRow className="crudl-list__field-value-row" onClick={onClick} hover>
       {fields.map((field) => (
         <TableCell
           key={field.name}
