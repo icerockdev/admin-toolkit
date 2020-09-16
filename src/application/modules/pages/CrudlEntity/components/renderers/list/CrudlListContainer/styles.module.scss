@@ -3,10 +3,9 @@
 .grid {
   display: grid;
   grid-template:
-    'title title' auto
-    'filters buttons' auto
-    'content content' 1fr
-    / 1fr auto;
+    'title filters buttons' auto
+    'content content content' 1fr
+    / 1fr auto auto;
   grid-row-gap: $gap;
   grid-column-gap: 0;
 }
