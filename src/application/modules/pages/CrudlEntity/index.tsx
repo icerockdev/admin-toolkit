@@ -43,6 +43,7 @@ export class CrudlEntity<
     if (options.features) this.features = options.features;
     if (options.references) this.references = options.references;
     if (options.rows) this.filters.rows = options.rows;
+    if (options.getItemTitle) this.getItemTitle = options.getItemTitle;
 
     // Initialize renderer
     this.renderer =
@@ -99,6 +100,8 @@ export class CrudlEntity<
   attachEntityToFields() {
     this.fieldsList.forEach((field) => field.useEntity(this));
   }
+
+  getItemTitle: (fields: Fields) => string = () => '';
 
   @computed
   get fields() {

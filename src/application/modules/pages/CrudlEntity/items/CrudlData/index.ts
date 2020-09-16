@@ -1,6 +1,11 @@
 import { extendObservable, observable } from 'mobx';
 import { CrudlDataReference } from '~/application/modules/pages/CrudlEntity/types/reference';
 
+type CrudlDataRead<T> = {
+  id: any;
+  data: Partial<T>;
+};
+
 export class CrudlData<
   Fields extends Record<string, any> = Record<string, any>
 > {
@@ -9,6 +14,11 @@ export class CrudlData<
   @observable isLoading: boolean = true;
 
   @observable list?: Fields[];
+  @observable read: CrudlDataRead<Fields> = {
+    data: {},
+    id: 0,
+  };
+
   @observable editor?: Record<number, Fields>;
 
   createReferenceData(refs: Record<string, any>) {

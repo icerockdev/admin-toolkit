@@ -31,6 +31,7 @@ export interface CrudlEntityOptions<
   list?: Partial<CrudlListRendererProps>;
   references?: Record<string, CrudlEntityReferenceProps>;
   api?: typeof CrudlApi;
+  getItemTitle?: (fields: Fields) => string;
 }
 
 export enum SortDir {

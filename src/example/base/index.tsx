@@ -14,6 +14,7 @@ export type IFields = {
 };
 
 export default new CrudlEntity<IFields>('Base', '/base', api, {
+  getItemTitle: (data) => data.name,
   fields: BASE_FIELDS,
   references: {
     role: {

@@ -9,9 +9,10 @@ import { CrudlRendererReaction } from '~/application/modules/pages/CrudlEntity/t
 
 interface IProps {
   list: CrudlRendererComponent;
+  read: CrudlRendererComponent;
 }
 
-const CrudlRendererRouter: FC<IProps> = observer(({ list }) => {
+const CrudlRendererRouter: FC<IProps> = observer(({ list, read }) => {
   const location = useLocation();
   const entity = useEntity();
 
@@ -28,8 +29,8 @@ const CrudlRendererRouter: FC<IProps> = observer(({ list }) => {
         return CrudlActionEnum.update;
       case `${entity.url}/${id}/create`:
         return CrudlActionEnum.create;
-      case `${entity.url}/${id}`:
-        return CrudlActionEnum.create;
+      case `${entity.url}/${id}/`:
+        return CrudlActionEnum.read;
       default:
         return CrudlActionEnum.list;
     }
@@ -37,12 +38,14 @@ const CrudlRendererRouter: FC<IProps> = observer(({ list }) => {
 
   const onEnter = useCallback<CrudlRendererReaction>(
     () => (entity.mode = action),
-    [entity]
+    [entity, action]
   );
 
   useEffect(() => {
     onEnter(action, id);
   }, [action]);
+
+  const { features, url } = entity;
 
   return (
     <Switch>
@@ -54,9 +57,7 @@ const CrudlRendererRouter: FC<IProps> = observer(({ list }) => {
 
       <Route path={entity.url} component={list.output} exact />
 
-      {/*{features.read && (*/}
-      {/*  <Route path={`${url}/:id`} component={this.readComponent.render} />*/}
-      {/*)}*/}
+      {features.read && <Route path={`${url}/:id`} component={read.output} />}
 
       {/*{features.create && (*/}
       {/*  <Route*/}

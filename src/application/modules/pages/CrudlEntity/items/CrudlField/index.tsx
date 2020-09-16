@@ -45,6 +45,10 @@ export class CrudlField<T extends Record<string, any> = Record<string, any>> {
     return val.toString();
   }
 
+  public asFilter(val: any) {
+    return val;
+  }
+
   @observable
   public List: FC<CrudlFieldListProps> = ({ value }) => <div>{value}</div>;
 

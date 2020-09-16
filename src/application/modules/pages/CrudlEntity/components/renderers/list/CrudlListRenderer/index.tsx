@@ -11,6 +11,7 @@ import { CrudlListHeader } from '~/application/modules/pages/CrudlEntity/compone
 import { CrudlListButtons } from '~/application/modules/pages/CrudlEntity/components/renderers/list/CrudlListButtons';
 import { CrudlListFilters } from '~/application/modules/pages/CrudlEntity/components/renderers/list/CrudlListFilters';
 import { CrudlListTable } from '~/application/modules/pages/CrudlEntity/components/renderers/list/CrudlListTable';
+import { observer } from 'mobx-react';
 
 export class CrudlListRenderer extends CrudlRendererComponent {
   constructor(props?: Partial<CrudlListRendererProps>) {
@@ -39,7 +40,7 @@ export class CrudlListRenderer extends CrudlRendererComponent {
 
   @computed
   get output() {
-    return () => (
+    return observer(() => (
       <this.Wrapper>
         <this.Header />
 
@@ -54,6 +55,6 @@ export class CrudlListRenderer extends CrudlRendererComponent {
         <this.Pagination />
         <this.Footer />
       </this.Wrapper>
-    );
+    ));
   }
 }

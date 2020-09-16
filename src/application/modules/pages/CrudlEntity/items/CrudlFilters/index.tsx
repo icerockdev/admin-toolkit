@@ -10,7 +10,7 @@ import { SortDir } from '~/application/modules/pages/CrudlEntity/types';
 export class CrudlFilters<F extends Record<string, any> = Record<string, any>> {
   constructor(public entity: CrudlEntity<F>) {}
 
-  @observable value: Record<string, string> = {};
+  @observable value: Record<string, any> = {};
   @observable selected: string[] = [];
 
   @observable count: number = 0;
@@ -32,7 +32,7 @@ export class CrudlFilters<F extends Record<string, any> = Record<string, any>> {
     return pickBy(
       (_, it) =>
         has(it, this.fields) &&
-        (!!this.value[it].trim() || this.fields[it].allowEmptyFilter)
+        (!!this.value[it] || this.fields[it].allowEmptyFilter)
     )(this.value);
   }
 

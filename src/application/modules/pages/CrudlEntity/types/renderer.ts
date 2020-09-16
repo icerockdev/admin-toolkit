@@ -4,6 +4,7 @@ import { CrudlActionEnum } from '~/application/modules/pages/CrudlEntity/types/i
 
 export interface CrudlRendererProps {
   list?: Partial<CrudlListRendererProps>;
+  read?: Partial<CrudlReadRendererProps>;
   renderers?: Partial<
     Record<'list' | 'read' | 'update' | 'create', CrudlRendererComponent>
   >;
@@ -24,6 +25,17 @@ export type CrudlListRendererProps = Record<
     title: FC;
     buttons: FC;
     filters: FC;
+  }>;
+};
+
+export type CrudlReadRendererProps = Record<
+  'wrapper' | 'header' | 'footer' | 'title' | 'buttons' | 'breadcrumbs',
+  FC
+> & {
+  container: FC<{
+    title: FC;
+    buttons: FC;
+    breadcrumbs: FC;
   }>;
 };
 

@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { CrudlListRendererProps } from '~/application/modules/pages/CrudlEntity/types/renderer';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
