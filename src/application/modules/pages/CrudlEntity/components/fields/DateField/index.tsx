@@ -53,7 +53,7 @@ export class DateField<
 
   @observable
   List: CrudlField['List'] = ({ value }) => (
-    <div>{this.formatValue(value)}</div>
+    <div>{(!!value && this.formatValue(value)) || ''}</div>
   );
 
   @observable

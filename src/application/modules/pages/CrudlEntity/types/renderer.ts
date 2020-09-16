@@ -1,6 +1,7 @@
 import { CrudlRendererComponent } from '~/application/modules/pages/CrudlEntity/components/renderers/CrudlRendererComponent';
 import { FC } from 'react';
 import { CrudlActionEnum } from '~/application/modules/pages/CrudlEntity/types/index';
+import { CrudlReadContentRenderer } from '~/application/modules/pages/CrudlEntity/components/renderers/read/CrudlReadContentRenderer';
 
 export interface CrudlRendererProps {
   list?: Partial<CrudlListRendererProps>;
@@ -37,6 +38,7 @@ export type CrudlReadRendererProps = Record<
     buttons: FC;
     breadcrumbs: FC;
   }>;
+  renderer: CrudlReadContentRenderer;
 };
 
 export type CrudlRendererReaction = (

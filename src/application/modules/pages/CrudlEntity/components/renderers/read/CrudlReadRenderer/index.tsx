@@ -10,6 +10,7 @@ import { CrudlReadFooter } from '~/application/modules/pages/CrudlEntity/compone
 import { CrudlReadTitle } from '~/application/modules/pages/CrudlEntity/components/renderers/read/CrudlReadTitle';
 import { CrudlReadButtons } from '~/application/modules/pages/CrudlEntity/components/renderers/read/CrudlReadButtons';
 import { CrudlReadBreadcrumbs } from '~/application/modules/pages/CrudlEntity/components/renderers/read/CrudlReadBreadcrumbs';
+import { CrudlReadContentRenderer } from '~/application/modules/pages/CrudlEntity/components/renderers/read/CrudlReadContentRenderer';
 
 export class CrudlReadRenderer extends CrudlRendererComponent {
   constructor(props?: Partial<CrudlReadRendererProps>) {
@@ -32,6 +33,8 @@ export class CrudlReadRenderer extends CrudlRendererComponent {
   Buttons: CrudlReadRendererProps['buttons'] = CrudlReadButtons;
   Breadcrumbs: CrudlReadRendererProps['breadcrumbs'] = CrudlReadBreadcrumbs;
 
+  renderer: CrudlReadRendererProps['renderer'] = new CrudlReadContentRenderer();
+
   @computed
   get output() {
     return observer(() => (
@@ -42,7 +45,7 @@ export class CrudlReadRenderer extends CrudlRendererComponent {
           buttons={this.Buttons}
           breadcrumbs={this.Breadcrumbs}
         >
-          <div>READ</div>
+          <this.renderer.output />
         </this.Container>
         <this.Footer />
       </this.Wrapper>

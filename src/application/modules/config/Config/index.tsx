@@ -7,7 +7,7 @@ import createMuiTheme, {
   ThemeOptions,
 } from '@material-ui/core/styles/createMuiTheme';
 import { observable } from 'mobx';
-import { DEFAULT_THEME } from '~/styles';
+import { DEFAULT_THEME } from '~/utils/theme';
 
 export class Config {
   constructor(fields?: Partial<IConfigProps>) {

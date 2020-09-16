@@ -12,10 +12,8 @@ export class CrudlRenderer<T extends CrudlEntity<any> = CrudlEntity<any>> {
     this.list =
       props?.renderers?.list || new CrudlListRenderer(props?.list || {});
 
-    // TODO: same here
-    if (props?.renderers?.read)
-      this.read =
-        props?.renderers?.list || new CrudlReadRenderer(props?.read || {});
+    this.read =
+      props?.renderers?.read || new CrudlReadRenderer(props?.read || {});
 
     // TODO: same here
     if (props?.renderers?.create) this.create = props.renderers.create;

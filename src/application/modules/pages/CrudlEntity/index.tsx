@@ -50,7 +50,7 @@ export class CrudlEntity<
       options.renderer ||
       new CrudlRenderer({
         list: options.list,
-        // TODO: read options
+        read: options.read,
         // TODO: create options,
         // TODO: update options
       });

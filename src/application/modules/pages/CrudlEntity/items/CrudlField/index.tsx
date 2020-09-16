@@ -7,6 +7,7 @@ import {
 import { StringFilter } from '~/application/modules/pages/CrudlEntity/components/renderers/filters/StringFilter';
 import { CrudlFilterComponentProps } from '~/application/modules/pages/CrudlEntity/types/filters';
 import { CrudlEntity } from '~/application/modules/pages/CrudlEntity';
+import { has } from 'ramda';
 
 export class CrudlField<T extends Record<string, any> = Record<string, any>> {
   constructor(
@@ -15,7 +16,12 @@ export class CrudlField<T extends Record<string, any> = Record<string, any>> {
   ) {
     extendObservable(this, { name, options });
 
-    if (options.features?.list) this.showInList = options.features.list;
+    if (has('read', options.features))
+      this.showInRead = !!options.features?.read;
+
+    if (has('list', options.features))
+      this.showInList = !!options.features?.list;
+
     if (options.allowEmptyFilter)
       this.allowEmptyFilter = options.allowEmptyFilter;
   }
@@ -23,6 +29,8 @@ export class CrudlField<T extends Record<string, any> = Record<string, any>> {
   @observable protected entity?: CrudlEntity<T>;
 
   @observable public showInList = true;
+  @observable public showInRead = true;
+
   @observable public listColumnSize = '10%';
   @observable public allowEmptyFilter = false;
 
@@ -54,6 +62,11 @@ export class CrudlField<T extends Record<string, any> = Record<string, any>> {
 
   @observable
   public ListHead: FC = () => <div>{this.label}</div>;
+
+  @computed
+  public get Read() {
+    return this.List;
+  }
 
   @observable
   public Filter: FC<

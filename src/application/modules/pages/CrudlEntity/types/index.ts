@@ -2,7 +2,10 @@ import { CrudlRenderer } from '~/application/modules/pages/CrudlEntity/items/Cru
 import { CrudlField } from '~/application/modules/pages/CrudlEntity/items/CrudlField';
 import { IPageProps } from '~/application';
 import { CrudlEntity } from '~/application/modules/pages/CrudlEntity';
-import { CrudlListRendererProps } from '~/application/modules/pages/CrudlEntity/types/renderer';
+import {
+  CrudlListRendererProps,
+  CrudlReadRendererProps,
+} from '~/application/modules/pages/CrudlEntity/types/renderer';
 import { CrudlEntityReferenceProps } from '~/application/modules/pages/CrudlEntity/types/reference';
 import { CrudlApi } from '~/application/modules/pages/CrudlEntity/items/CrudlApi';
 
@@ -28,10 +31,12 @@ export interface CrudlEntityOptions<
   fields: CrudlField<Fields>[];
   features: CrudlEntityFeatures;
   rows?: number;
-  list?: Partial<CrudlListRendererProps>;
   references?: Record<string, CrudlEntityReferenceProps>;
   api?: typeof CrudlApi;
   getItemTitle?: (fields: Fields) => string;
+
+  list?: Partial<CrudlListRendererProps>;
+  read?: Partial<CrudlReadRendererProps>;
 }
 
 export enum SortDir {

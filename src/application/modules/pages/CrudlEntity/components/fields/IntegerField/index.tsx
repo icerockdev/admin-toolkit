@@ -38,6 +38,6 @@ export class IntegerField<
 
   @observable
   List: CrudlField['List'] = ({ value }) => (
-    <div>{this.formatValue(value)}</div>
+    <div>{(value && this.formatValue(value)) || ''}</div>
   );
 }
