@@ -16,7 +16,7 @@ export type DateFieldOptions = CrudlField['options'] & {
 
 export class DateField<
   T extends Record<string, any> = Record<string, any>
-> extends CrudlField {
+> extends CrudlField<T> {
   constructor(
     name: CrudlField['name'],
     {

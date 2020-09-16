@@ -1,4 +1,4 @@
-import { action, extendObservable, observable, toJS } from 'mobx';
+import { action, computed, extendObservable, observable, toJS } from 'mobx';
 import {
   CrudlGetListProps,
   CrudlGetListResult,
@@ -6,7 +6,7 @@ import {
   IBaseEntityApiMethods,
   IBaseEntityApiUrls,
 } from '~/application/modules/pages/CrudlEntity/types/api';
-import { UNAUTHORIZED, WithTokenFunction } from '~/application';
+import { UNAUTHORIZED } from '~/application';
 import { CrudlEntity } from '~/application/modules/pages/CrudlEntity';
 import { CrudlController } from '~/application/modules/pages/CrudlEntity/items/CrudlController';
 import { keys } from 'ramda';
@@ -25,14 +25,17 @@ export class CrudlApi<
 
   @observable entity?: CrudlEntity<Fields>;
 
-  @observable
-  public withToken: WithTokenFunction = async () => {
-    throw new Error('WithToken not attached to api');
-  };
+  @computed
+  get withToken() {
+    if (!this.entity?.parent?.auth?.withToken) {
+      throw new Error('WithToken not attached to api');
+    }
+
+    return this.entity?.parent.auth.withToken;
+  }
 
   @action
   useEntity = (entity: CrudlEntity<Fields>) => {
-    this.withToken = entity.parent?.auth?.withToken || this.withToken;
     this.entity = entity;
   };
 
@@ -82,16 +85,13 @@ export class CrudlApi<
 
     await Promise.all(
       refs.map(async (ref) => {
-        entity.data.references[ref] = {
-          ...entity.data.references[ref],
-          isLoadingAll: true,
-        };
-
-        entity.data.references[ref] = {
-          ...entity.data.references[ref],
-          all: await getReferenceAll(entity, ref, this.host),
-          isLoadingAll: false,
-        };
+        entity.data.references[ref].isLoadingAll = true;
+        entity.data.references[ref].all = await getReferenceAll(
+          entity,
+          ref,
+          this.host
+        );
+        entity.data.references[ref].isLoadingAll = false;
       })
     );
   }

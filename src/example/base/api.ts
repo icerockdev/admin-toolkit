@@ -26,11 +26,13 @@ export default new CrudlApi<IFields>(
 );
 
 export const getRolesAll: CrudlEntityReferenceFetchAll = async (props) => {
+  await delay(1000);
+
   console.log(`REFERENCE ${props.url}`, props);
 
-  return delay(500).then(() => ({
+  return {
     10: 'User',
     20: 'Manager',
     30: 'Admin',
-  }));
+  };
 };

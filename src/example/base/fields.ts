@@ -3,6 +3,7 @@ import { IFields } from '~/example/base/index';
 import { DateField } from '~/application/modules/pages/CrudlEntity/components/fields/DateField';
 import { IntegerField } from '~/application/modules/pages/CrudlEntity/components/fields/IntegerField';
 import { SelectField } from '~/application/modules/pages/CrudlEntity/components/fields/SelectField';
+import { ReferenceField } from '~/application/modules/pages/CrudlEntity/components/fields/ReferenceField';
 
 export const BASE_FIELDS = [
   new CrudlField<IFields>('name', {
@@ -20,7 +21,7 @@ export const BASE_FIELDS = [
       filter: true,
     },
   }),
-  new CrudlField<IFields>('role', {
+  new ReferenceField<IFields>('role', {
     label: 'Роль',
     features: {
       sort: true,

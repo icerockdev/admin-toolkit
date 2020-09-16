@@ -10,7 +10,7 @@ export type IntegerFieldOptions = CrudlField['options'] & {
 
 export class IntegerField<
   T extends Record<string, any> = Record<string, any>
-> extends CrudlField {
+> extends CrudlField<T> {
   constructor(
     name: CrudlField['name'],
     { filterExact, accuracy, preserveZero, ...options }: IntegerFieldOptions

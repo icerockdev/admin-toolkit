@@ -1,4 +1,5 @@
 import { CrudlEntity } from '~/application/modules/pages/CrudlEntity';
+import { observable } from 'mobx';
 
 export interface CrudlEntityReferenceProps {
   all: CrudlEntityReferenceFetchAll;
@@ -11,6 +12,6 @@ export type CrudlEntityReferenceFetchAll = (props: {
 }) => Promise<Record<any, any>>;
 
 export class CrudlDataReference {
-  isLoadingAll: boolean = false;
-  all: Record<any, any> = {};
+  @observable isLoadingAll: boolean = false;
+  @observable all: Record<any, any> = {};
 }

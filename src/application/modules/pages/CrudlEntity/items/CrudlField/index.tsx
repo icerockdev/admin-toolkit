@@ -1,11 +1,12 @@
 import React, { FC } from 'react';
-import { computed, extendObservable, observable } from 'mobx';
+import { action, computed, extendObservable, observable } from 'mobx';
 import {
   CrudlFieldListProps,
   CrudlFieldProps,
 } from '~/application/modules/pages/CrudlEntity/types/field';
 import { StringFilter } from '~/application/modules/pages/CrudlEntity/components/renderers/filters/StringFilter';
 import { CrudlFilterComponentProps } from '~/application/modules/pages/CrudlEntity/types/filters';
+import { CrudlEntity } from '~/application/modules/pages/CrudlEntity';
 
 export class CrudlField<T extends Record<string, any> = Record<string, any>> {
   constructor(
@@ -19,6 +20,8 @@ export class CrudlField<T extends Record<string, any> = Record<string, any>> {
       this.allowEmptyFilter = options.allowEmptyFilter;
   }
 
+  @observable protected entity?: CrudlEntity<T>;
+
   @observable public showInList = true;
   @observable public listColumnSize = '10%';
   @observable public allowEmptyFilter = false;
@@ -31,6 +34,11 @@ export class CrudlField<T extends Record<string, any> = Record<string, any>> {
   @computed
   get key() {
     return this.name;
+  }
+
+  @action
+  public useEntity(entity: CrudlEntity<T>) {
+    this.entity = entity;
   }
 
   public asString(val: any) {

@@ -1,5 +1,5 @@
 import { CrudlField } from '~/application/modules/pages/CrudlEntity/items/CrudlField';
-import { observable } from 'mobx';
+import { computed, observable } from 'mobx';
 import React from 'react';
 import { SelectFilter } from '~/application/modules/pages/CrudlEntity/components/renderers/filters/SelectFilter';
 
@@ -10,7 +10,7 @@ export type SelectFieldOptions = CrudlField['options'] & {
 
 export class SelectField<
   T extends Record<string, any> = Record<string, any>
-> extends CrudlField {
+> extends CrudlField<T> {
   constructor(
     name: CrudlField['name'],
     { options, autocomplete, ...props }: SelectFieldOptions
@@ -24,9 +24,19 @@ export class SelectField<
   @observable variants: Record<any, any> = {};
   @observable autocomplete = true;
 
+  @computed
+  get listVariants() {
+    return this.variants;
+  }
+
+  @computed
+  get filterVariants() {
+    return this.listVariants;
+  }
+
   formatValue(val: any): any {
-    return Object.prototype.hasOwnProperty.call(this.variants, val)
-      ? this.variants[val]
+    return Object.prototype.hasOwnProperty.call(this.listVariants, val)
+      ? this.listVariants[val]
       : val;
   }
 
@@ -36,7 +46,7 @@ export class SelectField<
 
   @observable
   List: CrudlField['List'] = ({ value }) => (
-    <div>{this.formatValue(value)}</div>
+    <div>{this.listVariants[value]}</div>
   );
 
   @observable
@@ -47,7 +57,7 @@ export class SelectField<
       value={value}
       onChange={onChange}
       onReset={onReset}
-      variants={this.variants}
+      variants={this.filterVariants}
       autocomplete={this.autocomplete}
     />
   );

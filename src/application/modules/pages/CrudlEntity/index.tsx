@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Page } from '~/application/modules/pages/Page';
-import { computed, extendObservable, observable, reaction, toJS } from 'mobx';
+import { action, computed, extendObservable, observable, reaction } from 'mobx';
 import { CrudlApi } from './items/CrudlApi';
 import { CrudlRenderer } from './items/CrudlRenderer';
 import {
@@ -61,10 +61,10 @@ export class CrudlEntity<
     this.filters.restoreFilters();
 
     // Update withToken for api
-    reaction(
-      () => this.parent?.auth?.withToken,
-      () => this.api.useEntity(this)
-    );
+    this.api.useEntity(this);
+
+    // Pass current entity to fields
+    this.attachEntityToFields();
 
     // React on changes of mode
     reaction(() => this.mode, this.controller.onActionChange);
@@ -94,6 +94,11 @@ export class CrudlEntity<
   @observable fieldsList: CrudlField<Fields>[] = [];
   @observable filters = new CrudlFilters(this);
   @observable controller = new CrudlController<Fields>(this);
+
+  @action
+  attachEntityToFields() {
+    this.fieldsList.forEach((field) => field.useEntity(this));
+  }
 
   @computed
   get fields() {

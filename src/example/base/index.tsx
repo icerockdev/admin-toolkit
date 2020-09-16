@@ -7,7 +7,7 @@ export type IFields = {
   id: number;
   name: string;
   age: number;
-  role: string;
+  role: number;
   status: number;
   birthDate: string;
   description: string;
@@ -16,7 +16,7 @@ export type IFields = {
 export default new CrudlEntity<IFields>('Base', '/base', api, {
   fields: BASE_FIELDS,
   references: {
-    roles: {
+    role: {
       url: '/test/',
       all: getRolesAll,
     },

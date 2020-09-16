@@ -22,6 +22,7 @@ import { CrudlFilterWrapper } from '~/application/modules/pages/CrudlEntity/comp
 type IProps = CrudlFilterComponentProps & {
   variants: Record<any, any>;
   autocomplete: boolean;
+  disabled?: boolean;
 };
 
 type AutocompleteOption = {
@@ -37,6 +38,7 @@ const SelectFilter: FC<IProps> = ({
   autocomplete,
   onChange,
   onReset,
+  disabled,
 }) => {
   const ref = useRef<HTMLLabelElement>(null);
   const [labelWidth, setLabelWidth] = useState(0);
@@ -91,6 +93,7 @@ const SelectFilter: FC<IProps> = ({
                 variant="outlined"
                 placeholder="Поиск"
                 label={label}
+                disabled={disabled}
               />
             )}
           />
@@ -112,6 +115,7 @@ const SelectFilter: FC<IProps> = ({
               labelWidth={labelWidth}
               onChange={onChangeHandler}
               style={{ minWidth: labelWidth + 40 }}
+              disabled={disabled}
             >
               {options &&
                 Object.keys(variants).map((item) => (

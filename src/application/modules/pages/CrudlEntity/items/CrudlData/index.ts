@@ -1,5 +1,4 @@
-import { observable } from 'mobx';
-import { CrudlEntity } from '~/application/modules/pages/CrudlEntity';
+import { extendObservable, observable } from 'mobx';
 import { CrudlDataReference } from '~/application/modules/pages/CrudlEntity/types/reference';
 
 export class CrudlData<
@@ -13,8 +12,10 @@ export class CrudlData<
   @observable editor?: Record<number, Fields>;
 
   createReferenceData(refs: Record<string, any>) {
-    Object.keys(refs).map(
-      (ref) => (this.references[ref] = new CrudlDataReference())
-    );
+    Object.keys(refs).forEach((ref) => {
+      extendObservable(this.references, {
+        [ref]: observable(new CrudlDataReference()),
+      });
+    });
   }
 }
