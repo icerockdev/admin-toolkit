@@ -8,7 +8,6 @@ export interface CrudlEntityReferenceProps {
 export type CrudlEntityReferenceFetchAll = (props: {
   entity: CrudlEntity;
   url: string;
-  host: string;
 }) => Promise<Record<any, any>>;
 
 export class CrudlDataReference {

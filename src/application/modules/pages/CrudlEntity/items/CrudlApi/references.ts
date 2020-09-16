@@ -14,7 +14,6 @@ export const getReferenceAll = async (
 
   return entity.api.withToken(all, {
     entity,
-    host,
-    url,
+    url: new URL(url, host),
   });
 };

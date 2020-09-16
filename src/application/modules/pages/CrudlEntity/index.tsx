@@ -113,7 +113,6 @@ export class CrudlEntity<
 
   @computed
   get output() {
-    console.log(toJS(this.data.references));
     return () => <Provider entity={this}>{this.renderer.output}</Provider>;
   }
 }

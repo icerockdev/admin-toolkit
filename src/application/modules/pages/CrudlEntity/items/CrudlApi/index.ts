@@ -40,7 +40,7 @@ export class CrudlApi<
     entity: CrudlEntity<Fields>
   ): Promise<CrudlGetListResult<Fields>> => {
     const { sortBy, sortDir, page, rows, valuesForList } = entity.filters;
-    const url = `${this.host}/${this.urls.list || ''}`;
+    const url = new URL(this.urls.list || '/', this.host).href;
 
     const result: CrudlGetListResult<Fields> = await this.withToken(
       this.methods.list,
