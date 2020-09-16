@@ -160,6 +160,8 @@ export class JWTAuthProvider extends AuthProvider {
 
           this.user = EMPTY_USER;
           this.tokens = EMPTY_TOKENS;
+        } else {
+          this.parent?.notifications.showError(e.message);
         }
       });
   };

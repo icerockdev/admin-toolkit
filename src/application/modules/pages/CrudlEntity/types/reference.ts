@@ -9,6 +9,8 @@ export interface CrudlEntityReferenceProps {
 export type CrudlEntityReferenceFetchAll = (props: {
   entity: CrudlEntity;
   url: string;
+  token: string;
+  name: string;
 }) => Promise<Record<any, any>>;
 
 export class CrudlDataReference {

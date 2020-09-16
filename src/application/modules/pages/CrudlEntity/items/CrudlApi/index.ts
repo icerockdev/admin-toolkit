@@ -86,10 +86,13 @@ export class CrudlApi<
     await Promise.all(
       refs.map(async (ref) => {
         entity.data.references[ref].isLoadingAll = true;
-        entity.data.references[ref].all = await getReferenceAll(
-          entity,
-          ref,
-          this.host
+        entity.data.references[ref].all = await this.withToken(
+          getReferenceAll,
+          {
+            entity,
+            name: ref,
+            host: this.host,
+          }
         );
         entity.data.references[ref].isLoadingAll = false;
       })

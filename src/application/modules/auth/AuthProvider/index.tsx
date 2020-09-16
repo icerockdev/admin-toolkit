@@ -214,13 +214,21 @@ export class AuthProvider {
 
   @action
   withToken: WithTokenFunction = async (req: any, args: any) => {
-    const result = await req({ ...args, token: this.user.token });
+    try {
+      const result = await req({ ...args, token: this.user.token });
 
-    if (result.error === UNAUTHORIZED) {
-      this.user = EMPTY_USER;
+      if (result.error) {
+        throw new Error(result.error);
+      }
+
+      return result;
+    } catch (e) {
+      if (e.toString() === UNAUTHORIZED) {
+        this.user = EMPTY_USER;
+      }
+
+      this.parent?.notifications.showError(e.toString());
     }
-
-    return result;
   };
 
   @computed
