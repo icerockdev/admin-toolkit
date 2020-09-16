@@ -17,9 +17,14 @@ export default new CrudlEntity<IFields>('Base', '/base', api, {
   fields: BASE_FIELDS,
   references: {
     roles: {
+      url: '/test/',
       all: (...props) => {
         console.log({ ...props });
-        return Promise.resolve({});
+        return Promise.resolve({
+          10: 'User',
+          20: 'Manager',
+          30: 'Admin',
+        });
       },
     },
   },

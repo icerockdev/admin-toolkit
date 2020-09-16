@@ -8,8 +8,13 @@ import {
 } from '~/application/modules/pages/CrudlEntity/types/api';
 import { UNAUTHORIZED, WithTokenFunction } from '~/application';
 import { CrudlEntity } from '~/application/modules/pages/CrudlEntity';
+import { CrudlController } from '~/application/modules/pages/CrudlEntity/items/CrudlController';
+import { keys } from 'ramda';
+import { getReferenceAll } from '~/application/modules/pages/CrudlEntity/items/CrudlApi/references';
 
-export class CrudlApi<Fields = {}> {
+export class CrudlApi<
+  Fields extends Record<string, any> = Record<string, any>
+> {
   constructor(
     protected methods: IBaseEntityApiMethods<Fields>,
     protected urls: IBaseEntityApiUrls,
@@ -18,14 +23,17 @@ export class CrudlApi<Fields = {}> {
     extendObservable(this, { methods, urls, host });
   }
 
+  @observable entity?: CrudlEntity<Fields>;
+
   @observable
   public withToken: WithTokenFunction = async () => {
     throw new Error('WithToken not attached to api');
   };
 
   @action
-  useWithToken = (withToken?: WithTokenFunction) => {
-    this.withToken = withToken ? withToken : this.withToken;
+  useEntity = (entity: CrudlEntity<Fields>) => {
+    this.withToken = entity.parent?.auth?.withToken || this.withToken;
+    this.entity = entity;
   };
 
   getList = async (
@@ -56,4 +64,35 @@ export class CrudlApi<Fields = {}> {
 
     return result;
   };
+
+  @action
+  async getReferencesAll<Fields>(controller: CrudlController<Fields>) {
+    if (!this.entity) return;
+
+    const {
+      entity,
+      entity: { references },
+    } = this;
+
+    if (!keys(references).length) return;
+
+    const refs = keys(entity.references);
+
+    refs.forEach((ref) => {});
+
+    await Promise.all(
+      refs.map(async (ref) => {
+        entity.data.references[ref] = {
+          ...entity.data.references[ref],
+          isLoadingAll: true,
+        };
+
+        entity.data.references[ref] = {
+          ...entity.data.references[ref],
+          all: await getReferenceAll(entity, ref, this.host),
+          isLoadingAll: false,
+        };
+      })
+    );
+  }
 }

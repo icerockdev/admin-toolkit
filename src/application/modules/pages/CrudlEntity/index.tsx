@@ -63,7 +63,7 @@ export class CrudlEntity<
     // Update withToken for api
     reaction(
       () => this.parent?.auth?.withToken,
-      () => this.api.useWithToken(this.parent?.auth?.withToken)
+      () => this.api.useEntity(this)
     );
 
     // React on changes of mode
@@ -80,7 +80,7 @@ export class CrudlEntity<
       ],
       () => {
         this.filters.persistFilters();
-        this.controller.onListLoad();
+        this.controller.loadList();
       }
     );
   }

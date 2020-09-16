@@ -4,6 +4,7 @@ import { IPageProps } from '~/application';
 import { CrudlEntity } from '~/application/modules/pages/CrudlEntity';
 import { CrudlListRendererProps } from '~/application/modules/pages/CrudlEntity/types/renderer';
 import { CrudlEntityReferenceProps } from '~/application/modules/pages/CrudlEntity/types/reference';
+import { CrudlApi } from '~/application/modules/pages/CrudlEntity/items/CrudlApi';
 
 export * from './api';
 
@@ -20,13 +21,16 @@ export type CrudlEntityFeatures = Partial<Record<CrudlActionEnum, boolean>> & {
   export?: boolean;
 };
 
-export interface CrudlEntityOptions<Fields = {}> extends Partial<IPageProps> {
+export interface CrudlEntityOptions<
+  Fields extends Record<string, any> = Record<string, any>
+> extends Partial<IPageProps> {
   renderer: CrudlRenderer<CrudlEntity<Fields>>;
   fields: CrudlField<Fields>[];
   features: CrudlEntityFeatures;
   rows?: number;
   list?: Partial<CrudlListRendererProps>;
   references?: Record<string, CrudlEntityReferenceProps>;
+  api?: typeof CrudlApi;
 }
 
 export enum SortDir {
