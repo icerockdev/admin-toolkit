@@ -2,20 +2,20 @@
 
 import React, { ReactElement } from 'react';
 import {
-  IEntityProps,
   ENTITY_ERRORS,
-  ENTITY_SORT_DIRS,
   ENTITY_REFERENCE_FIELDS,
-  IFilterValue,
+  ENTITY_SORT_DIRS,
   IEntityField,
+  IEntityProps,
+  IFilterValue,
 } from '~/application/types/entity';
 import { Page } from '~/application/modules/Page';
 import { EntityList } from '../../components/EntityList';
 import { EntityHead } from '../../components/EntityHead';
 import { EntityFooter } from '../../components/EntityFooter';
-import { computed, observable, action, reaction, flow, toJS } from 'mobx';
+import { action, computed, flow, observable, reaction, toJS } from 'mobx';
 import { CancellablePromise } from 'mobx/lib/api/flow';
-import { Switch, Route, RouteComponentProps } from 'react-router-dom';
+import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { EntityViewer } from '../../components/EntityViewer';
 import { Unwrap } from '~/application/types/common';
@@ -23,6 +23,7 @@ import { EntityBreadcrumbs } from '~/application/components/EntityBreadcrumbs';
 import { Typography } from '@material-ui/core';
 import { saveAs } from 'file-saver';
 import { parseQuery } from '~/utils/query';
+import { Provider } from 'mobx-react';
 
 export class Entity extends Page {
   // Props
@@ -752,26 +753,28 @@ export class Entity extends Page {
   @computed
   get output() {
     return observer(() => (
-      <Switch>
-        <Route path={`${this.menu.url}/create`} component={this.Creator} />
-        <Route
-          path={`${this.menu.url}/:id/edit`}
-          component={({
-            match: {
-              params: { id },
-            },
-          }: RouteComponentProps<{ id: string }>) => <this.Editor id={id} />}
-        />
-        <Route
-          path={`${this.menu.url}/:id/`}
-          component={({
-            match: {
-              params: { id },
-            },
-          }: RouteComponentProps<{ id: string }>) => <this.Viewer id={id} />}
-        />
-        <Route path={this.menu.url} component={this.List} />
-      </Switch>
+      <Provider entity={this}>
+        <Switch>
+          <Route path={`${this.menu.url}/create`} component={this.Creator} />
+          <Route
+            path={`${this.menu.url}/:id/edit`}
+            component={({
+              match: {
+                params: { id },
+              },
+            }: RouteComponentProps<{ id: string }>) => <this.Editor id={id} />}
+          />
+          <Route
+            path={`${this.menu.url}/:id/`}
+            component={({
+              match: {
+                params: { id },
+              },
+            }: RouteComponentProps<{ id: string }>) => <this.Viewer id={id} />}
+          />
+          <Route path={this.menu.url} component={this.List} />
+        </Switch>
+      </Provider>
     ));
   }
 
