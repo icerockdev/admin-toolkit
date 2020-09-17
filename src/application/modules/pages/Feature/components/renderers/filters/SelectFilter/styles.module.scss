@@ -1,0 +1,25 @@
+@import 'src/application/modules/pages/Feature/styles/variables';
+
+.select {
+  height: $filter_input_height;
+  background: white;
+  display: flex;
+  flex-direction: row;
+  flex: 0 0 200px + $filter_input_height;
+
+  :global(.MuiAutocomplete-inputRoot),
+  :global(.MuiFormControl-root) {
+    height: $filter_input_height;
+    width: 100%;
+    min-width: 200px !important;
+  }
+
+  :global(.MuiFormControl-root),
+  :global(.MuiInputBase-formControl) {
+    height: $filter_input_height;
+  }
+
+  label {
+    transform: translate(14px, 16px) scale(1);
+  }
+}

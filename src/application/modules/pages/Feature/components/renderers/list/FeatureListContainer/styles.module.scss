@@ -1,0 +1,32 @@
+@import 'src/application/modules/pages/Feature/styles/variables';
+
+.grid {
+  display: grid;
+  grid-template:
+    'title filters buttons' auto
+    'content content content' 1fr
+    / 1fr auto auto;
+  grid-row-gap: $gap;
+  grid-column-gap: 0;
+}
+
+.title {
+  grid-area: title;
+  min-width: 120px;
+}
+
+.buttons {
+  grid-area: buttons;
+}
+
+.filters {
+  grid-area: filters;
+}
+
+.content {
+  grid-area: content;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}

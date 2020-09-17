@@ -1,12 +1,12 @@
-import { CrudlField } from '~/application/modules/pages/CrudlEntity/items/CrudlField';
+import { FeatureField } from '~/application/modules/pages/Feature/items/FeatureField';
 import { IFields } from '~/example/base/index';
-import { DateField } from '~/application/modules/pages/CrudlEntity/components/fields/DateField';
-import { IntegerField } from '~/application/modules/pages/CrudlEntity/components/fields/IntegerField';
-import { SelectField } from '~/application/modules/pages/CrudlEntity/components/fields/SelectField';
-import { ReferenceField } from '~/application/modules/pages/CrudlEntity/components/fields/ReferenceField';
+import { DateField } from '~/application/modules/pages/Feature/components/fields/DateField';
+import { IntegerField } from '~/application/modules/pages/Feature/components/fields/IntegerField';
+import { SelectField } from '~/application/modules/pages/Feature/components/fields/SelectField';
+import { ReferenceField } from '~/application/modules/pages/Feature/components/fields/ReferenceField';
 
 export const BASE_FIELDS = [
-  new CrudlField<IFields>('name', {
+  new FeatureField<IFields>('name', {
     label: 'Имя',
     features: {
       sort: true,
@@ -48,7 +48,7 @@ export const BASE_FIELDS = [
       filter: true,
     },
   }),
-  new CrudlField<IFields>('description', {
+  new FeatureField<IFields>('description', {
     label: 'Описание',
     features: {
       sort: true,

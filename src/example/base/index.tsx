@@ -1,5 +1,5 @@
 import React from 'react';
-import { CrudlEntity } from '~/application/modules/pages/CrudlEntity';
+import { Feature } from '~/application/modules/pages/Feature';
 import api, { getRolesAll } from '~/example/base/api';
 import { BASE_FIELDS } from '~/example/base/fields';
 
@@ -13,7 +13,7 @@ export type IFields = {
   description: string;
 };
 
-export default new CrudlEntity<IFields>('Base', '/base', api, {
+export default new Feature<IFields>('Base', '/base', api, {
   getItemTitle: (data) => data.name,
   fields: BASE_FIELDS,
   references: {

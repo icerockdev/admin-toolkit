@@ -1,14 +1,14 @@
-import { CrudlApi } from '~/application/modules/pages/CrudlEntity/items/CrudlApi';
+import { FeatureApi } from '~/application/modules/pages/Feature/items/FeatureApi';
 import { IFields } from '~/example/base/index';
 import { GenerateBaseData } from '~/example/base/mock';
-import { CrudlGetListResult } from '~/application/modules/pages/CrudlEntity/types';
-import { CrudlEntityReferenceFetchAll } from '~/application/modules/pages/CrudlEntity/types/reference';
+import { FeatureGetListResult } from '~/application/modules/pages/Feature/types';
+import { FeatureReferenceFetchAll } from '~/application/modules/pages/Feature/types/reference';
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 
-export default new CrudlApi<IFields>(
+export default new FeatureApi<IFields>(
   {
-    list: async ({ url, ...props }): Promise<CrudlGetListResult<IFields>> => {
+    list: async ({ url, ...props }): Promise<FeatureGetListResult<IFields>> => {
       console.log(`GET ${url}`, { url, ...props });
 
       return delay(500).then(() => ({
@@ -25,7 +25,7 @@ export default new CrudlApi<IFields>(
   'https://sample.org'
 );
 
-export const getRolesAll: CrudlEntityReferenceFetchAll = async (props) => {
+export const getRolesAll: FeatureReferenceFetchAll = async (props) => {
   await delay(1000);
 
   console.log(`REFERENCE ${props.url}`, props);
