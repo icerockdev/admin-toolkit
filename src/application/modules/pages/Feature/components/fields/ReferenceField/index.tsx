@@ -1,7 +1,7 @@
 import React from 'react';
 import { SelectField } from '~/application/modules/pages/Feature/components/fields/SelectField';
 import { computed, observable } from 'mobx';
-import { FeatureField } from '~/application/modules/pages/Feature/items/FeatureField';
+import { FeatureField } from '~/application/modules/pages/Feature/components/fields/FeatureField';
 import { Placeholder } from '~/application/modules/pages/Feature/components/common/Placeholder';
 import { observer } from 'mobx-react';
 

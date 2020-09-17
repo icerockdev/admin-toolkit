@@ -1,5 +1,5 @@
 import { FeatureRenderer } from '~/application/modules/pages/Feature/items/FeatureRenderer';
-import { FeatureField } from '~/application/modules/pages/Feature/items/FeatureField';
+import { FeatureField } from '~/application/modules/pages/Feature/components/fields/FeatureField';
 import { IPageProps } from '~/application';
 import { Feature } from '~/application/modules/pages/Feature';
 import {

@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useMemo, useState } from 'react';
 import { observer } from 'mobx-react';
-import { FeatureField } from '~/application/modules/pages/Feature/items/FeatureField';
+import { FeatureField } from '~/application/modules/pages/Feature/components/fields/FeatureField';
 import { Button, ListItemText, Menu, MenuItem } from '@material-ui/core';
 import FilterIcon from '@material-ui/icons/FilterList';
 import styles from './styles.module.scss';

@@ -11,7 +11,7 @@ import {
 } from '~/application/modules/pages/Feature/types';
 import { Provider } from 'mobx-react';
 import { FEATURE_DEFAULT_FEATURES } from '~/application/modules/pages/Feature/defaults';
-import { FeatureField } from '~/application/modules/pages/Feature/items/FeatureField';
+import { FeatureField } from '~/application/modules/pages/Feature/components/fields/FeatureField';
 import { FeatureData } from '~/application/modules/pages/Feature/items/FeatureData';
 import { FeatureController } from '~/application/modules/pages/Feature/items/FeatureController';
 import { FeatureFilters } from '~/application/modules/pages/Feature/items/FeatureFilters';

@@ -35,13 +35,15 @@ export type FeatureReadRendererProps = Record<
   | 'title'
   | 'buttons'
   | 'breadcrumbs'
-  | 'content',
+  | 'content'
+  | 'submit',
   FC
 > & {
   container: FC<{
     title: FC;
     buttons: FC;
     breadcrumbs: FC;
+    submit: FC;
   }>;
 };
 

@@ -11,6 +11,7 @@ import { FeatureReadTitle } from '~/application/modules/pages/Feature/components
 import { FeatureReadButtons } from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadButtons';
 import { FeatureReadBreadcrumbs } from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadBreadcrumbs';
 import { FeatureReadContent } from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadContent';
+import { FeatureReadSubmit } from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadSubmit';
 
 export class FeatureReadRenderer extends FeatureRendererComponent {
   constructor(props?: Partial<FeatureReadRendererProps>) {
@@ -24,6 +25,7 @@ export class FeatureReadRenderer extends FeatureRendererComponent {
     if (props?.container) this.Container = props.container;
     if (props?.breadcrumbs) this.Breadcrumbs = props.breadcrumbs;
     if (props?.content) this.Content = props.content;
+    if (props?.submit) this.Submit = props.submit;
   }
 
   Wrapper: FeatureReadRendererProps['wrapper'] = FeatureReadWrapper;
@@ -34,6 +36,7 @@ export class FeatureReadRenderer extends FeatureRendererComponent {
   Buttons: FeatureReadRendererProps['buttons'] = FeatureReadButtons;
   Breadcrumbs: FeatureReadRendererProps['breadcrumbs'] = FeatureReadBreadcrumbs;
   Content: FeatureReadRendererProps['content'] = FeatureReadContent;
+  Submit: FeatureReadRendererProps['submit'] = FeatureReadSubmit;
 
   @computed
   get output() {
@@ -44,6 +47,7 @@ export class FeatureReadRenderer extends FeatureRendererComponent {
           title={this.Title}
           buttons={this.Buttons}
           breadcrumbs={this.Breadcrumbs}
+          submit={this.Submit}
         >
           <this.Content />
         </this.Container>

@@ -2,7 +2,7 @@ import { Feature } from '~/application/modules/pages/Feature';
 import { computed, observable } from 'mobx';
 import React from 'react';
 import { and, has, pickBy } from 'ramda';
-import { FeatureField } from '~/application/modules/pages/Feature/items/FeatureField';
+import { FeatureField } from '~/application/modules/pages/Feature/components/fields/FeatureField';
 import { FiltersRenderer } from '~/application/modules/pages/Feature/components/filters/FiltersRenderer';
 import qs from 'query-string';
 import { SortDir } from '~/application/modules/pages/Feature/types';

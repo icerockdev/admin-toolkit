@@ -8,6 +8,7 @@ import { StringFilter } from '~/application/modules/pages/Feature/components/ren
 import { FeatureFilterComponentProps } from '~/application/modules/pages/Feature/types/filters';
 import { Feature } from '~/application/modules/pages/Feature';
 import { has } from 'ramda';
+import { StringInput } from '~/application/modules/pages/Feature/components/inputs/StringInput';
 
 export class FeatureField<T extends Record<string, any> = Record<string, any>> {
   constructor(
@@ -68,9 +69,9 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
     return this.List;
   }
 
-  @computed get Update() {
-    return this.Read;
-  }
+  public Update = ({ value }: { value: any }) => (
+    <StringInput value={value} onChange={console.log} label={this.label} />
+  );
 
   @computed get Create() {
     return this.Update;

@@ -8,7 +8,13 @@ import { FeatureMode } from '~/application/modules/pages/Feature/types';
 import { observer } from 'mobx-react';
 
 const FeatureReadContainer: FeatureReadRendererProps['container'] = observer(
-  ({ title: Title, buttons: Buttons, breadcrumbs: Breadcrumbs, children }) => {
+  ({
+    title: Title,
+    buttons: Buttons,
+    breadcrumbs: Breadcrumbs,
+    children,
+    submit: Submit,
+  }) => {
     const feature = useFeature();
     const isHeaderShown = feature.mode !== FeatureMode.create;
 
@@ -45,6 +51,10 @@ const FeatureReadContainer: FeatureReadRendererProps['container'] = observer(
             )}
           >
             {children}
+          </div>
+
+          <div className={classNames(styles.submit)}>
+            <Submit />
           </div>
         </Paper>
       </div>

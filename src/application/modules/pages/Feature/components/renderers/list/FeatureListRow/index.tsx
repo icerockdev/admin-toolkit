@@ -1,7 +1,7 @@
 import React, { FC, useCallback } from 'react';
 import { TableCell, TableRow } from '@material-ui/core';
 import { useFeature } from '~/utils/hooks';
-import { FeatureField } from '~/application/modules/pages/Feature/items/FeatureField';
+import { FeatureField } from '~/application/modules/pages/Feature/components/fields/FeatureField';
 import { observer } from 'mobx-react';
 import classNames from 'classnames';
 import { useHistory } from 'react-router';

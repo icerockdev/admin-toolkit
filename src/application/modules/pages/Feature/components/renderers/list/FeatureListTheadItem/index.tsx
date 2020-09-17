@@ -1,5 +1,5 @@
 import React, { FC, useCallback } from 'react';
-import { FeatureField } from '~/application/modules/pages/Feature/items/FeatureField';
+import { FeatureField } from '~/application/modules/pages/Feature/components/fields/FeatureField';
 import { TableCell, TableSortLabel } from '@material-ui/core';
 import { useFeature } from '~/utils/hooks';
 import { SortDir } from '~/application/modules/pages/Feature/types';

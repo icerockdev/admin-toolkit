@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { Placeholder } from '~/application/modules/pages/Feature/components/common/Placeholder';
 import { FeatureReadField } from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadField';
 import { FeatureMode } from '~/application/modules/pages/Feature/types';
-import { FeatureField } from '~/application/modules/pages/Feature/items/FeatureField';
+import { FeatureField } from '~/application/modules/pages/Feature/components/fields/FeatureField';
 import { has } from 'ramda';
 
 interface IProps {
@@ -41,15 +41,23 @@ const FeatureReadContent: FC<IProps> = observer(({ onlyFields }) => {
     [feature.mode]
   );
 
+  const isEditing =
+    feature.mode === FeatureMode.create || feature.mode === FeatureMode.update;
+
   return (
     <div className={classNames(styles.list, 'feature-read__content')}>
       {fields.map((field) => (
-        <FeatureReadField label={field.label} key={field.key}>
-          <Placeholder width="30px" isLoading={!has(field.name, values)}>
-            {createElement(component(field), {
-              value: values[field.name],
-            })}
-          </Placeholder>
+        <FeatureReadField
+          label={field.label}
+          key={field.key}
+          hideLabel={isEditing}
+          disabled={
+            feature.mode === FeatureMode.read && !has(field.name, values)
+          }
+        >
+          {createElement(component(field), {
+            value: values[field.name],
+          })}
         </FeatureReadField>
       ))}
     </div>

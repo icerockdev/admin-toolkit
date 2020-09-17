@@ -1,4 +1,4 @@
-import { FeatureField } from '~/application/modules/pages/Feature/items/FeatureField';
+import { FeatureField } from '~/application/modules/pages/Feature/components/fields/FeatureField';
 import { computed, observable } from 'mobx';
 import React from 'react';
 import { SelectFilter } from '~/application/modules/pages/Feature/components/renderers/filters/SelectFilter';
