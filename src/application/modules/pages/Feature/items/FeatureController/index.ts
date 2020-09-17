@@ -2,7 +2,7 @@ import { action, extendObservable, flow, observable } from 'mobx';
 import { Feature } from '~/application/modules/pages/Feature';
 import { CancellablePromise } from 'mobx/lib/api/flow';
 import { controllerGetList } from '~/application/modules/pages/Feature/items/FeatureController/list';
-import { FeatureAction } from '~/application/modules/pages/Feature/types';
+import { FeatureMode } from '~/application/modules/pages/Feature/types';
 import { controllerGetRead } from '~/application/modules/pages/Feature/items/FeatureController/read';
 
 export class FeatureController<
@@ -21,9 +21,15 @@ export class FeatureController<
   };
 
   @action
-  loadRead = (id: any) => {
+  loadRead = () => {
     this.instances.readLoader?.cancel();
     this.instances.readLoader = flow(controllerGetRead)(this);
+  };
+
+  @action
+  loadUpdate = () => {
+    this.instances.updateLoader?.cancel();
+    this.instances.updateLoader = flow(controllerGetRead)(this);
   };
 
   cancelAll = () => {
@@ -46,11 +52,12 @@ export class FeatureController<
     this.cancelAll();
 
     switch (this.entity.mode) {
-      case FeatureAction.read:
-        const id = this.getIdFromUrl();
-        return this.loadRead(id);
-      case FeatureAction.list:
+      case FeatureMode.read:
+        return this.loadRead();
+      case FeatureMode.list:
         return this.loadList();
+      case FeatureMode.update:
+        return this.loadUpdate();
       default:
         return;
     }

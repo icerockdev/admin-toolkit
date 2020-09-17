@@ -1,7 +1,7 @@
 import { Feature } from '~/application/modules/pages/Feature';
-import { FeatureAction } from '~/application/modules/pages/Feature/types/index';
+import { FeatureMode } from '~/application/modules/pages/Feature/types/index';
 
-export type IBaseEntityApiUrls = Partial<Record<FeatureAction, string>>;
+export type IBaseEntityApiUrls = Partial<Record<FeatureMode, string>>;
 
 export type FeatureGetListProps = {
   feature: Feature;

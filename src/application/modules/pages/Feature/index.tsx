@@ -6,7 +6,7 @@ import { action, computed, extendObservable, observable, reaction } from 'mobx';
 import { FeatureApi } from './items/FeatureApi';
 import { FeatureRenderer } from './items/FeatureRenderer';
 import {
-  FeatureAction,
+  FeatureMode,
   FeatureOptions,
 } from '~/application/modules/pages/Feature/types';
 import { Provider } from 'mobx-react';
@@ -91,7 +91,7 @@ export class Feature<
 
   @observable renderer: FeatureRenderer = new FeatureRenderer();
   @observable data: FeatureData = new FeatureData();
-  @observable mode?: FeatureAction;
+  @observable mode?: FeatureMode;
   @observable fieldsList: FeatureField<Fields>[] = [];
   @observable filters = new FeatureFilters(this);
   @observable controller = new FeatureController<Fields>(this);

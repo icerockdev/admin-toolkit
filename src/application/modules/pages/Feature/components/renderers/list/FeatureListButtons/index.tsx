@@ -6,14 +6,14 @@ import { observer } from 'mobx-react';
 import { useFeature } from '~/utils/hooks';
 import { Button } from '@material-ui/core';
 import { ImportExport, NoteAdd } from '@material-ui/icons';
-import { FeatureAction } from '~/application/modules/pages/Feature/types';
+import { FeatureMode } from '~/application/modules/pages/Feature/types';
 import { Link } from 'react-router-dom';
 
 const FeatureListButtons: FeatureListRendererProps['buttons'] = observer(() => {
   const feature = useFeature();
 
   const { create, export: exp } = feature.features;
-  const createUrl = useMemo(() => `${feature.url}/${FeatureAction.create}`, [
+  const createUrl = useMemo(() => `${feature.url}/${FeatureMode.create}`, [
     feature.url,
   ]);
 

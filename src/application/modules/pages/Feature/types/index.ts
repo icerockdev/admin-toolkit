@@ -11,14 +11,14 @@ import { FeatureApi } from '~/application/modules/pages/Feature/items/FeatureApi
 
 export * from './api';
 
-export enum FeatureAction {
+export enum FeatureMode {
   list = 'list',
   read = 'read',
   update = 'update',
   create = 'create',
 }
 
-export type FeatureFeatures = Partial<Record<FeatureAction, boolean>> & {
+export type FeatureFeatures = Partial<Record<FeatureMode, boolean>> & {
   delete?: boolean;
   select?: boolean;
   export?: boolean;

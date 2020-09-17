@@ -28,6 +28,13 @@ export class FeatureRenderer<T extends Feature<any> = Feature<any>> {
 
   @computed
   get output(): JSX.Element {
-    return <FeatureRendererRouter list={this.list} read={this.read} />;
+    return (
+      <FeatureRendererRouter
+        list={this.list}
+        read={this.read}
+        create={this.create}
+        update={this.update}
+      />
+    );
   }
 }

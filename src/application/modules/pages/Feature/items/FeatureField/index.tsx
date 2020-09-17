@@ -68,6 +68,14 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
     return this.List;
   }
 
+  @computed get Update() {
+    return this.Read;
+  }
+
+  @computed get Create() {
+    return this.Update;
+  }
+
   @observable
   public Filter: FC<
     Pick<FeatureFilterComponentProps, 'value' | 'onReset' | 'onChange'>

@@ -20,7 +20,5 @@ export type FeatureFieldProps<ValueType> = {
 };
 
 export type FeatureFieldListProps<T extends any = any> = {
-  name: string;
-  label?: string;
   value: T;
 };

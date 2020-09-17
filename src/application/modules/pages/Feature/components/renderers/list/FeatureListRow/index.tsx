@@ -34,11 +34,7 @@ const FeatureListRow: FC<IProps> = observer(({ values }) => {
             `feature-list__field-value_${field.name}`
           )}
         >
-          <field.List
-            name={field.name}
-            label={field.options.label}
-            value={values[field.name]}
-          />
+          <field.List value={values[field.name]} />
         </TableCell>
       ))}
     </TableRow>

@@ -1,6 +1,6 @@
 import { FeatureRendererComponent } from '~/application/modules/pages/Feature/components/renderers/FeatureRendererComponent';
 import { FC } from 'react';
-import { FeatureAction } from '~/application/modules/pages/Feature/types/index';
+import { FeatureMode } from '~/application/modules/pages/Feature/types/index';
 
 export interface FeatureRendererProps {
   list?: Partial<FeatureListRendererProps>;
@@ -46,6 +46,6 @@ export type FeatureReadRendererProps = Record<
 };
 
 export type FeatureRendererReaction = (
-  action: FeatureAction,
+  action: FeatureMode,
   id: number | null
 ) => void;
