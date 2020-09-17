@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 import { FilterWrapper } from '~/application/modules/pages/Feature/components/filters/FilterWrapper';
 import { DatePicker, DateRangePicker } from '@material-ui/pickers';
 import { MaterialUiPickersDate } from '@material-ui/pickers/src/typings/date';
-import { formatRFC3339, isDate, parseISO } from 'date-fns';
+import { formatRFC3339, isDate, isValid, parseISO } from 'date-fns';
 
 type IProps = FeatureFilterComponentProps & { isRange: boolean };
 
@@ -21,7 +21,7 @@ const DateFilter: FC<IProps> = ({
 
   const onRangeChange = useCallback(
     ([start, end]: [MaterialUiPickersDate, MaterialUiPickersDate]) => {
-      if (!start || !end) return;
+      if (!start || !end || !isValid(start) || !isValid(end)) return;
 
       onChange(name, [start, end].map((it) => formatRFC3339(it)).join(','));
     },
@@ -30,7 +30,7 @@ const DateFilter: FC<IProps> = ({
 
   const onSingleChange = useCallback(
     (val: MaterialUiPickersDate) => {
-      if (!val) return;
+      if (!val || !isValid(val)) return;
 
       onChange(name, formatRFC3339(val));
     },
@@ -54,6 +54,8 @@ const DateFilter: FC<IProps> = ({
   }, [value, isRange]);
 
   const singleValue = useMemo<MaterialUiPickersDate>(() => {
+    if (isDate(value)) return value;
+
     const parsed = value && parseISO(value);
 
     if (!isDate(parsed)) return null;

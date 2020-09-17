@@ -58,6 +58,12 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
     return val;
   }
 
+  public onChange = (val: any) => {
+    if (!this.feature?.data.read) return;
+
+    this.feature.data.read[this.name] = val;
+  };
+
   @observable
   public List: FC<FeatureFieldListProps> = ({ value }) => <div>{value}</div>;
 
@@ -70,7 +76,7 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
   }
 
   public Update = ({ value }: { value: any }) => (
-    <StringInput value={value} onChange={console.log} label={this.label} />
+    <StringInput value={value} onChange={this.onChange} label={this.label} />
   );
 
   @computed get Create() {

@@ -22,20 +22,25 @@ export class FeatureController<
 
   @action
   loadRead = () => {
-    this.instances.readLoader?.cancel();
+    this.cancelAll();
     this.instances.readLoader = flow(controllerGetRead)(this);
   };
 
   @action
   loadUpdate = () => {
-    this.instances.updateLoader?.cancel();
-    this.instances.updateLoader = flow(controllerGetRead)(this);
+    this.cancelAll();
+    this.instances.readLoader = flow(controllerGetRead)(this);
   };
 
   @action
   loadCreate = () => {
+    this.cancelAll();
+
     this.entity.data.read = {};
     this.entity.data.isLoading = false;
+
+    // TODO: load all references here
+    // this.instances.createLoader = flow(controllerGetReferences)(this);
   };
 
   cancelAll = () => {

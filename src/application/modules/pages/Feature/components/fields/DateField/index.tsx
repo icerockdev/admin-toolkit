@@ -3,6 +3,7 @@ import { observable } from 'mobx';
 import { format, parseISO } from 'date-fns/esm';
 import React from 'react';
 import { DateFilter } from '~/application/modules/pages/Feature/components/renderers/filters/DateFilter';
+import { DateInput } from '~/application/modules/pages/Feature/components/inputs/DateInput';
 
 export type DateFieldParser = (val: string) => Date;
 export type DateFieldFormatter = (val: Date) => string;
@@ -51,9 +52,12 @@ export class DateField<
     return this.formatValue(val);
   }
 
-  @observable
   List: FeatureField['List'] = ({ value }) => (
     <div>{(!!value && this.formatValue(value)) || ''}</div>
+  );
+
+  Update: FeatureField['Update'] = ({ value }) => (
+    <DateInput value={value} label={this.label} onChange={this.onChange} />
   );
 
   @observable
