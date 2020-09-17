@@ -58,9 +58,6 @@ export class Feature<
     // Initialize ref fields storage
     this.data.createReferenceData(this.references);
 
-    // Get filters from url
-    this.filters.restoreFilters();
-
     // Update withToken for api
     this.api.useFeature(this);
 
