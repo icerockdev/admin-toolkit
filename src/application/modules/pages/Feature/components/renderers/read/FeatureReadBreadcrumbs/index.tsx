@@ -24,11 +24,13 @@ const FeatureReadBreadcrumbs: FC<IProps> = observer(() => {
         {entity.title}
       </Link>
 
-      {!!title && <div className={styles.crumb}>/</div>}
+      {(title || entity.data.isLoading) && (
+        <div className={styles.crumb}>/</div>
+      )}
 
-      <div className={styles.current}>
-        {entity.data.isLoading ? <Placeholder /> : title}
-      </div>
+      <Placeholder width="120px" isLoading={entity.data.isLoading}>
+        <div className={styles.current}>{title}</div>
+      </Placeholder>
     </div>
   );
 });
