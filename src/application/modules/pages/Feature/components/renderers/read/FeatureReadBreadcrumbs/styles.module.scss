@@ -5,28 +5,3 @@
   display: flex;
   align-items: center;
 }
-
-.crumb {
-  margin: 0 $gap;
-  color: #666666;
-
-  &::after {
-    content: '/';
-  }
-}
-
-.entity {
-  font-weight: bold;
-}
-
-.current {
-  color: #666666;
-
-  a {
-    font-weight: bold;
-  }
-}
-
-.mode {
-  color: #666666;
-}
