@@ -1,7 +1,6 @@
 import { FeatureRendererComponent } from '~/application/modules/pages/Feature/components/renderers/FeatureRendererComponent';
 import { FC } from 'react';
 import { FeatureAction } from '~/application/modules/pages/Feature/types/index';
-import { FeatureReadContentRenderer } from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadContentRenderer';
 
 export interface FeatureRendererProps {
   list?: Partial<FeatureListRendererProps>;
@@ -30,7 +29,13 @@ export type FeatureListRendererProps = Record<
 };
 
 export type FeatureReadRendererProps = Record<
-  'wrapper' | 'header' | 'footer' | 'title' | 'buttons' | 'breadcrumbs',
+  | 'wrapper'
+  | 'header'
+  | 'footer'
+  | 'title'
+  | 'buttons'
+  | 'breadcrumbs'
+  | 'content',
   FC
 > & {
   container: FC<{
@@ -38,7 +43,6 @@ export type FeatureReadRendererProps = Record<
     buttons: FC;
     breadcrumbs: FC;
   }>;
-  renderer: FeatureReadContentRenderer;
 };
 
 export type FeatureRendererReaction = (

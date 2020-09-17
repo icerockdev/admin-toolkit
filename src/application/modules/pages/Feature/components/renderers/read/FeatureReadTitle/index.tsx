@@ -3,6 +3,7 @@ import { useEntity } from '~/utils/hooks';
 import classNames from 'classnames';
 import styles from './styles.module.scss';
 import { observer } from 'mobx-react';
+import { Placeholder } from '~/application/modules/pages/Feature/components/common/Placeholder';
 
 interface IProps {}
 
@@ -15,7 +16,13 @@ const FeatureReadTitle: FC<IProps> = observer(() => {
 
   return (
     <div className={classNames(styles.title, 'feature-read__title')}>
-      {title && <h1>{title}</h1>}
+      {entity.data.isLoading ? (
+        <h1>
+          <Placeholder />
+        </h1>
+      ) : (
+        title && <h1>{title}</h1>
+      )}
     </div>
   );
 });

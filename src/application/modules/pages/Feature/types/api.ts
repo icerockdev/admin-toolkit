@@ -13,6 +13,12 @@ export type FeatureGetListProps = {
   offset: number;
 };
 
+export type FeatureGetReadProps = {
+  entity: Feature;
+  url: string;
+  id: any;
+};
+
 export type FeatureGetListResult<Fields> = {
   data: Fields[];
   count: number;
@@ -20,8 +26,15 @@ export type FeatureGetListResult<Fields> = {
   error?: string;
 };
 
+export type FeatureGetReadResult<Fields> = {
+  data: Fields;
+  status?: number;
+  error?: string;
+};
+
 export interface FeatureApiMethods<Fields> {
   list: (props: FeatureGetListProps) => Promise<FeatureGetListResult<Fields>>;
+  read?: (props: FeatureGetReadProps) => Promise<FeatureGetReadResult<Fields>>;
 }
 
 export type FeatureApiHost = string;

@@ -5,6 +5,8 @@ import {
   FeatureApiHost,
   FeatureApiMethods,
   IBaseEntityApiUrls,
+  FeatureGetReadResult,
+  FeatureGetReadProps,
 } from '~/application/modules/pages/Feature/types/api';
 import { UNAUTHORIZED } from '~/application';
 import { Feature } from '~/application/modules/pages/Feature';
@@ -48,6 +50,7 @@ export class FeatureApi<
     const result: FeatureGetListResult<Fields> = await this.withToken(
       this.methods.list,
       {
+        entity,
         url,
         filters: toJS(valuesForList),
         sortBy,
@@ -55,6 +58,32 @@ export class FeatureApi<
         limit: rows,
         offset: page * rows,
       } as FeatureGetListProps
+    );
+
+    if (result.status === 401) {
+      throw new Error(UNAUTHORIZED);
+    }
+
+    if (result.error) {
+      throw new Error(result.error);
+    }
+
+    return result;
+  };
+
+  getRead = async (
+    entity: Feature<Fields>,
+    id: any
+  ): Promise<FeatureGetReadResult<Fields>> => {
+    if (!this.methods.read) {
+      throw new Error('Api getter for single item not defined');
+    }
+
+    const url = new URL(this.urls.read || '/', this.host).href;
+
+    const result: FeatureGetReadResult<Fields> = await this.withToken(
+      this.methods.read,
+      { url, entity, id } as FeatureGetReadProps
     );
 
     if (result.status === 401) {

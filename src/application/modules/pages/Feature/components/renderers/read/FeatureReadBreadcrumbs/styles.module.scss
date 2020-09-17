@@ -1,7 +1,7 @@
 @import 'src/application/modules/pages/Feature/styles/variables';
 
 .breadcrumbs {
-  padding: $gap;
+  padding: $gap * 2 $gap $gap / 2;
   display: flex;
 }
 

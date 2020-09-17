@@ -10,7 +10,7 @@ import { FeatureReadFooter } from '~/application/modules/pages/Feature/component
 import { FeatureReadTitle } from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadTitle';
 import { FeatureReadButtons } from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadButtons';
 import { FeatureReadBreadcrumbs } from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadBreadcrumbs';
-import { FeatureReadContentRenderer } from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadContentRenderer';
+import { FeatureReadContent } from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadContent';
 
 export class FeatureReadRenderer extends FeatureRendererComponent {
   constructor(props?: Partial<FeatureReadRendererProps>) {
@@ -23,6 +23,7 @@ export class FeatureReadRenderer extends FeatureRendererComponent {
     if (props?.buttons) this.Buttons = props.buttons;
     if (props?.container) this.Container = props.container;
     if (props?.breadcrumbs) this.Breadcrumbs = props.breadcrumbs;
+    if (props?.content) this.Content = props.content;
   }
 
   Wrapper: FeatureReadRendererProps['wrapper'] = FeatureReadWrapper;
@@ -32,8 +33,7 @@ export class FeatureReadRenderer extends FeatureRendererComponent {
   Title: FeatureReadRendererProps['title'] = FeatureReadTitle;
   Buttons: FeatureReadRendererProps['buttons'] = FeatureReadButtons;
   Breadcrumbs: FeatureReadRendererProps['breadcrumbs'] = FeatureReadBreadcrumbs;
-
-  renderer: FeatureReadRendererProps['renderer'] = new FeatureReadContentRenderer();
+  Content: FeatureReadRendererProps['content'] = FeatureReadContent;
 
   @computed
   get output() {
@@ -45,7 +45,7 @@ export class FeatureReadRenderer extends FeatureRendererComponent {
           buttons={this.Buttons}
           breadcrumbs={this.Breadcrumbs}
         >
-          <this.renderer.output />
+          <this.Content />
         </this.Container>
         <this.Footer />
       </this.Wrapper>

@@ -3,7 +3,7 @@ import { Feature } from '~/application/modules/pages/Feature';
 import { CancellablePromise } from 'mobx/lib/api/flow';
 import { controllerGetList } from '~/application/modules/pages/Feature/items/FeatureController/list';
 import { FeatureAction } from '~/application/modules/pages/Feature/types';
-import { useMemo } from 'react';
+import { controllerGetRead } from '~/application/modules/pages/Feature/items/FeatureController/read';
 
 export class FeatureController<
   T extends Record<string, any> = Record<string, any>
@@ -23,7 +23,7 @@ export class FeatureController<
   @action
   loadRead = (id: any) => {
     this.instances.readLoader?.cancel();
-    this.instances.readLoader = flow(controllerGetList)(this);
+    this.instances.readLoader = flow(controllerGetRead)(this);
   };
 
   cancelAll = () => {
