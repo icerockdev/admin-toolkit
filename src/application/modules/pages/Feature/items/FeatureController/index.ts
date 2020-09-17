@@ -32,6 +32,12 @@ export class FeatureController<
     this.instances.updateLoader = flow(controllerGetRead)(this);
   };
 
+  @action
+  loadCreate = () => {
+    this.entity.data.read = {};
+    this.entity.data.isLoading = false;
+  };
+
   cancelAll = () => {
     Object.values(this.instances).forEach((instance) => {
       if (instance.cancel) instance.cancel();
@@ -42,9 +48,10 @@ export class FeatureController<
     const re = new RegExp(
       `${this.entity.url.replace(/\//gim, '\\/')}\\\/([^/]+)`
     );
+
     const match = window.location.pathname.match(re);
 
-    return parseInt((match && match[1]) || '', 10) || null;
+    return parseInt(match && match.length > 0 ? match[1] : '', 10) || null;
   };
 
   @action
@@ -58,6 +65,8 @@ export class FeatureController<
         return this.loadList();
       case FeatureMode.update:
         return this.loadUpdate();
+      case FeatureMode.create:
+        return this.loadCreate();
       default:
         return;
     }

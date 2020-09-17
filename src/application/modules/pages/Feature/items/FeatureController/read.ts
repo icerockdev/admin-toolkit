@@ -4,10 +4,10 @@ import { FeatureGetReadResult } from '~/application/modules/pages/Feature/types'
 export function* controllerGetRead<T extends Record<string, any>>(
   controller: FeatureController<T>
 ) {
+  console.log('getting read?!!');
+
   const { entity } = controller;
   const id = controller.getIdFromUrl();
-
-  console.log('clearing');
 
   try {
     entity.data.read = {};

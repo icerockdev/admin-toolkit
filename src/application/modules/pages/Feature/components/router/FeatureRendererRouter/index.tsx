@@ -21,13 +21,16 @@ const FeatureRendererRouter: FC<IProps> = observer(
 
     const id = feature.controller.getIdFromUrl();
 
-    const action = useMemo<FeatureMode>(() => {
+    const mode = useMemo<FeatureMode>(() => {
       switch (location.pathname) {
+        case `${feature.url}/${FeatureMode.create}/`:
         case `${feature.url}/${FeatureMode.create}`:
           return FeatureMode.create;
+        case `${feature.url}/${id}/${FeatureMode.update}/`:
         case `${feature.url}/${id}/${FeatureMode.update}`:
           return FeatureMode.update;
         case `${feature.url}/${id}/`:
+        case `${feature.url}/${id}`:
           return FeatureMode.read;
         default:
           return FeatureMode.list;
@@ -35,12 +38,13 @@ const FeatureRendererRouter: FC<IProps> = observer(
     }, [feature, location.pathname, id]);
 
     const onEnter = useCallback<FeatureRendererReaction>(() => {
-      feature.mode = action;
-    }, [feature, action]);
+      console.log('feature mode', mode);
+      feature.mode = mode;
+    }, [feature, mode]);
 
     useEffect(() => {
-      onEnter(action, id);
-    }, [action, id]);
+      onEnter(mode, id);
+    }, [mode, id]);
 
     const { features, url } = feature;
 
