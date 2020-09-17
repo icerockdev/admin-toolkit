@@ -23,8 +23,8 @@ export class FeatureRenderer<T extends Feature<any> = Feature<any>> {
 
   @observable list: FeatureRendererComponent = new FeatureListRenderer();
   @observable read: FeatureRendererComponent = new FeatureReadRenderer();
-  @observable create: FeatureRendererComponent = new FeatureRendererComponent();
-  @observable update: FeatureRendererComponent = new FeatureRendererComponent();
+  @observable create: FeatureRendererComponent = new FeatureReadRenderer();
+  @observable update: FeatureRendererComponent = new FeatureReadRenderer();
 
   @computed
   get output(): JSX.Element {

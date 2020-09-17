@@ -11,7 +11,6 @@ const FeatureListTitle: FeatureListRendererProps['title'] = observer(() => {
   return (
     <h1 className={classNames(styles.title, 'feature-list__title')}>
       {feature.title}
-      {feature.data.isLoading ? ' (loading)' : null}
     </h1>
   );
 });
