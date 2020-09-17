@@ -6,26 +6,26 @@ export function* controllerGetRead<T extends Record<string, any>>(
 ) {
   console.log('getting read?!!');
 
-  const { entity } = controller;
+  const { feature } = controller;
   const id = controller.getIdFromUrl();
 
   try {
-    entity.data.read = {};
-    entity.data.isLoading = true;
+    feature.data.read = {};
+    feature.data.isLoading = true;
 
-    const result: FeatureGetReadResult<T> = yield entity.api.getRead(
-      entity,
+    const result: FeatureGetReadResult<T> = yield feature.api.getRead(
+      feature,
       id
     );
 
-    entity.data.read = result.data;
+    feature.data.read = result.data;
 
-    controller.entity.data.isLoading = false;
+    controller.feature.data.isLoading = false;
 
     // TODO: make controllerGetReferencesList to fetch values based on actual data
-    yield entity.api.getReferencesAll(controller);
+    yield feature.api.getReferencesAll(controller);
   } catch (e) {
-    controller.entity.data.isLoading = false;
-    controller.entity.parent?.notifications.showError(e.toString());
+    controller.feature.data.isLoading = false;
+    controller.feature.parent?.notifications.showError(e.toString());
   }
 }

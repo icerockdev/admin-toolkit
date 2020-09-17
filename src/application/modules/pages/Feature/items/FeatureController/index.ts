@@ -10,8 +10,8 @@ export class FeatureController<
 > {
   @observable instances: Record<string, CancellablePromise<any>> = {};
 
-  constructor(public entity: Feature<T>) {
-    extendObservable(this, { entity });
+  constructor(public feature: Feature<T>) {
+    extendObservable(this, { feature: feature });
   }
 
   @action
@@ -36,8 +36,8 @@ export class FeatureController<
   loadCreate = () => {
     this.cancelAll();
 
-    this.entity.data.read = {};
-    this.entity.data.isLoading = false;
+    this.feature.data.read = {};
+    this.feature.data.isLoading = false;
 
     // TODO: load all references here
     // this.instances.createLoader = flow(controllerGetReferences)(this);
@@ -51,7 +51,7 @@ export class FeatureController<
 
   getIdFromUrl = () => {
     const re = new RegExp(
-      `${this.entity.url.replace(/\//gim, '\\/')}\\\/([^/]+)`
+      `${this.feature.url.replace(/\//gim, '\\/')}\\\/([^/]+)`
     );
 
     const match = window.location.pathname.match(re);
@@ -63,7 +63,7 @@ export class FeatureController<
   onActionChange = () => {
     this.cancelAll();
 
-    switch (this.entity.mode) {
+    switch (this.feature.mode) {
       case FeatureMode.read:
         return this.loadRead();
       case FeatureMode.list:

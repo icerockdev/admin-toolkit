@@ -65,7 +65,7 @@ export class Feature<
     this.api.useFeature(this);
 
     // Pass current feature to fields
-    this.attachEntityToFields();
+    this.attachFeatureToFields();
 
     // React on changes of mode
     reaction(() => this.mode, this.controller.onActionChange);
@@ -97,7 +97,7 @@ export class Feature<
   @observable controller = new FeatureController<Fields>(this);
 
   @action
-  attachEntityToFields() {
+  attachFeatureToFields() {
     this.fieldsList.forEach((field) => field.useFeature(this));
   }
 

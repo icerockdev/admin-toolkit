@@ -4,22 +4,22 @@ import { FeatureController } from '~/application/modules/pages/Feature/items/Fea
 export function* controllerGetList<T extends Record<string, any>>(
   controller: FeatureController<T>
 ) {
-  const { entity } = controller;
+  const { feature } = controller;
 
   try {
-    entity.data.isLoading = true;
+    feature.data.isLoading = true;
 
-    const result: FeatureGetListResult<T> = yield entity.api.getList(entity);
+    const result: FeatureGetListResult<T> = yield feature.api.getList(feature);
 
-    entity.data.list = result.data;
-    entity.filters.count = result.count;
+    feature.data.list = result.data;
+    feature.filters.count = result.count;
 
-    controller.entity.data.isLoading = false;
+    controller.feature.data.isLoading = false;
 
     // TODO: make controllerGetReferencesList to fetch values based on actual data
-    yield entity.api.getReferencesAll(controller);
+    yield feature.api.getReferencesAll(controller);
   } catch (e) {
-    controller.entity.data.isLoading = false;
-    controller.entity.parent?.notifications.showError(e.toString());
+    controller.feature.data.isLoading = false;
+    controller.feature.parent?.notifications.showError(e.toString());
   }
 }
