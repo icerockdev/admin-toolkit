@@ -10,7 +10,7 @@ import { SortDir } from '~/application/modules/pages/Feature/types';
 export class FeatureFilters<
   F extends Record<string, any> = Record<string, any>
 > {
-  constructor(public entity: Feature<F>) {}
+  constructor(public feature: Feature<F>) {}
 
   @observable value: Record<string, any> = {};
   @observable selected: string[] = [];
@@ -25,7 +25,7 @@ export class FeatureFilters<
   @computed
   get fields(): Record<string, FeatureField<F>> {
     return pickBy((item: FeatureField<F>) => !!item.options.features?.filter)(
-      this.entity.fields
+      this.feature.fields
     );
   }
 

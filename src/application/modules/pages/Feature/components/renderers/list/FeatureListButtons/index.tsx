@@ -3,18 +3,18 @@ import { FeatureListRendererProps } from '~/application/modules/pages/Feature/ty
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
-import { useEntity } from '~/utils/hooks';
+import { useFeature } from '~/utils/hooks';
 import { Button } from '@material-ui/core';
 import { ImportExport, NoteAdd } from '@material-ui/icons';
 import { FeatureAction } from '~/application/modules/pages/Feature/types';
 import { Link } from 'react-router-dom';
 
 const FeatureListButtons: FeatureListRendererProps['buttons'] = observer(() => {
-  const entity = useEntity();
+  const feature = useFeature();
 
-  const { create, export: exp } = entity.features;
-  const createUrl = useMemo(() => `${entity.url}/${FeatureAction.create}`, [
-    entity.url,
+  const { create, export: exp } = feature.features;
+  const createUrl = useMemo(() => `${feature.url}/${FeatureAction.create}`, [
+    feature.url,
   ]);
 
   return (

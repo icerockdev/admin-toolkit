@@ -3,14 +3,14 @@ import { FeatureListRendererProps } from '~/application/modules/pages/Feature/ty
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
-import { useEntity } from '~/utils/hooks';
+import { useFeature } from '~/utils/hooks';
 
 const FeatureListFilters: FeatureListRendererProps['filters'] = observer(() => {
-  const entity = useEntity();
+  const feature = useFeature();
 
   return (
     <div className={classNames(styles.fitlers, 'feature-list__filters')}>
-      {entity.filters.Filters}
+      {feature.filters.Filters}
     </div>
   );
 });

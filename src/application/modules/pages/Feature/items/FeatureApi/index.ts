@@ -37,7 +37,7 @@ export class FeatureApi<
   }
 
   @action
-  useEntity = (entity: Feature<Fields>) => {
+  useFeature = (entity: Feature<Fields>) => {
     this.entity = entity;
   };
 
@@ -50,7 +50,7 @@ export class FeatureApi<
     const result: FeatureGetListResult<Fields> = await this.withToken(
       this.methods.list,
       {
-        entity,
+        feature: entity,
         url,
         filters: toJS(valuesForList),
         sortBy,
@@ -83,7 +83,7 @@ export class FeatureApi<
 
     const result: FeatureGetReadResult<Fields> = await this.withToken(
       this.methods.read,
-      { url, entity, id } as FeatureGetReadProps
+      { url, feature: entity, id } as FeatureGetReadProps
     );
 
     if (result.status === 401) {

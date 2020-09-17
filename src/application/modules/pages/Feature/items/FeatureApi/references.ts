@@ -23,7 +23,7 @@ export const getReferenceAll: (
   if (!all || !url) return {};
 
   return await all({
-    entity,
+    feature: entity,
     url: new URL(url, host).href,
     token,
     name,

@@ -7,7 +7,7 @@ export interface FeatureReferenceProps {
 }
 
 export type FeatureReferenceFetchAll = (props: {
-  entity: Feature;
+  feature: Feature;
   url: string;
   token: string;
   name: string;

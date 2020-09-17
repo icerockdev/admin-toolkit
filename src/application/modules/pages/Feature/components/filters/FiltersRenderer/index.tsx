@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo } from 'react';
-import { useEntity } from '~/utils/hooks';
+import { useFeature } from '~/utils/hooks';
 import { observer } from 'mobx-react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
@@ -7,40 +7,40 @@ import { equals, omit, reject } from 'ramda';
 import { FilterSelector } from '~/application/modules/pages/Feature/components/filters/FilterSelector';
 
 const FiltersRenderer = observer(() => {
-  const entity = useEntity();
+  const feature = useFeature();
   const filterable = useMemo(
-    () => entity.fieldsList.filter((field) => field.options.features?.filter),
-    [entity.fieldsList]
+    () => feature.fieldsList.filter((field) => field.options.features?.filter),
+    [feature.fieldsList]
   );
 
   const selected = useMemo(
     () =>
       filterable.filter((field) =>
-        entity.filters.selected.includes(field.name)
+        feature.filters.selected.includes(field.name)
       ),
-    [filterable, entity.filters.selected]
+    [filterable, feature.filters.selected]
   );
 
   const onFieldChange = useCallback(
     (name: string, value: any) => {
-      entity.filters.value = { ...entity.filters.value, [name]: value };
+      feature.filters.value = { ...feature.filters.value, [name]: value };
     },
-    [entity.filters.value]
+    [feature.filters.value]
   );
 
   const onFieldReset = useCallback(
     (name: string) => {
-      entity.filters.value = omit([name], entity.filters.value);
-      entity.filters.selected = reject(equals(name), entity.filters.selected);
+      feature.filters.value = omit([name], feature.filters.value);
+      feature.filters.selected = reject(equals(name), feature.filters.selected);
     },
-    [entity.filters.value]
+    [feature.filters.value]
   );
 
   const onAdd = useCallback(
     (name: string) => {
-      entity.filters.selected = [...entity.filters.selected, name];
+      feature.filters.selected = [...feature.filters.selected, name];
     },
-    [entity.filters.selected]
+    [feature.filters.selected]
   );
 
   return (
@@ -48,14 +48,14 @@ const FiltersRenderer = observer(() => {
       <FilterSelector
         fields={filterable}
         onSelect={onAdd}
-        selected={entity.filters.selected}
+        selected={feature.filters.selected}
       />
 
       {selected.map((field, i) => (
         <field.Filter
           onReset={onFieldReset}
           onChange={onFieldChange}
-          value={entity.filters.value[field.name] || ''}
+          value={feature.filters.value[field.name] || ''}
           key={field.name}
         />
       ))}

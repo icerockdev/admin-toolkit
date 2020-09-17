@@ -2,14 +2,14 @@ import React, { FC, useCallback, useMemo } from 'react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { TablePagination } from '@material-ui/core';
-import { useEntity } from '~/utils/hooks';
+import { useFeature } from '~/utils/hooks';
 import { observer } from 'mobx-react';
 
 interface IProps {}
 
 const FeatureListPagination: FC<IProps> = observer(() => {
-  const entity = useEntity();
-  const { rows, page, count, rowsSelectOptions } = entity.filters;
+  const feature = useFeature();
+  const { rows, page, count, rowsSelectOptions } = feature.filters;
 
   const labelDisplayedRows = useCallback(
     ({ from, to, count }: { from: number; to: number; count: number }) => {
@@ -24,16 +24,16 @@ const FeatureListPagination: FC<IProps> = observer(() => {
 
   const onRowsChange = useCallback(
     (event) => {
-      entity.filters.rows = event.target.value;
+      feature.filters.rows = event.target.value;
     },
-    [entity.filters]
+    [feature.filters]
   );
 
   const onPageChange = useCallback(
     (_, val: number) => {
-      entity.filters.page = val;
+      feature.filters.page = val;
     },
-    [entity.filters]
+    [feature.filters]
   );
 
   return (

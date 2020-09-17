@@ -10,12 +10,12 @@ export class ReferenceField<T extends Record<string, any>> extends SelectField<
 > {
   @computed
   get isLoading() {
-    return this.entity?.data.references[this.name].isLoadingAll || false;
+    return this.feature?.data.references[this.name].isLoadingAll || false;
   }
 
   @computed
   get listVariants() {
-    return this.entity?.data.references[this.name].all || {};
+    return this.feature?.data.references[this.name].all || {};
   }
 
   @observable

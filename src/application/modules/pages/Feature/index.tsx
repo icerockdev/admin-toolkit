@@ -62,9 +62,9 @@ export class Feature<
     this.filters.restoreFilters();
 
     // Update withToken for api
-    this.api.useEntity(this);
+    this.api.useFeature(this);
 
-    // Pass current entity to fields
+    // Pass current feature to fields
     this.attachEntityToFields();
 
     // React on changes of mode
@@ -98,7 +98,7 @@ export class Feature<
 
   @action
   attachEntityToFields() {
-    this.fieldsList.forEach((field) => field.useEntity(this));
+    this.fieldsList.forEach((field) => field.useFeature(this));
   }
 
   getItemTitle: (fields: Fields) => string = () => '';
@@ -121,6 +121,6 @@ export class Feature<
 
   @computed
   get output() {
-    return () => <Provider entity={this}>{this.renderer.output}</Provider>;
+    return () => <Provider feature={this}>{this.renderer.output}</Provider>;
   }
 }

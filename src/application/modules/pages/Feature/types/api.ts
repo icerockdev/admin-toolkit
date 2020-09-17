@@ -4,7 +4,7 @@ import { FeatureAction } from '~/application/modules/pages/Feature/types/index';
 export type IBaseEntityApiUrls = Partial<Record<FeatureAction, string>>;
 
 export type FeatureGetListProps = {
-  entity: Feature;
+  feature: Feature;
   url: string;
   filters: Record<string, string>;
   sortBy: string;
@@ -14,7 +14,7 @@ export type FeatureGetListProps = {
 };
 
 export type FeatureGetReadProps = {
-  entity: Feature;
+  feature: Feature;
   url: string;
   id: any;
 };

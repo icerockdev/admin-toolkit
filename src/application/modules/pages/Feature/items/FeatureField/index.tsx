@@ -26,7 +26,7 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
       this.allowEmptyFilter = options.allowEmptyFilter;
   }
 
-  @observable protected entity?: Feature<T>;
+  @observable protected feature?: Feature<T>;
 
   @observable public showInList = true;
   @observable public showInRead = true;
@@ -45,8 +45,8 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
   }
 
   @action
-  public useEntity(entity: Feature<T>) {
-    this.entity = entity;
+  public useFeature(feature: Feature<T>) {
+    this.feature = feature;
   }
 
   public asString(val: any) {

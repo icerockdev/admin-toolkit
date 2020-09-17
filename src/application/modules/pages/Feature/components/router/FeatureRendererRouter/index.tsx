@@ -2,7 +2,7 @@ import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { FeatureRendererComponent } from '~/application/modules/pages/Feature/components/renderers/FeatureRendererComponent';
 import { observer } from 'mobx-react';
-import { useEntity } from '~/utils/hooks';
+import { useFeature } from '~/utils/hooks';
 import { useLocation } from 'react-router';
 import { FeatureAction } from '~/application/modules/pages/Feature/types';
 import { FeatureRendererReaction } from '~/application/modules/pages/Feature/types/renderer';
@@ -14,42 +14,42 @@ interface IProps {
 
 const FeatureRendererRouter: FC<IProps> = observer(({ list, read }) => {
   const location = useLocation();
-  const entity = useEntity();
+  const feature = useFeature();
 
-  const id = entity.controller.getIdFromUrl();
+  const id = feature.controller.getIdFromUrl();
 
   const action = useMemo<FeatureAction>(() => {
     switch (location.pathname) {
-      case `${entity.url}/${id}/edit`:
+      case `${feature.url}/${id}/edit`:
         return FeatureAction.update;
-      case `${entity.url}/${id}/create`:
+      case `${feature.url}/${id}/create`:
         return FeatureAction.create;
-      case `${entity.url}/${id}/`:
+      case `${feature.url}/${id}/`:
         return FeatureAction.read;
       default:
         return FeatureAction.list;
     }
-  }, [entity, location.pathname, id]);
+  }, [feature, location.pathname, id]);
 
   const onEnter = useCallback<FeatureRendererReaction>(() => {
-    entity.mode = action;
-  }, [entity, action]);
+    feature.mode = action;
+  }, [feature, action]);
 
   useEffect(() => {
     onEnter(action, id);
   }, [action, id]);
 
-  const { features, url } = entity;
+  const { features, url } = feature;
 
   return (
     <Switch>
       <Route
-        path={`${entity.url}/:id/edit`}
+        path={`${feature.url}/:id/edit`}
         component={() => <div>EDIT</div>}
         exact
       />
 
-      <Route path={entity.url} component={list.output} exact />
+      <Route path={feature.url} component={list.output} exact />
 
       {features.read && (
         <Route path={`${url}/:id`} component={read.output} exact />
@@ -69,7 +69,7 @@ const FeatureRendererRouter: FC<IProps> = observer(({ list, read }) => {
       {/*  />*/}
       {/*)}*/}
 
-      <Redirect to={entity.url || ''} />
+      <Redirect to={feature.url || ''} />
     </Switch>
   );
 });

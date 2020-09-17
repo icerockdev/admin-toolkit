@@ -1,5 +1,5 @@
 import React, { FC, useMemo } from 'react';
-import { useEntity } from '~/utils/hooks';
+import { useFeature } from '~/utils/hooks';
 import { FeatureListTheadItem } from '~/application/modules/pages/Feature/components/renderers/list/FeatureListTheadItem';
 import { observer } from 'mobx-react';
 import styles from './styles.module.scss';
@@ -18,16 +18,16 @@ import { FeatureListRow } from '~/application/modules/pages/Feature/components/r
 interface IProps {}
 
 const FeatureListTable: FC<IProps> = observer(() => {
-  const entity = useEntity();
+  const feature = useFeature();
 
   const fields = useMemo(() => {
-    return entity.fieldsList.filter((field) => field.showInList);
-  }, [entity.fields]);
+    return feature.fieldsList.filter((field) => field.showInList);
+  }, [feature.fields]);
 
   const {
     data: { isLoading, list },
     filters: { rows },
-  } = entity;
+  } = feature;
 
   return (
     <TableContainer component={Paper} className={styles.container}>
