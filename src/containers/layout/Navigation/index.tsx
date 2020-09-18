@@ -20,6 +20,7 @@ import {
 import { Link, useHistory } from 'react-router-dom';
 import { Account } from '../Account';
 import classnames from 'classnames';
+import { useLocation } from 'react-router';
 
 type IProps = WithStyles<typeof styles> & {
   logo?: { url?: string; title?: string };
@@ -46,20 +47,20 @@ const NavigationUnstyled: FC<IProps> = ({
   onLogout,
 }) => {
   const history = useHistory();
-  const [location, setLocation] = useState(window.location.pathname.toString());
+  const location = useLocation();
   const wrapper = useRef<HTMLDivElement>(null);
   const appbar = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    history.listen(() => setLocation(history.location.pathname));
-  }, [history]);
 
   const onTabChange = useCallback((_, tab) => history.push(links[tab].url), [
     history,
   ]);
 
   const activeTab = useMemo(() => {
-    const active = links.findIndex((link) => link.url === location);
+    const active = links.findIndex((link) => {
+      const re = new RegExp(`${link.url.replace(/\//gim, '\\/')}`);
+      return location.pathname.match(re);
+    });
+
     return active >= 0 ? active : 0;
   }, [location]);
 
