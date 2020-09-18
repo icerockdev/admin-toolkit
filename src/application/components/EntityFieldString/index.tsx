@@ -8,7 +8,7 @@ import { observer } from 'mobx-react';
 type IProps = IEntityFieldProps & {};
 
 const EntityFieldString: FC<IProps> = observer(
-  ({ label, value, handler, error, isEditing, onClick }) => {
+  ({ label, value, handler, error, isEditing, onClick, placeholder }) => {
     const text = useMemo(
       () =>
         (value &&
@@ -41,6 +41,7 @@ const EntityFieldString: FC<IProps> = observer(
           error={!!error}
           helperText={error}
           variant="outlined"
+          placeholder={placeholder || ''}
         />
       </div>
     ) : (

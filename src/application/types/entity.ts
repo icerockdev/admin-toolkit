@@ -82,9 +82,12 @@ export interface IEntityField {
   validator?: (val: any) => string;
   options?: Record<any, any>;
   component?: FC<any>;
+  placeholder?: string;
+  mask?: string;
 
   hideInView?: boolean;
   hideInList?: boolean;
+  hideInView?: boolean;
   hideInEdit?: boolean;
   hideInCreate?: boolean;
   hideInExport?: boolean;
@@ -205,4 +208,6 @@ export type IEntityFieldProps = {
   value?: any;
   onClick?: MouseEventHandler<any>;
   options?: Record<string, any>;
+  placeholder?: string;
+  mask?: string;
 };

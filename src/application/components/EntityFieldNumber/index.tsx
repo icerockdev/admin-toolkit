@@ -14,6 +14,7 @@ const EntityFieldNumber: FC<IProps> = ({
   isEditing,
   onClick,
   options,
+  placeholder,
 }) => {
   const onChange = useCallback(
     (event) => {
@@ -41,6 +42,7 @@ const EntityFieldNumber: FC<IProps> = ({
         helperText={error}
         variant="outlined"
         inputProps={{ step: 'any' }}
+        placeholder={placeholder || ''}
       />
     </div>
   ) : (

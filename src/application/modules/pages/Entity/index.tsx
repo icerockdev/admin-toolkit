@@ -2,32 +2,30 @@
 
 import React, { ReactElement } from 'react';
 import {
-  IEntityProps,
   ENTITY_ERRORS,
-  ENTITY_SORT_DIRS,
   ENTITY_REFERENCE_FIELDS,
-  IFilterValue,
-  IEntityField,
-  IEntityFetchFunction,
-  IEntityFetchFunctionResult,
-  IEntityUpdateFunctionResult,
+  ENTITY_SORT_DIRS,
   IEntityCreateFunctionResult,
+  IEntityFetchFunctionResult,
+  IEntityField,
   IEntityGetFunctionResult,
+  IEntityProps,
+  IEntityUpdateFunctionResult,
+  IFilterValue,
 } from '~/application/types/entity';
-import { Page } from '~/application/modules/pages/Page';
-import { EntityList } from '../../../components/EntityList';
-import { EntityHead } from '../../../components/EntityHead';
-import { EntityFooter } from '../../../components/EntityFooter';
-import { computed, observable, action, reaction, flow, toJS } from 'mobx';
+import { action, computed, flow, observable, reaction, toJS } from 'mobx';
 import { CancellablePromise } from 'mobx/lib/api/flow';
-import { Switch, Route, RouteComponentProps } from 'react-router-dom';
-import { observer } from 'mobx-react';
-import { EntityViewer } from '../../../components/EntityViewer';
-import { Unwrap } from '~/application/types/common';
+import { Route, RouteComponentProps, Switch } from 'react-router-dom';
+import { observer, Provider } from 'mobx-react';
+import { EntityViewer } from '~/application/components/EntityViewer';
 import { EntityBreadcrumbs } from '~/application/components/EntityBreadcrumbs';
 import { Typography } from '@material-ui/core';
 import { saveAs } from 'file-saver';
 import { parseQuery } from '~/utils/query';
+import { Page } from '~/application/modules/pages/Page';
+import { EntityList } from '~/application/components/EntityList';
+import { EntityHead } from '~/application/components/EntityHead';
+import { EntityFooter } from '~/application/components/EntityFooter';
 
 export class Entity extends Page {
   // Props
@@ -395,13 +393,16 @@ export class Entity extends Page {
 
   @computed
   get canEdit() {
-    return !!(
-      !this.roles ||
-      (this.parent?.auth?.user?.role &&
-        (this.roles?.all?.includes(this.parent.auth?.user?.role.toString()) ||
-          this.roles?.update?.includes(
-            this.parent.auth?.user?.role.toString()
-          )))
+    return (
+      this.editable &&
+      !!(
+        !this.roles ||
+        (this.parent?.auth?.user?.role &&
+          (this.roles?.all?.includes(this.parent.auth?.user?.role.toString()) ||
+            this.roles?.update?.includes(
+              this.parent.auth?.user?.role.toString()
+            )))
+      )
     );
   }
 
@@ -590,7 +591,7 @@ export class Entity extends Page {
           isCreating={isCreating}
           buttons={buttons}
           viewable={this.viewable}
-          editable={this.editable}
+          editable={this.canEdit}
         />
       )
     );
@@ -758,26 +759,28 @@ export class Entity extends Page {
   @computed
   get output() {
     return observer(() => (
-      <Switch>
-        <Route path={`${this.menu.url}/create`} component={this.Creator} />
-        <Route
-          path={`${this.menu.url}/:id/edit`}
-          component={({
-            match: {
-              params: { id },
-            },
-          }: RouteComponentProps<{ id: string }>) => <this.Editor id={id} />}
-        />
-        <Route
-          path={`${this.menu.url}/:id/`}
-          component={({
-            match: {
-              params: { id },
-            },
-          }: RouteComponentProps<{ id: string }>) => <this.Viewer id={id} />}
-        />
-        <Route path={this.menu.url} component={this.List} />
-      </Switch>
+      <Provider entity={this}>
+        <Switch>
+          <Route path={`${this.menu.url}/create`} component={this.Creator} />
+          <Route
+            path={`${this.menu.url}/:id/edit`}
+            component={({
+              match: {
+                params: { id },
+              },
+            }: RouteComponentProps<{ id: string }>) => <this.Editor id={id} />}
+          />
+          <Route
+            path={`${this.menu.url}/:id/`}
+            component={({
+              match: {
+                params: { id },
+              },
+            }: RouteComponentProps<{ id: string }>) => <this.Viewer id={id} />}
+          />
+          <Route path={this.menu.url} component={this.List} />
+        </Switch>
+      </Provider>
     ));
   }
 

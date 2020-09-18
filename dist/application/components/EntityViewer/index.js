@@ -10,11 +10,11 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-import React, { useMemo, useEffect, useCallback } from 'react';
-import { withStyles, Paper, Grid, Button, CircularProgress, } from '@material-ui/core';
-import styles from './styles';
-import { observer } from 'mobx-react';
-import { EntityField } from '../EntityField';
+import React, { useCallback, useEffect, useMemo } from "react";
+import { Button, CircularProgress, Grid, Paper, withStyles } from "@material-ui/core";
+import styles from "./styles";
+import { observer } from "mobx-react";
+import { EntityField } from "../EntityField";
 var EntityViewer = withStyles(styles)(observer(function (_a) {
     var classes = _a.classes, id = _a.id, fields = _a.fields, errors = _a.errors, onSave = _a.onSave, onCancel = _a.onCancel, onResetFieldError = _a.onResetFieldError, isLoading = _a.isLoading, data = _a.data, setEditorData = _a.setEditorData, getItem = _a.getItem, cancelGetItem = _a.cancelGetItem, withToken = _a.withToken, isEditing = _a.isEditing, entity = _a.entity;
     var isCreating = useMemo(function () { return typeof id === 'undefined'; }, [id]);
@@ -22,10 +22,7 @@ var EntityViewer = withStyles(styles)(observer(function (_a) {
         return fields.filter(function (field) {
             return (isEditing && !isCreating && !field.hideInEdit) ||
                 (isCreating && !field.hideInCreate) ||
-                (!isEditing &&
-                    !isCreating &&
-                    !field.hideInList &&
-                    !field.hideInView);
+                (!isEditing && !isCreating && !field.hideInView);
         });
     }, [fields, isEditing, isCreating]);
     var onFieldChange = useCallback(function (f) { return function (value) {

@@ -150,6 +150,7 @@ const SAMPLE_ENTITY_FIELDS: IEntityField[] = [
     hideInCreate: true, // показывать и валидировать при создании
     hideInEdit: false, // не показывать и не валидировать при редактировании
     hideInList: false, // не показывать в списке
+    hideInView: false, // не показывать при просмотре
     validator: (val: string) => (String(val) === '1' ? '' : 'Должно быть 1'), // валидатор, возвращающий текст ошибки
   },
   {

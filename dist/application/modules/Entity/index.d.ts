@@ -1,7 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React from 'react';
-import { IEntityProps, ENTITY_SORT_DIRS, IFilterValue, IEntityField } from '../../types/entity';
+import { ENTITY_SORT_DIRS, IEntityField, IEntityProps, IFilterValue } from '../../types/entity';
 import { Page } from '../Page';
 import { CancellablePromise } from 'mobx/lib/api/flow';
 export declare class Entity extends Page {
