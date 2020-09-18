@@ -15,7 +15,7 @@ export declare const ENTITY_FIELD_RENDERS: {
     richtext: FC<IEntityFieldProps>;
     base64image: import("react").ComponentType<Pick<IEntityFieldProps & {
         classes: Record<"label" | "image" | "formControl" | "outlinedInput" | "preview", string>;
-    }, "data" | "label" | "error" | "withToken" | "onClick" | "name" | "value" | "handler" | "isEditing" | "options" | "entity" | "fields" | "isFiltering"> & import("@material-ui/styles").StyledComponentProps<"label" | "image" | "formControl" | "outlinedInput" | "preview">>;
+    }, "data" | "label" | "mask" | "error" | "withToken" | "placeholder" | "onClick" | "name" | "value" | "handler" | "isEditing" | "options" | "entity" | "fields" | "isFiltering"> & import("@material-ui/styles").StyledComponentProps<"label" | "image" | "formControl" | "outlinedInput" | "preview">>;
     number: FC<IEntityFieldProps>;
     referenceSelect: FC<IEntityFieldProps>;
 };
@@ -54,7 +54,10 @@ export interface IEntityField {
     validator?: (val: any) => string;
     options?: Record<any, any>;
     component?: FC<any>;
+    placeholder?: string;
+    mask?: string;
     hideInList?: boolean;
+    hideInView?: boolean;
     hideInEdit?: boolean;
     hideInCreate?: boolean;
     hideInExport?: boolean;
@@ -149,4 +152,6 @@ export declare type IEntityFieldProps = {
     value?: any;
     onClick?: MouseEventHandler<any>;
     options?: Record<string, any>;
+    placeholder?: string;
+    mask?: string;
 };

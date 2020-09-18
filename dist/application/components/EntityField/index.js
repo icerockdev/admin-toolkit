@@ -27,6 +27,8 @@ var EntityField = function (_a) {
         data: data,
         fields: fields,
         withToken: withToken,
+        placeholder: field.placeholder,
+        mask: field.mask,
     });
 };
 export { EntityField };

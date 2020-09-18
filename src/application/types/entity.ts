@@ -86,6 +86,7 @@ export interface IEntityField {
   mask?: string;
 
   hideInList?: boolean;
+  hideInView?: boolean;
   hideInEdit?: boolean;
   hideInCreate?: boolean;
   hideInExport?: boolean;
@@ -206,4 +207,6 @@ export type IEntityFieldProps = {
   value?: any;
   onClick?: MouseEventHandler<any>;
   options?: Record<string, any>;
+  placeholder?: string;
+  mask?: string;
 };

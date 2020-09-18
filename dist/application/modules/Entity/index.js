@@ -73,19 +73,20 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 import React from 'react';
-import { ENTITY_ERRORS, ENTITY_SORT_DIRS, ENTITY_REFERENCE_FIELDS, } from '../../types/entity';
+import { ENTITY_ERRORS, ENTITY_REFERENCE_FIELDS, ENTITY_SORT_DIRS, } from '../../types/entity';
 import { Page } from '../Page';
 import { EntityList } from '../../components/EntityList';
 import { EntityHead } from '../../components/EntityHead';
 import { EntityFooter } from '../../components/EntityFooter';
-import { computed, observable, action, reaction, flow, toJS } from 'mobx';
-import { Switch, Route } from 'react-router-dom';
+import { action, computed, flow, observable, reaction, toJS } from 'mobx';
+import { Route, Switch } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import { EntityViewer } from '../../components/EntityViewer';
 import { EntityBreadcrumbs } from '../../components/EntityBreadcrumbs';
 import { Typography } from '@material-ui/core';
 import { saveAs } from 'file-saver';
 import { parseQuery } from '../../../utils/query';
+import { Provider } from 'mobx-react';
 var Entity = /** @class */ (function (_super) {
     __extends(Entity, _super);
     function Entity(fields) {
@@ -492,7 +493,7 @@ var Entity = /** @class */ (function (_super) {
     Object.defineProperty(Entity.prototype, "canEdit", {
         get: function () {
             var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
-            return !!(!this.roles ||
+            return this.editable && !!(!this.roles ||
                 (((_c = (_b = (_a = this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.user) === null || _c === void 0 ? void 0 : _c.role) &&
                     (((_e = (_d = this.roles) === null || _d === void 0 ? void 0 : _d.all) === null || _e === void 0 ? void 0 : _e.includes((_g = (_f = this.parent.auth) === null || _f === void 0 ? void 0 : _f.user) === null || _g === void 0 ? void 0 : _g.role.toString())) || ((_j = (_h = this.roles) === null || _h === void 0 ? void 0 : _h.update) === null || _j === void 0 ? void 0 : _j.includes((_l = (_k = this.parent.auth) === null || _k === void 0 ? void 0 : _k.user) === null || _l === void 0 ? void 0 : _l.role.toString())))));
         },
@@ -577,7 +578,7 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function (_a) {
                 var id = _a.id, _b = _a.isEditing, isEditing = _b === void 0 ? false : _b, _c = _a.isCreating, isCreating = _c === void 0 ? false : _c, buttons = _a.buttons;
-                return (React.createElement(EntityBreadcrumbs, { data: _this.editorData, fields: _this.fields, id: id, name: _this.title, url: _this.menu.url, viewable: _this.viewable, isEditing: isEditing, isCreating: isCreating, buttons: buttons }));
+                return (React.createElement(EntityBreadcrumbs, { data: _this.editorData, fields: _this.fields, id: id, name: _this.title, url: _this.menu.url, viewable: _this.viewable, isEditing: isEditing, isCreating: isCreating, buttons: buttons, editable: _this.canEdit }));
             });
         },
         enumerable: true,
@@ -747,17 +748,18 @@ var Entity = /** @class */ (function (_super) {
     Object.defineProperty(Entity.prototype, "output", {
         get: function () {
             var _this = this;
-            return observer(function () { return (React.createElement(Switch, null,
-                React.createElement(Route, { path: _this.menu.url + "/create", component: _this.Creator }),
-                React.createElement(Route, { path: _this.menu.url + "/:id/edit", component: function (_a) {
-                        var id = _a.match.params.id;
-                        return React.createElement(_this.Editor, { id: id });
-                    } }),
-                React.createElement(Route, { path: _this.menu.url + "/:id/", component: function (_a) {
-                        var id = _a.match.params.id;
-                        return React.createElement(_this.Viewer, { id: id });
-                    } }),
-                React.createElement(Route, { path: _this.menu.url, component: _this.List }))); });
+            return observer(function () { return (React.createElement(Provider, { entity: _this },
+                React.createElement(Switch, null,
+                    React.createElement(Route, { path: _this.menu.url + "/create", component: _this.Creator }),
+                    React.createElement(Route, { path: _this.menu.url + "/:id/edit", component: function (_a) {
+                            var id = _a.match.params.id;
+                            return React.createElement(_this.Editor, { id: id });
+                        } }),
+                    React.createElement(Route, { path: _this.menu.url + "/:id/", component: function (_a) {
+                            var id = _a.match.params.id;
+                            return React.createElement(_this.Viewer, { id: id });
+                        } }),
+                    React.createElement(Route, { path: _this.menu.url, component: _this.List })))); });
         },
         enumerable: true,
         configurable: true

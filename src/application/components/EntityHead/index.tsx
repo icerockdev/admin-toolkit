@@ -54,6 +54,8 @@ const EntityHeadUnstyled: FC<IProps> = ({
       alignItems="center"
       className={classes.header}
     >
+      {title}
+
       {filters && (
         <Filter
           filterData={filterData}

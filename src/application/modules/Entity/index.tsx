@@ -391,13 +391,16 @@ export class Entity extends Page {
 
   @computed
   get canEdit() {
-    return !!(
-      !this.roles ||
-      (this.parent?.auth?.user?.role &&
-        (this.roles?.all?.includes(this.parent.auth?.user?.role.toString()) ||
-          this.roles?.update?.includes(
-            this.parent.auth?.user?.role.toString()
-          )))
+    return (
+      this.editable &&
+      !!(
+        !this.roles ||
+        (this.parent?.auth?.user?.role &&
+          (this.roles?.all?.includes(this.parent.auth?.user?.role.toString()) ||
+            this.roles?.update?.includes(
+              this.parent.auth?.user?.role.toString()
+            )))
+      )
     );
   }
 
@@ -586,6 +589,7 @@ export class Entity extends Page {
           isEditing={isEditing}
           isCreating={isCreating}
           buttons={buttons}
+          editable={this.canEdit}
         />
       )
     );

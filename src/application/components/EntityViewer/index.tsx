@@ -1,14 +1,14 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { useMemo, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 
 import {
-  withStyles,
-  WithStyles,
-  Paper,
-  Grid,
   Button,
   CircularProgress,
+  Grid,
+  Paper,
+  withStyles,
+  WithStyles,
 } from '@material-ui/core';
 
 import styles from './styles';
@@ -64,7 +64,7 @@ const EntityViewer = withStyles(styles)(
             (field) =>
               (isEditing && !isCreating && !field.hideInEdit) ||
               (isCreating && !field.hideInCreate) ||
-              (!isEditing && !isCreating && !field.hideInList)
+              (!isEditing && !isCreating && !field.hideInView)
           ),
         [fields, isEditing, isCreating]
       );

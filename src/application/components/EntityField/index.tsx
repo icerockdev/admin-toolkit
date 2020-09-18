@@ -47,6 +47,8 @@ const EntityField: FC<IProps> = ({
       data, // for custom fields
       fields, // for custom fields
       withToken, // for custom fields
+      placeholder: field.placeholder,
+      mask: field.mask,
     } as IEntityFieldProps
   );
 };

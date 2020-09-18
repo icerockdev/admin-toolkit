@@ -13,6 +13,7 @@ const EntityFieldString: FC<IProps> = ({
   error,
   isEditing,
   onClick,
+  placeholder,
 }) => {
   const text = useMemo(
     () =>
@@ -46,6 +47,7 @@ const EntityFieldString: FC<IProps> = ({
         error={!!error}
         helperText={error}
         variant="outlined"
+        placeholder={placeholder || ''}
       />
     </div>
   ) : (
