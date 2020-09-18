@@ -38,7 +38,6 @@ const FeatureRendererRouter: FC<IProps> = observer(
     }, [feature, location.pathname, id]);
 
     const onEnter = useCallback<FeatureRendererReaction>(() => {
-      console.log('feature mode', mode);
       feature.mode = mode;
     }, [feature, mode]);
 

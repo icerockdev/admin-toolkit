@@ -21,21 +21,6 @@ const FiltersRenderer = observer(() => {
     [filterable, feature.filters.selected]
   );
 
-  const onFieldChange = useCallback(
-    (name: string, value: any) => {
-      feature.filters.value = { ...feature.filters.value, [name]: value };
-    },
-    [feature.filters.value]
-  );
-
-  const onFieldReset = useCallback(
-    (name: string) => {
-      feature.filters.value = omit([name], feature.filters.value);
-      feature.filters.selected = reject(equals(name), feature.filters.selected);
-    },
-    [feature.filters.value]
-  );
-
   const onAdd = useCallback(
     (name: string) => {
       feature.filters.selected = [...feature.filters.selected, name];
@@ -52,12 +37,7 @@ const FiltersRenderer = observer(() => {
       />
 
       {selected.map((field, i) => (
-        <field.Filter
-          onReset={onFieldReset}
-          onChange={onFieldChange}
-          value={feature.filters.value[field.name] || ''}
-          key={field.name}
-        />
+        <field.Filter key={field.name} />
       ))}
     </div>
   );

@@ -2,6 +2,8 @@ import { FeatureField } from '~/application/modules/pages/Feature/components/fie
 import { computed, observable } from 'mobx';
 import React from 'react';
 import { SelectFilter } from '~/application/modules/pages/Feature/components/renderers/filters/SelectFilter';
+import { observer } from 'mobx-react';
+import { SelectInput } from '~/application/modules/pages/Feature/components/inputs/SelectInput';
 
 export type SelectFieldOptions = FeatureField['options'] & {
   options?: Record<any, any>;
@@ -18,11 +20,11 @@ export class SelectField<
     super(name, props);
 
     if (options) this.variants = options;
-    if (!autocomplete) this.autocomplete = false;
+    if (autocomplete) this.autocomplete = true;
   }
 
   @observable variants: Record<any, any> = {};
-  @observable autocomplete = true;
+  @observable autocomplete = false;
 
   @computed
   get listVariants() {
@@ -44,21 +46,36 @@ export class SelectField<
     return this.formatValue(val);
   }
 
-  @observable
-  List: FeatureField['List'] = ({ value }) => (
-    <div>{this.listVariants[value]}</div>
-  );
+  @computed
+  get List() {
+    return ({ value }: { value: any }) => <div>{this.listVariants[value]}</div>;
+  }
+
+  @computed
+  get Update() {
+    return (
+      <SelectInput
+        label={this.label}
+        onChange={this.onChange}
+        variants={this.filterVariants}
+        value={this.readValue}
+        autocomplete={
+          Object.keys(this.variants).length > 10 || this.autocomplete
+        }
+      />
+    );
+  }
 
   @observable
-  Filter: FeatureField['Filter'] = ({ value, onReset, onChange }) => (
+  Filter: FeatureField['Filter'] = observer(() => (
     <SelectFilter
       label={this.label}
       name={this.name}
-      value={value}
-      onChange={onChange}
-      onReset={onReset}
+      value={this.filterValue}
+      onChange={this.onFilterChange}
+      onReset={this.onFilterReset}
       variants={this.filterVariants}
-      autocomplete={this.autocomplete}
+      autocomplete={Object.keys(this.variants).length > 10 || this.autocomplete}
     />
-  );
+  ));
 }

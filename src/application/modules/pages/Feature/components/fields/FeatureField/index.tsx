@@ -7,8 +7,9 @@ import {
 import { StringFilter } from '~/application/modules/pages/Feature/components/renderers/filters/StringFilter';
 import { FeatureFilterComponentProps } from '~/application/modules/pages/Feature/types/filters';
 import { Feature } from '~/application/modules/pages/Feature';
-import { has } from 'ramda';
+import { equals, has, omit, reject } from 'ramda';
 import { StringInput } from '~/application/modules/pages/Feature/components/inputs/StringInput';
+import { observer } from 'mobx-react';
 
 export class FeatureField<T extends Record<string, any> = Record<string, any>> {
   constructor(
@@ -58,9 +59,9 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
     return val;
   }
 
+  @action
   public onChange = (val: any) => {
-    if (!this.feature?.data.read) return;
-
+    if (!this.feature) return;
     this.feature.data.read[this.name] = val;
   };
 
@@ -72,27 +73,61 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
 
   @computed
   public get Read() {
-    return this.List;
+    return <this.List value={this.readValue} />;
   }
 
-  public Update = ({ value }: { value: any }) => (
-    <StringInput value={value} onChange={this.onChange} label={this.label} />
-  );
+  @computed
+  get Update() {
+    return (
+      <StringInput
+        value={this.readValue}
+        onChange={this.onChange}
+        label={this.label}
+      />
+    );
+  }
 
   @computed get Create() {
     return this.Update;
   }
 
   @observable
-  public Filter: FC<
-    Pick<FeatureFilterComponentProps, 'value' | 'onReset' | 'onChange'>
-  > = ({ value, onReset, onChange }) => (
+  public Filter: FC = observer(() => (
     <StringFilter
-      value={value}
+      value={this.filterValue}
       name={this.name}
       label={this.label}
-      onChange={onChange}
-      onReset={onReset}
+      onChange={this.onFilterChange}
+      onReset={this.onFilterReset}
     />
-  );
+  ));
+
+  @action
+  public onFilterChange = (value: any) => {
+    if (!this.feature?.filters.value) return;
+    this.feature.filters.value = {
+      ...this.feature.filters.value,
+      [this.name]: value,
+    };
+  };
+
+  @action onFilterReset = () => {
+    if (!this.feature?.filters) return;
+
+    this.feature.filters.value = omit([this.name], this.feature.filters.value);
+    this.feature.filters.selected = reject(
+      equals(this.name),
+      this.feature.filters.selected
+    );
+  };
+
+  @computed
+  get filterValue() {
+    return this.feature?.filters.value[this.name];
+  }
+
+  @computed
+  get readValue() {
+    return this.feature?.data.read[this.name];
+  }
 }

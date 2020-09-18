@@ -8,18 +8,15 @@ import { Placeholder } from '~/application/modules/pages/Feature/components/comm
 import { useFeature } from '~/utils/hooks';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
+import { FeatureInputProps } from '~/application/modules/pages/Feature/types/field';
 
-interface IProps {
-  label: string;
-  value: any;
-  onChange: (val: string) => void;
-}
+type IProps = FeatureInputProps;
 
 const DateInput: FC<IProps> = observer(({ value, label, onChange }) => {
   const feature = useFeature();
 
   const parsedValue = useMemo<MaterialUiPickersDate>(() => {
-    if (isDate(value)) return value;
+    if (isDate(value)) return value as Date;
 
     const parsed = value && parseISO(value);
 

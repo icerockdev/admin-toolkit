@@ -5,33 +5,34 @@ import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { useFeature } from '~/utils/hooks';
 import { Placeholder } from '~/application/modules/pages/Feature/components/common/Placeholder';
+import { FeatureInputProps } from '~/application/modules/pages/Feature/types/field';
 
-interface IProps {
-  value: string;
-  label: string;
-  onChange: (val: string) => void;
-}
+const StringInput: FC<FeatureInputProps<string>> = observer(
+  ({ value, label, onChange }) => {
+    const feature = useFeature();
+    const handler = useCallback((event) => onChange(event.target.value), [
+      onChange,
+    ]);
 
-const StringInput: FC<IProps> = observer(({ value, label, onChange }) => {
-  const feature = useFeature();
-  const handler = useCallback((event) => onChange(event.target.value), [
-    onChange,
-  ]);
-
-  return (
-    <Placeholder isLoading={feature.data.isLoading} width="100%" height="56px">
-      <TextField
-        value={value}
-        onChange={handler}
-        variant="outlined"
-        label={label}
-        className={classNames(
-          styles.input,
-          'feature-read__input feature-read__input_string'
-        )}
-      />
-    </Placeholder>
-  );
-});
+    return (
+      <Placeholder
+        isLoading={feature.data.isLoading}
+        width="100%"
+        height="56px"
+      >
+        <TextField
+          value={value || ''}
+          onChange={handler}
+          variant="outlined"
+          label={label}
+          className={classNames(
+            styles.input,
+            'feature-read__input feature-read__input_string'
+          )}
+        />
+      </Placeholder>
+    );
+  }
+);
 
 export { StringInput };

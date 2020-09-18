@@ -22,3 +22,10 @@ export type FeatureFieldProps<ValueType> = {
 export type FeatureFieldListProps<T extends any = any> = {
   value: T;
 };
+
+export type FeatureInputProps<T extends any = any> = {
+  value?: T;
+  label: string;
+  onChange: (val?: T) => void;
+  disabled?: boolean;
+};

@@ -57,7 +57,7 @@ export class FeatureController<
 
     const match = window.location.pathname.match(re);
 
-    return parseInt(match && match.length > 0 ? match[1] : '', 10) || null;
+    return parseInt(match && match.length > 0 ? match[1] : '', 10);
   };
 
   @action

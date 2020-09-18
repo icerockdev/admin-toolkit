@@ -23,23 +23,21 @@ const DateFilter: FC<IProps> = ({
     ([start, end]: [MaterialUiPickersDate, MaterialUiPickersDate]) => {
       if (!start || !end || !isValid(start) || !isValid(end)) return;
 
-      onChange(name, [start, end].map((it) => formatRFC3339(it)).join(','));
+      const val = [start, end].map((it) => formatRFC3339(it)).join(',');
+
+      onChange(val);
     },
-    [onChange, name]
+    [onChange]
   );
 
   const onSingleChange = useCallback(
     (val: MaterialUiPickersDate) => {
       if (!val || !isValid(val)) return;
 
-      onChange(name, formatRFC3339(val));
+      onChange(formatRFC3339(val));
     },
-    [name, onChange]
+    [onChange]
   );
-
-  const onClear = useCallback(() => {
-    onReset(name);
-  }, [onReset]);
 
   const rangeValue = useMemo<
     [MaterialUiPickersDate, MaterialUiPickersDate]
@@ -70,7 +68,7 @@ const DateFilter: FC<IProps> = ({
   }, [initialValue]);
 
   return (
-    <FilterWrapper onClear={onClear}>
+    <FilterWrapper onClear={onReset}>
       <div className={styles.datepicker}>
         <FormControl className={styles.control}>
           {isRange && (

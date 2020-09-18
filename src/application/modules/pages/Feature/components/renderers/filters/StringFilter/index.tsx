@@ -18,11 +18,11 @@ const StringFilter: FC<FeatureFilterComponentProps> = ({
   ]);
 
   const onBlur = useCallback(() => {
-    onChange(name, value);
+    onChange(value);
   }, [onChange, value, name]);
 
   const onClear = useCallback(() => {
-    onReset(name);
+    onReset();
   }, [onReset]);
 
   useEffect(() => {

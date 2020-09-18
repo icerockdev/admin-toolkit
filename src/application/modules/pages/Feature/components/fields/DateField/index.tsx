@@ -1,9 +1,10 @@
 import { FeatureField } from '~/application/modules/pages/Feature/components/fields/FeatureField';
-import { observable } from 'mobx';
+import { computed, observable } from 'mobx';
 import { format, parseISO } from 'date-fns/esm';
 import React from 'react';
 import { DateFilter } from '~/application/modules/pages/Feature/components/renderers/filters/DateFilter';
 import { DateInput } from '~/application/modules/pages/Feature/components/inputs/DateInput';
+import { observer } from 'mobx-react';
 
 export type DateFieldParser = (val: string) => Date;
 export type DateFieldFormatter = (val: Date) => string;
@@ -56,19 +57,26 @@ export class DateField<
     <div>{(!!value && this.formatValue(value)) || ''}</div>
   );
 
-  Update: FeatureField['Update'] = ({ value }) => (
-    <DateInput value={value} label={this.label} onChange={this.onChange} />
-  );
+  @computed
+  get Update() {
+    return (
+      <DateInput
+        value={this.readValue}
+        label={this.label}
+        onChange={this.onChange}
+      />
+    );
+  }
 
   @observable
-  Filter: FeatureField['Filter'] = ({ value, onChange, onReset }) => (
+  Filter: FeatureField['Filter'] = observer(() => (
     <DateFilter
       label={this.label}
       name={this.name}
-      value={value}
-      onChange={onChange}
-      onReset={onReset}
+      value={this.filterValue}
+      onChange={this.onFilterChange}
+      onReset={this.onFilterReset}
       isRange={!this.filterExact}
     />
-  );
+  ));
 }

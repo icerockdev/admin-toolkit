@@ -8,7 +8,8 @@
   flex: 0 0 200px + $filter_input_height;
 
   :global(.MuiAutocomplete-inputRoot),
-  :global(.MuiFormControl-root) {
+  :global(.MuiFormControl-root),
+  :global(.MuiAutocomplete-root) {
     height: $filter_input_height;
     width: 100%;
     min-width: 200px !important;
