@@ -85,7 +85,6 @@ export interface IEntityField {
   placeholder?: string;
   mask?: string;
 
-  hideInView?: boolean;
   hideInList?: boolean;
   hideInView?: boolean;
   hideInEdit?: boolean;

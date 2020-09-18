@@ -4,6 +4,7 @@ import { CancellablePromise } from 'mobx/lib/api/flow';
 import { controllerGetList } from '~/application/modules/pages/Feature/items/FeatureController/list';
 import { FeatureMode } from '~/application/modules/pages/Feature/types';
 import { controllerGetRead } from '~/application/modules/pages/Feature/items/FeatureController/read';
+import { controllerGetReferences } from '~/application/modules/pages/Feature/items/FeatureController/create';
 
 export class FeatureController<
   T extends Record<string, any> = Record<string, any>
@@ -40,7 +41,7 @@ export class FeatureController<
     this.feature.data.isLoading = false;
 
     // TODO: load all references here
-    // this.instances.createLoader = flow(controllerGetReferences)(this);
+    this.instances.createLoader = flow(controllerGetReferences)(this);
   };
 
   cancelAll = () => {

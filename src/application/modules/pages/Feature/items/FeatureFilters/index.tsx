@@ -10,11 +10,7 @@ import { SortDir } from '~/application/modules/pages/Feature/types';
 export class FeatureFilters<
   F extends Record<string, any> = Record<string, any>
 > {
-  constructor(public feature: Feature<F>) {
-    // Get filters from url
-    // TODO: if filters isn't empty, but url is, persist them here:
-    this.restoreFilters();
-  }
+  constructor(public feature: Feature<F>) {}
 
   @observable value: Record<string, any> = {};
   @observable selected: string[] = [];

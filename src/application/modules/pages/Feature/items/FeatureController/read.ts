@@ -4,8 +4,6 @@ import { FeatureGetReadResult } from '~/application/modules/pages/Feature/types'
 export function* controllerGetRead<T extends Record<string, any>>(
   controller: FeatureController<T>
 ) {
-  console.log('getting read?!!');
-
   const { feature } = controller;
   const id = controller.getIdFromUrl();
 
@@ -19,8 +17,7 @@ export function* controllerGetRead<T extends Record<string, any>>(
     );
 
     feature.data.read = result.data;
-
-    controller.feature.data.isLoading = false;
+    feature.data.isLoading = false;
 
     // TODO: make controllerGetReferencesList to fetch values based on actual data
     yield feature.api.getReferencesAll(controller);
