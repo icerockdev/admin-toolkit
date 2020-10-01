@@ -1,8 +1,6 @@
 import React, { FC } from 'react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
-import { FeatureMode } from '~/application/modules/pages/Feature/types';
-import { has } from 'ramda';
 import { Placeholder } from '~/application/modules/pages/Feature/components/common/Placeholder';
 
 interface IProps {
