@@ -78,13 +78,13 @@ export declare class Entity extends Page {
     }) => JSX.Element;
     get ViewerHeadButtons(): ({ id }: {
         id: any;
-    }) => null;
+    }) => JSX.Element;
     get ViewerHead(): ({ id }: {
         id: any;
     }) => JSX.Element;
     get ViewerFooter(): ({ id }: {
         id: any;
-    }) => null;
+    }) => JSX.Element;
     get ViewerBody(): ({ id }: {
         id: string;
     }) => JSX.Element;
@@ -93,22 +93,22 @@ export declare class Entity extends Page {
     }) => JSX.Element;
     get EditorHeadButtons(): ({ id }: {
         id: any;
-    }) => null;
+    }) => JSX.Element;
     get EditorHead(): ({ id }: {
         id: any;
     }) => JSX.Element;
     get EditorFooter(): ({ id }: {
         id: any;
-    }) => null;
+    }) => JSX.Element;
     get EditorBody(): ({ id }: {
         id: string;
     }) => JSX.Element;
     get Editor(): ({ id }: {
         id: string;
     }) => JSX.Element;
-    get CreatorHeadButtons(): () => null;
+    get CreatorHeadButtons(): () => JSX.Element;
     get CreatorHead(): () => JSX.Element;
-    get CreatorFooter(): () => null;
+    get CreatorFooter(): () => JSX.Element;
     get CreatorBody(): () => JSX.Element;
     get Creator(): ({ id }: {
         id: string;
