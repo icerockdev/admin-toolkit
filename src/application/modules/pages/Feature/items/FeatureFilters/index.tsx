@@ -43,6 +43,19 @@ export class FeatureFilters<
     return <FiltersRenderer />;
   }
 
+  @computed
+  get queryString() {
+    const query = qs.stringify({
+      ...this.value,
+      __sortDir: this.sortDir,
+      __sortBy: this.sortBy,
+      __rows: this.rows,
+      __page: this.page,
+    });
+
+    return `${this.feature.url}?${query}`;
+  }
+
   restoreFilters = () => {
     const { search } = window.location;
 
@@ -101,14 +114,7 @@ export class FeatureFilters<
   };
 
   persistFilters = () => {
-    const query = qs.stringify({
-      ...this.value,
-      __sortDir: this.sortDir,
-      __sortBy: this.sortBy,
-      __rows: this.rows,
-      __page: this.page,
-    });
-    const url = `${window.location.origin}${window.location.pathname}?${query}`;
+    const url = `${window.location.origin}${this.queryString}`;
     window.history.replaceState('', '', url);
   };
 }

@@ -132,9 +132,9 @@ export class Feature<
   }
 
   @action
-  cancelEditing() {
-    // TODO: move back
-  }
+  cancelEditing = () => {
+    this.data.clearEditorData();
+  };
 
   @action
   submitEditor() {

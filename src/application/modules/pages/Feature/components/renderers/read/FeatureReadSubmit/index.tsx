@@ -1,15 +1,33 @@
-import React, { FC, Fragment } from 'react';
+import React, { FC, Fragment, useCallback } from 'react';
 import { observer } from 'mobx-react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { Button } from '@material-ui/core';
 import { useFeature } from '~/utils/hooks';
 import { FeatureMode } from '~/application/modules/pages/Feature/types';
+import { useHistory } from 'react-router';
 
 interface IProps {}
 
 const FeatureReadSubmit: FC<IProps> = observer(() => {
   const feature = useFeature();
+  const history = useHistory();
+
+  const onCancel = useCallback(() => {
+    switch (feature.mode) {
+      case FeatureMode.create:
+        history.push(feature.filters.queryString);
+        break;
+      case FeatureMode.update:
+        const id = feature.controller.getIdFromUrl();
+        history.push(`${feature.url}/${id}`);
+        break;
+      default:
+        history.goBack();
+    }
+
+    feature.cancelEditing();
+  }, [feature, history]);
 
   if (!feature.isEditing) return <Fragment />;
 
@@ -18,7 +36,7 @@ const FeatureReadSubmit: FC<IProps> = observer(() => {
       <Button
         variant="outlined"
         color="default"
-        onClick={feature.cancelEditing}
+        onClick={onCancel}
         type="button"
       >
         Отмена
