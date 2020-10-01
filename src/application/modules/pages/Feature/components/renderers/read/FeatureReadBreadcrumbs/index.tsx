@@ -38,7 +38,7 @@ const FeatureReadBreadcrumbs: FC<IProps> = observer(() => {
       className={classNames(styles.breadcrumbs, 'feature-read__breadcrumbs')}
     >
       <Link to={feature.url} component={RouterLink} className={styles.entity}>
-        {feature.title}
+        <b>{feature.title}</b>
       </Link>
 
       {feature.mode !== FeatureMode.create && (
