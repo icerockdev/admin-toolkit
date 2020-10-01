@@ -1,11 +1,11 @@
 import { FeatureField } from '~/application/modules/pages/Feature/components/fields/FeatureField';
-import { IFields } from '~/example/base/index';
+import { IFields } from '~/example/feature/index';
 import { DateField } from '~/application/modules/pages/Feature/components/fields/DateField';
 import { IntegerField } from '~/application/modules/pages/Feature/components/fields/IntegerField';
 import { SelectField } from '~/application/modules/pages/Feature/components/fields/SelectField';
 import { ReferenceField } from '~/application/modules/pages/Feature/components/fields/ReferenceField';
 
-export const BASE_FIELDS = [
+export const FEATURE_FIELDS = [
   new FeatureField<IFields>('name', {
     label: 'Имя',
     features: {

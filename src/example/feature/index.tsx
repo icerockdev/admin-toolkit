@@ -1,7 +1,7 @@
 import React from 'react';
 import { Feature } from '~/application/modules/pages/Feature';
-import api, { getRolesAll } from '~/example/base/api';
-import { BASE_FIELDS } from '~/example/base/fields';
+import api, { getRolesAll } from '~/example/feature/api';
+import { FEATURE_FIELDS } from '~/example/feature/fields';
 
 export type IFields = {
   id: number;
@@ -13,9 +13,9 @@ export type IFields = {
   description: string;
 };
 
-export default new Feature<IFields>('Base', '/base', api, {
+export default new Feature<IFields>('Feature', '/feature', api, {
   getItemTitle: (data) => data.name,
-  fields: BASE_FIELDS,
+  fields: FEATURE_FIELDS,
   references: {
     role: {
       url: '/test/',

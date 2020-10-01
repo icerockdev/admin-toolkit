@@ -1,6 +1,6 @@
 import { FeatureApi } from '~/application/modules/pages/Feature/items/FeatureApi';
-import { IFields } from '~/example/base/index';
-import { GenerateBaseData } from '~/example/base/mock';
+import { IFields } from '~/example/feature/index';
+import { generateBaseData } from '~/example/feature/mock';
 import {
   FeatureGetListProps,
   FeatureGetListResult,
@@ -20,7 +20,7 @@ export default new FeatureApi<IFields>(
       console.log(`GET ${url}`, { url, ...props });
 
       return delay(500).then(() => ({
-        data: GenerateBaseData(props.limit),
+        data: generateBaseData(props.limit),
         count: 100,
         status: 200,
         error: '',
@@ -38,7 +38,7 @@ export default new FeatureApi<IFields>(
       console.log(`GET ${href}`, { url, id, ...props });
 
       return delay(500).then(() => ({
-        data: GenerateBaseData(items + 1)[items],
+        data: generateBaseData(items + 1)[items],
         status: 200,
         error: '',
       }));

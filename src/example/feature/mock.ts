@@ -1,6 +1,6 @@
-import { IFields } from '~/example/base/index';
+import { IFields } from '~/example/feature/index';
 
-export const GenerateBaseData = (items: number) =>
+export const generateBaseData = (items: number) =>
   [...new Array(items)].map(
     (_, id = 0): IFields => ({
       id,
