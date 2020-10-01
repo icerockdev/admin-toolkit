@@ -2,7 +2,6 @@ import React from 'react';
 import { FeatureReadRendererProps } from '~/application/modules/pages/Feature/types/renderer';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
-import { Paper } from '@material-ui/core';
 import { useFeature } from '~/utils/hooks';
 import { FeatureMode } from '~/application/modules/pages/Feature/types';
 import { observer } from 'mobx-react';
@@ -29,7 +28,9 @@ const FeatureReadContainer: FeatureReadRendererProps['container'] = observer(
           <Breadcrumbs />
         </div>
 
-        <Paper>
+        <div
+          className={classNames(styles.container, 'feature-read__container')}
+        >
           {isHeaderShown && (
             <div className={classNames(styles.header, 'feature-read__header')}>
               <div className={classNames(styles.title, 'feature-read__title')}>
@@ -56,7 +57,7 @@ const FeatureReadContainer: FeatureReadRendererProps['container'] = observer(
           <div className={classNames(styles.submit)}>
             <Submit />
           </div>
-        </Paper>
+        </div>
       </div>
     );
   }
