@@ -11,19 +11,20 @@ interface IProps {}
 const FeatureReadSubmit: FC<IProps> = observer(() => {
   const feature = useFeature();
 
-  if (
-    feature.mode !== FeatureMode.create &&
-    feature.mode !== FeatureMode.update
-  )
-    return <Fragment />;
+  if (!feature.isEditing) return <Fragment />;
 
   return (
     <div className={classNames(styles.submit, 'feature-read__submit')}>
-      <Button variant="outlined" color="default">
+      <Button
+        variant="outlined"
+        color="default"
+        onClick={feature.cancelEditing}
+        type="button"
+      >
         Отмена
       </Button>
 
-      <Button variant="contained" color="primary">
+      <Button variant="contained" color="primary" type="submit">
         {feature.mode === FeatureMode.create ? 'Создать' : 'Сохранить'}
       </Button>
     </div>

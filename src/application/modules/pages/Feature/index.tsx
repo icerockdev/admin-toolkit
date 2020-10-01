@@ -99,7 +99,13 @@ export class Feature<
 
   @action
   attachFeatureToFields() {
+    // sets feature in each field
     this.fieldsList.forEach((field) => field.useFeature(this));
+  }
+
+  @computed
+  get isEditing() {
+    return this.mode === FeatureMode.create || this.mode === FeatureMode.update;
   }
 
   getItemTitle: (fields: Fields) => string = () => '';
@@ -123,5 +129,15 @@ export class Feature<
   @computed
   get output() {
     return () => <Provider feature={this}>{this.renderer.output}</Provider>;
+  }
+
+  @action
+  cancelEditing() {
+    // TODO: move back
+  }
+
+  @action
+  submitEditor() {
+    // TODO: actually submit editor form
   }
 }
