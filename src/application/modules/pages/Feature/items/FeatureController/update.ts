@@ -1,20 +1,22 @@
 import { FeatureController } from '~/application/modules/pages/Feature/items/FeatureController/index';
-import { FeaturePostCreateResult } from '~/application/modules/pages/Feature/types';
+import { FeaturePostUpdateResult } from '~/application/modules/pages/Feature/types';
 import { toJS } from 'mobx';
 
-export function* controllerPostCreate<
+export function* controllerPostUpdate<
   T extends Record<string, any> = Record<string, any>
 >(controller: FeatureController<T>) {
   const { feature } = controller;
 
   try {
     feature.data.isLoading = true;
+    const id = controller.getIdFromUrl();
 
     const {
       data,
       errors,
       error,
-    }: FeaturePostCreateResult<T> = yield feature.api.postCreate(
+    }: FeaturePostUpdateResult<T> = yield feature.api.postUpdate(
+      id,
       toJS(feature.data.editor)
     );
 

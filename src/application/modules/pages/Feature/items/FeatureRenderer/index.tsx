@@ -15,10 +15,11 @@ export class FeatureRenderer<T extends Feature<any> = Feature<any>> {
     this.read =
       props?.renderers?.read || new FeatureReadRenderer(props?.read || {});
 
-    // TODO: same here
-    if (props?.renderers?.create) this.create = props.renderers.create;
-    // TODO: same here
-    if (props?.renderers?.update) this.update = props.renderers.update;
+    this.create =
+      props?.renderers?.create || new FeatureReadRenderer(props?.create || {});
+
+    this.update =
+      props?.renderers?.update || new FeatureReadRenderer(props?.update || {});
   }
 
   @observable list: FeatureRendererComponent = new FeatureListRenderer();

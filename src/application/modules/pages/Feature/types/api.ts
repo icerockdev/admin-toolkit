@@ -19,6 +19,16 @@ export type FeatureGetReadProps = {
   id: any;
 };
 
+export type FeaturePostCreateProps<Fields> = {
+  feature: Feature;
+  url: string;
+  data: Record<keyof Fields, Fields[keyof Fields]>;
+};
+
+export type FeaturePostUpdateProps<Fields> = FeaturePostCreateProps<Fields> & {
+  id: any;
+};
+
 export type FeatureGetListResult<Fields> = {
   data: Fields[];
   count: number;
@@ -32,9 +42,24 @@ export type FeatureGetReadResult<Fields> = {
   error?: string;
 };
 
+export type FeaturePostCreateResult<Fields> = {
+  data: Fields;
+  status?: number;
+  error?: string;
+  errors?: Record<keyof Fields, string>;
+};
+
+export type FeaturePostUpdateResult<Fields> = FeaturePostCreateResult<Fields>;
+
 export interface FeatureApiMethods<Fields> {
   list: (props: FeatureGetListProps) => Promise<FeatureGetListResult<Fields>>;
   read?: (props: FeatureGetReadProps) => Promise<FeatureGetReadResult<Fields>>;
+  create?: (
+    props: FeaturePostCreateProps<Fields>
+  ) => Promise<FeaturePostCreateResult<Fields>>;
+  update?: (
+    props: FeaturePostUpdateProps<Fields>
+  ) => Promise<FeaturePostUpdateResult<Fields>>;
 }
 
 export type FeatureApiHost = string;

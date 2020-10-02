@@ -6,6 +6,10 @@ import {
   FeatureGetListResult,
   FeatureGetReadProps,
   FeatureGetReadResult,
+  FeaturePostCreateProps,
+  FeaturePostCreateResult,
+  FeaturePostUpdateProps,
+  FeaturePostUpdateResult,
 } from '~/application/modules/pages/Feature/types';
 import { FeatureReferenceFetchAll } from '~/application/modules/pages/Feature/types/reference';
 
@@ -17,7 +21,7 @@ export default new FeatureApi<IFields>(
       url,
       ...props
     }: FeatureGetListProps): Promise<FeatureGetListResult<IFields>> => {
-      console.log(`GET ${url}`, { url, ...props });
+      console.log(`LIST ${url}`, { url, ...props });
 
       return delay(500).then(() => ({
         data: generateBaseData(props.limit),
@@ -35,10 +39,41 @@ export default new FeatureApi<IFields>(
       const items = parseInt(id, 10) || 1;
       const href = new URL(id, url).href;
 
-      console.log(`GET ${href}`, { url, id, ...props });
+      console.log(`READ ${href}`, { url, id, ...props });
 
       return delay(500).then(() => ({
         data: generateBaseData(items + 1)[items],
+        status: 200,
+        error: '',
+      }));
+    },
+
+    create: async ({
+      url,
+      ...props
+    }: FeaturePostCreateProps<IFields>): Promise<
+      FeaturePostCreateResult<IFields>
+    > => {
+      console.log(`CREATE ${url}`, { url, ...props });
+
+      return delay(500).then(() => ({
+        data: generateBaseData(1)[0],
+        status: 200,
+        error: '',
+      }));
+    },
+
+    update: async ({
+      url,
+      id,
+      ...props
+    }: FeaturePostUpdateProps<IFields>): Promise<
+      FeaturePostUpdateResult<IFields>
+    > => {
+      console.log(`UPDATE ${url}`, { url, ...props });
+
+      return delay(500).then(() => ({
+        data: generateBaseData(id + 1)[id],
         status: 200,
         error: '',
       }));

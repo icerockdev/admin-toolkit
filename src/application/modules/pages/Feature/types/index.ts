@@ -3,8 +3,10 @@ import { FeatureField } from '~/application/modules/pages/Feature/components/fie
 import { IPageProps } from '~/application';
 import { Feature } from '~/application/modules/pages/Feature';
 import {
+  FeatureCreateRendererProps,
   FeatureListRendererProps,
   FeatureReadRendererProps,
+  FeatureUpdateRendererProps,
 } from '~/application/modules/pages/Feature/types/renderer';
 import { FeatureReferenceProps } from '~/application/modules/pages/Feature/types/reference';
 import { FeatureApi } from '~/application/modules/pages/Feature/items/FeatureApi';
@@ -37,6 +39,8 @@ export interface FeatureOptions<
 
   list?: Partial<FeatureListRendererProps>;
   read?: Partial<FeatureReadRendererProps>;
+  update?: Partial<FeatureUpdateRendererProps>;
+  create?: Partial<FeatureCreateRendererProps>;
 }
 
 export enum SortDir {

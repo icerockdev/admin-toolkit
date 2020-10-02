@@ -50,8 +50,8 @@ export class Feature<
       new FeatureRenderer({
         list: options.list,
         read: options.read,
-        // TODO: create options,
-        // TODO: update options
+        create: options.create,
+        update: options.update,
       });
 
     // Initialize ref fields storage
@@ -92,13 +92,19 @@ export class Feature<
   @observable renderer: FeatureRenderer = new FeatureRenderer();
   @observable data: FeatureData = new FeatureData();
   @observable mode?: FeatureMode;
-  @observable fieldsList: FeatureField<Fields>[] = [];
   @observable filters = new FeatureFilters(this);
   @observable controller = new FeatureController<Fields>(this);
 
+  /**
+   * Array of fields, coming from props
+   */
+  @observable fieldsList: FeatureField<Fields>[] = [];
+
+  /**
+   * Sets this feature in each field
+   */
   @action
   attachFeatureToFields() {
-    // sets feature in each field
     this.fieldsList.forEach((field) => field.useFeature(this));
   }
 
@@ -107,8 +113,20 @@ export class Feature<
     return this.mode === FeatureMode.create || this.mode === FeatureMode.update;
   }
 
+  /**
+   * Custom function, that returns single item's id
+   * TODO: use it (currently not using)
+   */
+  getItemId: (fields: Fields) => any = (fields) => fields.id;
+
+  /**
+   * Custom function, that returns single item's title
+   */
   getItemTitle: (fields: Fields) => string = () => '';
 
+  /**
+   * Record<name, field> of fields
+   */
   @computed
   get fields() {
     return this.fieldsList.reduce(
@@ -125,6 +143,8 @@ export class Feature<
    */
   @computed
   get fieldsOfCurrentMode() {
+    // TODO: filter by role here (or make and filter this.fieldsOfCurrentUser)
+
     return this.fieldsList.filter(
       (field) => this.mode && field.features[this.mode]
     );
@@ -139,10 +159,44 @@ export class Feature<
   }
 
   /**
+   * Proper react-router history
+   */
+  @computed
+  get history() {
+    return this.parent?.history;
+  }
+
+  /**
+   * Redirects to list of items
+   */
+  goToList = () => {
+    this.history?.push(this.filters.queryString);
+  };
+
+  /**
+   * Redirects to specific item
+   */
+  goToRead = (id: any) => {
+    this.history?.push(`${this.url}/${id}/`);
+  };
+
+  /**
    * Clears data on editing cancel
    */
   @action
   cancelEditing = () => {
+    switch (this.mode) {
+      case FeatureMode.create:
+        this.goToList();
+        break;
+      case FeatureMode.update:
+        const id = this.controller.getIdFromUrl();
+        this.goToRead(id);
+        break;
+      default:
+        this.history?.goBack();
+    }
+
     this.data.clearEditorData();
   };
 

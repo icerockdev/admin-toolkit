@@ -5,6 +5,8 @@ import { FeatureMode } from '~/application/modules/pages/Feature/types/index';
 export interface FeatureRendererProps {
   list?: Partial<FeatureListRendererProps>;
   read?: Partial<FeatureReadRendererProps>;
+  create?: Partial<FeatureCreateRendererProps>;
+  update?: Partial<FeatureUpdateRendererProps>;
   renderers?: Partial<
     Record<'list' | 'read' | 'update' | 'create', FeatureRendererComponent>
   >;
@@ -46,6 +48,9 @@ export type FeatureReadRendererProps = Record<
     submit: FC;
   }>;
 };
+
+export type FeatureUpdateRendererProps = FeatureReadRendererProps;
+export type FeatureCreateRendererProps = FeatureUpdateRendererProps;
 
 export type FeatureRendererReaction = (
   action: FeatureMode,

@@ -11,23 +11,6 @@ interface IProps {}
 
 const FeatureReadSubmit: FC<IProps> = observer(() => {
   const feature = useFeature();
-  const history = useHistory();
-
-  const onCancel = useCallback(() => {
-    switch (feature.mode) {
-      case FeatureMode.create:
-        history.push(feature.filters.queryString);
-        break;
-      case FeatureMode.update:
-        const id = feature.controller.getIdFromUrl();
-        history.push(`${feature.url}/${id}`);
-        break;
-      default:
-        history.goBack();
-    }
-
-    feature.cancelEditing();
-  }, [feature, history]);
 
   if (!feature.isEditing) return <Fragment />;
 
@@ -36,7 +19,7 @@ const FeatureReadSubmit: FC<IProps> = observer(() => {
       <Button
         variant="outlined"
         color="default"
-        onClick={onCancel}
+        onClick={feature.cancelEditing}
         type="button"
       >
         Отмена

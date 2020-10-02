@@ -1,22 +1,22 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { useMemo, Fragment, useCallback } from 'react';
+import React, { useMemo } from 'react';
 import { Config } from '../../config/Config';
 import { observer } from 'mobx-react';
-import { Switch, Route, Redirect, Router } from 'react-router-dom';
+import { Redirect, Route, Router, Switch } from 'react-router-dom';
 import { SignIn } from '~/containers/login/SignIn';
 import { Navigation } from '~/containers/layout/Navigation';
 import { PageRenderer } from '../PageRenderer';
 import {
   Container,
-  WithStyles,
-  withStyles,
   CssBaseline,
   ThemeProvider,
+  WithStyles,
+  withStyles,
 } from '@material-ui/core';
 import styles from './styles';
 import { ForgotPassword } from '~/containers/login/ForgotPassword';
-import DateFnsAdapter from '@material-ui/pickers/adapter/date-fns'; // choose your lib
+import DateFnsAdapter from '@material-ui/pickers/adapter/date-fns';
 import { LocalizationProvider } from '@material-ui/pickers';
 import { ResetPassword } from '~/containers/login/ResetPassword';
 import ruLocale from 'date-fns/locale/ru';

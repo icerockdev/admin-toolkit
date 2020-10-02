@@ -4,7 +4,9 @@ import { CancellablePromise } from 'mobx/lib/api/flow';
 import { controllerGetList } from '~/application/modules/pages/Feature/items/FeatureController/list';
 import { FeatureMode } from '~/application/modules/pages/Feature/types';
 import { controllerGetRead } from '~/application/modules/pages/Feature/items/FeatureController/read';
-import { controllerGetReferences } from '~/application/modules/pages/Feature/items/FeatureController/create';
+import { controllerGetReferences } from '~/application/modules/pages/Feature/items/FeatureController/references';
+import { controllerPostCreate } from '~/application/modules/pages/Feature/items/FeatureController/create';
+import { controllerPostUpdate } from '~/application/modules/pages/Feature/items/FeatureController/update';
 
 export class FeatureController<
   T extends Record<string, any> = Record<string, any>
@@ -16,14 +18,15 @@ export class FeatureController<
   /**
    * Map for all currently running async fetchers
    */
-  @observable instances: Record<string, CancellablePromise<any>> = {};
+  @observable
+  instances: Record<string, CancellablePromise<any>> = {};
 
   /**
    * Loads list of items
    */
   @action
   loadList = () => {
-    this.instances.listLoader?.cancel();
+    this.cancelAll();
     this.instances.listLoader = flow(controllerGetList)(this);
   };
 
@@ -103,6 +106,9 @@ export class FeatureController<
     }
   };
 
+  /**
+   * Called on submit of editor / creator. Handles validation and launching submitting function for each mode
+   */
   @action
   submitItem = () => {
     if (this.feature.data.isLoading) return;
@@ -115,9 +121,19 @@ export class FeatureController<
       this.feature.data.errors = validation;
     }
 
-    // TODO: call update / create method
+    switch (this.feature.mode) {
+      case FeatureMode.create:
+        this.instances.create = flow(controllerPostCreate)(this);
+        break;
+      case FeatureMode.update:
+        this.instances.create = flow(controllerPostUpdate)(this);
+        break;
+    }
   };
 
+  /**
+   * Returns list of validation errors for currently visible fields
+   */
   validateFields = (): Partial<Record<keyof T, string>> | undefined => {
     const fields = this.feature.fieldsOfCurrentMode
       .filter((field) => field.validator)
