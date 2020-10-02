@@ -10,6 +10,7 @@ import {
 } from '~/application/modules/pages/Feature/types/renderer';
 import { FeatureReferenceProps } from '~/application/modules/pages/Feature/types/reference';
 import { FeatureApi } from '~/application/modules/pages/Feature/items/FeatureApi';
+import { FeatureListRendererComponent } from '~/application/modules/pages/Feature/components/renderers/list/FeatureListRenderer';
 
 export * from './api';
 
@@ -37,7 +38,7 @@ export interface FeatureOptions<
   api?: typeof FeatureApi;
   getItemTitle?: (fields: Fields) => string;
 
-  list?: Partial<FeatureListRendererProps>;
+  list?: FeatureListRendererComponent;
   read?: Partial<FeatureReadRendererProps>;
   update?: Partial<FeatureUpdateRendererProps>;
   create?: Partial<FeatureCreateRendererProps>;

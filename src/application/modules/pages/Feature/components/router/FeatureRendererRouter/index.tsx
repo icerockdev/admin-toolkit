@@ -6,9 +6,13 @@ import { useFeature } from '~/utils/hooks';
 import { useLocation } from 'react-router';
 import { FeatureMode } from '~/application/modules/pages/Feature/types';
 import { FeatureRendererReaction } from '~/application/modules/pages/Feature/types/renderer';
+import {
+  FeatureListRenderer,
+  FeatureListRendererComponent,
+} from '~/application/modules/pages/Feature/components/renderers/list/FeatureListRenderer';
 
 interface IProps {
-  list: FeatureRendererComponent;
+  list: FeatureListRendererComponent;
   read: FeatureRendererComponent;
   update: FeatureRendererComponent;
   create: FeatureRendererComponent;
@@ -55,7 +59,7 @@ const FeatureRendererRouter: FC<IProps> = observer(
           exact
         />
 
-        <Route exact path={feature.url} component={list.output} />
+        <Route exact path={feature.url} component={list} />
 
         {features.read && (
           <Route exact path={`${url}/:id`} component={read.output} />

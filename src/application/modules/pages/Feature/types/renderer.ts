@@ -1,15 +1,18 @@
 import { FeatureRendererComponent } from '~/application/modules/pages/Feature/components/renderers/FeatureRendererComponent';
 import { FC } from 'react';
 import { FeatureMode } from '~/application/modules/pages/Feature/types/index';
+import { FeatureListRendererComponent } from '~/application/modules/pages/Feature/components/renderers/list/FeatureListRenderer';
 
 export interface FeatureRendererProps {
-  list?: Partial<FeatureListRendererProps>;
+  list?: FeatureListRendererComponent;
   read?: Partial<FeatureReadRendererProps>;
   create?: Partial<FeatureCreateRendererProps>;
   update?: Partial<FeatureUpdateRendererProps>;
   renderers?: Partial<
-    Record<'list' | 'read' | 'update' | 'create', FeatureRendererComponent>
-  >;
+    Record<'read' | 'update' | 'create', FeatureRendererComponent>
+  > & {
+    list: FeatureListRendererComponent;
+  };
 }
 
 export type FeatureListRendererProps = Record<
