@@ -8,7 +8,7 @@ import createMuiTheme, {
 } from '@material-ui/core/styles/createMuiTheme';
 import { computed, observable } from 'mobx';
 import { DEFAULT_THEME } from '~/utils/theme';
-import { HorizontalLayout } from '~/application/modules/layouts/HorizontalLayout';
+import { HorizontalLayout } from '~/application/layouts/HorizontalLayout';
 import { FC } from 'react';
 
 export class Config {

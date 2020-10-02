@@ -1,36 +1,35 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React, {
-  useMemo,
-  useCallback,
-  useState,
-  Fragment,
   createElement,
-  ReactNode,
+  Fragment,
   MouseEvent,
+  ReactNode,
+  useCallback,
+  useMemo,
+  useState,
 } from 'react';
 import {
-  TableContainer,
+  Button,
+  Checkbox,
+  CircularProgress,
+  Paper,
   Table,
+  TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
-  TableBody,
-  Paper,
-  CircularProgress,
-  Button,
   withStyles,
   WithStyles,
-  Checkbox,
 } from '@material-ui/core';
-import { IEntityField, ENTITY_SORT_DIRS } from '~/application/';
+import { ENTITY_SORT_DIRS, IEntityField } from '~/application/types/entity';
 import LaunchIcon from '@material-ui/icons/Launch';
 import EditIcon from '@material-ui/icons/Edit';
-import { Link as RouterLink } from 'react-router-dom';
-import { EntityHeadSortable } from '~/application/components/EntityHeadSortable';
+import { Link as RouterLink, useHistory } from 'react-router-dom';
+import { EntityHeadSortable } from '~/application/components/entity/EntityHeadSortable';
 import styles from './styles';
 import { EntityField } from '../EntityField';
-import { useHistory } from 'react-router-dom';
 import { observer } from 'mobx-react';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';

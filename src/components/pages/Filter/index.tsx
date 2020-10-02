@@ -17,7 +17,7 @@ import { IEntityProps, IFilterValue } from '~/application/types/entity';
 import CheckIcon from '@material-ui/icons/Check';
 import ClearIcon from '@material-ui/icons/Clear';
 import FilterIcon from '@material-ui/icons/FilterList';
-import { EntityField } from '~/application/components/EntityField';
+import { EntityField } from '~/application/components/entity/EntityField';
 import { observer } from 'mobx-react';
 import { Entity } from '~/application';
 import { toJS } from 'mobx';
