@@ -3,6 +3,7 @@
 import { Page } from '~/application/modules/pages/Page';
 import { AuthProvider } from '~/application/modules/auth/AuthProvider';
 import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
+import { FC } from 'react';
 
 export interface IConfigProps {
   logo: string;
@@ -11,4 +12,5 @@ export interface IConfigProps {
   pages: Page[];
   auth: AuthProvider;
   theme?: ThemeOptions;
+  layout?: FC;
 }

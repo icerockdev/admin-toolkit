@@ -4,5 +4,5 @@
   display: grid;
   grid-auto-flow: row;
   grid-row-gap: $gap;
-  padding: $gap;
+  padding: $gap 0;
 }

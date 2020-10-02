@@ -1,0 +1,9 @@
+.wrapper {
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+
+  & .MuiButton-root,
+  & .MuiOutlinedInput-root {
+    border-radius: 0;
+  }
+}

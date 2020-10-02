@@ -2,13 +2,11 @@
 
 import React, { useMemo } from 'react';
 import { Config } from '../../config/Config';
-import { observer } from 'mobx-react';
+import { observer, Provider } from 'mobx-react';
 import { Redirect, Route, Router, Switch } from 'react-router-dom';
 import { SignIn } from '~/containers/login/SignIn';
-import { Navigation } from '~/containers/layout/Navigation';
 import { PageRenderer } from '../PageRenderer';
 import {
-  Container,
   CssBaseline,
   ThemeProvider,
   WithStyles,
@@ -26,27 +24,7 @@ type IProps = WithStyles<typeof styles> & {
 };
 
 const Application = withStyles(styles)(
-  observer(({ classes, config }: IProps) => {
-    const links = useMemo(
-      () =>
-        config.pages
-          .filter((page) => page?.menu?.url && page.canList)
-          .map((page) => ({
-            name: page.menu.label,
-            url: page.menu.url,
-          })),
-      [config.pages, config.auth?.user?.role]
-    );
-
-    const role = useMemo(
-      () =>
-        (config.auth?.roleTitles &&
-          config.auth?.user?.role &&
-          config.auth?.roleTitles[config.auth?.user?.role]) ||
-        config.auth?.user?.role,
-      [config.auth?.roleTitles, config.auth?.user?.role]
-    );
-
+  observer(({ config }: IProps) => {
     const onForgotPassword = useMemo(
       () =>
         config.auth?.authPasswRestoreFn
@@ -59,78 +37,72 @@ const Application = withStyles(styles)(
 
     if (!config.auth?.isLogged && config.auth?.sendAuthRequest) {
       return (
-        <ThemeProvider theme={config.themeInstance}>
-          <CssBaseline />
+        <Provider config={config}>
+          <ThemeProvider theme={config.themeInstance}>
+            <CssBaseline />
 
-          <Router history={config.history}>
-            <Switch>
-              <Route
-                path="/restore"
-                render={() => (
-                  <ForgotPassword
-                    onSubmit={config.auth?.sendAuthPasswRestore}
-                  />
-                )}
-              />
+            <Router history={config.history}>
+              <Switch>
+                <Route
+                  path="/restore"
+                  render={() => (
+                    <ForgotPassword
+                      onSubmit={config.auth?.sendAuthPasswRestore}
+                    />
+                  )}
+                />
 
-              <Route
-                path="/reset-password/:token"
-                render={(params) => (
-                  <ResetPassword
-                    onSubmit={config.auth?.sendAuthPasswUpdate}
-                    token={params.match.params.token}
-                  />
-                )}
-              />
+                <Route
+                  path="/reset-password/:token"
+                  render={(params) => (
+                    <ResetPassword
+                      onSubmit={config.auth?.sendAuthPasswUpdate}
+                      token={params.match.params.token}
+                    />
+                  )}
+                />
 
-              <SignIn
-                onSubmit={config.auth.sendAuthRequest}
-                onForgotScreenClick={onForgotPassword}
-              />
-            </Switch>
-          </Router>
+                <SignIn
+                  onSubmit={config.auth.sendAuthRequest}
+                  onForgotScreenClick={onForgotPassword}
+                />
+              </Switch>
+            </Router>
 
-          <config.notifications.Output />
-        </ThemeProvider>
+            <config.notifications.Output />
+          </ThemeProvider>
+        </Provider>
       );
     }
 
     return (
-      <ThemeProvider theme={config.themeInstance}>
-        <LocalizationProvider dateAdapter={DateFnsAdapter} locale={ruLocale}>
-          <CssBaseline />
+      <Provider config={config}>
+        <ThemeProvider theme={config.themeInstance}>
+          <LocalizationProvider dateAdapter={DateFnsAdapter} locale={ruLocale}>
+            <CssBaseline />
 
-          <Router history={config.history}>
-            <Navigation
-              links={links}
-              logo={{ url: config.logo, title: config.title }}
-              account={{
-                email: config.auth?.user?.email || '',
-                username: config.auth?.user?.username || '',
-                role,
-              }}
-              onLogout={config.auth?.logout}
-            />
+            <Router history={config.history}>
+              <config.layout>
+                <Switch>
+                  {config.pages
+                    .filter((page) => page?.menu?.url)
+                    .map((page) => (
+                      <Route
+                        path={page.menu.url}
+                        render={() => <PageRenderer page={page} />}
+                        key={page.menu.url}
+                      />
+                    ))}
 
-            <Container maxWidth="xl" className={classes.wrapper}>
-              <Switch>
-                {config.pages
-                  .filter((page) => page?.menu?.url)
-                  .map((page) => (
-                    <Route
-                      path={page.menu.url}
-                      render={() => <PageRenderer page={page} />}
-                      key={page.menu.url}
-                    />
-                  ))}
-                {links.length > 0 && <Redirect to={links[0].url} />}
-              </Switch>
-            </Container>
-          </Router>
+                  <Redirect to={config.fallbackUrl} />
+                </Switch>
+              </config.layout>
+            </Router>
 
-          <config.notifications.Output />
-        </LocalizationProvider>
-      </ThemeProvider>
+            <config.notifications.Output />
+          </LocalizationProvider>
+        </ThemeProvider>
+      </Provider>
     );
   })
 );

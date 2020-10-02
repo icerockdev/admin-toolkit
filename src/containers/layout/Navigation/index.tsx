@@ -39,7 +39,7 @@ const LinkTab = (props: any) => (
   />
 );
 
-const NavigationUnstyled: FC<IProps> = ({
+const HorizontalNavigationUnstyled: FC<IProps> = ({
   classes,
   logo,
   links,
@@ -118,6 +118,8 @@ const NavigationUnstyled: FC<IProps> = ({
   );
 };
 
-const Navigation = withStyles(styles, { withTheme: true })(NavigationUnstyled);
+const HorizontalNavigation = withStyles(styles, { withTheme: true })(
+  HorizontalNavigationUnstyled
+);
 
-export { Navigation };
+export { HorizontalNavigation };
