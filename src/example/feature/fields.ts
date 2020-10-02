@@ -8,7 +8,6 @@ import { ReferenceField } from '~/application/modules/pages/Feature/components/f
 export const FEATURE_FIELDS = [
   new FeatureField<IFields>('name', {
     label: 'Имя',
-    validator: (val) => `Что-то не так ${val}`,
     features: {
       sort: true,
       filter: true,
@@ -17,7 +16,6 @@ export const FEATURE_FIELDS = [
   new IntegerField<IFields>('age', {
     label: 'Возраст',
     accuracy: 2,
-    validator: (val) => `Что-то не так ${val}`,
     features: {
       sort: true,
       filter: true,
@@ -25,7 +23,6 @@ export const FEATURE_FIELDS = [
   }),
   new ReferenceField<IFields>('role', {
     label: 'Роль',
-    validator: (val) => `Что-то не так ${val}`,
     features: {
       sort: true,
       filter: true,
@@ -33,7 +30,6 @@ export const FEATURE_FIELDS = [
   }),
   new SelectField<IFields>('status', {
     label: 'Статус',
-    validator: (val) => `Что-то не так ${val}`,
     options: {
       10: 'Активен',
       20: 'Неактивен',
@@ -46,7 +42,6 @@ export const FEATURE_FIELDS = [
   }),
   new DateField<IFields>('birthDate', {
     label: 'Дата рождения',
-    validator: (val) => `Что-то не так ${val}`,
     features: {
       sort: true,
       filter: true,
@@ -54,7 +49,6 @@ export const FEATURE_FIELDS = [
   }),
   new FeatureField<IFields>('description', {
     label: 'Описание',
-    validator: (val) => `Что-то не так ${val}`,
     features: {
       sort: true,
       filter: true,

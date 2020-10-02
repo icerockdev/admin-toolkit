@@ -1,12 +1,12 @@
 import { action, computed, extendObservable, observable, toJS } from 'mobx';
 import {
-  FeatureGetListProps,
-  FeatureGetListResult,
   FeatureApiHost,
   FeatureApiMethods,
-  IBaseEntityApiUrls,
-  FeatureGetReadResult,
+  FeatureGetListProps,
+  FeatureGetListResult,
   FeatureGetReadProps,
+  FeatureGetReadResult,
+  IBaseEntityApiUrls,
 } from '~/application/modules/pages/Feature/types/api';
 import { UNAUTHORIZED } from '~/application';
 import { Feature } from '~/application/modules/pages/Feature';
@@ -25,32 +25,33 @@ export class FeatureApi<
     extendObservable(this, { methods, urls, host });
   }
 
-  @observable entity?: Feature<Fields>;
+  @observable
+  feature?: Feature<Fields>;
 
   @computed
   get withToken() {
-    if (!this.entity?.parent?.auth?.withToken) {
+    if (!this.feature?.parent?.auth?.withToken) {
       throw new Error('WithToken not attached to api');
     }
 
-    return this.entity?.parent.auth.withToken;
+    return this.feature?.parent.auth.withToken;
   }
 
   @action
-  useFeature = (entity: Feature<Fields>) => {
-    this.entity = entity;
+  useFeature = (feature: Feature<Fields>) => {
+    this.feature = feature;
   };
 
   getList = async (
-    entity: Feature<Fields>
+    feature: Feature<Fields>
   ): Promise<FeatureGetListResult<Fields>> => {
-    const { sortBy, sortDir, page, rows, valuesForList } = entity.filters;
+    const { sortBy, sortDir, page, rows, valuesForList } = feature.filters;
     const url = new URL(this.urls.list || '/', this.host).href;
 
     const result: FeatureGetListResult<Fields> = await this.withToken(
       this.methods.list,
       {
-        feature: entity,
+        feature,
         url,
         filters: toJS(valuesForList),
         sortBy,
@@ -72,7 +73,7 @@ export class FeatureApi<
   };
 
   getRead = async (
-    entity: Feature<Fields>,
+    feature: Feature<Fields>,
     id: any
   ): Promise<FeatureGetReadResult<Fields>> => {
     if (!this.methods.read) {
@@ -83,7 +84,7 @@ export class FeatureApi<
 
     const result: FeatureGetReadResult<Fields> = await this.withToken(
       this.methods.read,
-      { url, feature: entity, id } as FeatureGetReadProps
+      { url, feature, id } as FeatureGetReadProps
     );
 
     if (result.status === 401) {
@@ -99,31 +100,31 @@ export class FeatureApi<
 
   @action
   async getReferencesAll<Fields>(controller: FeatureController<Fields>) {
-    if (!this.entity) return;
+    if (!this.feature) return;
 
     const {
-      entity,
-      entity: { references },
+      feature,
+      feature: { references },
     } = this;
 
     if (!keys(references).length) return;
 
-    const refs = keys(entity.references);
+    const refs = keys(feature.references);
 
     refs.forEach((ref) => {});
 
     await Promise.all(
       refs.map(async (ref) => {
-        entity.data.references[ref].isLoadingAll = true;
-        entity.data.references[ref].all = await this.withToken(
+        feature.data.references[ref].isLoadingAll = true;
+        feature.data.references[ref].all = await this.withToken(
           getReferenceAll,
           {
-            entity,
+            feature,
             name: ref,
             host: this.host,
           }
         );
-        entity.data.references[ref].isLoadingAll = false;
+        feature.data.references[ref].isLoadingAll = false;
       })
     );
   }

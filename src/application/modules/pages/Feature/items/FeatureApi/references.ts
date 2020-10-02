@@ -2,7 +2,7 @@ import { has } from 'ramda';
 import { Feature } from '~/application/modules/pages/Feature';
 
 type GetReferenceAllProps = {
-  entity: Feature;
+  feature: Feature;
   host: string;
   token: string;
   name: string;
@@ -11,19 +11,19 @@ type GetReferenceAllProps = {
 export const getReferenceAll: (
   props: GetReferenceAllProps
 ) => Promise<any> = async ({
-  entity,
+  feature,
   host,
   token,
   name,
 }): Promise<Record<any, any>> => {
-  if (!has(name, entity.references)) return {};
+  if (!has(name, feature.references)) return {};
 
-  const { all, url } = entity.references[name];
+  const { all, url } = feature.references[name];
 
   if (!all || !url) return {};
 
   return await all({
-    feature: entity,
+    feature,
     url: new URL(url, host).href,
     token,
     name,
