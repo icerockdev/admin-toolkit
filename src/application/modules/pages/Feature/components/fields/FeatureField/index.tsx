@@ -1,28 +1,30 @@
 import React, { FC } from 'react';
 import { action, computed, extendObservable, observable } from 'mobx';
 import {
+  FeatureFieldFeature,
   FeatureFieldListProps,
   FeatureFieldProps,
 } from '~/application/modules/pages/Feature/types/field';
 import { StringFilter } from '~/application/modules/pages/Feature/components/renderers/filters/StringFilter';
-import { FeatureFilterComponentProps } from '~/application/modules/pages/Feature/types/filters';
 import { Feature } from '~/application/modules/pages/Feature';
-import { equals, has, omit, reject } from 'ramda';
+import { equals, omit, reject } from 'ramda';
 import { StringInput } from '~/application/modules/pages/Feature/components/inputs/StringInput';
 import { observer } from 'mobx-react';
 
 export class FeatureField<T extends Record<string, any> = Record<string, any>> {
-  constructor(
-    public name: string,
-    public options: FeatureFieldProps<T[keyof T]>
-  ) {
+  constructor(public name: string, public options: FeatureFieldProps<T>) {
     extendObservable(this, { name, options });
 
-    if (has('read', options.features))
-      this.showInRead = !!options.features?.read;
+    if (options.features) {
+      this.features = {
+        ...this.features,
+        ...options.features,
+      };
+    }
 
-    if (has('list', options.features))
-      this.showInList = !!options.features?.list;
+    if (options.validator) {
+      this.validator = options.validator;
+    }
 
     if (options.allowEmptyFilter)
       this.allowEmptyFilter = options.allowEmptyFilter;
@@ -30,11 +32,17 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
 
   @observable protected feature?: Feature<T>;
 
-  @observable public showInList = true;
-  @observable public showInRead = true;
-
   @observable public listColumnSize = '10%';
   @observable public allowEmptyFilter = false;
+  @observable public features: Record<FeatureFieldFeature, boolean> = {
+    list: true,
+    create: true,
+    update: true,
+    read: true,
+    filter: false,
+    sort: true,
+  };
+  @observable validator?: FeatureFieldProps<T>['validator'];
 
   @computed
   get label() {

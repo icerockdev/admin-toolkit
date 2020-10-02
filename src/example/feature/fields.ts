@@ -8,6 +8,7 @@ import { ReferenceField } from '~/application/modules/pages/Feature/components/f
 export const FEATURE_FIELDS = [
   new FeatureField<IFields>('name', {
     label: 'Имя',
+    validator: (val) => `Что-то не так ${val}`,
     features: {
       sort: true,
       filter: true,

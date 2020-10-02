@@ -1,7 +1,7 @@
+import React from 'react';
 import { FeatureField } from '~/application/modules/pages/Feature/components/fields/FeatureField';
 import { computed, observable } from 'mobx';
 import { format, parseISO } from 'date-fns/esm';
-import React from 'react';
 import { DateFilter } from '~/application/modules/pages/Feature/components/renderers/filters/DateFilter';
 import { DateInput } from '~/application/modules/pages/Feature/components/inputs/DateInput';
 import { observer } from 'mobx-react';
@@ -9,7 +9,7 @@ import { observer } from 'mobx-react';
 export type DateFieldParser = (val: string) => Date;
 export type DateFieldFormatter = (val: Date) => string;
 
-export type DateFieldOptions = FeatureField['options'] & {
+export type DateFieldOptions<T> = FeatureField<T>['options'] & {
   parser?: DateFieldParser;
   formatter?: DateFieldFormatter;
   format?: string;
@@ -27,7 +27,7 @@ export class DateField<
       formatter,
       filterExact,
       ...options
-    }: DateFieldOptions
+    }: DateFieldOptions<T>
   ) {
     super(name, options);
 

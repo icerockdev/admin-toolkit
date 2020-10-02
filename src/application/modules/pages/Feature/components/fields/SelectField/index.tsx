@@ -5,7 +5,7 @@ import { SelectFilter } from '~/application/modules/pages/Feature/components/ren
 import { observer } from 'mobx-react';
 import { SelectInput } from '~/application/modules/pages/Feature/components/inputs/SelectInput';
 
-export type SelectFieldOptions = FeatureField['options'] & {
+export type SelectFieldOptions<T> = FeatureField<T>['options'] & {
   options?: Record<any, any>;
   autocomplete?: boolean;
 };
@@ -15,7 +15,7 @@ export class SelectField<
 > extends FeatureField<T> {
   constructor(
     name: FeatureField['name'],
-    { options, autocomplete, ...props }: SelectFieldOptions
+    { options, autocomplete, ...props }: SelectFieldOptions<T>
   ) {
     super(name, props);
 

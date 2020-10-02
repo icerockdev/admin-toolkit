@@ -20,10 +20,6 @@ interface IProps {}
 const FeatureListTable: FC<IProps> = observer(() => {
   const feature = useFeature();
 
-  const fields = useMemo(() => {
-    return feature.fieldsList.filter((field) => field.showInList);
-  }, [feature.fields]);
-
   const {
     data: { isLoading, list },
     filters: { rows },
@@ -37,7 +33,7 @@ const FeatureListTable: FC<IProps> = observer(() => {
       >
         <TableHead>
           <TableRow className="feature-list__table-head-row">
-            {fields.map((field) => (
+            {feature.fieldsOfCurrentMode.map((field) => (
               <FeatureListTheadItem field={field} key={field.name.toString()} />
             ))}
           </TableRow>
@@ -45,7 +41,10 @@ const FeatureListTable: FC<IProps> = observer(() => {
 
         <TableBody>
           {isLoading && (
-            <FeatureListEmptyRows rows={rows} cols={fields.length} />
+            <FeatureListEmptyRows
+              rows={rows}
+              cols={feature.fieldsOfCurrentMode.length}
+            />
           )}
 
           {!isLoading &&

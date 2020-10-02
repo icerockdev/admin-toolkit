@@ -24,7 +24,6 @@ export class Feature<
     public title: string,
     public url: string,
     public api: FeatureApi<Fields>,
-
     options: Partial<FeatureOptions<Fields>> = {}
   ) {
     super({
@@ -121,16 +120,27 @@ export class Feature<
     );
   }
 
+  /**
+   * Returns only fields, that should be displayed / validated on current mode
+   */
   @computed
-  get fieldsOrder() {
-    return this.fieldsList.map((field) => field.name);
+  get fieldsOfCurrentMode() {
+    return this.fieldsList.filter(
+      (field) => this.mode && field.features[this.mode]
+    );
   }
 
+  /**
+   * Main renderer
+   */
   @computed
   get output() {
     return () => <Provider feature={this}>{this.renderer.output}</Provider>;
   }
 
+  /**
+   * Clears data on editing cancel
+   */
   @action
   cancelEditing = () => {
     this.data.clearEditorData();
@@ -138,6 +148,7 @@ export class Feature<
 
   @action
   submitEditor() {
+    this.controller.submitItem();
     // TODO: actually submit editor form
   }
 }

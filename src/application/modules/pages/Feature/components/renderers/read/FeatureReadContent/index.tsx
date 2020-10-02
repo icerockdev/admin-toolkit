@@ -16,11 +16,12 @@ const FeatureReadContent: FC<IProps> = observer(({ onlyFields }) => {
   const feature = useFeature();
 
   const fields = useMemo(() => {
-    return feature.fieldsList.filter(
-      (field) =>
-        field.showInRead && (!onlyFields || onlyFields.includes(field.name))
-    );
-  }, [feature.fieldsList, onlyFields]);
+    return onlyFields
+      ? feature.fieldsOfCurrentMode.filter((field) =>
+          onlyFields.includes(field.name)
+        )
+      : feature.fieldsOfCurrentMode;
+  }, [feature.fieldsOfCurrentMode, onlyFields]);
 
   const values = useMemo(() => feature.data.read, [feature.data.read]);
 

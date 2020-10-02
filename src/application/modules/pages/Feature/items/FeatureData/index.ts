@@ -11,7 +11,8 @@ export class FeatureData<
   @observable list: Fields[] = [];
   @observable read: Partial<Fields> = {};
 
-  @observable editor?: Record<number, Fields>;
+  @observable editor: Partial<Record<keyof Fields, Fields[keyof Fields]>> = {};
+  @observable errors: Partial<Record<keyof Fields, string>> = {};
 
   @action
   createReferenceData(refs: Record<string, any>) {
@@ -26,5 +27,18 @@ export class FeatureData<
   @action
   clearEditorData() {
     this.editor = {};
+  }
+
+  @action
+  clearErrors() {
+    this.errors = {};
+  }
+
+  @action
+  clearError(field: keyof Fields) {
+    this.errors = {
+      ...this.errors,
+      [field]: undefined,
+    };
   }
 }

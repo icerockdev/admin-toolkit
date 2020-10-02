@@ -9,30 +9,45 @@ import { controllerGetReferences } from '~/application/modules/pages/Feature/ite
 export class FeatureController<
   T extends Record<string, any> = Record<string, any>
 > {
-  @observable instances: Record<string, CancellablePromise<any>> = {};
-
   constructor(public feature: Feature<T>) {
-    extendObservable(this, { feature: feature });
+    extendObservable(this, { feature });
   }
 
+  /**
+   * Map for all currently running async fetchers
+   */
+  @observable instances: Record<string, CancellablePromise<any>> = {};
+
+  /**
+   * Loads list of items
+   */
   @action
   loadList = () => {
     this.instances.listLoader?.cancel();
     this.instances.listLoader = flow(controllerGetList)(this);
   };
 
+  /**
+   * Loads data of currently viewing item
+   */
   @action
   loadRead = () => {
     this.cancelAll();
     this.instances.readLoader = flow(controllerGetRead)(this);
   };
 
+  /**
+   * Loads data of currently editing item
+   */
   @action
   loadUpdate = () => {
     this.cancelAll();
     this.instances.readLoader = flow(controllerGetRead)(this);
   };
 
+  /**
+   * Clears current data and loading references on create form
+   */
   @action
   loadCreate = () => {
     this.cancelAll();
@@ -40,16 +55,21 @@ export class FeatureController<
     this.feature.data.read = {};
     this.feature.data.isLoading = false;
 
-    // TODO: load all references here
     this.instances.createLoader = flow(controllerGetReferences)(this);
   };
 
+  /**
+   * Cancels all currently loading functions
+   */
   cancelAll = () => {
     Object.values(this.instances).forEach((instance) => {
       if (instance.cancel) instance.cancel();
     });
   };
 
+  /**
+   * Returns id of currently editing / viewing item
+   */
   getIdFromUrl = () => {
     const re = new RegExp(
       `${this.feature.url.replace(/\//gim, '\\/')}\\\/([^/]+)`
@@ -76,5 +96,35 @@ export class FeatureController<
       default:
         return;
     }
+  };
+
+  @action
+  submitItem = () => {
+    this.cancelAll();
+
+    const validation = this.validateFields();
+
+    console.log(validation);
+
+    if (validation) {
+      this.feature.data.errors = validation;
+    }
+  };
+
+  validateFields = (): Partial<Record<keyof T, string>> | undefined => {
+    const fields = this.feature.fieldsOfCurrentMode
+      .filter((field) => field.validator)
+      .reduce((acc, field) => {
+        if (!field.validator) return acc;
+
+        const value = this.feature.data.editor[field.name as any];
+        const error = field.validator(value, field);
+
+        if (!error) return acc;
+
+        return { ...acc, [field.name]: error };
+      }, {});
+
+    return Object.keys(fields).length > 0 ? fields : undefined;
   };
 }

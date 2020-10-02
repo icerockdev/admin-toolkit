@@ -2,7 +2,7 @@ import { FeatureField } from '~/application/modules/pages/Feature/components/fie
 import { observable } from 'mobx';
 import React from 'react';
 
-export type IntegerFieldOptions = FeatureField['options'] & {
+export type IntegerFieldOptions<T> = FeatureField<T>['options'] & {
   filterExact?: boolean;
   accuracy?: number;
   preserveZero?: boolean;
@@ -13,7 +13,7 @@ export class IntegerField<
 > extends FeatureField<T> {
   constructor(
     name: FeatureField['name'],
-    { filterExact, accuracy, preserveZero, ...options }: IntegerFieldOptions
+    { filterExact, accuracy, preserveZero, ...options }: IntegerFieldOptions<T>
   ) {
     super(name, options);
 

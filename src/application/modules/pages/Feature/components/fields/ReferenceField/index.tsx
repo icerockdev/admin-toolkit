@@ -1,14 +1,13 @@
 import React from 'react';
 import { SelectField } from '~/application/modules/pages/Feature/components/fields/SelectField';
 import { computed, observable } from 'mobx';
-import { FeatureField } from '~/application/modules/pages/Feature/components/fields/FeatureField';
 import { Placeholder } from '~/application/modules/pages/Feature/components/common/Placeholder';
 import { observer } from 'mobx-react';
 import { SelectInput } from '~/application/modules/pages/Feature/components/inputs/SelectInput';
 
-export class ReferenceField<T extends Record<string, any>> extends SelectField<
-  T
-> {
+export class ReferenceField<
+  T extends Record<string, any> = Record<string, any>
+> extends SelectField<T> {
   @observable autocomplete = true;
 
   @computed
