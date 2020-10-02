@@ -12,8 +12,8 @@ import { FeatureReadRenderer } from '~/application/modules/pages/Feature/compone
 
 export class FeatureRenderer<T extends Feature<any> = Feature<any>> {
   constructor(props?: FeatureRendererProps) {
-    if (props?.renderers?.list) {
-      this.list = props?.renderers?.list;
+    if (props?.list) {
+      this.list = props?.list;
     }
 
     this.read =
