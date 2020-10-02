@@ -9,9 +9,9 @@ export class FeatureData<
   @observable isLoading: boolean = true;
 
   @observable list: Fields[] = [];
-  @observable read: Partial<Fields> = {};
-
+  @observable read: Partial<Record<keyof Fields, Fields[keyof Fields]>> = {};
   @observable editor: Partial<Record<keyof Fields, Fields[keyof Fields]>> = {};
+
   @observable errors: Partial<Record<keyof Fields, string>> = {};
 
   @action
@@ -25,8 +25,18 @@ export class FeatureData<
   }
 
   @action
+  clearReadData() {
+    this.read = {};
+  }
+
+  @action
   clearEditorData() {
     this.editor = {};
+  }
+
+  @action
+  copyReadToEditor() {
+    this.editor = { ...this.read };
   }
 
   @action

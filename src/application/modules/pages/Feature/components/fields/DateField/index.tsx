@@ -64,6 +64,7 @@ export class DateField<
         value={this.readValue}
         label={this.label}
         onChange={this.onChange}
+        error={this.editError}
       />
     );
   }

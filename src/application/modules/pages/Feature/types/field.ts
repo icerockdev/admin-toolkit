@@ -32,4 +32,5 @@ export type FeatureInputProps<T extends any = any> = {
   label: string;
   onChange: (val?: T) => void;
   disabled?: boolean;
+  error?: string;
 };

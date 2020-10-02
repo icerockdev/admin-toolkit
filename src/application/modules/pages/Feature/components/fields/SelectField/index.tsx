@@ -59,6 +59,7 @@ export class SelectField<
         onChange={this.onChange}
         variants={this.filterVariants}
         value={this.readValue}
+        error={this.editError}
         autocomplete={
           Object.keys(this.variants).length > 10 || this.autocomplete
         }

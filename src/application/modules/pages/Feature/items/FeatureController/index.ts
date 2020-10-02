@@ -42,7 +42,9 @@ export class FeatureController<
   @action
   loadUpdate = () => {
     this.cancelAll();
+    this.feature.data.clearErrors();
     this.instances.readLoader = flow(controllerGetRead)(this);
+    this.instances.readLoader.then(() => this.feature.data.copyReadToEditor());
   };
 
   /**
@@ -52,7 +54,10 @@ export class FeatureController<
   loadCreate = () => {
     this.cancelAll();
 
-    this.feature.data.read = {};
+    this.feature.data.clearReadData();
+    this.feature.data.clearEditorData();
+    this.feature.data.clearErrors();
+
     this.feature.data.isLoading = false;
 
     this.instances.createLoader = flow(controllerGetReferences)(this);
@@ -100,15 +105,17 @@ export class FeatureController<
 
   @action
   submitItem = () => {
+    if (this.feature.data.isLoading) return;
+
     this.cancelAll();
 
     const validation = this.validateFields();
 
-    console.log(validation);
-
     if (validation) {
       this.feature.data.errors = validation;
     }
+
+    // TODO: call update / create method
   };
 
   validateFields = (): Partial<Record<keyof T, string>> | undefined => {
@@ -117,8 +124,7 @@ export class FeatureController<
       .reduce((acc, field) => {
         if (!field.validator) return acc;
 
-        const value = this.feature.data.editor[field.name as any];
-        const error = field.validator(value, field);
+        const error = field.validator(field.editValue, field);
 
         if (!error) return acc;
 

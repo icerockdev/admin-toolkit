@@ -70,7 +70,15 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
   @action
   public onChange = (val: any) => {
     if (!this.feature) return;
-    this.feature.data.read[this.name] = val;
+
+    if (this.editError) {
+      this.feature.data.errors = omit([this.name], this.feature.data.errors);
+    }
+
+    this.feature.data.editor = {
+      ...this.feature.data.editor,
+      [this.name]: val,
+    };
   };
 
   @observable
@@ -88,9 +96,10 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
   get Update() {
     return (
       <StringInput
-        value={this.readValue}
+        value={this.editValue}
         onChange={this.onChange}
         label={this.label}
+        error={this.editError}
       />
     );
   }
@@ -113,13 +122,15 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
   @action
   public onFilterChange = (value: any) => {
     if (!this.feature?.filters.value) return;
+
     this.feature.filters.value = {
       ...this.feature.filters.value,
       [this.name]: value,
     };
   };
 
-  @action onFilterReset = () => {
+  @action
+  onFilterReset = () => {
     if (!this.feature?.filters) return;
 
     this.feature.filters.value = omit([this.name], this.feature.filters.value);
@@ -137,5 +148,15 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
   @computed
   get readValue() {
     return this.feature?.data.read[this.name];
+  }
+
+  @computed
+  get editValue() {
+    return this.feature?.data.editor[this.name];
+  }
+
+  @computed
+  get editError() {
+    return this.feature?.data.errors[this.name];
   }
 }

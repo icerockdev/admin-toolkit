@@ -42,7 +42,12 @@ const FeatureReadSubmit: FC<IProps> = observer(() => {
         Отмена
       </Button>
 
-      <Button variant="contained" color="primary" type="submit">
+      <Button
+        variant="contained"
+        color="primary"
+        type="submit"
+        disabled={feature.data.isLoading}
+      >
         {feature.mode === FeatureMode.create ? 'Создать' : 'Сохранить'}
       </Button>
     </div>

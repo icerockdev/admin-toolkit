@@ -8,7 +8,7 @@ import { Placeholder } from '~/application/modules/pages/Feature/components/comm
 import { FeatureInputProps } from '~/application/modules/pages/Feature/types/field';
 
 const StringInput: FC<FeatureInputProps<string>> = observer(
-  ({ value, label, onChange }) => {
+  ({ value, label, error, onChange }) => {
     const feature = useFeature();
     const handler = useCallback((event) => onChange(event.target.value), [
       onChange,
@@ -25,6 +25,8 @@ const StringInput: FC<FeatureInputProps<string>> = observer(
           onChange={handler}
           variant="outlined"
           label={label}
+          error={!!error}
+          helperText={error}
           className={classNames(
             styles.input,
             'feature-read__input feature-read__input_string'

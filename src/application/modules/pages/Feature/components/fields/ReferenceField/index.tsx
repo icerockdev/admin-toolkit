@@ -39,6 +39,7 @@ export class ReferenceField<
         value={this.readValue}
         autocomplete={this.autocomplete}
         isLoadingReference={this.isLoading}
+        error={this.editError}
       />
     );
   }

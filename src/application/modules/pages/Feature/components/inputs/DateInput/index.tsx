@@ -12,7 +12,7 @@ import { FeatureInputProps } from '~/application/modules/pages/Feature/types/fie
 
 type IProps = FeatureInputProps;
 
-const DateInput: FC<IProps> = observer(({ value, label, onChange }) => {
+const DateInput: FC<IProps> = observer(({ value, label, error, onChange }) => {
   const feature = useFeature();
 
   const parsedValue = useMemo<MaterialUiPickersDate>(() => {
@@ -45,7 +45,8 @@ const DateInput: FC<IProps> = observer(({ value, label, onChange }) => {
             variant="outlined"
             {...props}
             label={label}
-            helperText=""
+            error={!!error}
+            helperText={error}
             placeholder=""
             className={classNames(
               styles.input,

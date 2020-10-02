@@ -10,6 +10,7 @@ import { observer } from 'mobx-react';
 import { FeatureInputProps } from '~/application/modules/pages/Feature/types/field';
 import {
   FormControl,
+  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
@@ -37,6 +38,7 @@ const SelectInput: FC<IProps> = observer(
     onChange,
     label,
     value,
+    error,
     disabled,
     variants,
     autocomplete,
@@ -99,11 +101,13 @@ const SelectInput: FC<IProps> = observer(
                   placeholder="Поиск"
                   label={label}
                   disabled={disabled}
+                  error={!!error}
+                  helperText={error}
                 />
               )}
             />
           ) : (
-            <FormControl variant="outlined">
+            <FormControl variant="outlined" error={!!error}>
               <InputLabel
                 htmlFor={label}
                 style={{ whiteSpace: 'nowrap' }}
@@ -129,6 +133,8 @@ const SelectInput: FC<IProps> = observer(
                     </MenuItem>
                   ))}
               </Select>
+
+              {!!error && <FormHelperText>{error}</FormHelperText>}
             </FormControl>
           )}
         </div>
