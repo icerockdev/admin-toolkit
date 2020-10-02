@@ -18,6 +18,7 @@ import DateFnsAdapter from '@material-ui/pickers/adapter/date-fns';
 import { LocalizationProvider } from '@material-ui/pickers';
 import { ResetPassword } from '~/containers/login/ResetPassword';
 import ruLocale from 'date-fns/locale/ru';
+import '../../../styles/main.scss';
 
 type IProps = WithStyles<typeof styles> & {
   config: Config;

@@ -1,0 +1,28 @@
+.navigation {
+  display: flex;
+  flex-direction: column;
+}
+
+.link {
+  padding: 12px;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  display: flex;
+
+  &:global(.active) {
+    color: var(--primary);
+    font-weight: bold;
+
+    &::after {
+      position: absolute;
+      content: ' ';
+      width: 4px;
+      right: 0;
+      top: 0;
+      height: 100%;
+      border-radius: 2px 0 0 2px;
+      background-color: var(--primary);
+    }
+  }
+}
