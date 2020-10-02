@@ -1,19 +1,19 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import { IPageProps } from './page';
-import { EntityFieldString } from '~/application/components/entity/EntityFieldString';
-import { EntityFieldBoolean } from '~/application/components/entity/EntityFieldBoolean';
-import { EntityFieldDate } from '~/application/components/entity/EntityFieldDate';
-import { EntityFieldSelect } from '~/application/components/entity/EntityFieldSelect';
-import { EntityFieldPhone } from '~/application/components/entity/EntityFieldPhone';
-import { EntityFieldRichText } from '~/application/components/entity/EntityFieldRichText';
-import { EntityFieldBase64Image } from '~/application/components/entity/EntityFieldBase64';
+import { EntityFieldString } from '~/application/modules/pages/Entity/components/EntityFieldString';
+import { EntityFieldBoolean } from '~/application/modules/pages/Entity/components/EntityFieldBoolean';
+import { EntityFieldDate } from '~/application/modules/pages/Entity/components/EntityFieldDate';
+import { EntityFieldSelect } from '~/application/modules/pages/Entity/components/EntityFieldSelect';
+import { EntityFieldPhone } from '~/application/modules/pages/Entity/components/EntityFieldPhone';
+import { EntityFieldRichText } from '~/application/modules/pages/Entity/components/EntityFieldRichText';
+import { EntityFieldBase64Image } from '~/application/modules/pages/Entity/components/EntityFieldBase64';
 import { FC, MouseEventHandler } from 'react';
-import { EntityFieldNumber } from '~/application/components/entity/EntityFieldNumber';
-import { EntityFieldDateTime } from '~/application/components/entity/EntityFieldDatetime';
-import { EntityFieldReferenceSelect } from '~/application/components/entity/EntityFieldReferenceSelect';
+import { EntityFieldNumber } from '~/application/modules/pages/Entity/components/EntityFieldNumber';
+import { EntityFieldDateTime } from '~/application/modules/pages/Entity/components/EntityFieldDatetime';
+import { EntityFieldReferenceSelect } from '~/application/modules/pages/Entity/components/EntityFieldReferenceSelect';
 import { Entity } from '../modules';
-import { EntityFieldDateRange } from '~/application/components/entity/EntityFieldDateRange';
+import { EntityFieldDateRange } from '~/application/modules/pages/Entity/components/EntityFieldDateRange';
 
 export const ENTITY_FIELD_RENDERS = {
   string: EntityFieldString,

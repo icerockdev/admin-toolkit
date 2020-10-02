@@ -17,15 +17,15 @@ import { action, computed, flow, observable, reaction, toJS } from 'mobx';
 import { CancellablePromise } from 'mobx/lib/api/flow';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { observer, Provider } from 'mobx-react';
-import { EntityViewer } from '~/application/components/entity/EntityViewer';
-import { EntityBreadcrumbs } from '~/application/components/entity/EntityBreadcrumbs';
+import { EntityViewer } from '~/application/modules/pages/Entity/components/EntityViewer';
+import { EntityBreadcrumbs } from '~/application/modules/pages/Entity/components/EntityBreadcrumbs';
 import { Typography } from '@material-ui/core';
 import { saveAs } from 'file-saver';
 import { parseQuery } from '~/utils/query';
 import { Page } from '~/application/modules/pages/Page';
-import { EntityList } from '~/application/components/entity/EntityList';
-import { EntityHead } from '~/application/components/entity/EntityHead';
-import { EntityFooter } from '~/application/components/entity/EntityFooter';
+import { EntityList } from '~/application/modules/pages/Entity/components/EntityList';
+import { EntityHead } from '~/application/modules/pages/Entity/components/EntityHead';
+import { EntityFooter } from '~/application/modules/pages/Entity/components/EntityFooter';
 
 export class Entity extends Page {
   // Props

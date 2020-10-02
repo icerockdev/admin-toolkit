@@ -27,7 +27,7 @@ import { ENTITY_SORT_DIRS, IEntityField } from '~/application/types/entity';
 import LaunchIcon from '@material-ui/icons/Launch';
 import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
-import { EntityHeadSortable } from '~/application/components/entity/EntityHeadSortable';
+import { EntityHeadSortable } from '~/application/modules/pages/Entity/components/EntityHeadSortable';
 import styles from './styles';
 import { EntityField } from '../EntityField';
 import { observer } from 'mobx-react';

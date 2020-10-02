@@ -2,4 +2,4 @@
 
 export * from './modules';
 export * from './types';
-export * from './components/entity';
+export * from './modules/pages/Entity/components';
