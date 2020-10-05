@@ -4,10 +4,15 @@
   display: grid;
   grid-template:
     'title filters buttons' auto
+    'gap gap gap' $gap
     'content content content' 1fr
+    'pagination pagination pagination' auto
     / 1fr auto auto;
-  grid-row-gap: $gap;
+  //grid-row-gap: $gap;
   grid-column-gap: 0;
+
+  height: 100%;
+  flex: 1;
 }
 
 .title {
@@ -31,4 +36,8 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
+}
+
+.pagination {
+  grid-area: pagination;
 }

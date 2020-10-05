@@ -1,20 +1,11 @@
 @import 'src/application/modules/pages/Feature/styles/variables';
 
-.placeholder {
-  height: $pagination_height - $gap;
-}
-
-.floater {
-  position: fixed;
-  bottom: 0;
-  left: 0;
+.pagination {
   width: 100%;
-  height: $pagination_height;
-  background: white;
-  box-shadow: #e0e0e0 0 0 0 1px;
   display: flex;
   align-items: center;
   justify-content: stretch;
+  margin-bottom: -10px;
 
   & > * {
     width: 100%;

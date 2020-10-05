@@ -26,11 +26,15 @@ export const FeatureListRenderer: FeatureListRendererComponent = observer(
       <Wrapper>
         <Header />
 
-        <Container title={Title} buttons={Buttons} filters={Filters}>
+        <Container
+          title={Title}
+          buttons={Buttons}
+          filters={Filters}
+          pagination={Pagination}
+        >
           <Table />
         </Container>
 
-        <Pagination />
         <Footer />
       </Wrapper>
     );
@@ -59,4 +63,5 @@ export type FeatureListRendererContainerProps = {
   title: FC;
   buttons: FC;
   filters: FC;
+  pagination: FC;
 };

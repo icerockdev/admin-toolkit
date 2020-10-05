@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo } from 'react';
+import React, { FC, useCallback } from 'react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { TablePagination } from '@material-ui/core';
@@ -37,33 +37,24 @@ const FeatureListPagination: FC<IProps> = observer(() => {
   );
 
   return (
-    <>
-      <div
-        className={classNames(
-          styles.placeholder,
-          'feature-list__pagination-placeholder'
-        )}
+    <div
+      className={classNames(
+        styles.pagination,
+        'feature-list__pagination_pagination'
+      )}
+    >
+      <TablePagination
+        rowsPerPageOptions={rowsSelectOptions}
+        component="div"
+        count={count}
+        labelRowsPerPage="На странице:"
+        rowsPerPage={rows}
+        page={page}
+        onChangePage={onPageChange}
+        onChangeRowsPerPage={onRowsChange}
+        labelDisplayedRows={labelDisplayedRows}
       />
-
-      <div
-        className={classNames(
-          styles.floater,
-          'feature-list__pagination_floater'
-        )}
-      >
-        <TablePagination
-          rowsPerPageOptions={rowsSelectOptions}
-          component="div"
-          count={count}
-          labelRowsPerPage="На странице:"
-          rowsPerPage={rows}
-          page={page}
-          onChangePage={onPageChange}
-          onChangeRowsPerPage={onRowsChange}
-          labelDisplayedRows={labelDisplayedRows}
-        />
-      </div>
-    </>
+    </div>
   );
 });
 

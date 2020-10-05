@@ -29,6 +29,7 @@ const FeatureListTable: FC<IProps> = observer(() => {
     <TableContainer component={Paper} className={styles.container}>
       <Table
         className={classNames(styles.table, 'feature-list__table')}
+        stickyHeader
         size="medium"
       >
         <TableHead>

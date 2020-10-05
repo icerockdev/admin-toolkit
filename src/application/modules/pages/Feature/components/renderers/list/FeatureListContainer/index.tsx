@@ -7,6 +7,7 @@ const FeatureListContainer: FC<FeatureListRendererContainerProps> = ({
   title: Title,
   buttons: Buttons,
   filters: Filters,
+  pagination: Pagination,
   children,
 }) => (
   <div className={classNames(styles.grid, 'feature-list__container-grid')}>
@@ -26,6 +27,15 @@ const FeatureListContainer: FC<FeatureListRendererContainerProps> = ({
       className={classNames(styles.content, 'feature-list__container-content')}
     >
       {children}
+    </div>
+
+    <div
+      className={classNames(
+        styles.pagination,
+        'feature-list__container-pagination'
+      )}
+    >
+      <Pagination />
     </div>
   </div>
 );
