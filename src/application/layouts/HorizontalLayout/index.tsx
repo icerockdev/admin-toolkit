@@ -31,17 +31,24 @@ const HorizontalLayout: FC<IProps> = observer(({ children }) => {
   );
 
   return (
-    <div>
-      <HorizontalNavigation
-        links={links}
-        logo={{ url: config.logo, title: config.title }}
-        account={{
-          email: config.auth?.user?.email || '',
-          username: config.auth?.user?.username || '',
-          role,
-        }}
-        onLogout={config.auth?.logout}
-      />
+    <div className={classNames(styles.layout, 'horizontal-layout')}>
+      <div
+        className={classNames(
+          styles.navigation,
+          'horizontal-layout__navigation'
+        )}
+      >
+        <HorizontalNavigation
+          links={links}
+          logo={{ url: config.logo, title: config.title }}
+          account={{
+            email: config.auth?.user?.email || '',
+            username: config.auth?.user?.username || '',
+            role,
+          }}
+          onLogout={config.auth?.logout}
+        />
+      </div>
 
       <div className={classNames(styles.wrapper, 'horizontal-layout__wrapper')}>
         {children}

@@ -1,6 +1,20 @@
+.layout {
+  min-height: 100vh;
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  height: 100%;
+}
+
+.navigation {
+  flex: 0 0 78px;
+}
+
 .wrapper {
-  padding-left: 10px !important;
-  padding-right: 10px !important;
+  flex: 1;
+  overflow: auto;
+  padding: 10px;
 
   & .MuiButton-root,
   & .MuiOutlinedInput-root {

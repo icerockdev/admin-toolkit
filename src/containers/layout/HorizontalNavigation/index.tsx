@@ -76,7 +76,7 @@ const HorizontalNavigationUnstyled: FC<IProps> = ({
 
   return (
     <div ref={wrapper}>
-      <AppBar position="fixed" className={classes.appbar} ref={appbar}>
+      <AppBar className={classes.appbar} ref={appbar}>
         <Toolbar className={classes.toolbar}>
           {logo && (
             <Link to="/" className={classnames('logo', classes.title)}>
