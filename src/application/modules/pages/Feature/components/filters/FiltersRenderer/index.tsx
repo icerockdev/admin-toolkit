@@ -3,7 +3,6 @@ import { useFeature } from '~/utils/hooks';
 import { observer } from 'mobx-react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
-import { equals, omit, reject } from 'ramda';
 import { FilterSelector } from '~/application/modules/pages/Feature/components/filters/FilterSelector';
 
 const FiltersRenderer = observer(() => {

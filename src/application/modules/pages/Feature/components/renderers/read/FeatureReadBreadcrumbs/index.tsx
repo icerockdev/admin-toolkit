@@ -37,7 +37,11 @@ const FeatureReadBreadcrumbs: FC<IProps> = observer(() => {
       aria-label="breadcrumb"
       className={classNames(styles.breadcrumbs, 'feature-read__breadcrumbs')}
     >
-      <Link to={feature.url} component={RouterLink} className={styles.entity}>
+      <Link
+        to={feature.filters.queryString}
+        component={RouterLink}
+        className={styles.entity}
+      >
         <b>{feature.title}</b>
       </Link>
 

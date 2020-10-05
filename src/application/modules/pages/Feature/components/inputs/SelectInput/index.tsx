@@ -82,7 +82,7 @@ const SelectInput: FC<IProps> = observer(
       <Placeholder
         isLoading={feature.data.isLoading || !!isLoadingReference}
         width="100%"
-        height="56px"
+        height="46px"
       >
         <div className={styles.select}>
           {autocomplete ? (

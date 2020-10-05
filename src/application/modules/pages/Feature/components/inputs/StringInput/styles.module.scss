@@ -1,3 +1,14 @@
+@import 'src/application/modules/pages/Feature/styles/variables';
+
 .input {
   width: 100%;
+
+  input {
+    height: $filter_input_height;
+    padding: 0 $gap;
+  }
+
+  label:global(.MuiInputLabel-outlined):not(:global(.Mui-focused)):not(:global(.MuiFormLabel-filled)) {
+    transform: translate(14px, 16px) scale(1);
+  }
 }

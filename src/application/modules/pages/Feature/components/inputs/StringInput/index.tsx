@@ -18,7 +18,7 @@ const StringInput: FC<FeatureInputProps<string>> = observer(
       <Placeholder
         isLoading={feature.data.isLoading}
         width="100%"
-        height="56px"
+        height="46px"
       >
         <TextField
           value={value || ''}

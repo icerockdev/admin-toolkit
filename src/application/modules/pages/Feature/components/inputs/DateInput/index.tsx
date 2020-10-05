@@ -37,7 +37,7 @@ const DateInput: FC<IProps> = observer(({ value, label, error, onChange }) => {
   );
 
   return (
-    <Placeholder isLoading={feature.data.isLoading} width="100%" height="56px">
+    <Placeholder isLoading={feature.data.isLoading} width="100%" height="46px">
       <DatePicker
         mask="__.__.____"
         renderInput={(props) => (
