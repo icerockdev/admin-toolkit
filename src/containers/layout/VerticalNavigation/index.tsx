@@ -16,6 +16,7 @@ const VerticalNavigation: FC<IProps> = observer(() => {
         <NavLink
           to={link.url}
           className={classNames(styles.link, 'vertical-navigation__link')}
+          key={link.url}
         >
           {link.name}
         </NavLink>

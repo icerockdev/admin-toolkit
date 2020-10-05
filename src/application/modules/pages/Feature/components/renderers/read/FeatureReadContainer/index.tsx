@@ -1,18 +1,18 @@
-import React from 'react';
-import { FeatureReadRendererProps } from '~/application/modules/pages/Feature/types/renderer';
+import React, { FC } from 'react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { useFeature } from '~/utils/hooks';
 import { FeatureMode } from '~/application/modules/pages/Feature/types';
 import { observer } from 'mobx-react';
+import { FeatureReadContainerProps } from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadRenderer';
 
-const FeatureReadContainer: FeatureReadRendererProps['container'] = observer(
+const FeatureReadContainer: FC<FeatureReadContainerProps> = observer(
   ({
     title: Title,
     buttons: Buttons,
     breadcrumbs: Breadcrumbs,
-    children,
     submit: Submit,
+    children,
   }) => {
     const feature = useFeature();
     const isHeaderShown = feature.mode !== FeatureMode.create;

@@ -1,11 +1,10 @@
-import React from 'react';
-import { FeatureListRendererProps } from '~/application/modules/pages/Feature/types/renderer';
+import React, { FC } from 'react';
 import { useFeature } from '~/utils/hooks';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
 
-const FeatureListTitle: FeatureListRendererProps['title'] = observer(() => {
+const FeatureListTitle: FC = observer(() => {
   const feature = useFeature();
 
   return (

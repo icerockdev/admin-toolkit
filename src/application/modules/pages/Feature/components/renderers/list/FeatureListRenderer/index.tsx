@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { createElement, FC } from 'react';
 import { FeatureListContainer } from '~/application/modules/pages/Feature/components/renderers/list/FeatureListContainer';
 import { FeatureListWrapper } from '~/application/modules/pages/Feature/components/renderers/list/FeatureListWrapper';
 import { FeatureListTitle } from '~/application/modules/pages/Feature/components/renderers/list/FeatureListTitle';
@@ -38,18 +38,25 @@ export const FeatureListRenderer: FeatureListRendererComponent = observer(
 );
 
 export type FeatureListRendererComponent = FC<
-  Partial<
-    Record<
-      | 'wrapper'
-      | 'header'
-      | 'container'
-      | 'title'
-      | 'buttons'
-      | 'filters'
-      | 'table'
-      | 'pagination'
-      | 'footer',
-      FC
-    >
-  >
+  Partial<FeatureListRendererProps>
 >;
+
+export type FeatureListRendererProps = Record<
+  | 'wrapper'
+  | 'header'
+  | 'title'
+  | 'buttons'
+  | 'filters'
+  | 'table'
+  | 'pagination'
+  | 'footer',
+  FC
+> & {
+  container: FC<FeatureListRendererContainerProps>;
+};
+
+export type FeatureListRendererContainerProps = {
+  title: FC;
+  buttons: FC;
+  filters: FC;
+};

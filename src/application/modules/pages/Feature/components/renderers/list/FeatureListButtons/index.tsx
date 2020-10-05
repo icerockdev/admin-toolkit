@@ -1,5 +1,4 @@
-import React, { useMemo } from 'react';
-import { FeatureListRendererProps } from '~/application/modules/pages/Feature/types/renderer';
+import React, { FC, useMemo } from 'react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
@@ -9,7 +8,7 @@ import { ImportExport, NoteAdd } from '@material-ui/icons';
 import { FeatureMode } from '~/application/modules/pages/Feature/types';
 import { Link } from 'react-router-dom';
 
-const FeatureListButtons: FeatureListRendererProps['buttons'] = observer(() => {
+const FeatureListButtons: FC = observer(() => {
   const feature = useFeature();
 
   const { create, export: exp } = feature.features;

@@ -1,25 +1,26 @@
 import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import { FeatureRendererComponent } from '~/application/modules/pages/Feature/components/renderers/FeatureRendererComponent';
 import { observer } from 'mobx-react';
 import { useFeature } from '~/utils/hooks';
 import { useLocation } from 'react-router';
 import { FeatureMode } from '~/application/modules/pages/Feature/types';
-import { FeatureRendererReaction } from '~/application/modules/pages/Feature/types/renderer';
 import {
-  FeatureListRenderer,
-  FeatureListRendererComponent,
-} from '~/application/modules/pages/Feature/components/renderers/list/FeatureListRenderer';
+  FeatureRendererProps,
+  FeatureRendererReaction,
+} from '~/application/modules/pages/Feature/types/renderer';
+import { FeatureListRendererComponent } from '~/application/modules/pages/Feature/components/renderers/list/FeatureListRenderer';
+import { FeatureReadRendererComponent } from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadRenderer';
 
 interface IProps {
   list: FeatureListRendererComponent;
-  read: FeatureRendererComponent;
-  update: FeatureRendererComponent;
-  create: FeatureRendererComponent;
+  read: FeatureReadRendererComponent;
+  update: FeatureReadRendererComponent;
+  create: FeatureReadRendererComponent;
+  components: FeatureRendererProps['components'];
 }
 
 const FeatureRendererRouter: FC<IProps> = observer(
-  ({ list, read, create, update }) => {
+  ({ list: List, read: Read, create: Create, update: Update, components }) => {
     const location = useLocation();
     const feature = useFeature();
 
@@ -54,22 +55,24 @@ const FeatureRendererRouter: FC<IProps> = observer(
     return (
       <Switch>
         <Route
-          path={`${feature.url}/:id/edit`}
-          component={() => <div>EDIT</div>}
           exact
+          path={feature.url}
+          render={() => <List {...(components?.list || {})} />}
         />
 
-        <Route exact path={feature.url} component={list} />
-
         {features.read && (
-          <Route exact path={`${url}/:id`} component={read.output} />
+          <Route
+            exact
+            path={`${url}/:id`}
+            render={() => <Read {...(components?.read || {})} />}
+          />
         )}
 
         {features.create && (
           <Route
             exact
             path={`${url}/${FeatureMode.create}`}
-            component={create.output}
+            render={() => <Create {...(components?.create || {})} />}
           />
         )}
 
@@ -77,7 +80,7 @@ const FeatureRendererRouter: FC<IProps> = observer(
           <Route
             exact
             path={`${url}/:id/${FeatureMode.update}`}
-            component={update.output}
+            render={() => <Update {...(components?.update || {})} />}
           />
         )}
 

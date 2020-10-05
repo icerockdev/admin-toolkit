@@ -1,12 +1,9 @@
-import React, { useCallback } from 'react';
-import { FeatureListRendererProps } from '~/application/modules/pages/Feature/types/renderer';
+import React, { FC, useCallback } from 'react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { useFeature } from '~/utils/hooks';
 
-const FeatureReadWrapper: FeatureListRendererProps['wrapper'] = ({
-  children,
-}) => {
+const FeatureReadWrapper: FC = ({ children }) => {
   const feature = useFeature();
   const onSubmit = useCallback(
     (event) => {

@@ -48,10 +48,8 @@ export class Feature<
     this.renderer =
       options.renderer ||
       new FeatureRenderer({
-        list: options.list,
-        read: options.read,
-        create: options.create,
-        update: options.update,
+        containers: options?.containers,
+        components: options?.components,
       });
 
     // Initialize ref fields storage

@@ -2,6 +2,8 @@ import React from 'react';
 import { Feature } from '~/application/modules/pages/Feature';
 import api, { getRolesAll } from '~/example/feature/api';
 import { FEATURE_FIELDS } from '~/example/feature/fields';
+import { useFeature } from '~/utils/hooks';
+import { observer } from 'mobx-react';
 
 export type IFields = {
   id: number;

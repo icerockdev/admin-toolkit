@@ -1,9 +1,9 @@
-import React from 'react';
-import { FeatureListRendererProps } from '~/application/modules/pages/Feature/types/renderer';
+import React, { FC } from 'react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
+import { FeatureListRendererContainerProps } from '~/application/modules/pages/Feature/components/renderers/list/FeatureListRenderer';
 
-const FeatureListContainer: FeatureListRendererProps['container'] = ({
+const FeatureListContainer: FC<FeatureListRendererContainerProps> = ({
   title: Title,
   buttons: Buttons,
   filters: Filters,

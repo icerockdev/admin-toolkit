@@ -2,15 +2,17 @@ import { FeatureRenderer } from '~/application/modules/pages/Feature/items/Featu
 import { FeatureField } from '~/application/modules/pages/Feature/components/fields/FeatureField';
 import { IPageProps } from '~/application';
 import { Feature } from '~/application/modules/pages/Feature';
-import {
-  FeatureCreateRendererProps,
-  FeatureListRendererProps,
-  FeatureReadRendererProps,
-  FeatureUpdateRendererProps,
-} from '~/application/modules/pages/Feature/types/renderer';
 import { FeatureReferenceProps } from '~/application/modules/pages/Feature/types/reference';
 import { FeatureApi } from '~/application/modules/pages/Feature/items/FeatureApi';
-import { FeatureListRendererComponent } from '~/application/modules/pages/Feature/components/renderers/list/FeatureListRenderer';
+import {
+  FeatureListRendererComponent,
+  FeatureListRendererProps,
+} from '~/application/modules/pages/Feature/components/renderers/list/FeatureListRenderer';
+import {
+  FeatureReadRendererComponent,
+  FeatureReadRendererProps,
+} from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadRenderer';
+import { FeatureRendererProps } from '~/application/modules/pages/Feature/types/renderer';
 
 export * from './api';
 
@@ -38,10 +40,8 @@ export interface FeatureOptions<
   api?: typeof FeatureApi;
   getItemTitle?: (fields: Fields) => string;
 
-  list?: FeatureListRendererComponent;
-  read?: Partial<FeatureReadRendererProps>;
-  update?: Partial<FeatureUpdateRendererProps>;
-  create?: Partial<FeatureCreateRendererProps>;
+  containers?: FeatureRendererProps['containers'];
+  components?: FeatureRendererProps['components'];
 }
 
 export enum SortDir {

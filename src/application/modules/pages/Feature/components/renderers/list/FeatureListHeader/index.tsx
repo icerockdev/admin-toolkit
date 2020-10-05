@@ -1,6 +1,5 @@
-import React from 'react';
-import { FeatureListRendererProps } from '~/application/modules/pages/Feature/types/renderer';
+import React, { FC } from 'react';
 
-const FeatureListHeader: FeatureListRendererProps['header'] = () => null;
+const FeatureListHeader: FC = () => null;
 
 export { FeatureListHeader };

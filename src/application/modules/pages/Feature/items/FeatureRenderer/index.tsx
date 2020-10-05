@@ -5,31 +5,44 @@ import { computed, observable } from 'mobx';
 import {
   FeatureListRenderer,
   FeatureListRendererComponent,
+  FeatureListRendererProps,
 } from '~/application/modules/pages/Feature/components/renderers/list/FeatureListRenderer';
-import { FeatureRendererComponent } from '~/application/modules/pages/Feature/components/renderers/FeatureRendererComponent';
 import { FeatureRendererRouter } from '~/application/modules/pages/Feature/components/router/FeatureRendererRouter';
-import { FeatureReadRenderer } from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadRenderer';
+import {
+  FeatureReadRenderer,
+  FeatureReadRendererComponent,
+  FeatureReadRendererProps,
+} from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadRenderer';
 
 export class FeatureRenderer<T extends Feature<any> = Feature<any>> {
-  constructor(props?: FeatureRendererProps) {
-    if (props?.list) {
-      this.list = props?.list;
+  constructor({ containers, components }: FeatureRendererProps = {}) {
+    if (containers?.list) {
+      this.list = containers.list;
     }
 
-    this.read =
-      props?.renderers?.read || new FeatureReadRenderer(props?.read || {});
+    if (containers?.read) {
+      this.read = containers.read;
+    }
 
-    this.create =
-      props?.renderers?.create || new FeatureReadRenderer(props?.create || {});
+    if (containers?.create) {
+      this.create = containers.create;
+    }
 
-    this.update =
-      props?.renderers?.update || new FeatureReadRenderer(props?.update || {});
+    if (containers?.update) {
+      this.update = containers.update;
+    }
+
+    if (components) {
+      this.components = components;
+    }
   }
 
   @observable list: FeatureListRendererComponent = FeatureListRenderer;
-  @observable read: FeatureRendererComponent = new FeatureReadRenderer();
-  @observable create: FeatureRendererComponent = new FeatureReadRenderer();
-  @observable update: FeatureRendererComponent = new FeatureReadRenderer();
+  @observable read: FeatureReadRendererComponent = FeatureReadRenderer;
+  @observable create: FeatureReadRendererComponent = FeatureReadRenderer;
+  @observable update: FeatureReadRendererComponent = FeatureReadRenderer;
+
+  @observable components: FeatureRendererProps['components'];
 
   @computed
   get output(): JSX.Element {
@@ -39,6 +52,7 @@ export class FeatureRenderer<T extends Feature<any> = Feature<any>> {
         read={this.read}
         create={this.create}
         update={this.update}
+        components={this.components}
       />
     );
   }
