@@ -1,14 +1,13 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { FC, MouseEventHandler, useCallback, useMemo } from 'react';
-import { DatePicker, DateRangePicker } from '@material-ui/pickers';
-import format from 'date-fns/format';
+import React, { FC, useCallback, useMemo } from 'react';
+import { DateRangePicker } from '@material-ui/pickers';
 import parseISO from 'date-fns/parseISO';
 import { TextField } from '@material-ui/core';
 import { isValid } from 'date-fns';
-import { ParsableDate } from '@material-ui/pickers/src/constants/prop-types';
 
 import { IEntityFieldProps } from '~/application';
+import { ParsableDate } from '@material-ui/pickers/constants/prop-types';
 
 type IProps = IEntityFieldProps & {};
 
