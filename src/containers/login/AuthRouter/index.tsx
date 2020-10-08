@@ -9,17 +9,6 @@ import { useConfig } from '~/utils/hooks';
 
 const AuthRouter: FC = observer(() => {
   const config = useConfig();
-
-  const onForgotPassword = useMemo(
-    () =>
-      config.auth?.authPasswRestoreFn
-        ? () => {
-            config.history.push('/restore');
-          }
-        : undefined,
-    [config.history, config.auth, config.auth?.authPasswRestoreFn]
-  );
-
   const auth = config.auth;
 
   if (!auth) return <Fragment />;
@@ -47,10 +36,7 @@ const AuthRouter: FC = observer(() => {
             )}
           />
 
-          <SignIn
-            onSubmit={auth.sendAuthRequest}
-            onForgotScreenClick={onForgotPassword}
-          />
+          <SignIn />
         </Switch>
       </Router>
 

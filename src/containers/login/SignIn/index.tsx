@@ -6,6 +6,7 @@ import React, {
   FormEvent,
   useCallback,
   useState,
+  useMemo,
 } from 'react';
 
 import {
@@ -20,26 +21,33 @@ import {
 } from '@material-ui/core';
 
 import styles from '../styles';
+import { useConfig } from '~/utils/hooks';
 
-type IProps = WithStyles<typeof styles> & {
-  onForgotScreenClick?: MouseEventHandler;
-  onSubmit: ({ email, password }: { email: string; password: string }) => void;
-};
+type IProps = WithStyles<typeof styles> & {};
 
-const SignInUnstyled: FC<IProps> = ({
-  classes,
-  onForgotScreenClick,
-  onSubmit,
-}) => {
+const SignInUnstyled: FC<IProps> = ({ classes }) => {
+  const config = useConfig();
+  const auth = config.auth;
+
+  const onForgotPassword = useMemo(
+    () =>
+      config.auth?.authPasswRestoreFn
+        ? () => {
+            config.history.push('/restore');
+          }
+        : undefined,
+    [config.history, config.auth, config.auth?.authPasswRestoreFn]
+  );
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const onSubmitCapture = useCallback(
     (event: FormEvent) => {
       event.preventDefault();
-      onSubmit({ email, password });
+      auth!!.sendAuthRequest({ email, password });
     },
-    [email, password, onSubmit]
+    [email, password, auth]
   );
 
   const onEmailChange = useCallback((event) => setEmail(event.target.value), [
@@ -89,10 +97,10 @@ const SignInUnstyled: FC<IProps> = ({
               onChange={onPasswordChange}
               autoComplete="current-password"
               InputProps={{
-                endAdornment: onForgotScreenClick ? (
+                endAdornment: onForgotPassword ? (
                   <InputAdornment
                     position="end"
-                    onClick={onForgotScreenClick}
+                    onClick={onForgotPassword}
                     className={classes.forgot}
                   >
                     Забыли пароль?
