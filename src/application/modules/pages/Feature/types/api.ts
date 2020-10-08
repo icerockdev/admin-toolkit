@@ -1,8 +1,20 @@
 import { Feature } from '~/application/modules/pages/Feature';
-import { FeatureMode } from '~/application/modules/pages/Feature/types/index';
+import { FeatureFeature } from '~/application/modules/pages/Feature/types/index';
 import { FeatureReferenceProps } from '~/application/modules/pages/Feature/types/reference';
 
-export type FeatureApiUrls = Partial<Record<FeatureMode, string>>;
+export type FeatureApiUrls = Partial<Record<FeatureFeature, string>>;
+
+export type FeatureApiHost = string;
+
+export type FeatureApiReferences<T> = Partial<
+  Record<keyof T, FeatureReferenceProps>
+>;
+
+export type FeatureApiProps<T> = {
+  urls?: FeatureApiUrls;
+  methods?: FeatureApiMethods<T>;
+  references?: FeatureApiReferences<T>;
+};
 
 export type FeatureGetListProps = {
   feature: Feature;
@@ -29,6 +41,8 @@ export type FeaturePostCreateProps<Fields> = {
 export type FeaturePostUpdateProps<Fields> = FeaturePostCreateProps<Fields> & {
   id: any;
 };
+
+export type FeatureDeleteProps = FeatureGetReadProps;
 
 export type FeatureGetListResult<Fields> = {
   data: Fields[];
@@ -68,20 +82,14 @@ export type FeatureApiMethodUpdate<T> = (
   props: FeaturePostUpdateProps<T>
 ) => Promise<FeaturePostUpdateResult<T>>;
 
+export type FeatureApiMethodDelete<T> = (
+  props: FeatureDeleteProps
+) => Promise<void>;
+
 export interface FeatureApiMethods<T> {
   list?: FeatureApiMethodList<T>;
   read?: FeatureApiMethodGet<T>;
   create?: FeatureApiMethodCreate<T>;
   update?: FeatureApiMethodUpdate<T>;
+  delete?: FeatureApiMethodDelete<T>;
 }
-
-export type FeatureApiHost = string;
-export type FeatureApiReferences<T> = Partial<
-  Record<keyof T, FeatureReferenceProps>
->;
-
-export type FeatureApiProps<T> = {
-  urls?: FeatureApiUrls;
-  methods?: FeatureApiMethods<T>;
-  references?: FeatureApiReferences<T>;
-};

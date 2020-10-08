@@ -54,7 +54,6 @@ export class Feature<
     this.data.createReferenceData(this.api.references);
 
     // Get filters from url
-    // TODO: if filters isn't empty, but url is, persist them here:
     this.filters.restoreFilters();
 
     // Update withToken for api
@@ -77,7 +76,7 @@ export class Feature<
       ],
       () => {
         this.filters.persistFilters();
-        this.controller.loadList();
+        this.controller.list();
       }
     );
   }
@@ -174,6 +173,20 @@ export class Feature<
    */
   goToRead = (id: any) => {
     this.history?.push(`${this.url}/${id}/`);
+  };
+
+  /**
+   * Redirects to specific item editor
+   */
+  goToUpdate = (id: any) => {
+    this.history?.push(`${this.url}/${id}/${FeatureMode.update}/`);
+  };
+
+  /**
+   * Redirects to specific item editor
+   */
+  goToCreate = () => {
+    this.history?.push(`${this.url}/${FeatureMode.create}`);
   };
 
   /**

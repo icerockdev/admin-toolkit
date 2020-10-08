@@ -2,6 +2,7 @@ import { IFields } from '~/example/feature/index';
 import { generateBaseData } from '~/example/feature/mock';
 import {
   FeatureApiMethodCreate,
+  FeatureApiMethodDelete,
   FeatureApiMethodGet,
   FeatureApiMethodList,
   FeatureApiMethodUpdate,
@@ -66,6 +67,16 @@ export const updateFeature: FeatureApiMethodUpdate<IFields> = async ({
     status: 200,
     error: '',
   }));
+};
+
+export const deleteFeature: FeatureApiMethodDelete<IFields> = async ({
+  url,
+  id,
+  ...props
+}) => {
+  console.log(`DELETE ${url}`, { url, ...props });
+
+  return delay(500).then(() => {});
 };
 
 export const getRolesAll: FeatureReferenceFetchAll = async (props) => {

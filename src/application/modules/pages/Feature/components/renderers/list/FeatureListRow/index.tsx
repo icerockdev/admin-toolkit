@@ -18,7 +18,12 @@ const FeatureListRow: FC<IProps> = observer(({ values }) => {
 
   const onClick = useCallback(() => {
     const id = values.id || 0;
-    history.push(`${feature.url}/${id}/`);
+
+    if (feature.api.availableFeatures.read) {
+      feature.goToRead(id);
+    } else if (feature.api.availableFeatures.update) {
+      feature.goToUpdate(id);
+    }
   }, [feature.url, history, values]);
 
   return (

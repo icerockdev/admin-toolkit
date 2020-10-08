@@ -2,6 +2,7 @@ import React from 'react';
 import { Feature } from '~/application/modules/pages/Feature';
 import {
   createFeature,
+  deleteFeature,
   getFeature,
   getFeatureList,
   getRolesAll,
@@ -28,12 +29,10 @@ export default new Feature<IFields>('Feature', '/feature', {
       read: getFeature,
       create: createFeature,
       update: updateFeature,
+      delete: deleteFeature,
     },
     urls: {
       list: '/test',
-      // read: '/test',
-      // create: '/test',
-      // update: '/test',
     },
     references: {
       role: {

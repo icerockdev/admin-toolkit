@@ -11,26 +11,26 @@ import { Link } from 'react-router-dom';
 const FeatureListButtons: FC = observer(() => {
   const feature = useFeature();
 
-  const { create, export: exp } = feature.features;
-  const createUrl = useMemo(() => `${feature.url}/${FeatureMode.create}`, [
-    feature.url,
-  ]);
+  const canCreate =
+    feature.features.create && feature.api.availableFeatures.create;
+
+  const canExport =
+    feature.features.export && feature.api.availableFeatures.export;
 
   return (
     <div className={classNames(styles.buttons, 'feature-list__buttons')}>
-      {(exp || true) && (
+      {canExport && (
         <Button variant="outlined" color="primary">
           <ImportExport />
         </Button>
       )}
 
-      {create && (
+      {canCreate && (
         <Button
           variant="contained"
           color="primary"
-          type="submit"
-          to={createUrl}
-          component={Link}
+          type="button"
+          onClick={feature.goToCreate}
         >
           <NoteAdd />
         </Button>

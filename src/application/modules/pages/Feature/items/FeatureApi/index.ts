@@ -4,6 +4,7 @@ import {
   FeatureApiMethods,
   FeatureApiReferences,
   FeatureApiUrls,
+  FeatureDeleteProps,
   FeatureGetListProps,
   FeatureGetListResult,
   FeatureGetReadProps,
@@ -18,7 +19,10 @@ import { Feature } from '~/application/modules/pages/Feature';
 import { has, keys } from 'ramda';
 import { getReferenceAll } from '~/application/modules/pages/Feature/items/FeatureApi/references';
 import { FeatureData } from '~/application/modules/pages/Feature/items/FeatureData';
-import { FeatureMode } from '~/application/modules/pages/Feature/types';
+import {
+  FeatureFeature,
+  FeatureMode,
+} from '~/application/modules/pages/Feature/types';
 
 export class FeatureApi<
   Fields extends Record<string, any> = Record<string, any>
@@ -43,12 +47,16 @@ export class FeatureApi<
     const read = urls?.read || list;
     const update = urls?.update || read;
     const create = urls?.create || read;
+    const del = urls?.delete || read;
+    const ex = urls?.export || read;
 
     return {
       list,
       read,
       update,
       create,
+      delete: del,
+      export: ex,
     };
   }
 
@@ -77,13 +85,13 @@ export class FeatureApi<
   };
 
   @computed
-  get availableFeatures(): Record<FeatureMode, boolean> {
-    return Object.values(FeatureMode).reduce(
+  get availableFeatures(): Record<FeatureFeature, boolean> {
+    return Object.values(FeatureFeature).reduce(
       (acc, mode) => ({
         ...acc,
         [mode]: !!(this.host && has(mode, this.methods)),
       }),
-      {} as Record<FeatureMode, boolean>
+      {} as Record<FeatureFeature, boolean>
     );
   }
 
@@ -200,6 +208,21 @@ export class FeatureApi<
     }
 
     return result;
+  };
+
+  @action
+  delete = async (id: any) => {
+    if (!this.availableFeatures.delete) {
+      throw new Error('Specify feature api host, methods and urls first.');
+    }
+
+    const url = new URL(this.urls.delete, this.host).href;
+
+    await this.request(this.methods!!.delete!!, {
+      url,
+      feature: this.feature,
+      id,
+    } as FeatureDeleteProps);
   };
 
   @action

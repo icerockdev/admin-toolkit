@@ -7,6 +7,7 @@ import { controllerGetRead } from '~/application/modules/pages/Feature/items/Fea
 import { controllerGetReferences } from '~/application/modules/pages/Feature/items/FeatureController/references';
 import { controllerPostCreate } from '~/application/modules/pages/Feature/items/FeatureController/create';
 import { controllerPostUpdate } from '~/application/modules/pages/Feature/items/FeatureController/update';
+import { controllerDelete } from '~/application/modules/pages/Feature/items/FeatureController/delete';
 
 export class FeatureController<
   T extends Record<string, any> = Record<string, any>
@@ -16,7 +17,8 @@ export class FeatureController<
   }
 
   /**
-   * Map for all currently running async fetchers
+   * Map for all currently running async fetchers, that can be cancelled by
+   * calling item.cancel() or this.cancelAll()
    */
   @observable
   instances: Record<string, CancellablePromise<any>> = {};
@@ -25,7 +27,7 @@ export class FeatureController<
    * Loads list of items
    */
   @action
-  loadList = () => {
+  list = () => {
     this.cancelAll();
     this.instances.listLoader = flow(controllerGetList)(this);
   };
@@ -34,27 +36,27 @@ export class FeatureController<
    * Loads data of currently viewing item
    */
   @action
-  loadRead = () => {
+  read = () => {
     this.cancelAll();
-    this.instances.readLoader = flow(controllerGetRead)(this);
+    this.instances.read = flow(controllerGetRead)(this);
   };
 
   /**
    * Loads data of currently editing item
    */
   @action
-  loadUpdate = () => {
+  update = () => {
     this.cancelAll();
     this.feature.data.clearErrors();
-    this.instances.readLoader = flow(controllerGetRead)(this);
-    this.instances.readLoader.then(() => this.feature.data.copyReadToEditor());
+    this.instances.update = flow(controllerGetRead)(this);
+    this.instances.update.then(() => this.feature.data.copyReadToEditor());
   };
 
   /**
    * Clears current data and loading references on create form
    */
   @action
-  loadCreate = () => {
+  create = () => {
     this.cancelAll();
 
     this.feature.data.clearReadData();
@@ -63,7 +65,15 @@ export class FeatureController<
 
     this.feature.data.isLoading = false;
 
-    this.instances.createLoader = flow(controllerGetReferences)(this);
+    this.instances.create = flow(controllerGetReferences)(this);
+  };
+
+  /**
+   * Deletes current item
+   */
+  @action
+  delete = () => {
+    flow(controllerDelete)(this);
   };
 
   /**
@@ -88,19 +98,22 @@ export class FeatureController<
     return parseInt(match && match.length > 0 ? match[1] : '', 10);
   };
 
+  /**
+   * Called on action (list, read, update, create) change
+   */
   @action
   onActionChange = () => {
     this.cancelAll();
 
     switch (this.feature.mode) {
       case FeatureMode.read:
-        return this.loadRead();
+        return this.read();
       case FeatureMode.list:
-        return this.loadList();
+        return this.list();
       case FeatureMode.update:
-        return this.loadUpdate();
+        return this.update();
       case FeatureMode.create:
-        return this.loadCreate();
+        return this.create();
       default:
         return;
     }

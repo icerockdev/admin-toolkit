@@ -9,5 +9,4 @@ export const FEATURE_DEFAULT_FEATURES: FeatureFeatures = {
   delete: true,
   list: true,
   export: false,
-  select: false,
 };
