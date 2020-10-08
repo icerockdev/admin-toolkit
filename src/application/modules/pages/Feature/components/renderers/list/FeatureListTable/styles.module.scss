@@ -9,13 +9,12 @@
   box-shadow: #e0e0e0 0 0 0 1px;
   border-collapse: collapse;
   width: 100%;
-  border-radius: 2px;
 
   th {
-    font-weight: bold;
     text-transform: uppercase;
-    background: #f9f9f9;
+    background: #f3f3f3;
     border-bottom: none;
+    font-weight: 600;
 
     @include phone {
       padding: 8px;
