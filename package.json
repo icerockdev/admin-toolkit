@@ -2,7 +2,7 @@
   "name": "icerockdev-admin-toolkit",
   "main": "dist/application/index.js",
   "types": "dist/application/index.d.ts",
-  "version": "0.1.35",
+  "version": "0.1.35-1",
   "dependencies": {
     "@date-io/date-fns": "1.x",
     "@material-ui/core": "4.10.2",
