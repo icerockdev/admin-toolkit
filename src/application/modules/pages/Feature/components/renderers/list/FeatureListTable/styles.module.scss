@@ -15,6 +15,7 @@
     font-weight: bold;
     text-transform: uppercase;
     background: #f9f9f9;
+    border-bottom: none;
 
     @include phone {
       padding: 8px;
@@ -22,6 +23,8 @@
   }
 
   td {
+    border-bottom: none;
+
     @include phone {
       padding: 8px;
     }

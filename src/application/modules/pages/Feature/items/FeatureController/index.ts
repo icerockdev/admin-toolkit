@@ -27,7 +27,7 @@ export class FeatureController<
    * Loads list of items
    */
   @action
-  list = () => {
+  beforeListMode = () => {
     this.cancelAll();
     this.instances.listLoader = flow(controllerGetList)(this);
   };
@@ -36,7 +36,7 @@ export class FeatureController<
    * Loads data of currently viewing item
    */
   @action
-  read = () => {
+  beforeReadMode = () => {
     this.cancelAll();
     this.instances.read = flow(controllerGetRead)(this);
   };
@@ -45,7 +45,7 @@ export class FeatureController<
    * Loads data of currently editing item
    */
   @action
-  update = () => {
+  beforeUpdateMode = () => {
     this.cancelAll();
     this.feature.data.clearErrors();
     this.instances.update = flow(controllerGetRead)(this);
@@ -56,7 +56,7 @@ export class FeatureController<
    * Clears current data and loading references on create form
    */
   @action
-  create = () => {
+  beforeCreateMode = () => {
     this.cancelAll();
 
     this.feature.data.clearReadData();
@@ -107,13 +107,13 @@ export class FeatureController<
 
     switch (this.feature.mode) {
       case FeatureMode.read:
-        return this.read();
+        return this.beforeReadMode();
       case FeatureMode.list:
-        return this.list();
+        return this.beforeListMode();
       case FeatureMode.update:
-        return this.update();
+        return this.beforeUpdateMode();
       case FeatureMode.create:
-        return this.create();
+        return this.beforeCreateMode();
       default:
         return;
     }

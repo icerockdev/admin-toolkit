@@ -30,7 +30,7 @@ export const getFeature: FeatureApiMethodGet<IFields> = async ({
   id,
   ...props
 }) => {
-  const items = parseInt(id, 10) || 1;
+  const items = parseInt(id, 10) || 0;
   const href = [url, id].join('');
 
   console.log(`READ ${href}`, { url, id, ...props });

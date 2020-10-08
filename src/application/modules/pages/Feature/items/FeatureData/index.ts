@@ -37,7 +37,7 @@ export class FeatureData<
 
   @action
   copyReadToEditor() {
-    this.editor = { ...this.read };
+    this.editor = Object.assign(this.editor, this.read);
   }
 
   @action

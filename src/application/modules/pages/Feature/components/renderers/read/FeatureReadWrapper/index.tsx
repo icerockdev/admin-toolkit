@@ -11,7 +11,7 @@ const FeatureReadWrapper: FC = ({ children }) => {
 
       if (!feature.isEditing) return;
 
-      feature.submitEditor();
+      feature.controller.submitItem();
     },
     [feature]
   );

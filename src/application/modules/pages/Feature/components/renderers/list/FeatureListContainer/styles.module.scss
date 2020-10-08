@@ -3,31 +3,38 @@
 .grid {
   display: grid;
   grid-template:
-    'title filters buttons' auto
-    'gap gap gap' $gap
-    'content content content' 1fr
-    'pagination pagination pagination' auto
-    / 1fr auto auto;
-  //grid-row-gap: $gap;
+    'head' auto
+    'content' 1fr
+    'pagination' auto
+    / auto;
+  grid-row-gap: 0;
   grid-column-gap: 0;
-
+  background: white;
+  border-radius: 4px 4px 0 0;
   height: 100%;
   flex: 1;
 }
 
+.head {
+  background: white;
+  display: grid;
+  padding: $gap;
+  grid-template-columns: 1fr auto auto;
+  grid-auto-flow: column;
+  border-radius: $radius $radius 0 0;
+}
+
 .title {
-  grid-area: title;
   min-width: 120px;
-  align-items: center;
+  align-items: flex-start;
   display: flex;
+  padding-left: $gap;
 }
 
 .buttons {
-  grid-area: buttons;
 }
 
 .filters {
-  grid-area: filters;
 }
 
 .content {

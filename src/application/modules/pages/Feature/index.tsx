@@ -76,7 +76,7 @@ export class Feature<
       ],
       () => {
         this.filters.persistFilters();
-        this.controller.list();
+        this.controller.beforeListMode();
       }
     );
   }
@@ -208,10 +208,4 @@ export class Feature<
 
     this.data.clearEditorData();
   };
-
-  @action
-  submitEditor() {
-    this.controller.submitItem();
-    // TODO: actually submit editor form
-  }
 }

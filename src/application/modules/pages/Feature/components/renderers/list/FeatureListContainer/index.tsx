@@ -11,16 +11,18 @@ const FeatureListContainer: FC<FeatureListRendererContainerProps> = ({
   children,
 }) => (
   <div className={classNames(styles.grid, 'feature-list__container-grid')}>
-    <div className={classNames(styles.title, 'feature-list__title')}>
-      <Title />
-    </div>
+    <div className={classNames(styles.head, 'feature-list__container-head')}>
+      <div className={classNames(styles.title, 'feature-list__title')}>
+        <Title />
+      </div>
 
-    <div className={classNames(styles.buttons, 'feature-list__buttons')}>
-      <Buttons />
-    </div>
+      <div className={classNames(styles.filters, 'feature-list__filters')}>
+        <Filters />
+      </div>
 
-    <div className={classNames(styles.filters, 'feature-list__filters')}>
-      <Filters />
+      <div className={classNames(styles.buttons, 'feature-list__buttons')}>
+        <Buttons />
+      </div>
     </div>
 
     <div

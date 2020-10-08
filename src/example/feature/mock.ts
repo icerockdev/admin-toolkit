@@ -2,7 +2,7 @@ import { IFields } from '~/example/feature/index';
 
 export const generateBaseData = (items: number) =>
   [...new Array(items)].map(
-    (_, id = 0): IFields => ({
+    (_, id): IFields => ({
       id,
       name: `Person ${id + 1}`,
       age: Math.random() * 80,
