@@ -1,6 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { ReactElement } from 'react';
+import React, { ReactElement, Fragment } from 'react';
 import {
   ENTITY_ERRORS,
   ENTITY_REFERENCE_FIELDS,
@@ -599,7 +599,7 @@ export class Entity extends Page {
 
   @computed
   get ViewerHeadButtons() {
-    return observer(({ id }: { id: any }) => null);
+    return observer(({ id }: { id: any }) => <Fragment />);
   }
 
   @computed
@@ -611,7 +611,7 @@ export class Entity extends Page {
 
   @computed
   get ViewerFooter() {
-    return observer(({ id }: { id: any }) => null);
+    return observer(({ id }: { id: any }) => <Fragment />);
   }
 
   @computed
@@ -651,7 +651,7 @@ export class Entity extends Page {
 
   @computed
   get EditorHeadButtons() {
-    return observer(({ id }: { id: any }) => null);
+    return observer(({ id }: { id: any }) => <Fragment />);
   }
 
   @computed
@@ -667,7 +667,7 @@ export class Entity extends Page {
 
   @computed
   get EditorFooter() {
-    return observer(({ id }: { id: any }) => null);
+    return observer(({ id }: { id: any }) => <Fragment />);
   }
 
   @computed
@@ -707,7 +707,7 @@ export class Entity extends Page {
 
   @computed
   get CreatorHeadButtons() {
-    return observer(() => null);
+    return observer(() => <Fragment />);
   }
 
   @computed
@@ -719,7 +719,7 @@ export class Entity extends Page {
 
   @computed
   get CreatorFooter() {
-    return observer(() => null);
+    return observer(() => <Fragment />);
   }
 
   @computed

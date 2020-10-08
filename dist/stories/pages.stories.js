@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import { Application, PageRenderer } from '../application';
 import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
-import config from '../config';
+import config from '../example';
 storiesOf('Pages', module)
     .add('PageRenderer: Entity sample', function () { return (React.createElement(Router, { history: createBrowserHistory() },
     React.createElement(PageRenderer, { page: config.pages[1] }))); })

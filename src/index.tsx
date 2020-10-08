@@ -3,9 +3,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Application } from '~/application';
-import config from './config';
+import example from './example';
 
 ReactDOM.render(
-  <Application config={config} />,
+  <Application config={example} />,
   document.getElementById('root')
 );
