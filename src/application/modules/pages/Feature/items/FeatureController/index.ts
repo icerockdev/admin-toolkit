@@ -39,6 +39,7 @@ export class FeatureController<
   beforeReadMode = () => {
     this.cancelAll();
     this.instances.read = flow(controllerGetRead)(this);
+    this.instances.read = flow(controllerGetReferences)(this);
   };
 
   /**
@@ -50,6 +51,7 @@ export class FeatureController<
     this.feature.data.clearErrors();
     this.instances.update = flow(controllerGetRead)(this);
     this.instances.update.then(() => this.feature.data.copyReadToEditor());
+    this.instances.update = flow(controllerGetReferences)(this);
   };
 
   /**
