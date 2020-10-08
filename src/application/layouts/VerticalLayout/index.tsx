@@ -29,9 +29,13 @@ const VerticalLayout: FC<IProps> = observer(({ children }) => {
           <VerticalNavigation />
         </div>
 
-        <div className={classNames(styles.profile, 'vertical-layout__profile')}>
-          PROFILE
-        </div>
+        {!!config.auth && (
+          <div
+            className={classNames(styles.profile, 'vertical-layout__profile')}
+          >
+            PROFILE
+          </div>
+        )}
       </div>
 
       <div className={classNames(styles.content, 'vertical-layout__content')}>

@@ -31,9 +31,9 @@ export default new Feature<IFields>('Feature', '/feature', {
     },
     urls: {
       list: '/test',
-      read: '/test',
-      create: '/test',
-      update: '/test',
+      // read: '/test',
+      // create: '/test',
+      // update: '/test',
     },
     references: {
       role: {

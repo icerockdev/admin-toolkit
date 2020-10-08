@@ -31,13 +31,25 @@ export class FeatureApi<
   }
 
   @computed
-  get host(): FeatureApiHost | undefined {
-    return this.feature.parent?.host;
+  get host(): FeatureApiHost {
+    return this.feature.parent?.host || 'http://localhost';
   }
 
   @computed
-  get urls(): FeatureApiUrls | undefined {
-    return this.feature.options?.api?.urls;
+  get urls(): Required<FeatureApiUrls> {
+    const urls = this.feature.options?.api?.urls;
+
+    const list = urls?.list || '';
+    const read = urls?.read || list;
+    const update = urls?.update || read;
+    const create = urls?.create || read;
+
+    return {
+      list,
+      read,
+      update,
+      create,
+    };
   }
 
   @computed
@@ -69,11 +81,7 @@ export class FeatureApi<
     return Object.values(FeatureMode).reduce(
       (acc, mode) => ({
         ...acc,
-        [mode]: !!(
-          has(mode, this.methods) &&
-          this.host &&
-          has(mode, this.urls)
-        ),
+        [mode]: !!(this.host && has(mode, this.methods)),
       }),
       {} as Record<FeatureMode, boolean>
     );
@@ -89,7 +97,7 @@ export class FeatureApi<
 
     const { sortBy, sortDir, page, rows, valuesForList } = feature.filters;
 
-    const url = new URL(this.urls!!.list!!, this.host).href;
+    const url = new URL(this.urls.list || '', this.host).href;
 
     const result: FeatureGetListResult<Fields> = await this.request(
       this.methods!!.list!!,
@@ -116,13 +124,13 @@ export class FeatureApi<
   };
 
   @action
-  one = async (id: any): Promise<FeatureGetReadResult<Fields>> => {
+  read = async (id: any): Promise<FeatureGetReadResult<Fields>> => {
     if (!this.availableFeatures.read) {
       throw new Error('Specify feature api host, methods and urls first.');
     }
 
     const feature = this.feature;
-    const url = new URL(this.urls!!.read!!, this.host).href;
+    const url = new URL(this.urls.read, this.host).href;
 
     const result: FeatureGetReadResult<Fields> = await this.request(
       this.methods!!.read!!,
@@ -149,7 +157,7 @@ export class FeatureApi<
     }
 
     const feature = this.feature;
-    const url = new URL(this.urls!!.create!!, this.host).href;
+    const url = new URL(this.urls.create, this.host).href;
 
     const result: FeaturePostCreateResult<Fields> = await this.request(
       this.methods!!.create!!,
@@ -176,7 +184,7 @@ export class FeatureApi<
       throw new Error('Specify feature api host, methods and urls first.');
     }
     const feature = this.feature;
-    const url = new URL(this.urls!!.create!!, this.host).href;
+    const url = new URL(this.urls.update, this.host).href;
 
     const result: FeaturePostUpdateResult<Fields> = await this.request(
       this.methods!!.update!!,

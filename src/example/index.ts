@@ -12,7 +12,7 @@ import { VerticalLayout } from '~/application/layouts/VerticalLayout';
 export default new Config({
   logo,
   host: 'https://sample.org',
-  // auth: jwtAuth,
+  auth: jwtAuth,
   layout: VerticalLayout,
   pages: [page, entity, custom, feature],
 });
