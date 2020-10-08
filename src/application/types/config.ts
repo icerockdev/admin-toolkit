@@ -13,4 +13,5 @@ export interface IConfigProps {
   auth: AuthProvider;
   theme?: ThemeOptions;
   layout?: FC;
+  host?: string;
 }

@@ -23,7 +23,6 @@ export default new Feature<IFields>('Feature', '/feature', {
   getItemTitle: (data) => data.name,
   fields: FEATURE_FIELDS,
   api: {
-    host: 'https://sample.org',
     methods: {
       list: getFeatureList,
       read: getFeature,

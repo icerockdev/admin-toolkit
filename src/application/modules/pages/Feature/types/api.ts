@@ -81,7 +81,6 @@ export type FeatureApiReferences<T> = Partial<
 >;
 
 export type FeatureApiProps<T> = {
-  host?: FeatureApiHost;
   urls?: FeatureApiUrls;
   methods?: FeatureApiMethods<T>;
   references?: FeatureApiReferences<T>;

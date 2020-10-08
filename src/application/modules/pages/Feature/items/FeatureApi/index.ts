@@ -32,7 +32,7 @@ export class FeatureApi<
 
   @computed
   get host(): FeatureApiHost | undefined {
-    return this.feature.options?.api?.host;
+    return this.feature.parent?.host;
   }
 
   @computed
@@ -51,9 +51,9 @@ export class FeatureApi<
   }
 
   @computed
-  get withToken() {
+  get request() {
     if (!this.feature?.parent?.auth?.withToken) {
-      throw new Error('WithToken not attached to api');
+      return (cb: any, props: any) => cb(props);
     }
 
     return this.feature?.parent.auth.withToken;
@@ -90,7 +90,7 @@ export class FeatureApi<
 
     const url = new URL(this.urls!!.list!!, this.host).href;
 
-    const result: FeatureGetListResult<Fields> = await this.withToken(
+    const result: FeatureGetListResult<Fields> = await this.request(
       this.methods!!.list!!,
       {
         feature,
@@ -121,7 +121,7 @@ export class FeatureApi<
     const feature = this.feature;
     const url = new URL(this.urls!!.read!!, this.host).href;
 
-    const result: FeatureGetReadResult<Fields> = await this.withToken(
+    const result: FeatureGetReadResult<Fields> = await this.request(
       this.methods!!.read!!,
       { url, feature, id } as FeatureGetReadProps
     );
@@ -147,7 +147,7 @@ export class FeatureApi<
     const feature = this.feature;
     const url = new URL(this.urls!!.create!!, this.host).href;
 
-    const result: FeaturePostCreateResult<Fields> = await this.withToken(
+    const result: FeaturePostCreateResult<Fields> = await this.request(
       this.methods!!.create!!,
       { url, feature, data } as FeaturePostCreateProps<Fields>
     );
@@ -173,7 +173,7 @@ export class FeatureApi<
     const feature = this.feature;
     const url = new URL(this.urls!!.create!!, this.host).href;
 
-    const result: FeaturePostUpdateResult<Fields> = await this.withToken(
+    const result: FeaturePostUpdateResult<Fields> = await this.request(
       this.methods!!.update!!,
       { url, feature, data, id } as FeaturePostUpdateProps<Fields>
     );
@@ -198,11 +198,12 @@ export class FeatureApi<
     await Promise.all(
       refs.map(async (ref) => {
         this.data.references[ref].isLoadingAll = true;
-        this.data.references[ref].all = await this.withToken(getReferenceAll, {
+        this.data.references[ref].all = await this.request(getReferenceAll, {
           feature: this.feature,
           name: ref,
           host: this.host,
         });
+
         this.feature.data.references[ref].isLoadingAll = false;
       })
     );

@@ -36,8 +36,11 @@ export class Config {
     if (options?.layout) {
       this.layout = options.layout;
     }
+
+    this.host = options?.host;
   }
 
+  @observable host?: string;
   @observable name: IConfigProps['name'] = '';
   @observable pages: IConfigProps['pages'] = [];
   @observable auth?: IConfigProps['auth'];

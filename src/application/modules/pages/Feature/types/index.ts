@@ -33,15 +33,17 @@ export type FeatureFeatures = Partial<Record<FeatureMode, boolean>> & {
 export interface FeatureOptions<
   Fields extends Record<string, any> = Record<string, any>
 > extends Partial<IPageProps> {
-  renderer: FeatureRenderer<Feature<Fields>>;
-  fields: FeatureField<Fields>[];
-  features: FeatureFeatures;
-  rows?: number;
-  api?: FeatureApiProps<Fields>;
   getItemTitle?: (fields: Fields) => string;
 
+  fields: FeatureField<Fields>[];
+  features: FeatureFeatures;
   containers?: FeatureRendererProps['containers'];
   components?: FeatureRendererProps['components'];
+
+  renderer: FeatureRenderer<Feature<Fields>>;
+  api?: FeatureApiProps<Fields>;
+
+  rows?: number;
 }
 
 export enum SortDir {

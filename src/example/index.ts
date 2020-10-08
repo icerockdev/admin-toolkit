@@ -11,7 +11,8 @@ import { VerticalLayout } from '~/application/layouts/VerticalLayout';
 
 export default new Config({
   logo,
-  auth: jwtAuth,
+  host: 'https://sample.org',
+  // auth: jwtAuth,
   layout: VerticalLayout,
   pages: [page, entity, custom, feature],
 });
