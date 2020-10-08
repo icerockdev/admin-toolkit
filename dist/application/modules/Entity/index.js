@@ -72,7 +72,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
-import React from 'react';
+import React, { Fragment } from 'react';
 import { ENTITY_ERRORS, ENTITY_REFERENCE_FIELDS, ENTITY_SORT_DIRS, } from '../../types/entity';
 import { Page } from '../Page';
 import { EntityList } from '../../components/EntityList';
@@ -589,7 +589,7 @@ var Entity = /** @class */ (function (_super) {
         get: function () {
             return observer(function (_a) {
                 var id = _a.id;
-                return null;
+                return React.createElement(Fragment, null);
             });
         },
         enumerable: true,
@@ -610,7 +610,7 @@ var Entity = /** @class */ (function (_super) {
         get: function () {
             return observer(function (_a) {
                 var id = _a.id;
-                return null;
+                return React.createElement(Fragment, null);
             });
         },
         enumerable: true,
@@ -646,7 +646,7 @@ var Entity = /** @class */ (function (_super) {
         get: function () {
             return observer(function (_a) {
                 var id = _a.id;
-                return null;
+                return React.createElement(Fragment, null);
             });
         },
         enumerable: true,
@@ -667,7 +667,7 @@ var Entity = /** @class */ (function (_super) {
         get: function () {
             return observer(function (_a) {
                 var id = _a.id;
-                return null;
+                return React.createElement(Fragment, null);
             });
         },
         enumerable: true,
@@ -701,7 +701,7 @@ var Entity = /** @class */ (function (_super) {
     });
     Object.defineProperty(Entity.prototype, "CreatorHeadButtons", {
         get: function () {
-            return observer(function () { return null; });
+            return observer(function () { return React.createElement(Fragment, null); });
         },
         enumerable: true,
         configurable: true
@@ -716,7 +716,7 @@ var Entity = /** @class */ (function (_super) {
     });
     Object.defineProperty(Entity.prototype, "CreatorFooter", {
         get: function () {
-            return observer(function () { return null; });
+            return observer(function () { return React.createElement(Fragment, null); });
         },
         enumerable: true,
         configurable: true
