@@ -1,39 +1,22 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, {
-  FC,
-  useState,
-  useMemo,
-  useEffect,
-  useCallback,
-  useRef,
-} from 'react';
+import React, { FC, useCallback, useEffect, useMemo, useRef } from 'react';
 import styles from './styles';
 import {
-  withStyles,
   AppBar,
-  Toolbar,
-  WithStyles,
-  Tabs,
   Tab,
+  Tabs,
+  Toolbar,
+  withStyles,
+  WithStyles,
 } from '@material-ui/core';
 import { Link, useHistory } from 'react-router-dom';
-import { Account } from '../Account';
+import { Account } from '~/containers/login/Account';
 import classnames from 'classnames';
 import { useLocation } from 'react-router';
 import { useConfig } from '~/utils/hooks';
 
 type IProps = WithStyles<typeof styles> & {};
-
-const LinkTab = (props: any) => (
-  <Tab
-    component="a"
-    onClick={(event: any) => {
-      event.preventDefault();
-    }}
-    {...props}
-  />
-);
 
 const HorizontalNavigationUnstyled: FC<IProps> = ({ classes }) => {
   const config = useConfig();

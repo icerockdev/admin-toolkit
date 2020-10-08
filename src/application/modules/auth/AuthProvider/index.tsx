@@ -7,10 +7,11 @@ import {
   UNAUTHORIZED,
   WithTokenFunction,
 } from '~/application/types/auth';
-import { computed, observable, action, reaction, toJS } from 'mobx';
-import { flow } from 'mobx';
+import { action, computed, flow, observable, reaction } from 'mobx';
 import { CancellablePromise } from 'mobx/lib/api/flow';
 import { Config } from '../../config/Config';
+import { AuthRouter } from '~/containers/login/AuthRouter';
+import { FC } from 'react';
 
 export class AuthProvider {
   // From props
@@ -22,6 +23,7 @@ export class AuthProvider {
   @observable roleTitles?: Record<any, string>;
   @observable persist?: IAuthProviderProps['persist'] = true;
   @observable newPasswordValidator?: IAuthProviderProps['newPasswordValidator'];
+  @observable router: FC = AuthRouter;
 
   constructor(fields?: Partial<IAuthProviderProps>) {
     if (fields) {
@@ -234,5 +236,10 @@ export class AuthProvider {
   @computed
   get isLogged() {
     return !!this.user.token;
+  }
+
+  @computed
+  get output() {
+    return this.router;
   }
 }
