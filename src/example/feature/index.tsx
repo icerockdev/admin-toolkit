@@ -1,6 +1,12 @@
 import React from 'react';
 import { Feature } from '~/application/modules/pages/Feature';
-import api, { getRolesAll } from '~/example/feature/api';
+import {
+  createFeature,
+  getFeature,
+  getFeatureList,
+  getRolesAll,
+  updateFeature,
+} from '~/example/feature/api';
 import { FEATURE_FIELDS } from '~/example/feature/fields';
 
 export type IFields = {
@@ -13,13 +19,28 @@ export type IFields = {
   description: string;
 };
 
-export default new Feature<IFields>('Feature', '/feature', api, {
+export default new Feature<IFields>('Feature', '/feature', {
   getItemTitle: (data) => data.name,
   fields: FEATURE_FIELDS,
-  references: {
-    role: {
-      url: '/test/',
-      all: getRolesAll,
+  api: {
+    host: 'https://sample.org',
+    methods: {
+      list: getFeatureList,
+      read: getFeature,
+      create: createFeature,
+      update: updateFeature,
+    },
+    urls: {
+      list: '/test',
+      read: '/test',
+      create: '/test',
+      update: '/test',
+    },
+    references: {
+      role: {
+        url: '/test/',
+        all: getRolesAll,
+      },
     },
   },
 });

@@ -1,5 +1,6 @@
 import { action, extendObservable, observable } from 'mobx';
 import { FeatureDataReference } from '~/application/modules/pages/Feature/types/reference';
+import { FeatureApiReferences } from '~/application/modules/pages/Feature/types';
 
 export class FeatureData<
   Fields extends Record<string, any> = Record<string, any>
@@ -15,7 +16,7 @@ export class FeatureData<
   @observable errors: Partial<Record<keyof Fields, string>> = {};
 
   @action
-  createReferenceData(refs: Record<string, any>) {
+  createReferenceData(refs: FeatureApiReferences<Fields> = {}) {
     // fills this.references with fields from Feature
     Object.keys(refs).forEach((ref) => {
       extendObservable(this.references, {

@@ -17,7 +17,7 @@ export function* controllerGetList<T extends Record<string, any>>(
     controller.feature.data.isLoading = false;
 
     // TODO: make controllerGetReferencesList to fetch values based on actual data
-    yield feature.api.getReferencesAll(controller);
+    yield feature.api.getReferencesAll();
   } catch (e) {
     controller.feature.data.isLoading = false;
     controller.feature.parent?.notifications.showError(e.toString());

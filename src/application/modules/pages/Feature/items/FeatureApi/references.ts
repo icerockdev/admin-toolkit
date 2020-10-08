@@ -1,5 +1,6 @@
 import { has } from 'ramda';
 import { Feature } from '~/application/modules/pages/Feature';
+import { FeatureReferenceProps } from '~/application/modules/pages/Feature/types/reference';
 
 type GetReferenceAllProps = {
   feature: Feature;
@@ -16,9 +17,9 @@ export const getReferenceAll: (
   token,
   name,
 }): Promise<Record<any, any>> => {
-  if (!has(name, feature.references)) return {};
+  if (!feature.api.references || !has(name, feature.api.references)) return {};
 
-  const { all, url } = feature.references[name];
+  const { all, url } = feature.api.references[name] as FeatureReferenceProps;
 
   if (!all || !url) return {};
 

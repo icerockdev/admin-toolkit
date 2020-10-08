@@ -2,11 +2,11 @@
 
 import { Config } from '~/application';
 import logo from '~/assets/logo512.png';
-import entity from './example/entity';
-import page from './example/page';
-import jwtAuth from './example/jwtAuth';
-import custom from './example/custom';
-import feature from './example/feature';
+import entity from './entity';
+import page from './page';
+import jwtAuth from './jwtAuth';
+import custom from './custom';
+import feature from './feature';
 import { VerticalLayout } from '~/application/layouts/VerticalLayout';
 
 export default new Config({

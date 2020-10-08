@@ -13,6 +13,7 @@ import {
   FeatureReadRendererProps,
 } from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadRenderer';
 import { FeatureRendererProps } from '~/application/modules/pages/Feature/types/renderer';
+import { FeatureApiProps } from '~/application/modules/pages/Feature/types/api';
 
 export * from './api';
 
@@ -36,8 +37,7 @@ export interface FeatureOptions<
   fields: FeatureField<Fields>[];
   features: FeatureFeatures;
   rows?: number;
-  references?: Record<string, FeatureReferenceProps>;
-  api?: typeof FeatureApi;
+  api?: FeatureApiProps<Fields>;
   getItemTitle?: (fields: Fields) => string;
 
   containers?: FeatureRendererProps['containers'];

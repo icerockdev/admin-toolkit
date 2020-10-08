@@ -1,7 +1,8 @@
 import { Feature } from '~/application/modules/pages/Feature';
 import { FeatureMode } from '~/application/modules/pages/Feature/types/index';
+import { FeatureReferenceProps } from '~/application/modules/pages/Feature/types/reference';
 
-export type IBaseEntityApiUrls = Partial<Record<FeatureMode, string>>;
+export type FeatureApiUrls = Partial<Record<FeatureMode, string>>;
 
 export type FeatureGetListProps = {
   feature: Feature;
@@ -49,17 +50,39 @@ export type FeaturePostCreateResult<Fields> = {
   errors?: Record<keyof Fields, string>;
 };
 
-export type FeaturePostUpdateResult<Fields> = FeaturePostCreateResult<Fields>;
+export type FeaturePostUpdateResult<T> = FeaturePostCreateResult<T>;
 
-export interface FeatureApiMethods<Fields> {
-  list: (props: FeatureGetListProps) => Promise<FeatureGetListResult<Fields>>;
-  read?: (props: FeatureGetReadProps) => Promise<FeatureGetReadResult<Fields>>;
-  create?: (
-    props: FeaturePostCreateProps<Fields>
-  ) => Promise<FeaturePostCreateResult<Fields>>;
-  update?: (
-    props: FeaturePostUpdateProps<Fields>
-  ) => Promise<FeaturePostUpdateResult<Fields>>;
+export type FeatureApiMethodList<T> = (
+  props: FeatureGetListProps
+) => Promise<FeatureGetListResult<T>>;
+
+export type FeatureApiMethodGet<T> = (
+  props: FeatureGetReadProps
+) => Promise<FeatureGetReadResult<T>>;
+
+export type FeatureApiMethodCreate<T> = (
+  props: FeaturePostCreateProps<T>
+) => Promise<FeaturePostCreateResult<T>>;
+
+export type FeatureApiMethodUpdate<T> = (
+  props: FeaturePostUpdateProps<T>
+) => Promise<FeaturePostUpdateResult<T>>;
+
+export interface FeatureApiMethods<T> {
+  list?: FeatureApiMethodList<T>;
+  read?: FeatureApiMethodGet<T>;
+  create?: FeatureApiMethodCreate<T>;
+  update?: FeatureApiMethodUpdate<T>;
 }
 
 export type FeatureApiHost = string;
+export type FeatureApiReferences<T> = Partial<
+  Record<keyof T, FeatureReferenceProps>
+>;
+
+export type FeatureApiProps<T> = {
+  host?: FeatureApiHost;
+  urls?: FeatureApiUrls;
+  methods?: FeatureApiMethods<T>;
+  references?: FeatureApiReferences<T>;
+};

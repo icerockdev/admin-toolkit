@@ -15,7 +15,6 @@ import { FeatureField } from '~/application/modules/pages/Feature/components/fie
 import { FeatureData } from '~/application/modules/pages/Feature/items/FeatureData';
 import { FeatureController } from '~/application/modules/pages/Feature/items/FeatureController';
 import { FeatureFilters } from '~/application/modules/pages/Feature/items/FeatureFilters';
-import { FeatureReferenceProps } from '~/application/modules/pages/Feature/types/reference';
 
 export class Feature<
   Fields extends Record<string, any> = Record<string, any>
@@ -23,7 +22,6 @@ export class Feature<
   constructor(
     public title: string,
     public url: string,
-    public api: FeatureApi<Fields>,
     options: Partial<FeatureOptions<Fields>> = {}
   ) {
     super({
@@ -36,11 +34,11 @@ export class Feature<
       },
     });
 
-    extendObservable(this, { api, title, url });
+    extendObservable(this, { title, url, options });
 
+    if (options) this.options = options;
     if (options.fields) this.fieldsList = options.fields;
     if (options.features) this.features = options.features;
-    if (options.references) this.references = options.references;
     if (options.rows) this.filters.rows = options.rows;
     if (options.getItemTitle) this.getItemTitle = options.getItemTitle;
 
@@ -53,7 +51,7 @@ export class Feature<
       });
 
     // Initialize ref fields storage
-    this.data.createReferenceData(this.references);
+    this.data.createReferenceData(this.api.references);
 
     // Get filters from url
     // TODO: if filters isn't empty, but url is, persist them here:
@@ -84,14 +82,14 @@ export class Feature<
     );
   }
 
+  @observable options: Partial<FeatureOptions<Fields>> = {};
   @observable features: FeatureOptions['features'] = FEATURE_DEFAULT_FEATURES;
-  @observable references: Record<string, FeatureReferenceProps> = {};
-
   @observable renderer: FeatureRenderer = new FeatureRenderer();
   @observable data: FeatureData = new FeatureData();
   @observable mode?: FeatureMode;
-  @observable filters = new FeatureFilters(this);
+  @observable filters: FeatureFilters<Fields> = new FeatureFilters(this);
   @observable controller = new FeatureController<Fields>(this);
+  @observable api = new FeatureApi(this);
 
   /**
    * Array of fields, coming from props

@@ -2,7 +2,6 @@ import React, { FC, useCallback, useMemo } from 'react';
 import { observer } from 'mobx-react';
 import { TextField } from '@material-ui/core';
 import { DatePicker } from '@material-ui/pickers';
-import { MaterialUiPickersDate } from '@material-ui/pickers/src/typings/date';
 import { formatRFC3339, isDate, isValid, parseISO } from 'date-fns';
 import { Placeholder } from '~/application/modules/pages/Feature/components/common/Placeholder';
 import { useFeature } from '~/utils/hooks';
@@ -15,7 +14,7 @@ type IProps = FeatureInputProps;
 const DateInput: FC<IProps> = observer(({ value, label, error, onChange }) => {
   const feature = useFeature();
 
-  const parsedValue = useMemo<MaterialUiPickersDate>(() => {
+  const parsedValue = useMemo<any>(() => {
     if (isDate(value)) return value as Date;
 
     const parsed = value && parseISO(value);
@@ -26,7 +25,7 @@ const DateInput: FC<IProps> = observer(({ value, label, error, onChange }) => {
   }, [value]);
 
   const handler = useCallback(
-    (val: MaterialUiPickersDate) => {
+    (val: any) => {
       if (!value || !handler || !isValid(value)) return;
 
       if (!val) return;
