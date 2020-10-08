@@ -15,7 +15,7 @@ export function* controllerPostUpdate<
       data,
       errors,
       error,
-    }: FeaturePostUpdateResult<T> = yield feature.api.postUpdate(
+    }: FeaturePostUpdateResult<T> = yield feature.api.update(
       id,
       toJS(feature.data.editor)
     );

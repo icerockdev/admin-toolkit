@@ -9,7 +9,7 @@ export function* controllerGetList<T extends Record<string, any>>(
   try {
     feature.data.isLoading = true;
 
-    const result: FeatureGetListResult<T> = yield feature.api.getList(feature);
+    const result: FeatureGetListResult<T> = yield feature.api.list(feature);
 
     feature.data.list = result.data;
     feature.filters.count = result.count;

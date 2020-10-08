@@ -79,7 +79,8 @@ export class FeatureApi<
     );
   }
 
-  getList = async (
+  @action
+  list = async (
     feature: Feature<Fields>
   ): Promise<FeatureGetListResult<Fields>> => {
     if (!this.availableFeatures.list) {
@@ -114,10 +115,12 @@ export class FeatureApi<
     return result;
   };
 
-  getRead = async (id: any): Promise<FeatureGetReadResult<Fields>> => {
+  @action
+  one = async (id: any): Promise<FeatureGetReadResult<Fields>> => {
     if (!this.availableFeatures.read) {
       throw new Error('Specify feature api host, methods and urls first.');
     }
+
     const feature = this.feature;
     const url = new URL(this.urls!!.read!!, this.host).href;
 
@@ -137,7 +140,8 @@ export class FeatureApi<
     return result;
   };
 
-  postCreate = async (
+  @action
+  create = async (
     data: FeatureData['editor']
   ): Promise<FeaturePostCreateResult<Fields>> => {
     if (!this.availableFeatures.create) {
@@ -163,7 +167,8 @@ export class FeatureApi<
     return result;
   };
 
-  postUpdate = async (
+  @action
+  update = async (
     id: any,
     data: FeatureData['editor']
   ): Promise<FeaturePostUpdateResult<Fields>> => {

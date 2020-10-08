@@ -11,7 +11,7 @@ export function* controllerGetRead<T extends Record<string, any>>(
     feature.data.read = {};
     feature.data.isLoading = true;
 
-    const result: FeatureGetReadResult<T> = yield feature.api.getRead(id);
+    const result: FeatureGetReadResult<T> = yield feature.api.one(id);
 
     feature.data.read = result.data;
     feature.data.isLoading = false;

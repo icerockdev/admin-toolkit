@@ -14,7 +14,7 @@ export function* controllerPostCreate<
       data,
       errors,
       error,
-    }: FeaturePostCreateResult<T> = yield feature.api.postCreate(
+    }: FeaturePostCreateResult<T> = yield feature.api.create(
       toJS(feature.data.editor)
     );
 
