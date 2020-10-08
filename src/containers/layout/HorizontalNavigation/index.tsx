@@ -21,13 +21,9 @@ import { Link, useHistory } from 'react-router-dom';
 import { Account } from '../Account';
 import classnames from 'classnames';
 import { useLocation } from 'react-router';
+import { useConfig } from '~/utils/hooks';
 
-type IProps = WithStyles<typeof styles> & {
-  logo?: { url?: string; title?: string };
-  account?: { email?: string; username?: string; role?: string };
-  links: { name: string; url: string }[];
-  onLogout?: () => void;
-};
+type IProps = WithStyles<typeof styles> & {};
 
 const LinkTab = (props: any) => (
   <Tab
@@ -39,17 +35,33 @@ const LinkTab = (props: any) => (
   />
 );
 
-const HorizontalNavigationUnstyled: FC<IProps> = ({
-  classes,
-  logo,
-  links,
-  account,
-  onLogout,
-}) => {
+const HorizontalNavigationUnstyled: FC<IProps> = ({ classes }) => {
+  const config = useConfig();
+
   const history = useHistory();
   const location = useLocation();
   const wrapper = useRef<HTMLDivElement>(null);
   const appbar = useRef<HTMLDivElement>(null);
+
+  const links = useMemo(
+    () =>
+      config.pages
+        .filter((page) => page?.menu?.url && page.canList)
+        .map((page) => ({
+          name: page.menu.label,
+          url: page.menu.url,
+        })),
+    [config, config.pages, config.auth?.user?.role]
+  );
+
+  const role = useMemo(
+    () =>
+      (config.auth?.roleTitles &&
+        config.auth?.user?.role &&
+        config.auth?.roleTitles[config.auth?.user?.role]) ||
+      config.auth?.user?.role,
+    [config.auth?.roleTitles, config.auth?.user?.role]
+  );
 
   const onTabChange = useCallback((_, tab) => history.push(links[tab].url), [
     history,
@@ -63,6 +75,15 @@ const HorizontalNavigationUnstyled: FC<IProps> = ({
 
     return active >= 0 ? active : 0;
   }, [location]);
+
+  const account = useMemo(
+    () => ({
+      email: config.auth?.user?.email || '',
+      username: config.auth?.user?.username || '',
+      role,
+    }),
+    [config.auth, role]
+  );
 
   useEffect(() => {
     if (!appbar.current || !wrapper.current) return;
@@ -78,13 +99,13 @@ const HorizontalNavigationUnstyled: FC<IProps> = ({
     <div ref={wrapper}>
       <AppBar className={classes.appbar} ref={appbar}>
         <Toolbar className={classes.toolbar}>
-          {logo && (
+          {config.logo && (
             <Link to="/" className={classnames('logo', classes.title)}>
               <img
-                src={logo.url}
-                title={logo.title}
+                src={config.logo}
+                title={config.title}
                 className={classes.logo}
-                alt={logo.title}
+                alt={config.title}
               />
             </Link>
           )}
@@ -104,12 +125,12 @@ const HorizontalNavigationUnstyled: FC<IProps> = ({
             ))}
           </Tabs>
 
-          {account && (
+          {!!config.auth && account && (
             <Account
               email={account.email}
               username={account.username}
               role={account.role}
-              onLogout={onLogout}
+              onLogout={config.auth?.logout}
             />
           )}
         </Toolbar>

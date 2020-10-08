@@ -8,8 +8,8 @@ import createMuiTheme, {
 } from '@material-ui/core/styles/createMuiTheme';
 import { computed, observable } from 'mobx';
 import { DEFAULT_THEME } from '~/utils/theme';
-import { HorizontalLayout } from '~/application/layouts/HorizontalLayout';
 import { FC } from 'react';
+import { VerticalLayout } from '~/application/layouts/VerticalLayout';
 
 export class Config {
   constructor(options?: Partial<IConfigProps>) {
@@ -50,7 +50,7 @@ export class Config {
   @observable history = createBrowserHistory();
   @observable notifications = new Notifications();
   @observable themeInstance = createMuiTheme(DEFAULT_THEME);
-  @observable layout: FC = HorizontalLayout;
+  @observable layout: FC = VerticalLayout;
 
   @computed
   get linksForCurrentUser() {
