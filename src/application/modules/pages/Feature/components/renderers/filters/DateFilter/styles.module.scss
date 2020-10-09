@@ -1,15 +1,9 @@
 @import 'src/application/modules/pages/Feature/styles/variables';
 
 .datepicker {
-  height: $filter_input_height;
   background: white;
   display: flex;
   position: relative;
-
-  input {
-    padding: 10px 14px 7px;
-    height: $filter_input_height - 17px;
-  }
 
   :global(.MuiPickersDateRangePickerInput-rangeInputsContainer) {
     & > :last-child * {
@@ -22,9 +16,16 @@
   }
 
   input {
-    width: 150px;
+    width: 100px;
   }
 }
 
 .control {
+  :global(div.MuiFilledInput-root) {
+    border-radius: 0;
+
+    &:first-child {
+      border-radius: 4px 0 0 4px;
+    }
+  }
 }

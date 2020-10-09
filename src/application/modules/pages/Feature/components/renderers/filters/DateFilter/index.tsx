@@ -76,16 +76,19 @@ const DateFilter: FC<IProps> = ({
                 <>
                   <TextField
                     {...startProps}
-                    variant="outlined"
                     label={label}
                     helperText=""
+                    variant="filled"
+                    size="small"
                   />
 
                   <TextField
                     {...endProps}
-                    variant="outlined"
+                    variant="filled"
+                    size="small"
                     helperText=""
                     label=""
+                    placeholder=""
                   />
                 </>
               )}

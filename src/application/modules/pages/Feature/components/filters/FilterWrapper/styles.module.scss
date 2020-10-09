@@ -1,14 +1,10 @@
 @import 'src/application/modules/pages/Feature/styles/variables';
 
 .filter {
-  height: $filter_input_height;
   background: white;
   display: flex;
   flex-direction: row;
-}
-
-.input {
-  flex: 1 0 200px;
+  min-width: 200px;
 }
 
 .close {
@@ -16,10 +12,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #bbbbbb;
   border-left: none;
   cursor: pointer;
   width: $filter_input_height;
+  background: #fefefe;
+  box-shadow: #eeeeee 0 0 0 1px;
+  border-radius: 0 4px 4px 0;
 
   &:hover {
     opacity: 1;
@@ -28,4 +26,8 @@
   svg {
     fill: $danger;
   }
+}
+
+.input {
+  flex: 1;
 }
