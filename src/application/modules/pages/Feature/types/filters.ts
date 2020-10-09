@@ -5,4 +5,5 @@ export type FeatureFilterComponentProps = {
   onChange: (val: any) => void;
   onReset: () => void;
   disabled?: boolean;
+  inline?: boolean;
 };

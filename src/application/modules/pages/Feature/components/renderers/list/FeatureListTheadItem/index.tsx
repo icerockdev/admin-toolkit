@@ -5,6 +5,7 @@ import { useFeature } from '~/utils/hooks';
 import { SortDir } from '~/application/modules/pages/Feature/types';
 import { observer } from 'mobx-react';
 import classNames from 'classnames';
+import styles from './styles.module.scss';
 
 interface IProps {
   field: FeatureField<any>;
@@ -38,20 +39,23 @@ const FeatureListTheadItem: FC<IProps> = observer(({ field }) => {
     <TableCell
       className={classNames(
         'feature-list__table-head-field',
-        `feature-list__table-head-field_${field.name}`
+        `feature-list__table-head-field_${field.name}`,
+        styles.thead
       )}
     >
-      {sortable ? (
-        <TableSortLabel
-          active={sortBy === field.name}
-          direction={sortDir}
-          onClick={onSortChange}
-        >
+      <div className={styles.label}>
+        {sortable ? (
+          <TableSortLabel
+            active={sortBy === field.name}
+            direction={sortDir}
+            onClick={onSortChange}
+          >
+            <field.ListHead />
+          </TableSortLabel>
+        ) : (
           <field.ListHead />
-        </TableSortLabel>
-      ) : (
-        <field.ListHead />
-      )}
+        )}
+      </div>
     </TableCell>
   );
 });

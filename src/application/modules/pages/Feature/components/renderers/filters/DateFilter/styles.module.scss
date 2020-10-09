@@ -1,9 +1,10 @@
 @import 'src/application/modules/pages/Feature/styles/variables';
 
 .datepicker {
-  background: white;
   display: flex;
   position: relative;
+  min-width: 0;
+  width: 100%;
 
   :global(.MuiPickersDateRangePickerInput-rangeInputsContainer) {
     & > :last-child * {
@@ -16,7 +17,7 @@
   }
 
   input {
-    width: 100px;
+    max-width: 100px;
   }
 }
 

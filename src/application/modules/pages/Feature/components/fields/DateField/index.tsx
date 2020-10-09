@@ -71,14 +71,17 @@ export class DateField<
   }
 
   @observable
-  Filter: FeatureField['Filter'] = observer(() => (
-    <DateFilter
-      label={this.label}
-      name={this.name}
-      value={this.filterValue}
-      onChange={this.onFilterChange}
-      onReset={this.onFilterReset}
-      isRange={!this.filterExact}
-    />
-  ));
+  Filter: FeatureField['Filter'] = observer(
+    ({ inline }: { inline?: boolean }) => (
+      <DateFilter
+        label={this.label}
+        name={this.name}
+        value={this.filterValue}
+        onChange={this.onFilterChange}
+        onReset={this.onFilterReset}
+        isRange={!this.filterExact}
+        inline={inline}
+      />
+    )
+  );
 }

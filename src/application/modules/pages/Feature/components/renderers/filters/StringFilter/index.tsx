@@ -10,11 +10,16 @@ const StringFilter: FC<FeatureFilterComponentProps> = ({
   value,
   onChange,
   onReset,
+  inline,
 }) => {
   return (
-    <FilterWrapper onClear={onReset}>
+    <FilterWrapper onClear={onReset} inline={inline}>
       <div className={styles.input}>
-        <StringInput label={label} onChange={onChange} value={value} />
+        <StringInput
+          label={inline ? '' : label}
+          onChange={onChange}
+          value={value}
+        />
       </div>
     </FilterWrapper>
   );

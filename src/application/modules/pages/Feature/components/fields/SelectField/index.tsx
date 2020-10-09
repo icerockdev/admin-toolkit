@@ -69,7 +69,7 @@ export class SelectField<
   }
 
   @observable
-  Filter: FeatureField['Filter'] = observer(() => (
+  Filter: FeatureField['Filter'] = observer(({ inline }) => (
     <SelectFilter
       label={this.label}
       name={this.name}
@@ -78,6 +78,7 @@ export class SelectField<
       onReset={this.onFilterReset}
       variants={this.filterVariants}
       autocomplete={Object.keys(this.variants).length > 10 || this.autocomplete}
+      inline={inline}
     />
   ));
 }

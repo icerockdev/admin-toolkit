@@ -110,13 +110,14 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
   }
 
   @observable
-  public Filter: FC = observer(() => (
+  public Filter: FC<{ inline?: boolean }> = observer(({ inline }) => (
     <StringFilter
       value={this.filterValue}
       name={this.name}
       label={this.label}
       onChange={this.onFilterChange}
       onReset={this.onFilterReset}
+      inline={inline}
     />
   ));
 

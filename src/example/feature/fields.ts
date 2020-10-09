@@ -10,7 +10,7 @@ export const FEATURE_FIELDS = [
     label: 'Имя',
     features: {
       sort: true,
-      filter: true,
+      filter: false,
     },
   }),
   new IntegerField<IFields>('age', {

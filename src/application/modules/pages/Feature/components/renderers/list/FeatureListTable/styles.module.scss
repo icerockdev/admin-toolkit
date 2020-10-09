@@ -12,9 +12,9 @@
 
   th {
     text-transform: uppercase;
-    background: #f3f3f3;
     border-bottom: none;
     font-weight: 600;
+    padding: 0;
 
     @include phone {
       padding: 8px;

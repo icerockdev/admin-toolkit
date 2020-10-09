@@ -1,4 +1,4 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC } from 'react';
 import { useFeature } from '~/utils/hooks';
 import { FeatureListTheadItem } from '~/application/modules/pages/Feature/components/renderers/list/FeatureListTheadItem';
 import { observer } from 'mobx-react';

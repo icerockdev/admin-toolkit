@@ -15,6 +15,7 @@ const DateFilter: FC<IProps> = ({
   isRange,
   onChange,
   onReset,
+  inline,
 }) => {
   const [value, setValue] = useState(initialValue);
 
@@ -65,7 +66,7 @@ const DateFilter: FC<IProps> = ({
   }, [initialValue]);
 
   return (
-    <FilterWrapper onClear={onReset}>
+    <FilterWrapper onClear={onReset} inline={inline}>
       <div className={styles.datepicker}>
         <FormControl className={styles.control}>
           {isRange && (

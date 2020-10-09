@@ -10,8 +10,17 @@ type IProps = FeatureFilterComponentProps & {
 };
 
 const SelectFilter: FC<IProps> = observer(
-  ({ label, variants, autocomplete, onChange, onReset, disabled, value }) => (
-    <FilterWrapper onClear={onReset}>
+  ({
+    label,
+    variants,
+    inline,
+    autocomplete,
+    onChange,
+    onReset,
+    disabled,
+    value,
+  }) => (
+    <FilterWrapper onClear={onReset} inline={inline}>
       <SelectInput
         label={label}
         onChange={onChange}
