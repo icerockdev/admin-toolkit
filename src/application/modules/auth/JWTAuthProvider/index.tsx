@@ -3,38 +3,19 @@
 import {
   AUTH_ERRORS,
   EMPTY_USER,
-  IAuthProviderProps,
+  AuthProviderOptions,
   UNAUTHORIZED,
   WithTokenFunction,
+  AuthProviderUser,
 } from '~/application/types/auth';
 import { action, computed, flow, observable, reaction } from 'mobx';
 import { AuthProvider } from '../AuthProvider';
 import { Unwrap } from '~/application/types/common';
+import { IJWTAuthProviderProps } from '~/application/modules/auth/JWTAuthProvider/types';
 
 const EMPTY_TOKENS = {
   access: '',
   refresh: '',
-};
-
-export type IJWTTokenRefreshFn = (
-  refresh: string
-) => Promise<{
-  access: string;
-  refresh: string;
-}>;
-
-export type IJWTAuthRequestFn = (
-  email: string,
-  password: string
-) => Promise<{
-  user: IAuthProviderProps['user'];
-  tokens: { access: string; refresh: string };
-  error: string;
-}>;
-
-export type IJWTAuthProviderProps = IAuthProviderProps & {
-  authRequestFn: IJWTAuthRequestFn;
-  tokenRefreshFn: IJWTTokenRefreshFn;
 };
 
 export class JWTAuthProvider extends AuthProvider {
@@ -167,7 +148,7 @@ export class JWTAuthProvider extends AuthProvider {
   };
 
   getPersistedCredentials = (): {
-    user?: IAuthProviderProps['user'];
+    user?: AuthProviderUser;
     tokens?: Record<string, string>;
   } => {
     try {

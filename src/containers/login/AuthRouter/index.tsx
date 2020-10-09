@@ -1,4 +1,4 @@
-import React, { FC, Fragment, useMemo } from 'react';
+import React, { FC, Fragment } from 'react';
 import { observer } from 'mobx-react';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import { Route, Router, Switch } from 'react-router-dom';
@@ -17,28 +17,30 @@ const AuthRouter: FC = observer(() => {
     <ThemeProvider theme={config.themeInstance}>
       <CssBaseline />
 
-      <Router history={config.history}>
-        <Switch>
-          <Route
-            path="/restore"
-            render={() => (
-              <ForgotPassword onSubmit={auth.sendAuthPasswRestore} />
-            )}
-          />
+      <auth.layout>
+        <Router history={config.history}>
+          <Switch>
+            <Route
+              path="/restore"
+              render={() => (
+                <ForgotPassword onSubmit={auth.sendAuthPasswRestore} />
+              )}
+            />
 
-          <Route
-            path="/reset-password/:token"
-            render={(params) => (
-              <ResetPassword
-                onSubmit={auth.sendAuthPasswUpdate}
-                token={params.match.params.token}
-              />
-            )}
-          />
+            <Route
+              path="/reset-password/:token"
+              render={(params) => (
+                <ResetPassword
+                  onSubmit={auth.sendAuthPasswUpdate}
+                  token={params.match.params.token}
+                />
+              )}
+            />
 
-          <SignIn />
-        </Switch>
-      </Router>
+            <SignIn />
+          </Switch>
+        </Router>
+      </auth.layout>
 
       <config.notifications.Output />
     </ThemeProvider>

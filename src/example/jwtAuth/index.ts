@@ -1,8 +1,8 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import { JWTAuthProvider, IAuthPasswUpdateFn } from '~/application';
+import { JWTAuthProvider } from '~/application';
 import { Unwrap } from '~/application/types/common';
-import { IJWTAuthRequestFn } from '~/application/modules/auth/JWTAuthProvider';
+import { IJWTAuthRequestFn } from '~/application/modules/auth/JWTAuthProvider/types';
 
 export default new JWTAuthProvider({
   authRequestFn: (
@@ -53,6 +53,6 @@ export default new JWTAuthProvider({
     );
   },
 
-  newPasswordValidator: (password: string) =>
+  passwordValidator: (password: string) =>
     password.length > 5 ? '' : 'Password must be at least 6 symbols long',
 });

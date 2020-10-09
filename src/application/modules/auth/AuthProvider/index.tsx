@@ -1,9 +1,9 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-// import React from 'react';
 import {
+  AuthProviderOptions,
+  AuthProviderUser,
   EMPTY_USER,
-  IAuthProviderProps,
   UNAUTHORIZED,
   WithTokenFunction,
 } from '~/application/types/auth';
@@ -12,22 +12,12 @@ import { CancellablePromise } from 'mobx/lib/api/flow';
 import { Config } from '../../config/Config';
 import { AuthRouter } from '~/containers/login/AuthRouter';
 import { FC } from 'react';
+import { AuthVerticalLayout } from '~/application/layouts/login/AuthVerticalLayout';
 
 export class AuthProvider {
-  // From props
-  @observable parent?: Config;
-  @observable user: IAuthProviderProps['user'] = EMPTY_USER;
-  @observable authRequestFn?: IAuthProviderProps['authRequestFn'];
-  @observable authPasswRestoreFn?: IAuthProviderProps['authPasswRestoreFn'];
-  @observable authPasswUpdateFn?: IAuthProviderProps['authPasswUpdateFn'];
-  @observable roleTitles?: Record<any, string>;
-  @observable persist?: IAuthProviderProps['persist'] = true;
-  @observable newPasswordValidator?: IAuthProviderProps['newPasswordValidator'];
-  @observable router: FC = AuthRouter;
-
-  constructor(fields?: Partial<IAuthProviderProps>) {
-    if (fields) {
-      Object.assign(this, fields);
+  constructor(options?: Partial<AuthProviderOptions>) {
+    if (options) {
+      Object.assign(this, options);
     }
 
     if (this.persist) {
@@ -40,6 +30,19 @@ export class AuthProvider {
       reaction(() => this.user, this.persistCredentials);
     }
   }
+
+  // From props
+  @observable splash: string = '';
+  @observable layout: FC = AuthVerticalLayout;
+  @observable parent?: Config;
+  @observable user: AuthProviderUser = EMPTY_USER;
+  @observable authRequestFn?: AuthProviderOptions['authRequestFn'];
+  @observable authPasswRestoreFn?: AuthProviderOptions['authPasswRestoreFn'];
+  @observable authPasswUpdateFn?: AuthProviderOptions['authPasswUpdateFn'];
+  @observable roleTitles?: Record<any, string>;
+  @observable persist?: AuthProviderOptions['persist'] = true;
+  @observable passwordValidator?: AuthProviderOptions['passwordValidator'];
+  @observable router: FC = AuthRouter;
 
   // Built-in
   @observable isLoading: boolean = false;
@@ -157,8 +160,8 @@ export class AuthProvider {
           throw new Error(`Passwords doesn't match`);
         }
 
-        if (this.newPasswordValidator && this.newPasswordValidator(password)) {
-          throw new Error(this.newPasswordValidator(password));
+        if (this.passwordValidator && this.passwordValidator(password)) {
+          throw new Error(this.passwordValidator(password));
         }
 
         const response = yield this.authPasswUpdateFn(
@@ -193,7 +196,7 @@ export class AuthProvider {
     }
   };
 
-  getPersistedCredentials = (): { user?: IAuthProviderProps['user'] } => {
+  getPersistedCredentials = (): { user?: AuthProviderUser } => {
     try {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
 
@@ -214,6 +217,11 @@ export class AuthProvider {
     this.user = EMPTY_USER;
   };
 
+  /**
+   * Passes token variable to {args}
+   * @param req - request function
+   * @param args - args object, that'll be extended with token
+   */
   @action
   withToken: WithTokenFunction = async (req: any, args: any) => {
     try {

@@ -1,31 +1,17 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, {
-  FC,
-  MouseEventHandler,
-  FormEvent,
-  useCallback,
-  useState,
-  useMemo,
-} from 'react';
-
+import React, { FC, FormEvent, useCallback, useMemo, useState } from 'react';
 import {
-  Paper,
-  Typography,
-  TextField,
-  withStyles,
-  InputAdornment,
   Button,
-  WithStyles,
-  Container,
+  InputAdornment,
+  TextField,
+  Typography,
 } from '@material-ui/core';
 
-import styles from '../styles';
 import { useConfig } from '~/utils/hooks';
+import styles from './styles.module.scss';
 
-type IProps = WithStyles<typeof styles> & {};
-
-const SignInUnstyled: FC<IProps> = ({ classes }) => {
+const SignIn: FC = () => {
   const config = useConfig();
   const auth = config.auth;
 
@@ -60,72 +46,62 @@ const SignInUnstyled: FC<IProps> = ({ classes }) => {
   );
 
   return (
-    <div className={classes.wrap}>
-      <Container component="main" maxWidth="sm">
-        <Paper className={classes.paper}>
-          <Typography align="center" component="h3" className={classes.header}>
-            Авторизация
-          </Typography>
+    <div className={styles.wrap}>
+      <h3 className={styles.header}>Авторизация</h3>
 
-          <form noValidate onSubmit={onSubmitCapture}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Логин"
-              name="email"
-              className={classes.marginTop}
-              autoComplete="email"
-              defaultValue={email}
-              onChange={onEmailChange}
-              autoFocus
-            />
+      <form noValidate onSubmit={onSubmitCapture} className={styles.form}>
+        <TextField
+          variant="filled"
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Логин"
+          name="email"
+          autoComplete="email"
+          defaultValue={email}
+          onChange={onEmailChange}
+          autoFocus
+        />
 
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Пароль"
-              type="password"
-              id="password"
-              className={classes.marginTop}
-              defaultValue={password}
-              onChange={onPasswordChange}
-              autoComplete="current-password"
-              InputProps={{
-                endAdornment: onForgotPassword ? (
-                  <InputAdornment
-                    position="end"
-                    onClick={onForgotPassword}
-                    className={classes.forgot}
-                  >
-                    Забыли пароль?
-                  </InputAdornment>
-                ) : null,
-              }}
-            />
+        <TextField
+          variant="filled"
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          label="Пароль"
+          type="password"
+          id="password"
+          defaultValue={password}
+          onChange={onPasswordChange}
+          autoComplete="current-password"
+          InputProps={{
+            endAdornment: onForgotPassword ? (
+              <InputAdornment
+                position="end"
+                onClick={onForgotPassword}
+                className={styles.forgot}
+              >
+                Забыли пароль?
+              </InputAdornment>
+            ) : null,
+          }}
+        />
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.marginTop}
-              disabled={!email.length || !password.length}
-            >
-              Войти
-            </Button>
-          </form>
-        </Paper>
-      </Container>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          disabled={!email.length || !password.length}
+          className={styles.button}
+        >
+          Войти
+        </Button>
+      </form>
     </div>
   );
 };
-
-const SignIn = withStyles(styles, { withTheme: true })(SignInUnstyled);
 
 export { SignIn };

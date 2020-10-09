@@ -9,7 +9,7 @@ import createMuiTheme, {
 import { computed, observable } from 'mobx';
 import { DEFAULT_THEME } from '~/utils/theme';
 import { FC } from 'react';
-import { VerticalLayout } from '~/application/layouts/VerticalLayout';
+import { VerticalLayout } from '~/application/layouts/application/VerticalLayout';
 
 export class Config {
   constructor(options?: Partial<IConfigProps>) {
