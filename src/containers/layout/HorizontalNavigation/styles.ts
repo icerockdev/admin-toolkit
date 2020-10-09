@@ -77,4 +77,10 @@ export default (theme: Theme) =>
         },
       },
     },
+    account: {
+      color: 'black',
+      margin: '0 0 0 20px',
+      height: '100%',
+      display: 'flex' as 'flex',
+    },
   });

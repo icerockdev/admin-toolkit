@@ -37,15 +37,6 @@ const HorizontalNavigationUnstyled: FC<IProps> = ({ classes }) => {
     [config, config.pages, config.auth?.user?.role]
   );
 
-  const role = useMemo(
-    () =>
-      (config.auth?.roleTitles &&
-        config.auth?.user?.role &&
-        config.auth?.roleTitles[config.auth?.user?.role]) ||
-      config.auth?.user?.role,
-    [config.auth?.roleTitles, config.auth?.user?.role]
-  );
-
   const onTabChange = useCallback((_, tab) => history.push(links[tab].url), [
     history,
   ]);
@@ -58,15 +49,6 @@ const HorizontalNavigationUnstyled: FC<IProps> = ({ classes }) => {
 
     return active >= 0 ? active : 0;
   }, [location]);
-
-  const account = useMemo(
-    () => ({
-      email: config.auth?.user?.email || '',
-      username: config.auth?.user?.username || '',
-      role,
-    }),
-    [config.auth, role]
-  );
 
   useEffect(() => {
     if (!appbar.current || !wrapper.current) return;
@@ -108,14 +90,7 @@ const HorizontalNavigationUnstyled: FC<IProps> = ({ classes }) => {
             ))}
           </Tabs>
 
-          {!!config.auth && account && (
-            <Account
-              email={account.email}
-              username={account.username}
-              role={account.role}
-              onLogout={config.auth?.logout}
-            />
-          )}
+          <div className={classes.account}>{!!config.auth && <Account />}</div>
         </Toolbar>
       </AppBar>
     </div>

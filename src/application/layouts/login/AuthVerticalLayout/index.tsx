@@ -8,6 +8,7 @@ interface IProps {}
 
 const AuthVerticalLayout: FC<IProps> = observer(({ children }) => {
   const config = useConfig();
+  const splash = config.auth?.splash || '';
 
   return (
     <div className={styles.layout}>
@@ -23,7 +24,10 @@ const AuthVerticalLayout: FC<IProps> = observer(({ children }) => {
         </div>
       </div>
 
-      <div className="image" />
+      <div
+        className={styles.image}
+        style={{ backgroundImage: `url('${splash}')` }}
+      />
     </div>
   );
 });

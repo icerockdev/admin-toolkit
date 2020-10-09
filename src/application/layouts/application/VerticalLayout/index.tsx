@@ -5,6 +5,7 @@ import styles from './styles.module.scss';
 import { useConfig } from '~/utils/hooks';
 import { Link } from 'react-router-dom';
 import { VerticalNavigation } from '~/containers/layout/VerticalNavigation';
+import { Account } from '~/containers/login/Account';
 
 interface IProps {}
 
@@ -31,9 +32,9 @@ const VerticalLayout: FC<IProps> = observer(({ children }) => {
 
         {!!config.auth && (
           <div
-            className={classNames(styles.profile, 'vertical-layout__profile')}
+            className={classNames(styles.account, 'vertical-layout__account')}
           >
-            PROFILE
+            {!!config.auth && <Account />}
           </div>
         )}
       </div>

@@ -2,6 +2,7 @@
 
 // throw this to signalize we're not logged in
 import { FC } from 'react';
+import { AuthProvider } from '~/application';
 
 export const UNAUTHORIZED = 'UNAUTHORIZED';
 
@@ -35,6 +36,8 @@ export type IAuthNewPasswordValidator = (
 ) => string | undefined;
 
 export interface AuthProviderOptions {
+  getUserName: (auth: AuthProvider) => string;
+  getUserRoleTitle: (auth: AuthProvider) => string;
   roleTitles?: Record<any, string>;
   persist?: boolean;
   layout?: FC;

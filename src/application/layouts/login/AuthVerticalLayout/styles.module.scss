@@ -20,6 +20,9 @@
   background: #f3f3f3 50% 50% no-repeat;
   background-size: cover;
   position: relative;
+  display: flex;
+  height: 100%;
+  width: 100%;
 
   &::after {
     content: ' ';

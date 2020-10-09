@@ -3,6 +3,7 @@
 import { JWTAuthProvider } from '~/application';
 import { Unwrap } from '~/application/types/common';
 import { IJWTAuthRequestFn } from '~/application/modules/auth/JWTAuthProvider/types';
+import splash from '~/assets/logo512.png';
 
 export default new JWTAuthProvider({
   authRequestFn: (
@@ -55,4 +56,6 @@ export default new JWTAuthProvider({
 
   passwordValidator: (password: string) =>
     password.length > 5 ? '' : 'Password must be at least 6 symbols long',
+
+  splash,
 });

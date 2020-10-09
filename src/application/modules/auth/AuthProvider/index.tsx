@@ -13,6 +13,7 @@ import { Config } from '../../config/Config';
 import { AuthRouter } from '~/containers/login/AuthRouter';
 import { FC } from 'react';
 import { AuthVerticalLayout } from '~/application/layouts/login/AuthVerticalLayout';
+import { has } from 'ramda';
 
 export class AuthProvider {
   constructor(options?: Partial<AuthProviderOptions>) {
@@ -44,9 +45,31 @@ export class AuthProvider {
   @observable passwordValidator?: AuthProviderOptions['passwordValidator'];
   @observable router: FC = AuthRouter;
 
+  @observable getUserName: AuthProviderOptions['getUserName'] = () =>
+    this.user.username || '';
+
+  @observable
+  getUserRoleTitle: AuthProviderOptions['getUserRoleTitle'] = () => {
+    const role = this.user.role;
+    if (!role) return '';
+    if (role && this.roleTitles && has(role, this.roleTitles))
+      return this.roleTitles[role];
+    return role || '';
+  };
+
   // Built-in
   @observable isLoading: boolean = false;
   @observable error: string = '';
+
+  @computed
+  get userName() {
+    return this.getUserName(this);
+  }
+
+  @computed
+  get userRole() {
+    return this.getUserRoleTitle(this);
+  }
 
   sendAuthRequestInstance?: CancellablePromise<any>;
 
