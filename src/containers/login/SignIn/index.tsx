@@ -47,9 +47,9 @@ const SignIn: FC = () => {
 
   return (
     <div className={styles.wrap}>
-      <h3 className={styles.header}>Авторизация</h3>
-
       <form noValidate onSubmit={onSubmitCapture} className={styles.form}>
+        <h3 className={styles.header}>Авторизация</h3>
+
         <TextField
           variant="filled"
           margin="normal"

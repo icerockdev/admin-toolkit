@@ -12,7 +12,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 40px 32px;
+  padding: 40px 64px;
 }
 
 .image {
@@ -23,7 +23,6 @@
 
   &::after {
     content: ' ';
-    background: red;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -37,6 +36,9 @@
   user-select: none;
   display: flex;
   padding-top: 18px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
 
   img {
     max-height: 120px;
@@ -49,6 +51,7 @@
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  margin-bottom: 40px;
 }
 
 .content {

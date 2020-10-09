@@ -17,30 +17,17 @@ const AuthRouter: FC = observer(() => {
     <ThemeProvider theme={config.themeInstance}>
       <CssBaseline />
 
-      <auth.layout>
-        <Router history={config.history}>
+      <Router history={config.history}>
+        <auth.layout>
           <Switch>
-            <Route
-              path="/restore"
-              render={() => (
-                <ForgotPassword onSubmit={auth.sendAuthPasswRestore} />
-              )}
-            />
+            <Route path="/restore" component={ForgotPassword} />
 
-            <Route
-              path="/reset-password/:token"
-              render={(params) => (
-                <ResetPassword
-                  onSubmit={auth.sendAuthPasswUpdate}
-                  token={params.match.params.token}
-                />
-              )}
-            />
+            <Route path="/reset-password/:token" component={ResetPassword} />
 
             <SignIn />
           </Switch>
-        </Router>
-      </auth.layout>
+        </auth.layout>
+      </Router>
 
       <config.notifications.Output />
     </ThemeProvider>
