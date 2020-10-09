@@ -26,9 +26,7 @@ const DateInput: FC<IProps> = observer(({ value, label, error, onChange }) => {
 
   const handler = useCallback(
     (val: any) => {
-      if (!value || !handler || !isValid(value)) return;
-
-      if (!val) return;
+      if (!val || !handler || !isDate(val)) return;
 
       onChange(formatRFC3339(val));
     },

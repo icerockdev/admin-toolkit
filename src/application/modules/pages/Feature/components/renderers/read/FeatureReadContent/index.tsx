@@ -43,7 +43,7 @@ const FeatureReadContent: FC<IProps> = observer(({ onlyFields }) => {
     feature.mode === FeatureMode.create || feature.mode === FeatureMode.update;
 
   return (
-    <div className={classNames(styles.list, 'feature-read__content')}>
+    <div className={classNames(styles.content, 'feature-read__content')}>
       {fields.map((field) => (
         <FeatureReadField
           label={field.label}

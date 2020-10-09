@@ -11,7 +11,7 @@
   display: grid;
   grid-template-columns: 1fr auto;
   grid-column-gap: $gap;
-  padding: $gap;
+  padding: 24px;
 }
 
 .title {

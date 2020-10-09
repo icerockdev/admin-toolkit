@@ -36,7 +36,7 @@ export class ReferenceField<
         label={this.label}
         onChange={this.onChange}
         variants={this.filterVariants}
-        value={this.readValue}
+        value={this.editValue}
         autocomplete={this.autocomplete}
         isLoadingReference={this.isLoading}
         error={this.editError}

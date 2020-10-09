@@ -61,7 +61,7 @@ export class DateField<
   get Update() {
     return (
       <DateInput
-        value={this.readValue}
+        value={this.editValue}
         label={this.label}
         onChange={this.onChange}
         error={this.editError}
