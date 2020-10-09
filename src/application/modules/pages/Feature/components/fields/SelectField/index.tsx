@@ -60,6 +60,7 @@ export class SelectField<
         variants={this.filterVariants}
         value={this.editValue}
         error={this.editError}
+        isLoading={this.feature?.data.isLoading}
         autocomplete={
           Object.keys(this.variants).length > 10 || this.autocomplete
         }

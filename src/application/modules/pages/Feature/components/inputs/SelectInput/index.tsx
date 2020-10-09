@@ -43,6 +43,7 @@ const SelectInput: FC<IProps> = observer(
     variants,
     autocomplete,
     isLoadingReference,
+    isLoading = false,
   }) => {
     const ref = useRef<HTMLLabelElement>(null);
     const feature = useFeature();
@@ -80,7 +81,7 @@ const SelectInput: FC<IProps> = observer(
 
     return (
       <Placeholder
-        isLoading={feature.data.isLoading || !!isLoadingReference}
+        isLoading={isLoading || !!isLoadingReference}
         width="100%"
         height="46px"
       >

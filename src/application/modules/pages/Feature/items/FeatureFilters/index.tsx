@@ -43,6 +43,9 @@ export class FeatureFilters<
     return <FiltersRenderer />;
   }
 
+  /**
+   * Makes url for current set of filters for current feature
+   */
   @computed
   get queryString() {
     const query = qs.stringify({
@@ -56,6 +59,9 @@ export class FeatureFilters<
     return `${this.feature.url}?${query}`;
   }
 
+  /**
+   * Gets filters from url
+   */
   restoreFilters = () => {
     const { search } = window.location;
 
@@ -113,6 +119,9 @@ export class FeatureFilters<
     }
   };
 
+  /**
+   * Changes current url to has parseable filters
+   */
   persistFilters = () => {
     const url = `${window.location.origin}${this.queryString}`;
     window.history.replaceState('', '', url);

@@ -100,6 +100,7 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
         onChange={this.onChange}
         label={this.label}
         error={this.editError}
+        isLoading={this.feature?.data.isLoading}
       />
     );
   }
@@ -123,9 +124,10 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
   public onFilterChange = (value: any) => {
     if (!this.feature?.filters.value) return;
 
-    this.feature.filters.value = Object.assign(this.feature.filters.value, {
+    this.feature.filters.value = {
+      ...this.feature.filters.value,
       [this.name]: value,
-    });
+    };
   };
 
   @action

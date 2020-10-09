@@ -65,6 +65,7 @@ export class DateField<
         label={this.label}
         onChange={this.onChange}
         error={this.editError}
+        isLoading={this.feature?.data.isLoading}
       />
     );
   }

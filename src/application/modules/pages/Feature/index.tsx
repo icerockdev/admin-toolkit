@@ -15,6 +15,7 @@ import { FeatureField } from '~/application/modules/pages/Feature/components/fie
 import { FeatureData } from '~/application/modules/pages/Feature/items/FeatureData';
 import { FeatureController } from '~/application/modules/pages/Feature/items/FeatureController';
 import { FeatureFilters } from '~/application/modules/pages/Feature/items/FeatureFilters';
+import { debounce } from 'throttle-debounce';
 
 export class Feature<
   Fields extends Record<string, any> = Record<string, any>
@@ -72,13 +73,11 @@ export class Feature<
         this.filters.sortDir,
         this.filters.page,
         this.filters.rows,
-        this.filters.value,
       ],
-      () => {
-        this.filters.persistFilters();
-        this.controller.beforeListMode();
-      }
+      debounce(200, this.onFilterChange)
     );
+
+    reaction(() => [this.filters.value], debounce(400, this.onFilterChange));
   }
 
   @observable options: Partial<FeatureOptions<Fields>> = {};
@@ -207,5 +206,13 @@ export class Feature<
     }
 
     this.data.clearEditorData();
+  };
+
+  /**
+   * Called when page, count, sort or filter changed.
+   */
+  private onFilterChange = () => {
+    this.filters.persistFilters();
+    this.controller.beforeListMode();
   };
 }
