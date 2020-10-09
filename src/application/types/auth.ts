@@ -18,6 +18,8 @@ export const EMPTY_USER: AuthProviderUser = {
   token: '',
 };
 
+export type UserRole = any;
+
 export type IAuthRequestFn = (
   email: string,
   password: string
@@ -38,7 +40,7 @@ export type IAuthNewPasswordValidator = (
 export interface AuthProviderOptions {
   getUserName: (auth: AuthProvider) => string;
   getUserRoleTitle: (auth: AuthProvider) => string;
-  getUserRole: (auth: AuthProvider) => string;
+  getUserRole: (auth: AuthProvider) => UserRole;
   roleTitles?: Record<any, string>;
   persist?: boolean;
   layout?: FC;

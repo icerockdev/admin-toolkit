@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { IPageProps } from '~/application/types/page';
-import { observable, computed, action, toJS } from 'mobx';
+import { action, computed, observable } from 'mobx';
 import { observer } from 'mobx-react';
 
 export class Page {
@@ -27,9 +27,9 @@ export class Page {
   get canList() {
     return !!(
       !this.roles ||
+      !this.parent?.auth ||
       (this.parent?.auth?.user?.role &&
-        (this.roles?.all?.includes(this.parent.auth?.user?.role.toString()) ||
-          this.roles?.list?.includes(this.parent.auth?.user?.role.toString())))
+        this.roles?.includes(this.parent.auth?.user?.role))
     );
   }
 

@@ -22,7 +22,7 @@ type IProps = WithStyles<typeof styles> & {
 
 const Application = withStyles(styles)(
   observer(({ config }: IProps) => {
-    if (!config.auth?.isLogged && config.auth?.sendAuthRequest) {
+    if (config.auth && !config.auth?.isLogged && config.auth?.sendAuthRequest) {
       return (
         <Provider config={config}>
           <config.auth.output />
@@ -39,7 +39,7 @@ const Application = withStyles(styles)(
             <Router history={config.history}>
               <config.layout>
                 <Switch>
-                  {config.pages
+                  {config.pagesForCurrentUser
                     .filter((page) => page?.menu?.url)
                     .map((page) => (
                       <Route

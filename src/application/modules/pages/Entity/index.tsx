@@ -1,6 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { ReactElement, Fragment } from 'react';
+import React, { Fragment, ReactElement } from 'react';
 import {
   ENTITY_ERRORS,
   ENTITY_REFERENCE_FIELDS,
@@ -48,7 +48,7 @@ export class Entity extends Page {
   @observable itemsPerPage: number[] = [5, 10, 15, 25, 50];
   @observable items: IEntityProps['items'] =
     this.itemsPerPage[this.itemsPerPage.length] || 50;
-
+  @observable rights: IEntityProps['rights'] = {};
   // Built-in
   @observable isLoading: boolean = true;
   @observable totalCount: number = 0;
@@ -397,11 +397,9 @@ export class Entity extends Page {
       this.editable &&
       !!(
         !this.roles ||
+        !this.rights.update ||
         (this.parent?.auth?.user?.role &&
-          (this.roles?.all?.includes(this.parent.auth?.user?.role.toString()) ||
-            this.roles?.update?.includes(
-              this.parent.auth?.user?.role.toString()
-            )))
+          this.rights?.update?.includes(this.parent.auth?.user?.role))
       )
     );
   }
@@ -410,11 +408,9 @@ export class Entity extends Page {
   get canCreate() {
     return !!(
       !this.roles ||
+      !this.rights.create ||
       (this.parent?.auth?.user?.role &&
-        (this.roles?.all?.includes(this.parent.auth?.user?.role.toString()) ||
-          this.roles?.create?.includes(
-            this.parent.auth?.user?.role.toString()
-          )))
+        this.rights?.create?.includes(this.parent.auth?.user?.role))
     );
   }
 

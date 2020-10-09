@@ -53,13 +53,16 @@ export class Config {
   @observable layout: FC = VerticalLayout;
 
   @computed
+  get pagesForCurrentUser() {
+    return this.pages.filter((page) => page?.menu?.url && page.canList);
+  }
+
+  @computed
   get linksForCurrentUser() {
-    return this.pages
-      .filter((page) => page?.menu?.url && page.canList)
-      .map((page) => ({
-        name: page.menu.label,
-        url: page.menu.url,
-      }));
+    return this.pagesForCurrentUser.map((page) => ({
+      name: page.menu.label,
+      url: page.menu.url,
+    }));
   }
 
   @computed

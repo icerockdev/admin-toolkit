@@ -14,6 +14,7 @@ import { EntityFieldDateTime } from '~/application/modules/pages/Entity/componen
 import { EntityFieldReferenceSelect } from '~/application/modules/pages/Entity/components/EntityFieldReferenceSelect';
 import { Entity } from '../modules';
 import { EntityFieldDateRange } from '~/application/modules/pages/Entity/components/EntityFieldDateRange';
+import { UserRole } from '~/application';
 
 export const ENTITY_FIELD_RENDERS = {
   string: EntityFieldString,
@@ -107,6 +108,7 @@ export interface IEntityProps extends IPageProps {
   items: number;
   filters: IFilterValue[];
   references: Record<string, IEntityReferenceProps>;
+  rights: Partial<Record<'update' | 'create' | 'list', UserRole[]>>;
 
   api?: Record<
     typeof ENTITY_ACTIONS[keyof typeof ENTITY_ACTIONS],
