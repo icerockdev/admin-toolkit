@@ -13,7 +13,7 @@ const StringInput: FC<FeatureInputProps<string>> = observer(
     ]);
 
     return (
-      <Placeholder isLoading={isLoading} width="100%" height="46px">
+      <Placeholder isLoading={isLoading} width="100%" height="48px">
         <TextField
           value={value || ''}
           onChange={handler}
