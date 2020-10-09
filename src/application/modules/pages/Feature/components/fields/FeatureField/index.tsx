@@ -151,7 +151,6 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
 
   @computed
   get editValue() {
-    console.log(this.name, this.feature?.data.editor[this.name]);
     return this.feature?.data.editor[this.name];
   }
 

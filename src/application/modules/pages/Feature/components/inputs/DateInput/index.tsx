@@ -39,12 +39,14 @@ const DateInput: FC<IProps> = observer(({ value, label, error, onChange }) => {
         mask="__.__.____"
         renderInput={(props) => (
           <TextField
-            variant="outlined"
+            size="small"
+            variant="filled"
             {...props}
             label={label}
             error={!!error}
             helperText={error}
             placeholder=""
+            fullWidth
             className={classNames(
               styles.input,
               'feature-read__input feature-read__input_date'

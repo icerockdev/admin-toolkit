@@ -23,14 +23,16 @@ const StringInput: FC<FeatureInputProps<string>> = observer(
         <TextField
           value={value || ''}
           onChange={handler}
-          variant="outlined"
+          variant="filled"
           label={label}
           error={!!error}
           helperText={error}
+          size="small"
           className={classNames(
             styles.input,
             'feature-read__input feature-read__input_string'
           )}
+          fullWidth
         />
       </Placeholder>
     );

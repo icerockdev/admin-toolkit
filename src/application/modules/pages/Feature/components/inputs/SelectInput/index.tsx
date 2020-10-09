@@ -97,45 +97,38 @@ const SelectInput: FC<IProps> = observer(
               renderInput={(params: TextFieldProps) => (
                 <TextField
                   {...params}
-                  variant="outlined"
+                  variant="filled"
                   placeholder="Поиск"
                   label={label}
                   disabled={disabled}
                   error={!!error}
                   helperText={error}
+                  size="small"
+                  fullWidth
                 />
               )}
             />
           ) : (
-            <FormControl variant="outlined" error={!!error}>
-              <InputLabel
-                htmlFor={label}
-                style={{ whiteSpace: 'nowrap' }}
-                ref={ref}
-              >
-                {label}
-              </InputLabel>
-
-              <Select
-                variant="outlined"
-                id={label}
-                name={label}
-                value={value || ''}
-                labelWidth={labelWidth}
-                onChange={onChangeHandler}
-                style={{ minWidth: labelWidth + 40 }}
-                disabled={disabled}
-              >
-                {options &&
-                  Object.keys(variants).map((item) => (
-                    <MenuItem key={item} value={item}>
-                      {variants[item]}
-                    </MenuItem>
-                  ))}
-              </Select>
-
-              {!!error && <FormHelperText>{error}</FormHelperText>}
-            </FormControl>
+            <TextField
+              variant="filled"
+              select
+              label={label}
+              value={value || ''}
+              onChange={onChangeHandler}
+              style={{ minWidth: labelWidth + 40 }}
+              disabled={disabled}
+              helperText={error}
+              error={!!error}
+              size="small"
+              fullWidth
+            >
+              {options &&
+                Object.keys(variants).map((item) => (
+                  <MenuItem key={item} value={item}>
+                    {variants[item]}
+                  </MenuItem>
+                ))}
+            </TextField>
           )}
         </div>
       </Placeholder>

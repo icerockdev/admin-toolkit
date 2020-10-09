@@ -22,7 +22,7 @@ const FeatureReadField: FC<IProps> = ({
       </div>
     )}
 
-    <Placeholder width="30px" isLoading={disabled}>
+    <Placeholder width="56px" isLoading={disabled}>
       <div className={classNames(styles.value, 'feature-read__field-value')}>
         {children}
       </div>

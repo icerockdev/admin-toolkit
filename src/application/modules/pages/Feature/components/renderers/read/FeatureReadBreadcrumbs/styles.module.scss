@@ -6,4 +6,8 @@
   align-items: center;
   background: white;
   border-radius: $radius;
+
+  :global(.MuiTypography-body1) {
+    font-size: 10px;
+  }
 }
