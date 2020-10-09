@@ -6,6 +6,7 @@ import styles from './styles.module.scss';
 import { Button } from '@material-ui/core';
 import { FeatureMode } from '~/application/modules/pages/Feature/types';
 import { Delete, Edit } from '@material-ui/icons';
+import { toJS } from 'mobx';
 
 interface IProps {}
 
@@ -13,14 +14,12 @@ const FeatureReadButtons: FC<IProps> = observer(() => {
   const feature = useFeature();
 
   const canBeEdited =
-    feature.features.update &&
     feature.mode === FeatureMode.read &&
-    feature.api.availableFeatures.update;
+    feature.api.availableApiFeatures.update;
 
   const canBeDeleted =
-    feature.features.delete &&
     feature.mode !== FeatureMode.create &&
-    feature.api.availableFeatures.delete;
+    feature.api.availableApiFeatures.delete;
 
   const onDelete = useCallback(() => {
     if (!window.confirm('Действительно хотите удалить?')) return;
@@ -30,6 +29,8 @@ const FeatureReadButtons: FC<IProps> = observer(() => {
   const onEdit = useCallback(() => {
     feature.goToUpdate(feature.controller.getIdFromUrl());
   }, [feature]);
+
+  console.log(toJS(feature.api.availableApiFeatures));
 
   return (
     <div className={classNames(styles.buttons, 'feature-read__buttons')}>

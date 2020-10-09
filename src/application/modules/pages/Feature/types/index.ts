@@ -1,6 +1,6 @@
 import { FeatureRenderer } from '~/application/modules/pages/Feature/items/FeatureRenderer';
 import { FeatureField } from '~/application/modules/pages/Feature/components/fields/FeatureField';
-import { IPageProps } from '~/application';
+import { IPageProps, UserRole } from '~/application';
 import { Feature } from '~/application/modules/pages/Feature';
 import { FeatureRendererProps } from '~/application/modules/pages/Feature/types/renderer';
 import { FeatureApiProps } from '~/application/modules/pages/Feature/types/api';
@@ -38,6 +38,7 @@ export interface FeatureOptions<
   renderer: FeatureRenderer<Feature<Fields>>;
   api?: FeatureApiProps<Fields>;
 
+  rights?: Partial<Record<FeatureFeature, UserRole[]>>;
   rows?: number;
 }
 

@@ -85,11 +85,15 @@ export class FeatureApi<
   };
 
   @computed
-  get availableFeatures(): Record<FeatureFeature, boolean> {
+  get availableApiFeatures(): Record<FeatureFeature, boolean> {
     return Object.values(FeatureFeature).reduce(
       (acc, mode) => ({
         ...acc,
-        [mode]: !!(this.host && has(mode, this.methods)),
+        [mode]: !!(
+          this.host &&
+          has(mode, this.methods) &&
+          this.feature.availableFeatures[mode]
+        ),
       }),
       {} as Record<FeatureFeature, boolean>
     );
@@ -99,7 +103,7 @@ export class FeatureApi<
   list = async (
     feature: Feature<Fields>
   ): Promise<FeatureGetListResult<Fields>> => {
-    if (!this.availableFeatures.list) {
+    if (!this.availableApiFeatures.list) {
       throw new Error('Specify feature api host, methods and urls first.');
     }
 
@@ -133,7 +137,7 @@ export class FeatureApi<
 
   @action
   read = async (id: any): Promise<FeatureGetReadResult<Fields>> => {
-    if (!this.availableFeatures.read) {
+    if (!this.availableApiFeatures.read) {
       throw new Error('Specify feature api host, methods and urls first.');
     }
 
@@ -160,7 +164,7 @@ export class FeatureApi<
   create = async (
     data: FeatureData['editor']
   ): Promise<FeaturePostCreateResult<Fields>> => {
-    if (!this.availableFeatures.create) {
+    if (!this.availableApiFeatures.create) {
       throw new Error('Specify feature api host, methods and urls first.');
     }
 
@@ -188,7 +192,7 @@ export class FeatureApi<
     id: any,
     data: FeatureData['editor']
   ): Promise<FeaturePostUpdateResult<Fields>> => {
-    if (!this.availableFeatures.update) {
+    if (!this.availableApiFeatures.update) {
       throw new Error('Specify feature api host, methods and urls first.');
     }
     const feature = this.feature;
@@ -212,7 +216,7 @@ export class FeatureApi<
 
   @action
   delete = async (id: any) => {
-    if (!this.availableFeatures.delete) {
+    if (!this.availableApiFeatures.delete) {
       throw new Error('Specify feature api host, methods and urls first.');
     }
 

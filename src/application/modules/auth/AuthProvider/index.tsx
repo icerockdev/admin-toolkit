@@ -76,6 +76,11 @@ export class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
     return this.getUserRoleTitle(this);
   }
 
+  @computed
+  get userRole(): string {
+    return this.getUserRole(this);
+  }
+
   sendAuthRequestInstance?: CancellablePromise<any>;
 
   @action

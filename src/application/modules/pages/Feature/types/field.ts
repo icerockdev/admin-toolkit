@@ -1,4 +1,5 @@
 import { FeatureField } from '~/application/modules/pages/Feature/components/fields/FeatureField';
+import { UserRole } from '~/application';
 
 export enum FeatureFieldFeature {
   create = 'create',
@@ -11,8 +12,9 @@ export enum FeatureFieldFeature {
 
 export type FeatureFieldProps<T> = {
   label?: string;
-  title?: boolean;
   required?: boolean;
+  roles?: UserRole[]; // Who can access field
+  rights?: Record<FeatureFieldFeature, UserRole[]>; // More specific
 
   validator?: (
     val: T[keyof T],

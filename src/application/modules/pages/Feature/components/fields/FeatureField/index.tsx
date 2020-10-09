@@ -32,7 +32,10 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
 
   @observable protected feature?: Feature<T>;
 
-  @observable public listColumnSize = '10%';
+  @observable roles?: FeatureFieldProps<T>['roles'];
+  @observable rights?: FeatureFieldProps<T>['rights'];
+
+  @observable public listColumnSize = '200px';
   @observable public allowEmptyFilter = false;
   @observable public features: Record<FeatureFieldFeature, boolean> = {
     list: true,

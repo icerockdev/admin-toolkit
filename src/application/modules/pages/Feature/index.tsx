@@ -6,6 +6,7 @@ import { action, computed, extendObservable, observable, reaction } from 'mobx';
 import { FeatureApi } from './items/FeatureApi';
 import { FeatureRenderer } from './items/FeatureRenderer';
 import {
+  FeatureFeature,
   FeatureMode,
   FeatureOptions,
 } from '~/application/modules/pages/Feature/types';
@@ -16,6 +17,7 @@ import { FeatureData } from '~/application/modules/pages/Feature/items/FeatureDa
 import { FeatureController } from '~/application/modules/pages/Feature/items/FeatureController';
 import { FeatureFilters } from '~/application/modules/pages/Feature/items/FeatureFilters';
 import { debounce } from 'throttle-debounce';
+import { has } from 'ramda';
 
 export class Feature<
   Fields extends Record<string, any> = Record<string, any>
@@ -42,6 +44,7 @@ export class Feature<
     if (options.features) this.features = options.features;
     if (options.rows) this.filters.rows = options.rows;
     if (options.getItemTitle) this.getItemTitle = options.getItemTitle;
+    if (options.rights) this.rights = options.rights;
 
     // Initialize renderer
     this.renderer =
@@ -80,6 +83,7 @@ export class Feature<
     reaction(() => [this.filters.value], debounce(400, this.onFilterChange));
   }
 
+  @observable rights?: FeatureOptions['rights'];
   @observable options: Partial<FeatureOptions<Fields>> = {};
   @observable features: FeatureOptions['features'] = FEATURE_DEFAULT_FEATURES;
   @observable renderer: FeatureRenderer = new FeatureRenderer();
@@ -215,4 +219,26 @@ export class Feature<
     this.filters.persistFilters();
     this.controller.beforeListMode();
   };
+
+  /**
+   * Features, available for current user
+   */
+  @computed
+  get availableFeatures() {
+    return Object.values(FeatureFeature).reduce((acc, feature) => {
+      const auth = this.parent?.auth;
+      const role = auth?.userRole;
+
+      const byRole = !this.roles || (role && this.roles.includes(role));
+
+      const byRight =
+        !this.rights ||
+        !has(feature, this.rights) ||
+        (role && this.rights[feature]!!.includes(role));
+
+      console.log(feature, { byRole, byRight });
+
+      return { ...acc, [feature]: byRole && byRight };
+    }, {} as Record<FeatureFeature, boolean>);
+  }
 }
