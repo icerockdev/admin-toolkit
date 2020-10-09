@@ -156,6 +156,10 @@ export class AuthProvider {
       this.isLoading = true;
 
       try {
+        if (!token.trim()) {
+          throw new Error(`Token is empty`);
+        }
+
         if (password !== passwordRepeat) {
           throw new Error(`Passwords doesn't match`);
         }

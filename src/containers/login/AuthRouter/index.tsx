@@ -21,9 +21,7 @@ const AuthRouter: FC = observer(() => {
         <auth.layout>
           <Switch>
             <Route path="/restore" component={ForgotPassword} />
-
-            <Route path="/reset-password/:token" component={ResetPassword} />
-
+            <Route path="/reset/:token" component={ResetPassword} />
             <SignIn />
           </Switch>
         </auth.layout>
