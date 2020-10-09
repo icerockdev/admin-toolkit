@@ -15,7 +15,7 @@ import { FC } from 'react';
 import { AuthVerticalLayout } from '~/application/layouts/login/AuthVerticalLayout';
 import { has } from 'ramda';
 
-export class AuthProvider {
+export class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
   constructor(options?: Partial<AuthProviderOptions>) {
     if (options) {
       Object.assign(this, options);
@@ -46,7 +46,7 @@ export class AuthProvider {
   @observable router: FC = AuthRouter;
 
   @observable getUserName: AuthProviderOptions['getUserName'] = () =>
-    this.user.username || '';
+    this.user?.username || '';
 
   @observable
   getUserRoleTitle: AuthProviderOptions['getUserRoleTitle'] = () => {
@@ -57,30 +57,29 @@ export class AuthProvider {
     return role || '';
   };
 
+  @observable
+  getUserRole: AuthProviderOptions['getUserRole'] = () => {
+    return this.user.role || '';
+  };
+
   // Built-in
   @observable isLoading: boolean = false;
   @observable error: string = '';
 
   @computed
-  get userName() {
+  get userName(): string {
     return this.getUserName(this);
   }
 
   @computed
-  get userRole() {
+  get userRoleTitle(): string {
     return this.getUserRoleTitle(this);
   }
 
   sendAuthRequestInstance?: CancellablePromise<any>;
 
   @action
-  sendAuthRequest = ({
-    email,
-    password,
-  }: {
-    email: string;
-    password: string;
-  }) => {
+  sendAuthRequest = (email: string, password: string) => {
     this.sendAuthRequestCancel();
 
     this.sendAuthRequestInstance = flow(function* sendAuthRequest(
@@ -118,7 +117,7 @@ export class AuthProvider {
   sendAuthPasswRestoreInstance?: CancellablePromise<any>;
 
   @action
-  sendAuthPasswRestore = ({ email }: { email: string }) => {
+  sendAuthPasswRestore = (email: string) => {
     this.sendAuthPasswRestoreCancel();
 
     this.sendAuthPasswRestoreInstance = flow(function* sendAuthPasswRestore(
@@ -160,15 +159,7 @@ export class AuthProvider {
   sendAuthPasswUpdateInstance?: CancellablePromise<any>;
 
   @action
-  sendAuthPasswUpdate = ({
-    token,
-    password,
-    passwordRepeat,
-  }: {
-    token: string;
-    password: string;
-    passwordRepeat: string;
-  }) => {
+  sendAuthPasswUpdate = (token: string, password: string) => {
     this.sendAuthPasswRestoreCancel();
 
     this.sendAuthPasswUpdateInstance = flow(function* sendAuthPasswUpdate(
@@ -183,19 +174,13 @@ export class AuthProvider {
           throw new Error(`Token is empty`);
         }
 
-        if (password !== passwordRepeat) {
-          throw new Error(`Passwords doesn't match`);
-        }
-
         if (this.passwordValidator && this.passwordValidator(password)) {
           throw new Error(this.passwordValidator(password));
         }
 
-        const response = yield this.authPasswUpdateFn(
-          token,
-          password,
-          passwordRepeat
-        ).catch(() => null);
+        const response = yield this.authPasswUpdateFn(token, password).catch(
+          () => null
+        );
 
         if (!response || response.error) {
           throw new Error(response.error);
@@ -223,13 +208,13 @@ export class AuthProvider {
     }
   };
 
-  getPersistedCredentials = (): { user?: AuthProviderUser } => {
+  getPersistedCredentials = (): AuthProviderUser => {
     try {
       const user = JSON.parse(localStorage.getItem('user') || '{}');
 
       if (typeof user != 'object') return {};
 
-      return { user };
+      return user;
     } catch (e) {
       return {};
     }

@@ -23,7 +23,7 @@ const ForgotPassword: FC = () => {
 
       if (!config?.auth?.sendAuthPasswRestore) return;
 
-      config.auth.sendAuthPasswRestore({ email });
+      config.auth.sendAuthPasswRestore(email);
     },
     [email, config.auth]
   );

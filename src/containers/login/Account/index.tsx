@@ -17,7 +17,7 @@ const Account: FC = () => {
     <div className={styles.account} ref={ref}>
       <div className={styles.left}>
         <div className={styles.name}>{config.auth?.userName}</div>
-        <div className={styles.role}>{config.auth?.userRole}</div>
+        <div className={styles.role}>{config.auth?.userRoleTitle}</div>
       </div>
       <div className={styles.logout} onClick={onLogout}>
         <ExitToAppIcon />

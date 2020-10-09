@@ -43,13 +43,7 @@ export class JWTAuthProvider extends AuthProvider {
   }
 
   @action
-  sendAuthRequest = ({
-    email,
-    password,
-  }: {
-    email: string;
-    password: string;
-  }) => {
+  sendAuthRequest = (email: string, password: string) => {
     this.sendAuthRequestCancel();
 
     this.sendAuthRequestInstance = flow(function* sendAuthRequest(

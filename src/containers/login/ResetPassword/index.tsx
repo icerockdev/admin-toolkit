@@ -35,7 +35,12 @@ const ResetPassword: FC = () => {
 
       if (!config?.auth?.sendAuthPasswUpdate) return;
 
-      config.auth.sendAuthPasswUpdate({ token, password, passwordRepeat });
+      if (password !== passwordRepeat) {
+        config.notifications.showError("Passwords doesn't match");
+        return;
+      }
+
+      config.auth.sendAuthPasswUpdate(token, password);
     },
     [config.auth, matches, passwordRepeat, password]
   );

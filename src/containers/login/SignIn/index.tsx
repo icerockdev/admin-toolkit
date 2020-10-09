@@ -31,7 +31,7 @@ const SignIn: FC = () => {
   const onSubmitCapture = useCallback(
     (event: FormEvent) => {
       event.preventDefault();
-      auth!!.sendAuthRequest({ email, password });
+      auth!!.sendAuthRequest(email, password);
     },
     [email, password, auth]
   );

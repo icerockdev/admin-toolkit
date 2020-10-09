@@ -38,6 +38,7 @@ export type IAuthNewPasswordValidator = (
 export interface AuthProviderOptions {
   getUserName: (auth: AuthProvider) => string;
   getUserRoleTitle: (auth: AuthProvider) => string;
+  getUserRole: (auth: AuthProvider) => string;
   roleTitles?: Record<any, string>;
   persist?: boolean;
   layout?: FC;
@@ -48,7 +49,7 @@ export interface AuthProviderOptions {
   passwordValidator?: IAuthNewPasswordValidator;
 }
 
-export interface AuthProviderUser {
+export interface AuthProviderUser extends Record<string, any> {
   id?: number;
   email?: string;
   username?: string;
