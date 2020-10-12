@@ -8,6 +8,7 @@ import { controllerGetReferences } from '~/application/modules/pages/Feature/ite
 import { controllerPostCreate } from '~/application/modules/pages/Feature/items/FeatureController/create';
 import { controllerPostUpdate } from '~/application/modules/pages/Feature/items/FeatureController/update';
 import { controllerDelete } from '~/application/modules/pages/Feature/items/FeatureController/delete';
+import { controllerSeedData } from '~/application/modules/pages/Feature/items/FeatureController/seed';
 
 export class FeatureController<
   T extends Record<string, any> = Record<string, any>
@@ -49,8 +50,10 @@ export class FeatureController<
   beforeUpdateMode = () => {
     this.cancelAll();
     this.feature.data.clearErrors();
+
     this.instances.update = flow(controllerGetRead)(this);
     this.instances.update.then(() => this.feature.data.copyReadToEditor());
+
     this.instances.update = flow(controllerGetReferences)(this);
   };
 
@@ -58,7 +61,7 @@ export class FeatureController<
    * Clears current data and loading references on create form
    */
   @action
-  beforeCreateMode = () => {
+  beforeCreateMode = async () => {
     this.cancelAll();
 
     this.feature.data.clearReadData();
@@ -67,7 +70,11 @@ export class FeatureController<
 
     this.feature.data.isLoading = false;
 
+    controllerSeedData(this);
+
     this.instances.create = flow(controllerGetReferences)(this);
+
+    await this.instances.create;
   };
 
   /**

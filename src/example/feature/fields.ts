@@ -23,6 +23,7 @@ export const FEATURE_FIELDS = [
       sort: true,
       filter: true,
     },
+    defaultValue: 21,
   }),
   new ReferenceField<IFields, number>('role', {
     label: 'Роль',
@@ -30,7 +31,6 @@ export const FEATURE_FIELDS = [
       sort: true,
       filter: true,
     },
-    defaultValue: 20,
   }),
   new SelectField<IFields, number>('status', {
     label: 'Статус',
@@ -43,7 +43,6 @@ export const FEATURE_FIELDS = [
       sort: true,
       filter: true,
     },
-    defaultValue: 30,
   }),
   new DateField<IFields>('birthDate', {
     label: 'Дата рождения',
