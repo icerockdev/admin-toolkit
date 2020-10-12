@@ -6,8 +6,9 @@ import { observer } from 'mobx-react';
 import { SelectInput } from '~/application/modules/pages/Feature/components/inputs/SelectInput';
 
 export class ReferenceField<
-  T extends Record<string, any> = Record<string, any>
-> extends SelectField<T> {
+  T extends Record<string, any> = Record<string, any>,
+  V extends string | number = string
+> extends SelectField<T, V> {
   @observable autocomplete = true;
 
   @computed

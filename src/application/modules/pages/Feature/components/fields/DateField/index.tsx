@@ -9,7 +9,7 @@ import { observer } from 'mobx-react';
 export type DateFieldParser = (val: string) => Date;
 export type DateFieldFormatter = (val: Date) => string;
 
-export type DateFieldOptions<T> = FeatureField<T>['options'] & {
+export type DateFieldOptions<T> = FeatureField<T, string>['options'] & {
   parser?: DateFieldParser;
   formatter?: DateFieldFormatter;
   format?: string;
@@ -18,7 +18,7 @@ export type DateFieldOptions<T> = FeatureField<T>['options'] & {
 
 export class DateField<
   T extends Record<string, any> = Record<string, any>
-> extends FeatureField<T> {
+> extends FeatureField<T, string> {
   constructor(
     name: FeatureField['name'],
     {

@@ -12,8 +12,11 @@ import { StringInput } from '~/application/modules/pages/Feature/components/inpu
 import { observer } from 'mobx-react';
 import { FeatureFeature } from '~/application/modules/pages/Feature/types';
 
-export class FeatureField<T extends Record<string, any> = Record<string, any>> {
-  constructor(public name: string, public options: FeatureFieldProps<T>) {
+export class FeatureField<
+  T extends Record<string, any> = Record<string, any>,
+  V extends any = any
+> {
+  constructor(public name: string, public options: FeatureFieldProps<T, V>) {
     extendObservable(this, { name, options });
 
     if (options.features) {
@@ -32,12 +35,13 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
 
     if (options.roles) this.roles = options.roles;
     if (options.permissions) this.permissions = options.permissions;
+    if (options.defaultValue) this.defaultValue = options.defaultValue;
   }
 
   @observable protected feature?: Feature<T>;
 
-  @observable roles?: FeatureFieldProps<T>['roles'];
-  @observable permissions?: FeatureFieldProps<T>['permissions'];
+  @observable roles?: FeatureFieldProps<T, V>['roles'];
+  @observable permissions?: FeatureFieldProps<T, V>['permissions'];
 
   @observable public listColumnSize = '200px';
   @observable public allowEmptyFilter = false;
@@ -49,7 +53,8 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
     filter: false,
     sort: true,
   };
-  @observable validator?: FeatureFieldProps<T>['validator'];
+  @observable validator?: FeatureFieldProps<T, V>['validator'];
+  @observable defaultValue?: V;
 
   @computed
   get label() {

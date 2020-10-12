@@ -6,7 +6,7 @@ import { SelectField } from '~/application/modules/pages/Feature/components/fiel
 import { ReferenceField } from '~/application/modules/pages/Feature/components/fields/ReferenceField';
 
 export const FEATURE_FIELDS = [
-  new FeatureField<IFields>('name', {
+  new FeatureField<IFields, string>('name', {
     label: 'Имя',
     features: {
       sort: true,
@@ -24,14 +24,15 @@ export const FEATURE_FIELDS = [
       filter: true,
     },
   }),
-  new ReferenceField<IFields>('role', {
+  new ReferenceField<IFields, number>('role', {
     label: 'Роль',
     features: {
       sort: true,
       filter: true,
     },
+    defaultValue: 20,
   }),
-  new SelectField<IFields>('status', {
+  new SelectField<IFields, number>('status', {
     label: 'Статус',
     options: {
       10: 'Активен',
@@ -42,6 +43,7 @@ export const FEATURE_FIELDS = [
       sort: true,
       filter: true,
     },
+    defaultValue: 30,
   }),
   new DateField<IFields>('birthDate', {
     label: 'Дата рождения',
@@ -50,7 +52,7 @@ export const FEATURE_FIELDS = [
       filter: true,
     },
   }),
-  new FeatureField<IFields>('description', {
+  new FeatureField<IFields, string>('description', {
     label: 'Описание',
     features: {
       sort: true,

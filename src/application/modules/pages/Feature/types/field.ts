@@ -10,19 +10,17 @@ export enum FeatureFieldFeature {
   sort = 'sort',
 }
 
-export type FeatureFieldProps<T> = {
+export type FeatureFieldProps<T, V> = {
   label?: string;
   required?: boolean;
   roles?: UserRole[]; // Who can access field
   permissions?: Partial<Record<FeatureFieldFeature, UserRole[]>>; // More specific
 
-  validator?: (
-    val: T[keyof T],
-    field: FeatureField<T>
-  ) => string | null | undefined;
+  validator?: (val: V, field: FeatureField<T, V>) => string | null | undefined;
   features?: Partial<Record<FeatureFieldFeature, boolean>>;
   listColumnSize?: string;
   allowEmptyFilter?: boolean;
+  defaultValue?: V;
 };
 
 export type FeatureFieldListProps<T extends any = any> = {

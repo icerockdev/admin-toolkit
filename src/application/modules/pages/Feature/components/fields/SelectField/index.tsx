@@ -5,17 +5,21 @@ import { SelectFilter } from '~/application/modules/pages/Feature/components/ren
 import { observer } from 'mobx-react';
 import { SelectInput } from '~/application/modules/pages/Feature/components/inputs/SelectInput';
 
-export type SelectFieldOptions<T> = FeatureField<T>['options'] & {
-  options?: Record<any, any>;
+export type SelectFieldOptions<T, V extends string | number> = FeatureField<
+  T,
+  V
+>['options'] & {
+  options?: Record<V, any>;
   autocomplete?: boolean;
 };
 
 export class SelectField<
-  T extends Record<string, any> = Record<string, any>
-> extends FeatureField<T> {
+  T extends Record<string, any> = Record<string, any>,
+  V extends string | number = string
+> extends FeatureField<T, V> {
   constructor(
     name: FeatureField['name'],
-    { options, autocomplete, ...props }: SelectFieldOptions<T>
+    { options, autocomplete, ...props }: SelectFieldOptions<T, V>
   ) {
     super(name, props);
 
