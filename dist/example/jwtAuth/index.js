@@ -1,5 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 import { JWTAuthProvider } from '../../application';
+import splash from '../../assets/logo512.png';
 export default new JWTAuthProvider({
     authRequestFn: function (email, password) {
         return new Promise(function (resolve) {
@@ -43,7 +44,8 @@ export default new JWTAuthProvider({
             }, 3000);
         });
     },
-    newPasswordValidator: function (password) {
+    passwordValidator: function (password) {
         return password.length > 5 ? '' : 'Password must be at least 6 symbols long';
     },
+    splash: splash,
 });

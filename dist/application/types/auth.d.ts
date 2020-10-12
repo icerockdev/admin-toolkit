@@ -1,12 +1,13 @@
-/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
-
+import { FC } from 'react';
+import { AuthProvider } from '..';
 export declare const UNAUTHORIZED = "UNAUTHORIZED";
 export declare const AUTH_ERRORS: {
     CANT_LOGIN: string;
 };
-export declare const EMPTY_USER: IAuthProviderProps['user'];
+export declare const EMPTY_USER: AuthProviderUser;
+export declare type UserRole = any;
 export declare type IAuthRequestFn = (email: string, password: string) => Promise<{
-    user: IAuthProviderProps['user'];
+    user: AuthProviderUser;
     error: string;
 }>;
 export declare type IAuthPasswRestoreFn = (email: string) => Promise<{
@@ -16,22 +17,24 @@ export declare type IAuthPasswUpdateFn = (token: string, password: string, passw
     error: string;
 }>;
 export declare type IAuthNewPasswordValidator = (password: string) => string | undefined;
-export interface IAuthProviderProps {
-    user: {
-        id?: number;
-        email?: string;
-        username?: string;
-        role?: string;
-        token?: string;
-    };
-    api: Record<string, {
-        url: string;
-        method: string;
-    }>;
-    roleTitles: Record<any, string>;
-    persist: boolean;
+export interface AuthProviderOptions {
+    getUserName: (auth: AuthProvider) => string;
+    getUserRoleTitle: (auth: AuthProvider) => string;
+    getUserRole: (auth: AuthProvider) => UserRole;
+    roleTitles?: Record<any, string>;
+    persist?: boolean;
+    layout?: FC;
+    splash?: string;
     authRequestFn?: IAuthRequestFn;
     authPasswRestoreFn?: IAuthPasswRestoreFn;
     authPasswUpdateFn?: IAuthPasswUpdateFn;
-    newPasswordValidator?: IAuthNewPasswordValidator;
+    passwordValidator?: IAuthNewPasswordValidator;
 }
+export interface AuthProviderUser extends Record<string, any> {
+    id?: number;
+    email?: string;
+    username?: string;
+    role?: string;
+    token?: string;
+}
+export declare type WithTokenFunction = (req: Function, args: Record<string, any>) => Promise<any>;
