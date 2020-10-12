@@ -83,9 +83,7 @@ export class FeatureField<
   public onChange = (val: any) => {
     if (!this.feature) return;
 
-    if (this.editError) {
-      this.feature.data.errors = omit([this.name], this.feature.data.errors);
-    }
+    this.resetErrorIfAny();
 
     this.feature.data.editor = {
       ...this.feature.data.editor,
@@ -195,5 +193,15 @@ export class FeatureField<
 
       return { ...acc, [feature]: byFeature && byRole && byPermission };
     }, {} as Record<FeatureFeature, boolean>);
+  }
+
+  @action
+  resetErrorIfAny() {
+    if (this.feature && this.editError) {
+      this.feature.data.errors = omit(
+        [this.name],
+        this.feature.data.errors
+      ) as any;
+    }
   }
 }

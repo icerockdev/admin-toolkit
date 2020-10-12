@@ -19,10 +19,7 @@ import { Feature } from '~/application/modules/pages/Feature';
 import { has, keys } from 'ramda';
 import { getReferenceAll } from '~/application/modules/pages/Feature/items/FeatureApi/references';
 import { FeatureData } from '~/application/modules/pages/Feature/items/FeatureData';
-import {
-  FeatureFeature,
-  FeatureMode,
-} from '~/application/modules/pages/Feature/types';
+import { FeatureFeature } from '~/application/modules/pages/Feature/types';
 
 export class FeatureApi<
   Fields extends Record<string, any> = Record<string, any>
@@ -61,7 +58,7 @@ export class FeatureApi<
   }
 
   @computed
-  get data(): FeatureData {
+  get data(): FeatureData<Fields> {
     return this.feature.data;
   }
 

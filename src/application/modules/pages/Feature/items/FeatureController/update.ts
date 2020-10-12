@@ -17,7 +17,7 @@ export function* controllerPostUpdate<
       error,
     }: FeaturePostUpdateResult<T> = yield feature.api.update(
       id,
-      toJS(feature.data.editor)
+      toJS(feature.data.editorDataForCurrentMode)
     );
 
     if (errors) {

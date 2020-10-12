@@ -87,7 +87,7 @@ export class Feature<
   @observable options: Partial<FeatureOptions<Fields>> = {};
   @observable features: FeatureOptions['features'] = FEATURE_DEFAULT_FEATURES;
   @observable renderer: FeatureRenderer = new FeatureRenderer();
-  @observable data: FeatureData = new FeatureData();
+  @observable data: FeatureData<Fields> = new FeatureData(this);
   @observable mode?: FeatureMode;
   @observable filters: FeatureFilters<Fields> = new FeatureFilters(this);
   @observable controller = new FeatureController<Fields>(this);

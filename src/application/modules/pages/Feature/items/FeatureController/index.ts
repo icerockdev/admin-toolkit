@@ -70,7 +70,7 @@ export class FeatureController<
 
     this.feature.data.isLoading = false;
 
-    controllerSeedData(this);
+    this.seedData();
 
     this.instances.create = flow(controllerGetReferences)(this);
 
@@ -141,6 +141,8 @@ export class FeatureController<
 
     if (validation) {
       this.feature.data.errors = validation;
+      this.feature.parent?.notifications.showError('Проверьте все поля');
+      return;
     }
 
     switch (this.feature.mode) {
@@ -171,4 +173,8 @@ export class FeatureController<
 
     return Object.keys(fields).length > 0 ? fields : undefined;
   };
+
+  seedData() {
+    controllerSeedData(this);
+  }
 }

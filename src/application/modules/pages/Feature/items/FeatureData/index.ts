@@ -1,10 +1,14 @@
-import { action, extendObservable, observable } from 'mobx';
+import { action, computed, extendObservable, observable, toJS } from 'mobx';
 import { FeatureDataReference } from '~/application/modules/pages/Feature/types/reference';
 import { FeatureApiReferences } from '~/application/modules/pages/Feature/types';
+import { Feature } from '~/application/modules/pages/Feature';
+import { has, pickBy } from 'ramda';
 
 export class FeatureData<
   Fields extends Record<string, any> = Record<string, any>
 > {
+  constructor(private feature: Feature<Fields>) {}
+
   @observable references: Record<string, FeatureDataReference> = {};
 
   @observable isLoading: boolean = true;
@@ -53,5 +57,14 @@ export class FeatureData<
       ...this.errors,
       [field]: undefined,
     };
+  }
+
+  @computed
+  get editorDataForCurrentMode() {
+    const fields = this.feature.fieldsOfCurrentMode.map((field) => field.name);
+
+    return pickBy((_, k) => fields.includes(k), this.editor) as Partial<
+      Record<keyof Fields, Fields[keyof Fields]>
+    >;
   }
 }
