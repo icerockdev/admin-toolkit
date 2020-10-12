@@ -18,7 +18,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import React from 'react';
 import { action, computed, extendObservable, observable } from 'mobx';
 import { FeatureFieldFeature, } from '../../types/field';
-import { StringFilter } from '../../components/filters/StringFilter';
+import { StringFilter } from '../../filters/StringFilter';
 import { equals, has, omit, reject } from 'ramda';
 import { StringInput } from '../../components/inputs/StringInput';
 import { observer } from 'mobx-react';

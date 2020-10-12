@@ -2,7 +2,7 @@ import React from 'react';
 import { FeatureField } from '~/application/modules/pages/Feature/fields/FeatureField';
 import { computed, observable } from 'mobx';
 import { format, parseISO } from 'date-fns/esm';
-import { DateFilter } from '~/application/modules/pages/Feature/components/filters/DateFilter';
+import { DateFilter } from '~/application/modules/pages/Feature/filters/DateFilter';
 import { DateInput } from '~/application/modules/pages/Feature/components/inputs/DateInput';
 import { observer } from 'mobx-react';
 

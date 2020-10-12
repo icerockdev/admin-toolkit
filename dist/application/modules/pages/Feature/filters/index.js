@@ -1,4 +1,3 @@
-export { FilterClear } from './FilterClear';
-export { FilterSelector } from './FilterSelector';
-export { FiltersRenderer } from './FiltersRenderer';
-export { FilterWrapper } from './FilterWrapper';
+export { DateFilter } from './DateFilter';
+export { SelectFilter } from './SelectFilter';
+export { StringFilter } from './StringFilter';

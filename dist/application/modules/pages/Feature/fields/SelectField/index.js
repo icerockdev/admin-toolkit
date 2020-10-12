@@ -31,7 +31,7 @@ var __rest = (this && this.__rest) || function (s, e) {
 import { FeatureField } from '../FeatureField';
 import { computed, observable } from 'mobx';
 import React from 'react';
-import { SelectFilter } from '../../components/filters/SelectFilter';
+import { SelectFilter } from '../../filters/SelectFilter';
 import { observer } from 'mobx-react';
 import { SelectInput } from '../../components/inputs/SelectInput';
 var SelectField = /** @class */ (function (_super) {

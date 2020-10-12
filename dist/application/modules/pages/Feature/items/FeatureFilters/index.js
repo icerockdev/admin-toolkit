@@ -25,7 +25,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 import { computed, observable } from 'mobx';
 import React from 'react';
 import { and, has, pickBy } from 'ramda';
-import { FiltersRenderer } from '../../filters/FiltersRenderer';
+import { FiltersRenderer } from '../../components/filters/FiltersRenderer';
 import qs from 'query-string';
 import { SortDir } from '../../types';
 var FeatureFilters = /** @class */ (function () {

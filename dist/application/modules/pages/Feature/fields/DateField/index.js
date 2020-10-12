@@ -32,7 +32,7 @@ import React from 'react';
 import { FeatureField } from '../FeatureField';
 import { computed, observable } from 'mobx';
 import { format, parseISO } from 'date-fns/esm';
-import { DateFilter } from '../../components/filters/DateFilter';
+import { DateFilter } from '../../filters/DateFilter';
 import { DateInput } from '../../components/inputs/DateInput';
 import { observer } from 'mobx-react';
 var DateField = /** @class */ (function (_super) {

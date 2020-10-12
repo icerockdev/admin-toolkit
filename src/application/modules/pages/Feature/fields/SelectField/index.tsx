@@ -1,7 +1,7 @@
 import { FeatureField } from '~/application/modules/pages/Feature/fields/FeatureField';
 import { computed, observable } from 'mobx';
 import React from 'react';
-import { SelectFilter } from '~/application/modules/pages/Feature/components/filters/SelectFilter';
+import { SelectFilter } from '~/application/modules/pages/Feature/filters/SelectFilter';
 import { observer } from 'mobx-react';
 import { SelectInput } from '~/application/modules/pages/Feature/components/inputs/SelectInput';
 

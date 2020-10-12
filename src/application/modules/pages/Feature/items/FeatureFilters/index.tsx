@@ -3,7 +3,7 @@ import { computed, observable } from 'mobx';
 import React from 'react';
 import { and, has, pickBy } from 'ramda';
 import { FeatureField } from '~/application/modules/pages/Feature/fields/FeatureField';
-import { FiltersRenderer } from '~/application/modules/pages/Feature/filters/FiltersRenderer';
+import { FiltersRenderer } from '~/application/modules/pages/Feature/components/filters/FiltersRenderer';
 import qs from 'query-string';
 import { SortDir } from '~/application/modules/pages/Feature/types';
 

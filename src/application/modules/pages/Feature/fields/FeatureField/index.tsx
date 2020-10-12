@@ -5,7 +5,7 @@ import {
   FeatureFieldListProps,
   FeatureFieldProps,
 } from '~/application/modules/pages/Feature/types/field';
-import { StringFilter } from '~/application/modules/pages/Feature/components/filters/StringFilter';
+import { StringFilter } from '~/application/modules/pages/Feature/filters/StringFilter';
 import { Feature } from '~/application/modules/pages/Feature';
 import { equals, has, omit, reject } from 'ramda';
 import { StringInput } from '~/application/modules/pages/Feature/components/inputs/StringInput';
