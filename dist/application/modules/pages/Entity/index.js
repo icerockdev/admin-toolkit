@@ -86,6 +86,7 @@ import { Page } from '../Page';
 import { EntityList } from './components/EntityList';
 import { EntityHead } from './components/EntityHead';
 import { EntityFooter } from './components/EntityFooter';
+import { EntityListWrapper } from './components/EntityListWrapper';
 var Entity = /** @class */ (function (_super) {
     __extends(Entity, _super);
     function Entity(fields) {
@@ -566,7 +567,7 @@ var Entity = /** @class */ (function (_super) {
     Object.defineProperty(Entity.prototype, "List", {
         get: function () {
             var _this = this;
-            return observer(function () { return (React.createElement("div", null,
+            return observer(function () { return (React.createElement(EntityListWrapper, null,
                 React.createElement(_this.ListHead, null),
                 React.createElement(_this.ListBody, null),
                 React.createElement(_this.ListFooter, null))); });

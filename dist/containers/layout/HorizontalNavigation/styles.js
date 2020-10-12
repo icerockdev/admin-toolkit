@@ -37,7 +37,6 @@ export default (function (theme) {
             lineHeight: '14px',
         },
         tabs: {
-            flex: 1,
             height: '100%',
             '& a': {
                 minWidth: 0,

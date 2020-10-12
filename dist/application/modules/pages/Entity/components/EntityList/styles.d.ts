@@ -40,5 +40,9 @@ declare const _default: (theme: Theme) => {
             };
         };
     };
+    paper: {
+        background: string;
+        maxHeight: string;
+    };
 };
 export default _default;

@@ -64,16 +64,18 @@ const HorizontalNavigationUnstyled: FC<IProps> = ({ classes }) => {
     <div ref={wrapper}>
       <AppBar className={classes.appbar} ref={appbar}>
         <Toolbar className={classes.toolbar}>
-          {config.logo && (
-            <Link to="/" className={classnames('logo', classes.title)}>
-              <img
-                src={config.logo}
-                title={config.title}
-                className={classes.logo}
-                alt={config.title}
-              />
-            </Link>
-          )}
+          <div className={classnames('logo', classes.title)}>
+            {config.logo && (
+              <Link to="/">
+                <img
+                  src={config.logo}
+                  title={config.title}
+                  className={classes.logo}
+                  alt={config.title}
+                />
+              </Link>
+            )}
+          </div>
 
           <Tabs
             onChange={onTabChange}

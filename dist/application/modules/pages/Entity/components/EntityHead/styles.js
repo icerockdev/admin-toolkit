@@ -2,7 +2,7 @@
 export default (function (theme) { return ({
     header: {
         display: 'flex',
-        padding: '32px 19px 24px 24px',
+        padding: '10px',
         justifyContent: 'center',
         alignItems: 'flex-start',
         flexWrap: 'nowrap',

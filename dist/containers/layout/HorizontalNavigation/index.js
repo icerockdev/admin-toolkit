@@ -44,8 +44,8 @@ var HorizontalNavigationUnstyled = function (_a) {
     return (React.createElement("div", { ref: wrapper },
         React.createElement(AppBar, { className: classes.appbar, ref: appbar },
             React.createElement(Toolbar, { className: classes.toolbar },
-                config.logo && (React.createElement(Link, { to: "/", className: classnames('logo', classes.title) },
-                    React.createElement("img", { src: config.logo, title: config.title, className: classes.logo, alt: config.title }))),
+                React.createElement("div", { className: classnames('logo', classes.title) }, config.logo && (React.createElement(Link, { to: "/" },
+                    React.createElement("img", { src: config.logo, title: config.title, className: classes.logo, alt: config.title })))),
                 React.createElement(Tabs, { onChange: onTabChange, value: activeTab, indicatorColor: "primary", textColor: "primary", variant: "scrollable", scrollButtons: "auto", "aria-label": "scrollable auto tabs example", className: classes.tabs }, links.map(function (_a) {
                     var name = _a.name, url = _a.url;
                     return (React.createElement(Tab, { label: name, key: url, className: classes.tab }));

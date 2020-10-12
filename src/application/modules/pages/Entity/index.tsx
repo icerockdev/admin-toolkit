@@ -26,6 +26,7 @@ import { Page } from '~/application/modules/pages/Page';
 import { EntityList } from '~/application/modules/pages/Entity/components/EntityList';
 import { EntityHead } from '~/application/modules/pages/Entity/components/EntityHead';
 import { EntityFooter } from '~/application/modules/pages/Entity/components/EntityFooter';
+import { EntityListWrapper } from '~/application/modules/pages/Entity/components/EntityListWrapper';
 
 export class Entity extends Page {
   // Props
@@ -555,11 +556,11 @@ export class Entity extends Page {
   @computed
   get List() {
     return observer(() => (
-      <div>
+      <EntityListWrapper>
         <this.ListHead />
         <this.ListBody />
         <this.ListFooter />
-      </div>
+      </EntityListWrapper>
     ));
   }
 

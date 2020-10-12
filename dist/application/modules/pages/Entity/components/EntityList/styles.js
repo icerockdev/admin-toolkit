@@ -40,4 +40,8 @@ export default (function (theme) { return ({
             },
         },
     },
+    paper: {
+        background: 'blue',
+        maxHeight: '100%',
+    },
 }); });

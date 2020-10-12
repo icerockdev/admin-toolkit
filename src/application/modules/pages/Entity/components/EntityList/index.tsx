@@ -177,10 +177,10 @@ const EntityList = observer(
       }
 
       return (
-        <Paper>
+        <>
           {before}
           <TableContainer>
-            <Table className={classes.table}>
+            <Table className={classes.table} stickyHeader size="medium">
               {tableHead || (
                 <TableHead>
                   <TableRow>
@@ -313,7 +313,7 @@ const EntityList = observer(
             </Table>
           </TableContainer>
           {after}
-        </Paper>
+        </>
       );
     }
   )

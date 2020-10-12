@@ -45,4 +45,8 @@ export default (theme: Theme) => ({
       },
     },
   },
+  paper: {
+    background: 'blue',
+    maxHeight: '100%',
+  },
 });

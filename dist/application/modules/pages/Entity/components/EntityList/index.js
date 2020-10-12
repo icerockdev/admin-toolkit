@@ -18,7 +18,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 import React, { createElement, Fragment, useCallback, useMemo, useState, } from 'react';
-import { Button, Checkbox, CircularProgress, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, withStyles, } from '@material-ui/core';
+import { Button, Checkbox, CircularProgress, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, withStyles, } from '@material-ui/core';
 import LaunchIcon from '@material-ui/icons/Launch';
 import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
@@ -81,10 +81,10 @@ var EntityList = observer(withStyles(styles)(function (_a) {
         return (React.createElement("div", { className: classes.loader },
             React.createElement(CircularProgress, null)));
     }
-    return (React.createElement(Paper, null,
+    return (React.createElement(React.Fragment, null,
         before,
         React.createElement(TableContainer, null,
-            React.createElement(Table, { className: classes.table },
+            React.createElement(Table, { className: classes.table, stickyHeader: true, size: "medium" },
                 tableHead || (React.createElement(TableHead, null,
                     React.createElement(TableRow, null,
                         extra && React.createElement(TableCell, null),

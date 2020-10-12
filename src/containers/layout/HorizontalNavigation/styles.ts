@@ -41,8 +41,6 @@ export default (theme: Theme) =>
       lineHeight: '14px',
     },
     tabs: {
-      flex: 1,
-
       height: '100%',
       '& a': {
         minWidth: 0,
