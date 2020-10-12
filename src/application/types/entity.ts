@@ -108,7 +108,7 @@ export interface IEntityProps extends IPageProps {
   items: number;
   filters: IFilterValue[];
   references: Record<string, IEntityReferenceProps>;
-  rights: Partial<Record<'update' | 'create' | 'list', UserRole[]>>;
+  permissions: Partial<Record<'update' | 'create' | 'list', UserRole[]>>;
 
   api?: Record<
     typeof ENTITY_ACTIONS[keyof typeof ENTITY_ACTIONS],

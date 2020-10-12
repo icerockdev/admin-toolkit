@@ -44,7 +44,7 @@ export class Feature<
     if (options.features) this.features = options.features;
     if (options.rows) this.filters.rows = options.rows;
     if (options.getItemTitle) this.getItemTitle = options.getItemTitle;
-    if (options.rights) this.rights = options.rights;
+    if (options.permissions) this.permissions = options.permissions;
 
     // Initialize renderer
     this.renderer =
@@ -83,7 +83,7 @@ export class Feature<
     reaction(() => [this.filters.value], debounce(400, this.onFilterChange));
   }
 
-  @observable rights?: FeatureOptions['rights'];
+  @observable permissions?: FeatureOptions['permissions'];
   @observable options: Partial<FeatureOptions<Fields>> = {};
   @observable features: FeatureOptions['features'] = FEATURE_DEFAULT_FEATURES;
   @observable renderer: FeatureRenderer = new FeatureRenderer();
@@ -112,13 +112,15 @@ export class Feature<
   }
 
   /**
-   * Custom function, that returns single item's id
-   * TODO: use it (currently not using)
+   * Custom function, that returns single item's id, can be overriden by
+   * Feature's props
+   * TODO: use it everywhere (currently not using)
    */
   getItemId: (fields: Fields) => any = (fields) => fields.id;
 
   /**
-   * Custom function, that returns single item's title
+   * Custom function, that returns single item's title, can be overriden by
+   * Feature's props
    */
   getItemTitle: (fields: Fields) => string = () => '';
 
@@ -141,10 +143,8 @@ export class Feature<
    */
   @computed
   get fieldsOfCurrentMode() {
-    // TODO: filter by role here (or make and filter this.fieldsOfCurrentUser)
-
     return this.fieldsList.filter(
-      (field) => this.mode && field.features[this.mode]
+      (field) => this.mode && field.featuresOfCurrentUser[this.mode]
     );
   }
 
@@ -225,20 +225,18 @@ export class Feature<
    */
   @computed
   get availableFeatures() {
-    return Object.values(FeatureFeature).reduce((acc, feature) => {
-      const auth = this.parent?.auth;
-      const role = auth?.userRole;
+    const auth = this.parent?.auth;
+    const role = auth?.userRole;
 
+    return Object.values(FeatureFeature).reduce((acc, feature) => {
       const byRole = !this.roles || (role && this.roles.includes(role));
 
-      const byRight =
-        !this.rights ||
-        !has(feature, this.rights) ||
-        (role && this.rights[feature]!!.includes(role));
+      const byPermission =
+        !this.permissions ||
+        !has(feature, this.permissions) ||
+        (role && this.permissions[feature]!!.includes(role));
 
-      console.log(feature, { byRole, byRight });
-
-      return { ...acc, [feature]: byRole && byRight };
+      return { ...acc, [feature]: byRole && byPermission };
     }, {} as Record<FeatureFeature, boolean>);
   }
 }

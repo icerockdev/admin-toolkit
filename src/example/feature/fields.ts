@@ -12,6 +12,9 @@ export const FEATURE_FIELDS = [
       sort: true,
       filter: false,
     },
+    permissions: {
+      list: ['user'],
+    },
   }),
   new IntegerField<IFields>('age', {
     label: 'Возраст',

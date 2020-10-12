@@ -48,7 +48,7 @@ export class Entity extends Page {
   @observable itemsPerPage: number[] = [5, 10, 15, 25, 50];
   @observable items: IEntityProps['items'] =
     this.itemsPerPage[this.itemsPerPage.length] || 50;
-  @observable rights: IEntityProps['rights'] = {};
+  @observable permissions: IEntityProps['permissions'] = {};
   // Built-in
   @observable isLoading: boolean = true;
   @observable totalCount: number = 0;
@@ -397,9 +397,9 @@ export class Entity extends Page {
       this.editable &&
       !!(
         !this.roles ||
-        !this.rights.update ||
+        !this.permissions.update ||
         (this.parent?.auth?.user?.role &&
-          this.rights?.update?.includes(this.parent.auth?.user?.role))
+          this.permissions?.update?.includes(this.parent.auth?.user?.role))
       )
     );
   }
@@ -408,9 +408,9 @@ export class Entity extends Page {
   get canCreate() {
     return !!(
       !this.roles ||
-      !this.rights.create ||
+      !this.permissions.create ||
       (this.parent?.auth?.user?.role &&
-        this.rights?.create?.includes(this.parent.auth?.user?.role))
+        this.permissions?.create?.includes(this.parent.auth?.user?.role))
     );
   }
 

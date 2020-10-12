@@ -38,7 +38,7 @@ export interface FeatureOptions<
   renderer: FeatureRenderer<Feature<Fields>>;
   api?: FeatureApiProps<Fields>;
 
-  rights?: Partial<Record<FeatureFeature, UserRole[]>>;
+  permissions?: Partial<Record<FeatureFeature, UserRole[]>>;
   rows?: number;
 }
 

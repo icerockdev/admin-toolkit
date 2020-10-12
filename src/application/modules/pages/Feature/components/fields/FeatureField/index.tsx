@@ -7,9 +7,10 @@ import {
 } from '~/application/modules/pages/Feature/types/field';
 import { StringFilter } from '~/application/modules/pages/Feature/components/renderers/filters/StringFilter';
 import { Feature } from '~/application/modules/pages/Feature';
-import { equals, omit, reject } from 'ramda';
+import { equals, has, omit, reject } from 'ramda';
 import { StringInput } from '~/application/modules/pages/Feature/components/inputs/StringInput';
 import { observer } from 'mobx-react';
+import { FeatureFeature } from '~/application/modules/pages/Feature/types';
 
 export class FeatureField<T extends Record<string, any> = Record<string, any>> {
   constructor(public name: string, public options: FeatureFieldProps<T>) {
@@ -28,12 +29,15 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
 
     if (options.allowEmptyFilter)
       this.allowEmptyFilter = options.allowEmptyFilter;
+
+    if (options.roles) this.roles = options.roles;
+    if (options.permissions) this.permissions = options.permissions;
   }
 
   @observable protected feature?: Feature<T>;
 
   @observable roles?: FeatureFieldProps<T>['roles'];
-  @observable rights?: FeatureFieldProps<T>['rights'];
+  @observable permissions?: FeatureFieldProps<T>['permissions'];
 
   @observable public listColumnSize = '200px';
   @observable public allowEmptyFilter = false;
@@ -163,5 +167,28 @@ export class FeatureField<T extends Record<string, any> = Record<string, any>> {
   @computed
   get editError() {
     return this.feature?.data.errors[this.name];
+  }
+
+  /**
+   * List of features, available for current user role by field.features,
+   * field.roles and field.permissions
+   */
+  @computed
+  get featuresOfCurrentUser() {
+    const auth = this.feature?.parent?.auth;
+    const role = auth?.userRole;
+
+    return Object.values(FeatureFieldFeature).reduce((acc, feature) => {
+      const byFeature = this.features[feature];
+
+      const byRole = !this.roles || (role && this.roles.includes(role));
+
+      const byPermission =
+        !this.permissions ||
+        !has(feature, this.permissions) ||
+        (role && this.permissions[feature]!!.includes(role));
+
+      return { ...acc, [feature]: byFeature && byRole && byPermission };
+    }, {} as Record<FeatureFeature, boolean>);
   }
 }

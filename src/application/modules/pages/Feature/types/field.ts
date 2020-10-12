@@ -14,7 +14,7 @@ export type FeatureFieldProps<T> = {
   label?: string;
   required?: boolean;
   roles?: UserRole[]; // Who can access field
-  rights?: Record<FeatureFieldFeature, UserRole[]>; // More specific
+  permissions?: Partial<Record<FeatureFieldFeature, UserRole[]>>; // More specific
 
   validator?: (
     val: T[keyof T],

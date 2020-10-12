@@ -14,6 +14,7 @@ import {
   TableRow,
 } from '@material-ui/core';
 import { FeatureListRow } from '~/application/modules/pages/Feature/components/renderers/list/FeatureListRow';
+import { toJS } from 'mobx';
 
 interface IProps {}
 

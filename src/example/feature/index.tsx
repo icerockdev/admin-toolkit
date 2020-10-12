@@ -23,9 +23,6 @@ export type IFields = {
 export default new Feature<IFields>('Feature', '/feature', {
   getItemTitle: (data) => data.name,
   fields: FEATURE_FIELDS,
-  rights: {
-    create: [],
-  },
   api: {
     methods: {
       list: getFeatureList,
