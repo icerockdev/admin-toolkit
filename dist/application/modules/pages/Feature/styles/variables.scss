@@ -1,0 +1,12 @@
+$gap: 10px;
+$pagination_height: 64px;
+$filter_input_height: 48px;
+$radius: 4px;
+
+$danger: #ff3344;
+
+@mixin phone {
+  @media (max-width: 768px) {
+    @content;
+  }
+}

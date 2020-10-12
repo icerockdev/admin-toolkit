@@ -1,0 +1,7 @@
+@import 'src/application/modules/pages/Feature/styles/variables';
+
+.buttons {
+  display: grid;
+  grid-column-gap: $gap;
+  grid-auto-flow: column;
+}

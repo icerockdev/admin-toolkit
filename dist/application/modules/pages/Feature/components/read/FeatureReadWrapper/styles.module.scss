@@ -1,0 +1,8 @@
+@import 'src/application/modules/pages/Feature/styles/variables';
+
+.wrap {
+  display: grid;
+  grid-auto-flow: row;
+  grid-row-gap: $gap;
+  padding: 14px;
+}

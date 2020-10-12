@@ -1,0 +1,17 @@
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.placeholder {
+  background: #e0e0e0;
+  height: 1em;
+  animation: pulse infinite alternate linear 0.5s;
+  border-radius: 4px;
+  vertical-align: middle;
+  display: inline-block;
+}

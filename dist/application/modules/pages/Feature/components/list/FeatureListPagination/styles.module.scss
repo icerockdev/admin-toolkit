@@ -1,0 +1,13 @@
+@import 'src/application/modules/pages/Feature/styles/variables';
+
+.pagination {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  margin-bottom: -10px;
+
+  & > * {
+    width: 100%;
+  }
+}
