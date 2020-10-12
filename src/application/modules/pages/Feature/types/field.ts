@@ -1,4 +1,4 @@
-import { FeatureField } from '~/application/modules/pages/Feature/components/fields/FeatureField';
+import { FeatureField } from '~/application/modules/pages/Feature/fields/FeatureField';
 import { UserRole } from '~/application';
 
 export enum FeatureFieldFeature {

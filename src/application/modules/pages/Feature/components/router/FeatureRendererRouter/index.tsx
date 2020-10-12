@@ -8,8 +8,8 @@ import {
   FeatureRendererProps,
   FeatureRendererReaction,
 } from '~/application/modules/pages/Feature/types/renderer';
-import { FeatureListRendererComponent } from '~/application/modules/pages/Feature/components/renderers/list/FeatureListRenderer';
-import { FeatureReadRendererComponent } from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadRenderer';
+import { FeatureListRendererComponent } from '~/application/modules/pages/Feature/components/list/FeatureListRenderer';
+import { FeatureReadRendererComponent } from '~/application/modules/pages/Feature/components/read/FeatureReadRenderer';
 
 interface IProps {
   list: FeatureListRendererComponent;

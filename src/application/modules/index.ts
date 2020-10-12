@@ -5,5 +5,11 @@ export { AuthProvider } from './auth/AuthProvider';
 export { JWTAuthProvider } from './auth/JWTAuthProvider';
 export { Config } from './config/Config';
 export { Entity } from './pages/Entity';
+export { Feature } from './pages/Feature';
 export { Page } from './pages/Page';
-export { PageRenderer } from './common/PageRenderer';
+export { PageRenderer } from './pages/Page/components/PageRenderer';
+
+export * from './pages/Feature/filters';
+export * from './pages/Feature/fields';
+export * from './pages/Feature/components';
+export * from './pages/Feature/items';

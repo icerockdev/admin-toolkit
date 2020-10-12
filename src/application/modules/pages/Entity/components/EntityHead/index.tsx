@@ -5,7 +5,7 @@ import { withStyles, WithStyles, Grid, Button } from '@material-ui/core';
 import styles from './styles';
 import { Link as RouterLink } from 'react-router-dom';
 import { IEntityProps } from '~/application';
-import { Filter } from '~/components/pages/Filter';
+import { EntityFilter } from '~/application/modules/pages/Entity/components/EntityFilter';
 import { Entity } from '~/application/modules';
 
 type IProps = WithStyles<typeof styles> & {
@@ -57,7 +57,7 @@ const EntityHeadUnstyled: FC<IProps> = ({
       {title}
 
       {filters && (
-        <Filter
+        <EntityFilter
           filterData={filterData}
           fields={fields}
           filters={filters}

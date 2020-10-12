@@ -2,16 +2,16 @@ import { has } from 'ramda';
 import { Feature } from '~/application/modules/pages/Feature';
 import { FeatureReferenceProps } from '~/application/modules/pages/Feature/types/reference';
 
-type GetReferenceAllProps = {
+export type GetReferenceAllProps = {
   feature: Feature;
   host: string;
   token: string;
   name: string;
 };
 
-export const getReferenceAll: (
-  props: GetReferenceAllProps
-) => Promise<any> = async ({
+export type GetReferenceAll = (props: GetReferenceAllProps) => Promise<any>;
+
+export const getReferenceAll: GetReferenceAll = async ({
   feature,
   host,
   token,

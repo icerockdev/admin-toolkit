@@ -1,9 +1,9 @@
-import { FeatureField } from '~/application/modules/pages/Feature/components/fields/FeatureField';
+import { FeatureField } from '~/application/modules/pages/Feature/fields/FeatureField';
 import { IFields } from '~/example/feature/index';
-import { DateField } from '~/application/modules/pages/Feature/components/fields/DateField';
-import { IntegerField } from '~/application/modules/pages/Feature/components/fields/IntegerField';
-import { SelectField } from '~/application/modules/pages/Feature/components/fields/SelectField';
-import { ReferenceField } from '~/application/modules/pages/Feature/components/fields/ReferenceField';
+import { DateField } from '~/application/modules/pages/Feature/fields/DateField';
+import { IntegerField } from '~/application/modules/pages/Feature/fields/IntegerField';
+import { SelectField } from '~/application/modules/pages/Feature/fields/SelectField';
+import { ReferenceField } from '~/application/modules/pages/Feature/fields/ReferenceField';
 
 export const FEATURE_FIELDS = [
   new FeatureField<IFields, string>('name', {

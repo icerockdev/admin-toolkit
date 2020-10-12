@@ -23,7 +23,7 @@ import {
   withStyles,
   WithStyles,
 } from '@material-ui/core';
-import { ENTITY_SORT_DIRS, IEntityField } from '~/application/types/entity';
+import { ENTITY_SORT_DIRS, IEntityField } from '../../types';
 import LaunchIcon from '@material-ui/icons/Launch';
 import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink, useHistory } from 'react-router-dom';

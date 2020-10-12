@@ -17,3 +17,5 @@ export { EntityFieldReferenceSelect } from './EntityFieldReferenceSelect';
 export { EntityFieldRichText } from './EntityFieldRichText';
 export { EntityFieldSelect } from './EntityFieldSelect';
 export { EntityFieldString } from './EntityFieldString';
+export { EntityFilter } from './EntityFilter';
+export { EntityFilterText } from './EntityFilterText';

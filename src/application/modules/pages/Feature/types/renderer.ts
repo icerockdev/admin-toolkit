@@ -2,11 +2,11 @@ import { FeatureMode } from '~/application/modules/pages/Feature/types/index';
 import {
   FeatureListRendererComponent,
   FeatureListRendererProps,
-} from '~/application/modules/pages/Feature/components/renderers/list/FeatureListRenderer';
+} from '~/application/modules/pages/Feature/components/list/FeatureListRenderer';
 import {
   FeatureReadRendererComponent,
   FeatureReadRendererProps,
-} from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadRenderer';
+} from '~/application/modules/pages/Feature/components/read/FeatureReadRenderer';
 
 export interface FeatureRendererProps {
   containers?: {

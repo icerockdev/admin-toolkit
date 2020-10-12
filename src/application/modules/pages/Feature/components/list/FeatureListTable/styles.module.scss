@@ -1,0 +1,40 @@
+@import 'src/application/modules/pages/Feature/styles/variables';
+
+.container {
+  max-height: 100%;
+}
+
+.table {
+  background: white;
+  box-shadow: #e0e0e0 0 0 0 1px;
+  border-collapse: collapse;
+  width: 100%;
+
+  th {
+    text-transform: uppercase;
+    border-bottom: none;
+    font-weight: 600;
+    padding: 0;
+
+    @include phone {
+      padding: 8px;
+    }
+  }
+
+  td {
+    border-bottom: none;
+
+    @include phone {
+      padding: 8px;
+    }
+  }
+
+  tr {
+    cursor: pointer;
+  }
+}
+
+.wrapper {
+  flex: 1;
+  background: green;
+}

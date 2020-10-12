@@ -6,13 +6,13 @@ import {
   FeatureListRenderer,
   FeatureListRendererComponent,
   FeatureListRendererProps,
-} from '~/application/modules/pages/Feature/components/renderers/list/FeatureListRenderer';
+} from '~/application/modules/pages/Feature/components/list/FeatureListRenderer';
 import { FeatureRendererRouter } from '~/application/modules/pages/Feature/components/router/FeatureRendererRouter';
 import {
   FeatureReadRenderer,
   FeatureReadRendererComponent,
   FeatureReadRendererProps,
-} from '~/application/modules/pages/Feature/components/renderers/read/FeatureReadRenderer';
+} from '~/application/modules/pages/Feature/components/read/FeatureReadRenderer';
 
 export class FeatureRenderer<T extends Feature<any> = Feature<any>> {
   constructor({ containers, components }: FeatureRendererProps = {}) {
