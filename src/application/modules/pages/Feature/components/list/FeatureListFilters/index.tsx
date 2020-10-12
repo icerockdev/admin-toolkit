@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
-import { useFeature } from '~/utils/hooks';
+import { useFeature } from '~/application/utils/hooks';
 import { FeatureListRendererProps } from '~/application/modules/pages/Feature/components/list/FeatureListRenderer';
 
 const FeatureListFilters: FeatureListRendererProps['filters'] = observer(() => {

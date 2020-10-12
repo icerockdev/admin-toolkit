@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { useFeature } from '~/utils/hooks';
+import { useFeature } from '~/application/utils/hooks';
 import { FeatureListTheadItem } from '~/application/modules/pages/Feature/components/list/FeatureListTheadItem';
 import { observer } from 'mobx-react';
 import styles from './styles.module.scss';

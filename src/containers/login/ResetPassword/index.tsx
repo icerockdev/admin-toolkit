@@ -4,7 +4,7 @@ import React, { FC, FormEvent, useCallback, useState } from 'react';
 import { Button, TextField } from '@material-ui/core';
 
 import { useRouteMatch } from 'react-router';
-import { useConfig } from '~/utils/hooks';
+import { useConfig } from '~/application/utils/hooks';
 import styles from './styles.module.scss';
 
 const ResetPassword: FC = () => {

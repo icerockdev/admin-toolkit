@@ -1,5 +1,5 @@
 import React, { FC, useCallback } from 'react';
-import { useFeature } from '~/utils/hooks';
+import { useFeature } from '~/application/utils/hooks';
 import { observer } from 'mobx-react';
 import classNames from 'classnames';
 import styles from './styles.module.scss';

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { observer } from 'mobx-react';
-import { useConfig } from '~/utils/hooks';
+import { useConfig } from '~/application/utils/hooks';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';

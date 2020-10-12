@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
-import { useFeature } from '~/utils/hooks';
+import { useFeature } from '~/application/utils/hooks';
 import { Button } from '@material-ui/core';
 import { ImportExport, NoteAdd } from '@material-ui/icons';
 

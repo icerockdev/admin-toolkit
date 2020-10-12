@@ -1,6 +1,6 @@
 import React, { createElement, FC, useCallback, useMemo } from 'react';
 import { observer } from 'mobx-react';
-import { useFeature } from '~/utils/hooks';
+import { useFeature } from '~/application/utils/hooks';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { FeatureReadField } from '~/application/modules/pages/Feature/components/read/FeatureReadField';

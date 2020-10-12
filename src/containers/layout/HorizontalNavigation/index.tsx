@@ -14,7 +14,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { Account } from '~/containers/login/Account';
 import classnames from 'classnames';
 import { useLocation } from 'react-router';
-import { useConfig } from '~/utils/hooks';
+import { useConfig } from '~/application/utils/hooks';
 
 type IProps = WithStyles<typeof styles> & {};
 

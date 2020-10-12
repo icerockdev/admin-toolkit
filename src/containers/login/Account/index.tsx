@@ -2,7 +2,7 @@
 
 import React, { FC, useCallback, useMemo, useRef } from 'react';
 import styles from './styles.module.scss';
-import { useConfig } from '~/utils/hooks';
+import { useConfig } from '~/application/utils/hooks';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const Account: FC = () => {

@@ -1,6 +1,6 @@
 import React, { FC, useCallback } from 'react';
 import { TableCell, TableRow } from '@material-ui/core';
-import { useFeature } from '~/utils/hooks';
+import { useFeature } from '~/application/utils/hooks';
 import { observer } from 'mobx-react';
 import { useHistory } from 'react-router';
 import classNames from 'classnames';

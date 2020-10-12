@@ -2,7 +2,7 @@ import React, { FC, useCallback } from 'react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { TablePagination } from '@material-ui/core';
-import { useFeature } from '~/utils/hooks';
+import { useFeature } from '~/application/utils/hooks';
 import { observer } from 'mobx-react';
 
 interface IProps {}

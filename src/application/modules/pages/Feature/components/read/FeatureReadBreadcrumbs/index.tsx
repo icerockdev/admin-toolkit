@@ -3,7 +3,7 @@ import { observer } from 'mobx-react';
 import styles from './styles.module.scss';
 import { Breadcrumbs, Link } from '@material-ui/core';
 import classNames from 'classnames';
-import { useFeature } from '~/utils/hooks';
+import { useFeature } from '~/application/utils/hooks';
 import { Link as RouterLink } from 'react-router-dom';
 import { Placeholder } from '~/application/modules/pages/Feature/components/common/Placeholder';
 import { FeatureMode } from '~/application/modules/pages/Feature/types';

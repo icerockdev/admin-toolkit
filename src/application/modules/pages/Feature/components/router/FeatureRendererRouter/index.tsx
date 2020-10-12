@@ -1,7 +1,7 @@
 import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { observer } from 'mobx-react';
-import { useFeature } from '~/utils/hooks';
+import { useFeature } from '~/application/utils/hooks';
 import { useLocation } from 'react-router';
 import { FeatureMode } from '~/application/modules/pages/Feature/types';
 import {

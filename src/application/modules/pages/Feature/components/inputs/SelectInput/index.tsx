@@ -20,7 +20,7 @@ import {
 import styles from './styles.module.scss';
 import { Autocomplete } from '@material-ui/lab';
 import { Placeholder } from '~/application/modules/pages/Feature/components/common/Placeholder';
-import { useFeature } from '~/utils/hooks';
+import { useFeature } from '~/application/utils/hooks';
 
 type IProps = FeatureInputProps & {
   variants: Record<any, any>;

@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@material-ui/core';
 
-import { useConfig } from '~/utils/hooks';
+import { useConfig } from '~/application/utils/hooks';
 import styles from './styles.module.scss';
 
 const SignIn: FC = () => {

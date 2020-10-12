@@ -2,7 +2,7 @@
 
 import React, { FC, FormEvent, useCallback, useState } from 'react';
 import { Button, TextField, Typography } from '@material-ui/core';
-import { useConfig } from '~/utils/hooks';
+import { useConfig } from '~/application/utils/hooks';
 import styles from './styles.module.scss';
 import { Link } from 'react-router-dom';
 

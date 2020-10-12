@@ -1,7 +1,7 @@
 import React, { FC, useCallback } from 'react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
-import { useFeature } from '~/utils/hooks';
+import { useFeature } from '~/application/utils/hooks';
 
 const FeatureReadWrapper: FC = ({ children }) => {
   const feature = useFeature();

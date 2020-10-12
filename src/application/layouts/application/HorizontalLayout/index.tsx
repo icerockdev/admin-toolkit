@@ -1,7 +1,7 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC } from 'react';
 import { observer } from 'mobx-react';
 import { HorizontalNavigation } from '~/containers/layout/HorizontalNavigation';
-import { useConfig } from '~/utils/hooks';
+import { useConfig } from '~/application/utils/hooks';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 
