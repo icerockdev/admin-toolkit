@@ -18,6 +18,7 @@ export declare type FeatureFieldProps<T, V> = {
     listColumnSize?: string;
     allowEmptyFilter?: boolean;
     defaultValue?: V;
+    path?: string[];
 };
 export declare type FeatureFieldListProps<T extends any = any> = {
     value: T;

@@ -5,7 +5,7 @@ import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { FeatureReadField } from '../FeatureReadField';
 import { FeatureMode } from '../../../types';
-import { has } from 'ramda';
+import { hasPath } from 'ramda';
 var FeatureReadContent = observer(function (_a) {
     var onlyFields = _a.onlyFields;
     var feature = useFeature();
@@ -28,6 +28,7 @@ var FeatureReadContent = observer(function (_a) {
         }
     }, [feature.mode]);
     var isEditing = feature.mode === FeatureMode.create || feature.mode === FeatureMode.update;
-    return (React.createElement("div", { className: classNames(styles.content, 'feature-read__content') }, fields.map(function (field) { return (React.createElement(FeatureReadField, { label: field.label, key: field.key, hideLabel: isEditing, disabled: feature.mode === FeatureMode.read && !has(field.name, values) }, component(field))); })));
+    return (React.createElement("div", { className: classNames(styles.content, 'feature-read__content') }, fields.map(function (field) { return (React.createElement(FeatureReadField, { label: field.label, key: field.key, hideLabel: isEditing, disabled: feature.mode === FeatureMode.read &&
+            !hasPath(field.fieldPath, values) }, component(field))); })));
 });
 export { FeatureReadContent };

@@ -7,7 +7,16 @@ import {
 } from '~/application/modules/pages/Feature/types/field';
 import { StringFilter } from '~/application/modules/pages/Feature/filters/StringFilter';
 import { Feature } from '~/application/modules/pages/Feature';
-import { equals, has, omit, reject } from 'ramda';
+import {
+  assocPath,
+  dissocPath,
+  equals,
+  has,
+  lensPath,
+  omit,
+  reject,
+  view,
+} from 'ramda';
 import { StringInput } from '~/application/modules/pages/Feature/components/inputs/StringInput';
 import { observer } from 'mobx-react';
 import { FeatureFeature } from '~/application/modules/pages/Feature/types';
@@ -36,8 +45,10 @@ export class FeatureField<
     if (options.roles) this.roles = options.roles;
     if (options.permissions) this.permissions = options.permissions;
     if (options.defaultValue) this.defaultValue = options.defaultValue;
+    if (options.path) this.path = options.path;
   }
 
+  @observable public path: string[] = [];
   @observable protected feature?: Feature<T>;
 
   @observable roles?: FeatureFieldProps<T, V>['roles'];
@@ -71,24 +82,16 @@ export class FeatureField<
     this.feature = feature;
   }
 
-  public asString(val: any) {
-    return val.toString();
-  }
-
-  public asFilter(val: any) {
-    return val;
-  }
-
   @action
   public onChange = (val: any) => {
     if (!this.feature) return;
 
     this.resetErrorIfAny();
 
-    this.feature.data.editor = {
-      ...this.feature.data.editor,
-      [this.name]: val,
-    };
+    this.feature.data.editor = assocPath(
+      this.fieldPath,
+      val
+    )(this.feature.data.editor) as T;
   };
 
   @observable
@@ -104,9 +107,11 @@ export class FeatureField<
 
   @computed
   get Update() {
+    const value = String(this.editValue);
+
     return (
       <StringInput
-        value={this.editValue}
+        value={value}
         onChange={this.onChange}
         label={this.label}
         error={this.editError}
@@ -135,10 +140,10 @@ export class FeatureField<
   public onFilterChange = (value: any) => {
     if (!this.feature?.filters.value) return;
 
-    this.feature.filters.value = {
-      ...this.feature.filters.value,
-      [this.name]: value,
-    };
+    this.feature.filters.value = assocPath(
+      this.fieldPath,
+      value
+    )(this.feature.filters.value) as any;
   };
 
   @action
@@ -146,30 +151,30 @@ export class FeatureField<
     if (!this.feature?.filters) return;
 
     this.feature.filters.value = omit([this.name], this.feature.filters.value);
-    this.feature.filters.selected = reject(
-      equals(this.name),
+    this.feature.filters.selected = dissocPath(
+      this.fieldPath,
       this.feature.filters.selected
     );
   };
 
   @computed
   get filterValue() {
-    return this.feature?.filters.value[this.name];
+    return view(lensPath(this.fieldPath), this.feature?.filters.value);
   }
 
   @computed
-  get readValue() {
-    return this.feature?.data.read[this.name];
+  get readValue(): V {
+    return view(lensPath(this.fieldPath), this.feature?.data.read);
   }
 
   @computed
-  get editValue() {
-    return this.feature?.data.editor[this.name];
+  get editValue(): V {
+    return view(lensPath(this.fieldPath), this.feature?.data.editor) as V;
   }
 
   @computed
-  get editError() {
-    return this.feature?.data.errors[this.name];
+  get editError(): string {
+    return view(lensPath(this.fieldPath), this.feature?.data.errors);
   }
 
   /**
@@ -198,10 +203,15 @@ export class FeatureField<
   @action
   resetErrorIfAny() {
     if (this.feature && this.editError) {
-      this.feature.data.errors = omit(
-        [this.name],
+      this.feature.data.errors = dissocPath(
+        this.fieldPath,
         this.feature.data.errors
-      ) as any;
+      );
     }
+  }
+
+  @computed
+  get fieldPath() {
+    return [...this.path, this.name];
   }
 }

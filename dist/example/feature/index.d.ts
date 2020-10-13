@@ -7,6 +7,10 @@ export declare type IFields = {
     status: number;
     birthDate: string;
     description: string;
+    nested: {
+        index: number;
+        value: string;
+    };
 };
 declare const _default: Feature<IFields>;
 export default _default;

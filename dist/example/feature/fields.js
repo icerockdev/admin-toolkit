@@ -3,6 +3,7 @@ import { DateField } from '../../application/modules/pages/Feature/fields/DateFi
 import { IntegerField } from '../../application/modules/pages/Feature/fields/IntegerField';
 import { SelectField } from '../../application/modules/pages/Feature/fields/SelectField';
 import { ReferenceField } from '../../application/modules/pages/Feature/fields/ReferenceField';
+import { StringField } from '../../application';
 export var FEATURE_FIELDS = [
     new FeatureField('name', {
         label: 'Имя',
@@ -52,5 +53,13 @@ export var FEATURE_FIELDS = [
             sort: true,
             filter: true,
         },
+    }),
+    new IntegerField('index', {
+        path: ['nested'],
+        label: 'Nested index',
+    }),
+    new StringField('value', {
+        path: ['nested'],
+        label: 'Nested value',
     }),
 ];

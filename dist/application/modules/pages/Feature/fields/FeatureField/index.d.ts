@@ -6,6 +6,7 @@ export declare class FeatureField<T extends Record<string, any> = Record<string,
     name: string;
     options: FeatureFieldProps<T, V>;
     constructor(name: string, options: FeatureFieldProps<T, V>);
+    path: string[];
     protected feature?: Feature<T>;
     roles?: FeatureFieldProps<T, V>['roles'];
     permissions?: FeatureFieldProps<T, V>['permissions'];
@@ -17,8 +18,6 @@ export declare class FeatureField<T extends Record<string, any> = Record<string,
     get label(): string;
     get key(): string;
     useFeature(feature: Feature<T>): void;
-    asString(val: any): any;
-    asFilter(val: any): any;
     onChange: (val: any) => void;
     List: FC<FeatureFieldListProps>;
     ListHead: FC;
@@ -30,14 +29,15 @@ export declare class FeatureField<T extends Record<string, any> = Record<string,
     }>;
     onFilterChange: (value: any) => void;
     onFilterReset: () => void;
-    get filterValue(): any;
-    get readValue(): Record<keyof T, T[keyof T]>[string] | undefined;
-    get editValue(): Record<keyof T, T[keyof T]>[string] | undefined;
-    get editError(): Record<keyof T, string>[string] | undefined;
+    get filterValue(): unknown;
+    get readValue(): V;
+    get editValue(): V;
+    get editError(): string;
     /**
      * List of features, available for current user role by field.features,
      * field.roles and field.permissions
      */
     get featuresOfCurrentUser(): Record<FeatureFeature, boolean>;
     resetErrorIfAny(): void;
+    get fieldPath(): string[];
 }

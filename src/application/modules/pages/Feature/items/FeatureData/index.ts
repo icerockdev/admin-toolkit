@@ -1,8 +1,8 @@
-import { action, computed, extendObservable, observable } from 'mobx';
+import { action, computed, extendObservable, observable, toJS } from 'mobx';
 import { FeatureDataReference } from '~/application/modules/pages/Feature/types/reference';
 import { FeatureApiReferences } from '~/application/modules/pages/Feature/types';
 import { Feature } from '~/application/modules/pages/Feature';
-import { pickBy } from 'ramda';
+import { assocPath, lensPath, pickBy, view } from 'ramda';
 
 export class FeatureData<
   Fields extends Record<string, any> = Record<string, any>
@@ -89,10 +89,12 @@ export class FeatureData<
    */
   @computed
   get editorDataForCurrentMode() {
-    const fields = this.feature.fieldsOfCurrentMode.map((field) => field.name);
-
-    return pickBy((_, k) => fields.includes(k), this.editor) as Partial<
-      Record<keyof Fields, Fields[keyof Fields]>
-    >;
+    return this.feature.fieldsOfCurrentMode.reduce((acc, field) => {
+      return assocPath(
+        // changes value in acc by field.fieldPath
+        field.fieldPath,
+        view(lensPath(field.fieldPath), this.editor) // get value in editor by field.fieldPath
+      )(acc) as Fields;
+    }, {} as Fields);
   }
 }

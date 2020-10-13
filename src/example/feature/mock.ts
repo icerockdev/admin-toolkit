@@ -10,5 +10,9 @@ export const generateBaseData = (items: number) =>
       status: 20,
       birthDate: new Date().toISOString(),
       description: 'Lorem Ipsum and etc',
+      nested: {
+        index: 1,
+        value: 'Nested value',
+      },
     })
   );

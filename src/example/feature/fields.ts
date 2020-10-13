@@ -4,6 +4,7 @@ import { DateField } from '~/application/modules/pages/Feature/fields/DateField'
 import { IntegerField } from '~/application/modules/pages/Feature/fields/IntegerField';
 import { SelectField } from '~/application/modules/pages/Feature/fields/SelectField';
 import { ReferenceField } from '~/application/modules/pages/Feature/fields/ReferenceField';
+import { StringField } from '~/application';
 
 export const FEATURE_FIELDS = [
   new FeatureField<IFields, string>('name', {
@@ -54,5 +55,13 @@ export const FEATURE_FIELDS = [
       sort: true,
       filter: true,
     },
+  }),
+  new IntegerField<IFields>('index', {
+    path: ['nested'],
+    label: 'Nested index',
+  }),
+  new StringField<IFields>('value', {
+    path: ['nested'],
+    label: 'Nested value',
   }),
 ];

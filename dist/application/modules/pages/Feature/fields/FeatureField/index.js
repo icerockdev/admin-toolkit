@@ -15,11 +15,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 import React from 'react';
 import { action, computed, extendObservable, observable } from 'mobx';
 import { FeatureFieldFeature, } from '../../types/field';
 import { StringFilter } from '../../filters/StringFilter';
-import { equals, has, omit, reject } from 'ramda';
+import { assocPath, dissocPath, has, lensPath, omit, view, } from 'ramda';
 import { StringInput } from '../../components/inputs/StringInput';
 import { observer } from 'mobx-react';
 var FeatureField = /** @class */ (function () {
@@ -27,6 +34,7 @@ var FeatureField = /** @class */ (function () {
         var _this = this;
         this.name = name;
         this.options = options;
+        this.path = [];
         this.listColumnSize = '200px';
         this.allowEmptyFilter = false;
         this.features = {
@@ -38,11 +46,10 @@ var FeatureField = /** @class */ (function () {
             sort: true,
         };
         this.onChange = function (val) {
-            var _a;
             if (!_this.feature)
                 return;
             _this.resetErrorIfAny();
-            _this.feature.data.editor = __assign(__assign({}, _this.feature.data.editor), (_a = {}, _a[_this.name] = val, _a));
+            _this.feature.data.editor = assocPath(_this.fieldPath, val)(_this.feature.data.editor);
         };
         this.List = function (_a) {
             var value = _a.value;
@@ -55,17 +62,16 @@ var FeatureField = /** @class */ (function () {
         });
         this.onFilterChange = function (value) {
             var _a;
-            var _b;
-            if (!((_b = _this.feature) === null || _b === void 0 ? void 0 : _b.filters.value))
+            if (!((_a = _this.feature) === null || _a === void 0 ? void 0 : _a.filters.value))
                 return;
-            _this.feature.filters.value = __assign(__assign({}, _this.feature.filters.value), (_a = {}, _a[_this.name] = value, _a));
+            _this.feature.filters.value = assocPath(_this.fieldPath, value)(_this.feature.filters.value);
         };
         this.onFilterReset = function () {
             var _a;
             if (!((_a = _this.feature) === null || _a === void 0 ? void 0 : _a.filters))
                 return;
             _this.feature.filters.value = omit([_this.name], _this.feature.filters.value);
-            _this.feature.filters.selected = reject(equals(_this.name), _this.feature.filters.selected);
+            _this.feature.filters.selected = dissocPath(_this.fieldPath, _this.feature.filters.selected);
         };
         extendObservable(this, { name: name, options: options });
         if (options.features) {
@@ -82,6 +88,8 @@ var FeatureField = /** @class */ (function () {
             this.permissions = options.permissions;
         if (options.defaultValue)
             this.defaultValue = options.defaultValue;
+        if (options.path)
+            this.path = options.path;
     }
     Object.defineProperty(FeatureField.prototype, "label", {
         get: function () {
@@ -100,12 +108,6 @@ var FeatureField = /** @class */ (function () {
     FeatureField.prototype.useFeature = function (feature) {
         this.feature = feature;
     };
-    FeatureField.prototype.asString = function (val) {
-        return val.toString();
-    };
-    FeatureField.prototype.asFilter = function (val) {
-        return val;
-    };
     Object.defineProperty(FeatureField.prototype, "Read", {
         get: function () {
             return React.createElement(this.List, { value: this.readValue });
@@ -116,7 +118,8 @@ var FeatureField = /** @class */ (function () {
     Object.defineProperty(FeatureField.prototype, "Update", {
         get: function () {
             var _a;
-            return (React.createElement(StringInput, { value: this.editValue, onChange: this.onChange, label: this.label, error: this.editError, isLoading: (_a = this.feature) === null || _a === void 0 ? void 0 : _a.data.isLoading }));
+            var value = String(this.editValue);
+            return (React.createElement(StringInput, { value: value, onChange: this.onChange, label: this.label, error: this.editError, isLoading: (_a = this.feature) === null || _a === void 0 ? void 0 : _a.data.isLoading }));
         },
         enumerable: false,
         configurable: true
@@ -131,7 +134,7 @@ var FeatureField = /** @class */ (function () {
     Object.defineProperty(FeatureField.prototype, "filterValue", {
         get: function () {
             var _a;
-            return (_a = this.feature) === null || _a === void 0 ? void 0 : _a.filters.value[this.name];
+            return view(lensPath(this.fieldPath), (_a = this.feature) === null || _a === void 0 ? void 0 : _a.filters.value);
         },
         enumerable: false,
         configurable: true
@@ -139,7 +142,7 @@ var FeatureField = /** @class */ (function () {
     Object.defineProperty(FeatureField.prototype, "readValue", {
         get: function () {
             var _a;
-            return (_a = this.feature) === null || _a === void 0 ? void 0 : _a.data.read[this.name];
+            return view(lensPath(this.fieldPath), (_a = this.feature) === null || _a === void 0 ? void 0 : _a.data.read);
         },
         enumerable: false,
         configurable: true
@@ -147,7 +150,7 @@ var FeatureField = /** @class */ (function () {
     Object.defineProperty(FeatureField.prototype, "editValue", {
         get: function () {
             var _a;
-            return (_a = this.feature) === null || _a === void 0 ? void 0 : _a.data.editor[this.name];
+            return view(lensPath(this.fieldPath), (_a = this.feature) === null || _a === void 0 ? void 0 : _a.data.editor);
         },
         enumerable: false,
         configurable: true
@@ -155,7 +158,7 @@ var FeatureField = /** @class */ (function () {
     Object.defineProperty(FeatureField.prototype, "editError", {
         get: function () {
             var _a;
-            return (_a = this.feature) === null || _a === void 0 ? void 0 : _a.data.errors[this.name];
+            return view(lensPath(this.fieldPath), (_a = this.feature) === null || _a === void 0 ? void 0 : _a.data.errors);
         },
         enumerable: false,
         configurable: true
@@ -185,9 +188,19 @@ var FeatureField = /** @class */ (function () {
     });
     FeatureField.prototype.resetErrorIfAny = function () {
         if (this.feature && this.editError) {
-            this.feature.data.errors = omit([this.name], this.feature.data.errors);
+            this.feature.data.errors = dissocPath(this.fieldPath, this.feature.data.errors);
         }
     };
+    Object.defineProperty(FeatureField.prototype, "fieldPath", {
+        get: function () {
+            return __spreadArrays(this.path, [this.name]);
+        },
+        enumerable: false,
+        configurable: true
+    });
+    __decorate([
+        observable
+    ], FeatureField.prototype, "path", void 0);
     __decorate([
         observable
     ], FeatureField.prototype, "feature", void 0);
@@ -266,6 +279,9 @@ var FeatureField = /** @class */ (function () {
     __decorate([
         action
     ], FeatureField.prototype, "resetErrorIfAny", null);
+    __decorate([
+        computed
+    ], FeatureField.prototype, "fieldPath", null);
     return FeatureField;
 }());
 export { FeatureField };

@@ -42,5 +42,5 @@ export declare class FeatureData<Fields extends Record<string, any> = Record<str
      * Data fields, only for current mode (update/create), based on field and feature
      * roles and permissions
      */
-    get editorDataForCurrentMode(): Partial<Record<keyof Fields, Fields[keyof Fields]>>;
+    get editorDataForCurrentMode(): Fields;
 }

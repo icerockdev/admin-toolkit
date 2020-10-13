@@ -6,7 +6,7 @@ import classNames from 'classnames';
 import { FeatureReadField } from '~/application/modules/pages/Feature/components/read/FeatureReadField';
 import { FeatureMode } from '~/application/modules/pages/Feature/types';
 import { FeatureField } from '~/application/modules/pages/Feature/fields/FeatureField';
-import { has } from 'ramda';
+import { has, hasPath } from 'ramda';
 
 interface IProps {
   onlyFields?: string[];
@@ -50,7 +50,8 @@ const FeatureReadContent: FC<IProps> = observer(({ onlyFields }) => {
           key={field.key}
           hideLabel={isEditing}
           disabled={
-            feature.mode === FeatureMode.read && !has(field.name, values)
+            feature.mode === FeatureMode.read &&
+            !hasPath(field.fieldPath, values)
           }
         >
           {component(field)}

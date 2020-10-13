@@ -17,7 +17,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 import { action, computed, extendObservable, observable } from 'mobx';
 import { FeatureDataReference } from '../../types/reference';
-import { pickBy } from 'ramda';
+import { assocPath, lensPath, view } from 'ramda';
 var FeatureData = /** @class */ (function () {
     function FeatureData(feature) {
         this.feature = feature;
@@ -85,8 +85,13 @@ var FeatureData = /** @class */ (function () {
          * roles and permissions
          */
         get: function () {
-            var fields = this.feature.fieldsOfCurrentMode.map(function (field) { return field.name; });
-            return pickBy(function (_, k) { return fields.includes(k); }, this.editor);
+            var _this = this;
+            return this.feature.fieldsOfCurrentMode.reduce(function (acc, field) {
+                return assocPath(
+                // changes value in acc by field.fieldPath
+                field.fieldPath, view(lensPath(field.fieldPath), _this.editor) // get value in editor by field.fieldPath
+                )(acc);
+            }, {});
         },
         enumerable: false,
         configurable: true

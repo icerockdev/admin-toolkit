@@ -18,6 +18,10 @@ export type IFields = {
   status: number;
   birthDate: string;
   description: string;
+  nested: {
+    index: number;
+    value: string;
+  };
 };
 
 export default new Feature<IFields>('Feature', '/feature', {
