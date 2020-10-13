@@ -311,6 +311,13 @@ var AuthProvider = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(AuthProvider.prototype, "token", {
+        get: function () {
+            return this.user.token;
+        },
+        enumerable: false,
+        configurable: true
+    });
     __decorate([
         observable
     ], AuthProvider.prototype, "splash", void 0);
@@ -392,6 +399,9 @@ var AuthProvider = /** @class */ (function () {
     __decorate([
         computed
     ], AuthProvider.prototype, "output", null);
+    __decorate([
+        computed
+    ], AuthProvider.prototype, "token", null);
     return AuthProvider;
 }());
 export { AuthProvider };

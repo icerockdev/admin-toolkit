@@ -35,17 +35,14 @@ export declare type FeatureGetListResult<Fields> = {
     data: Fields[];
     count: number;
     status?: number;
-    error?: string;
 };
 export declare type FeatureGetReadResult<Fields> = {
     data: Fields;
     status?: number;
-    error?: string;
 };
 export declare type FeaturePostCreateResult<Fields> = {
     data: Fields;
     status?: number;
-    error?: string;
     errors?: Record<keyof Fields, string>;
 };
 export declare type FeaturePostUpdateResult<T> = FeaturePostCreateResult<T>;

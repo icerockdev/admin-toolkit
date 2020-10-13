@@ -44,4 +44,5 @@ export declare class AuthProvider<U extends AuthProviderUser = AuthProviderUser>
     withToken: WithTokenFunction;
     get isLogged(): boolean;
     get output(): FC<{}>;
+    get token(): string | undefined;
 }

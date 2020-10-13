@@ -27,7 +27,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import { toJS } from 'mobx';
 export function controllerPostCreate(controller) {
-    var feature, _a, data, errors, error, e_1;
+    var feature, _a, data, errors, e_1;
     var _b;
     return __generator(this, function (_c) {
         switch (_c.label) {
@@ -39,13 +39,10 @@ export function controllerPostCreate(controller) {
                 feature.data.isLoading = true;
                 return [4 /*yield*/, feature.api.create(toJS(feature.data.editorDataForCurrentMode))];
             case 2:
-                _a = _c.sent(), data = _a.data, errors = _a.errors, error = _a.error;
+                _a = _c.sent(), data = _a.data, errors = _a.errors;
                 if (errors) {
                     feature.data.errors = errors;
                     return [2 /*return*/];
-                }
-                if (error) {
-                    throw new Error(error);
                 }
                 feature.data.isLoading = false;
                 if (typeof feature.getItemId(data) !== 'undefined') {

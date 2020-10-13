@@ -18,4 +18,5 @@ export declare class JWTAuthProvider extends AuthProvider {
     persistCredentials: () => void;
     persistTokens: () => void;
     get isLogged(): boolean;
+    get token(): string;
 }

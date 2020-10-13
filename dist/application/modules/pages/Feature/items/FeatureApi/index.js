@@ -87,9 +87,6 @@ var FeatureApi = /** @class */ (function () {
                         if (result.status === 401) {
                             throw new Error(UNAUTHORIZED);
                         }
-                        if (result.error) {
-                            throw new Error(result.error);
-                        }
                         return [2 /*return*/, result];
                 }
             });
@@ -109,9 +106,6 @@ var FeatureApi = /** @class */ (function () {
                         result = _a.sent();
                         if (result.status === 401) {
                             throw new Error(UNAUTHORIZED);
-                        }
-                        if (result.error) {
-                            throw new Error(result.error);
                         }
                         return [2 /*return*/, result];
                 }
@@ -133,9 +127,6 @@ var FeatureApi = /** @class */ (function () {
                         if (result.status === 401) {
                             throw new Error(UNAUTHORIZED);
                         }
-                        if (result.error) {
-                            throw new Error(result.error);
-                        }
                         return [2 /*return*/, result];
                 }
             });
@@ -155,9 +146,6 @@ var FeatureApi = /** @class */ (function () {
                         result = _a.sent();
                         if (result.status === 401) {
                             throw new Error(UNAUTHORIZED);
-                        }
-                        if (result.error) {
-                            throw new Error(result.error);
                         }
                         return [2 /*return*/, result];
                 }
@@ -240,7 +228,7 @@ var FeatureApi = /** @class */ (function () {
     Object.defineProperty(FeatureApi.prototype, "request", {
         get: function () {
             var _a, _b;
-            var authorization = (_b = (_a = this.feature.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.user.token;
+            var authorization = (_b = (_a = this.feature.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.token;
             return function (cb, props) {
                 return cb(__assign(__assign({}, props), (authorization ? { authorization: authorization } : {})));
             };

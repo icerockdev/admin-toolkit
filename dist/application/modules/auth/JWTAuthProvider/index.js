@@ -224,6 +224,13 @@ var JWTAuthProvider = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(JWTAuthProvider.prototype, "token", {
+        get: function () {
+            return this.tokens.access;
+        },
+        enumerable: false,
+        configurable: true
+    });
     __decorate([
         observable
     ], JWTAuthProvider.prototype, "tokens", void 0);
@@ -245,6 +252,9 @@ var JWTAuthProvider = /** @class */ (function (_super) {
     __decorate([
         computed
     ], JWTAuthProvider.prototype, "isLogged", null);
+    __decorate([
+        computed
+    ], JWTAuthProvider.prototype, "token", null);
     return JWTAuthProvider;
 }(AuthProvider));
 export { JWTAuthProvider };

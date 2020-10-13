@@ -13,7 +13,6 @@ export function* controllerPostCreate<
     const {
       data,
       errors,
-      error,
     }: FeaturePostCreateResult<T> = yield feature.api.create(
       toJS(feature.data.editorDataForCurrentMode)
     );
@@ -21,10 +20,6 @@ export function* controllerPostCreate<
     if (errors) {
       feature.data.errors = errors;
       return;
-    }
-
-    if (error) {
-      throw new Error(error);
     }
 
     feature.data.isLoading = false;

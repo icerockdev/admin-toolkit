@@ -48,19 +48,16 @@ export type FeatureGetListResult<Fields> = {
   data: Fields[];
   count: number;
   status?: number;
-  error?: string;
 };
 
 export type FeatureGetReadResult<Fields> = {
   data: Fields;
   status?: number;
-  error?: string;
 };
 
 export type FeaturePostCreateResult<Fields> = {
   data: Fields;
   status?: number;
-  error?: string;
   errors?: Record<keyof Fields, string>;
 };
 

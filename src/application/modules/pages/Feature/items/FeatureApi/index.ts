@@ -69,7 +69,7 @@ export class FeatureApi<
 
   @computed
   get request() {
-    const authorization = this.feature.parent?.auth?.user.token;
+    const authorization = this.feature.parent?.auth?.token;
 
     return (cb: any, props: any) =>
       cb({ ...props, ...(authorization ? { authorization } : {}) });
@@ -124,10 +124,6 @@ export class FeatureApi<
       throw new Error(UNAUTHORIZED);
     }
 
-    if (result.error) {
-      throw new Error(result.error);
-    }
-
     return result;
   };
 
@@ -147,10 +143,6 @@ export class FeatureApi<
 
     if (result.status === 401) {
       throw new Error(UNAUTHORIZED);
-    }
-
-    if (result.error) {
-      throw new Error(result.error);
     }
 
     return result;
@@ -176,10 +168,6 @@ export class FeatureApi<
       throw new Error(UNAUTHORIZED);
     }
 
-    if (result.error) {
-      throw new Error(result.error);
-    }
-
     return result;
   };
 
@@ -201,10 +189,6 @@ export class FeatureApi<
 
     if (result.status === 401) {
       throw new Error(UNAUTHORIZED);
-    }
-
-    if (result.error) {
-      throw new Error(result.error);
     }
 
     return result;

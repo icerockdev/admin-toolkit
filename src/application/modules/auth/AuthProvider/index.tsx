@@ -270,4 +270,9 @@ export class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
   get output() {
     return this.router;
   }
+
+  @computed
+  get token() {
+    return this.user.token;
+  }
 }

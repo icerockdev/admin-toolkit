@@ -170,4 +170,9 @@ export class JWTAuthProvider extends AuthProvider {
   get isLogged() {
     return !!this.tokens.access;
   }
+
+  @computed
+  get token() {
+    return this.tokens.access;
+  }
 }

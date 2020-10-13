@@ -27,7 +27,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import { toJS } from 'mobx';
 export function controllerPostUpdate(controller) {
-    var feature, id, _a, data, errors, error, e_1;
+    var feature, id, _a, data, errors, e_1;
     var _b;
     return __generator(this, function (_c) {
         switch (_c.label) {
@@ -40,13 +40,10 @@ export function controllerPostUpdate(controller) {
                 id = controller.getIdFromUrl();
                 return [4 /*yield*/, feature.api.update(id, toJS(feature.data.editorDataForCurrentMode))];
             case 2:
-                _a = _c.sent(), data = _a.data, errors = _a.errors, error = _a.error;
+                _a = _c.sent(), data = _a.data, errors = _a.errors;
                 if (errors) {
                     feature.data.errors = errors;
                     return [2 /*return*/];
-                }
-                if (error) {
-                    throw new Error(error);
                 }
                 feature.data.isLoading = false;
                 if (typeof feature.getItemId(data) !== 'undefined') {

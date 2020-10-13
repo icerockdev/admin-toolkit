@@ -14,7 +14,6 @@ export function* controllerPostUpdate<
     const {
       data,
       errors,
-      error,
     }: FeaturePostUpdateResult<T> = yield feature.api.update(
       id,
       toJS(feature.data.editorDataForCurrentMode)
@@ -23,10 +22,6 @@ export function* controllerPostUpdate<
     if (errors) {
       feature.data.errors = errors;
       return;
-    }
-
-    if (error) {
-      throw new Error(error);
     }
 
     feature.data.isLoading = false;
