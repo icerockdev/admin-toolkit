@@ -226,7 +226,7 @@ var JWTAuthProvider = /** @class */ (function (_super) {
     });
     Object.defineProperty(JWTAuthProvider.prototype, "token", {
         get: function () {
-            return this.tokens.access;
+            return "Bearer " + this.tokens.access;
         },
         enumerable: false,
         configurable: true

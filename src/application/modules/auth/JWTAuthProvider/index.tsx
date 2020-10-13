@@ -173,6 +173,6 @@ export class JWTAuthProvider extends AuthProvider {
 
   @computed
   get token() {
-    return this.tokens.access;
+    return `Bearer ${this.tokens.access}`;
   }
 }
