@@ -26,12 +26,15 @@ import { SelectInput } from '../../components/inputs/SelectInput';
 var ReferenceField = /** @class */ (function (_super) {
     __extends(ReferenceField, _super);
     function ReferenceField(name, options) {
+        var _a;
         var _this = _super.call(this, name, options) || this;
         _this.name = name;
         _this.options = options;
         _this.autocomplete = true;
         if (options.dependencies) {
-            reaction(function () { return _this.dependencyValues; }, _this.updateRefs.bind(_this));
+            (_a = _this.options.dependencies) === null || _a === void 0 ? void 0 : _a.map(function (field) {
+                return reaction(function () { var _a; return (_a = _this.feature) === null || _a === void 0 ? void 0 : _a.data.editor[field]; }, _this.updateRefs.bind(_this));
+            });
         }
         return _this;
     }

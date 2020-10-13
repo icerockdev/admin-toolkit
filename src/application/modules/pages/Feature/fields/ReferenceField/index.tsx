@@ -26,7 +26,12 @@ export class ReferenceField<
     super(name, options);
 
     if (options.dependencies) {
-      reaction(() => this.dependencyValues, this.updateRefs.bind(this));
+      this.options.dependencies?.map((field) =>
+        reaction(
+          () => this.feature?.data.editor[field],
+          this.updateRefs.bind(this)
+        )
+      );
     }
   }
 
