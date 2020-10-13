@@ -8,7 +8,7 @@ import { FeatureListRendererProps } from '~/application/modules/pages/Feature/co
 const FeatureListFilters: FeatureListRendererProps['filters'] = observer(() => {
   const feature = useFeature();
 
-  if (!feature.filters.fieldsList) return <Fragment />;
+  if (!feature.filters.fieldsList.length) return <Fragment />;
 
   return (
     <div className={classNames(styles.fitlers, 'feature-list__filters')}>

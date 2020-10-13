@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import { useFeature } from '../../../../../../utils/hooks';
 var FeatureListFilters = observer(function () {
     var feature = useFeature();
-    if (!feature.filters.fieldsList)
+    if (!feature.filters.fieldsList.length)
         return React.createElement(Fragment, null);
     return (React.createElement("div", { className: classNames(styles.fitlers, 'feature-list__filters') }, feature.filters.Filters));
 });
