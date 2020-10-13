@@ -30,12 +30,14 @@ export type FeatureGetReadProps = {
   feature: Feature;
   url: string;
   id: any;
+  token?: string;
 };
 
 export type FeaturePostCreateProps<Fields> = {
   feature: Feature;
   url: string;
   data: Fields;
+  token?: string;
 };
 
 export type FeaturePostUpdateProps<Fields> = FeaturePostCreateProps<Fields> & {

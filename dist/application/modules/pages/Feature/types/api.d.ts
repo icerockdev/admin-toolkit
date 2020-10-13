@@ -22,11 +22,13 @@ export declare type FeatureGetReadProps = {
     feature: Feature;
     url: string;
     id: any;
+    token?: string;
 };
 export declare type FeaturePostCreateProps<Fields> = {
     feature: Feature;
     url: string;
     data: Fields;
+    token?: string;
 };
 export declare type FeaturePostUpdateProps<Fields> = FeaturePostCreateProps<Fields> & {
     id: any;
