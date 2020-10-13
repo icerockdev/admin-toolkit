@@ -29,6 +29,7 @@ export const FEATURE_FIELDS = [
       sort: true,
       filter: true,
     },
+    dependencies: ['age'],
   }),
   new SelectField<IFields, number>('status', {
     label: 'Статус',

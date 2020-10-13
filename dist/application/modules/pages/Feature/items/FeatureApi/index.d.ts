@@ -19,4 +19,5 @@ export declare class FeatureApi<Fields extends Record<string, any> = Record<stri
     update: (id: any, data: FeatureData['editor']) => Promise<FeaturePostUpdateResult<Fields>>;
     delete: (id: any) => Promise<void>;
     getReferencesAll<Fields>(): Promise<void>;
+    getReference<Fields>(name: string): Promise<void>;
 }

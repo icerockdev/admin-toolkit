@@ -49,9 +49,12 @@ export class DateField<
     return this.formatValue(val);
   }
 
-  List: FeatureField['List'] = ({ value }) => (
-    <div>{(!!value && this.formatValue(value)) || ''}</div>
-  );
+  @computed
+  get List(): FeatureField['List'] {
+    return ({ value }) => (
+      <div>{(!!value && this.formatValue(value)) || ''}</div>
+    );
+  }
 
   @computed
   get Update() {

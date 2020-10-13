@@ -37,10 +37,6 @@ var DateField = /** @class */ (function (_super) {
         _this.formatter = function (val) {
             return format(val, _this.dateFormat);
         };
-        _this.List = function (_a) {
-            var value = _a.value;
-            return (React.createElement("div", null, (!!value && _this.formatValue(value)) || ''));
-        };
         _this.Filter = observer(function (_a) {
             var inline = _a.inline;
             return (React.createElement(DateFilter, { label: _this.label, name: _this.name, value: _this.filterValue, onChange: _this.onFilterChange, onReset: _this.onFilterReset, isRange: !_this.filterExact, inline: inline }));
@@ -63,6 +59,17 @@ var DateField = /** @class */ (function (_super) {
     DateField.prototype.asString = function (val) {
         return this.formatValue(val);
     };
+    Object.defineProperty(DateField.prototype, "List", {
+        get: function () {
+            var _this = this;
+            return function (_a) {
+                var value = _a.value;
+                return (React.createElement("div", null, (!!value && _this.formatValue(value)) || ''));
+            };
+        },
+        enumerable: false,
+        configurable: true
+    });
     Object.defineProperty(DateField.prototype, "Update", {
         get: function () {
             var _a;
@@ -83,6 +90,9 @@ var DateField = /** @class */ (function (_super) {
     __decorate([
         observable
     ], DateField.prototype, "formatter", void 0);
+    __decorate([
+        computed
+    ], DateField.prototype, "List", null);
     __decorate([
         computed
     ], DateField.prototype, "Update", null);

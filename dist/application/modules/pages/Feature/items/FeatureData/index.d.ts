@@ -7,7 +7,7 @@ export declare class FeatureData<Fields extends Record<string, any> = Record<str
     /**
      * FeatureApi's references dictionary (see this.createReferenceData)
      */
-    references: Record<string, FeatureDataReference>;
+    references: Partial<Record<keyof Fields, FeatureDataReference>>;
     isLoading: boolean;
     /**
      * Values for list

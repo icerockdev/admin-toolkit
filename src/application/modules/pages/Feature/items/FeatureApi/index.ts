@@ -215,17 +215,21 @@ export class FeatureApi<
 
     const refs = keys(this.references);
 
-    await Promise.all(
-      refs.map(async (ref) => {
-        this.data.references[ref].isLoadingAll = true;
-        this.data.references[ref].all = await this.request(getReferenceAll, {
-          feature: this.feature,
-          name: ref,
-          host: this.host,
-        });
+    await Promise.all(refs.map(this.getReference.bind(this)));
+  }
 
-        this.feature.data.references[ref].isLoadingAll = false;
-      })
-    );
+  @action
+  async getReference<Fields>(name: string) {
+    if (!has(name, this.data.references)) return;
+
+    const ref = this.data.references[name]!!;
+
+    ref.isLoadingAll = true;
+    ref.all = await this.request(getReferenceAll, {
+      feature: this.feature,
+      name,
+      host: this.host,
+    });
+    ref.isLoadingAll = false;
   }
 }

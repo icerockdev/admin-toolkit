@@ -27,6 +27,7 @@ export var FEATURE_FIELDS = [
             sort: true,
             filter: true,
         },
+        dependencies: ['age'],
     }),
     new SelectField('status', {
         label: 'Статус',

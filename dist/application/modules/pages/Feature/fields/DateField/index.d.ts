@@ -18,7 +18,7 @@ export declare class DateField<T extends Record<string, any> = Record<string, an
     formatter: DateFieldFormatter;
     formatValue(val: string): string;
     asString(val: string): string;
-    List: FeatureField['List'];
+    get List(): FeatureField['List'];
     get Update(): JSX.Element;
     Filter: FeatureField['Filter'];
 }

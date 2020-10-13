@@ -12,7 +12,9 @@ export class FeatureData<
   /**
    * FeatureApi's references dictionary (see this.createReferenceData)
    */
-  @observable references: Record<string, FeatureDataReference> = {};
+  @observable references: Partial<
+    Record<keyof Fields, FeatureDataReference>
+  > = {};
 
   @observable isLoading: boolean = true;
 

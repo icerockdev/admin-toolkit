@@ -252,34 +252,39 @@ var FeatureApi = /** @class */ (function () {
     FeatureApi.prototype.getReferencesAll = function () {
         return __awaiter(this, void 0, void 0, function () {
             var refs;
-            var _this = this;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         if (!keys(this.references).length || !this.feature)
                             return [2 /*return*/];
                         refs = keys(this.references);
-                        return [4 /*yield*/, Promise.all(refs.map(function (ref) { return __awaiter(_this, void 0, void 0, function () {
-                                var _a;
-                                return __generator(this, function (_b) {
-                                    switch (_b.label) {
-                                        case 0:
-                                            this.data.references[ref].isLoadingAll = true;
-                                            _a = this.data.references[ref];
-                                            return [4 /*yield*/, this.request(getReferenceAll, {
-                                                    feature: this.feature,
-                                                    name: ref,
-                                                    host: this.host,
-                                                })];
-                                        case 1:
-                                            _a.all = _b.sent();
-                                            this.feature.data.references[ref].isLoadingAll = false;
-                                            return [2 /*return*/];
-                                    }
-                                });
-                            }); }))];
+                        return [4 /*yield*/, Promise.all(refs.map(this.getReference.bind(this)))];
                     case 1:
                         _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    FeatureApi.prototype.getReference = function (name) {
+        return __awaiter(this, void 0, void 0, function () {
+            var ref, _a;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
+                    case 0:
+                        if (!has(name, this.data.references))
+                            return [2 /*return*/];
+                        ref = this.data.references[name];
+                        ref.isLoadingAll = true;
+                        _a = ref;
+                        return [4 /*yield*/, this.request(getReferenceAll, {
+                                feature: this.feature,
+                                name: name,
+                                host: this.host,
+                            })];
+                    case 1:
+                        _a.all = _b.sent();
+                        ref.isLoadingAll = false;
                         return [2 /*return*/];
                 }
             });
@@ -327,6 +332,9 @@ var FeatureApi = /** @class */ (function () {
     __decorate([
         action
     ], FeatureApi.prototype, "getReferencesAll", null);
+    __decorate([
+        action
+    ], FeatureApi.prototype, "getReference", null);
     return FeatureApi;
 }());
 export { FeatureApi };
