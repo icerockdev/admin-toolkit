@@ -245,7 +245,7 @@ export class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
     try {
       const result = await req({ ...args, token: this.user.token });
 
-      if (result.error) {
+      if (result?.error) {
         throw new Error(result.error);
       }
 
@@ -256,6 +256,8 @@ export class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
       }
 
       this.parent?.notifications.showError(e.toString());
+
+      return undefined;
     }
   };
 

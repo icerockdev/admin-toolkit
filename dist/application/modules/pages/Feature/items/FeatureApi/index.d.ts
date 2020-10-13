@@ -10,7 +10,7 @@ export declare class FeatureApi<Fields extends Record<string, any> = Record<stri
     get urls(): Required<FeatureApiUrls>;
     get data(): FeatureData<Fields>;
     get references(): FeatureApiReferences<Fields> | undefined;
-    get request(): ((cb: any, props: any) => any) | import("../../../../..").WithTokenFunction;
+    get request(): (cb: any, props: any) => any;
     useFeature: (feature: Feature<Fields>) => void;
     get availableApiFeatures(): Record<FeatureFeature, boolean>;
     list: (feature: Feature<Fields>) => Promise<FeatureGetListResult<Fields>>;

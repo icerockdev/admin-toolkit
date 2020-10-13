@@ -239,11 +239,11 @@ var FeatureApi = /** @class */ (function () {
     });
     Object.defineProperty(FeatureApi.prototype, "request", {
         get: function () {
-            var _a, _b, _c, _d;
-            if (!((_c = (_b = (_a = this.feature) === null || _a === void 0 ? void 0 : _a.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken)) {
-                return function (cb, props) { return cb(props); };
-            }
-            return (_d = this.feature) === null || _d === void 0 ? void 0 : _d.parent.auth.withToken;
+            var _a, _b;
+            var authorization = (_b = (_a = this.feature.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.user.token;
+            return function (cb, props) {
+                return cb(__assign(__assign({}, props), (authorization ? { authorization: authorization } : {})));
+            };
         },
         enumerable: false,
         configurable: true

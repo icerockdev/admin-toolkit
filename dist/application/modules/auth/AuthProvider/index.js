@@ -250,7 +250,7 @@ var AuthProvider = /** @class */ (function () {
                         return [4 /*yield*/, req(__assign(__assign({}, args), { token: this.user.token }))];
                     case 1:
                         result = _b.sent();
-                        if (result.error) {
+                        if (result === null || result === void 0 ? void 0 : result.error) {
                             throw new Error(result.error);
                         }
                         return [2 /*return*/, result];
@@ -260,7 +260,7 @@ var AuthProvider = /** @class */ (function () {
                             this.user = EMPTY_USER;
                         }
                         (_a = this.parent) === null || _a === void 0 ? void 0 : _a.notifications.showError(e_4.toString());
-                        return [3 /*break*/, 3];
+                        return [2 /*return*/, undefined];
                     case 3: return [2 /*return*/];
                 }
             });

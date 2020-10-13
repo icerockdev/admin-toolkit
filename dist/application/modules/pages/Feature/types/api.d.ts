@@ -12,7 +12,7 @@ export declare type FeatureApiProps<T> = {
 export declare type FeatureApiMethodProps = {
     feature: Feature;
     url: string;
-    token: string;
+    authorization: string;
 };
 export declare type FeatureGetListProps = FeatureApiMethodProps & {
     filters: Record<string, string>;

@@ -69,11 +69,10 @@ export class FeatureApi<
 
   @computed
   get request() {
-    if (!this.feature?.parent?.auth?.withToken) {
-      return (cb: any, props: any) => cb(props);
-    }
+    const authorization = this.feature.parent?.auth?.user.token;
 
-    return this.feature?.parent.auth.withToken;
+    return (cb: any, props: any) =>
+      cb({ ...props, ...(authorization ? { authorization } : {}) });
   }
 
   @action

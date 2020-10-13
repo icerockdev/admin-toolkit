@@ -19,7 +19,7 @@ export type FeatureApiProps<T> = {
 export type FeatureApiMethodProps = {
   feature: Feature;
   url: string;
-  token: string;
+  authorization: string;
 };
 
 export type FeatureGetListProps = FeatureApiMethodProps & {
