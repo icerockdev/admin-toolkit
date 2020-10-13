@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { observer } from 'mobx-react';
@@ -7,6 +7,8 @@ import { FeatureListRendererProps } from '~/application/modules/pages/Feature/co
 
 const FeatureListFilters: FeatureListRendererProps['filters'] = observer(() => {
   const feature = useFeature();
+
+  if (!feature.filters.fieldsList) return <Fragment />;
 
   return (
     <div className={classNames(styles.fitlers, 'feature-list__filters')}>

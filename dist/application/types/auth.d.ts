@@ -8,13 +8,13 @@ export declare const EMPTY_USER: AuthProviderUser;
 export declare type UserRole = any;
 export declare type IAuthRequestFn = (email: string, password: string) => Promise<{
     user: AuthProviderUser;
-    error: string;
+    error?: string;
 }>;
 export declare type IAuthPasswRestoreFn = (email: string) => Promise<{
-    error: string;
+    error?: string;
 }>;
 export declare type IAuthPasswUpdateFn = (token: string, password: string, passwordRepeat?: string) => Promise<{
-    error: string;
+    error?: string;
 }>;
 export declare type IAuthNewPasswordValidator = (password: string) => string | undefined;
 export interface AuthProviderOptions {

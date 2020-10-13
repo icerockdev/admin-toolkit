@@ -23,15 +23,17 @@ export type UserRole = any;
 export type IAuthRequestFn = (
   email: string,
   password: string
-) => Promise<{ user: AuthProviderUser; error: string }>;
+) => Promise<{ user: AuthProviderUser; error?: string }>;
 
-export type IAuthPasswRestoreFn = (email: string) => Promise<{ error: string }>;
+export type IAuthPasswRestoreFn = (
+  email: string
+) => Promise<{ error?: string }>;
 
 export type IAuthPasswUpdateFn = (
   token: string,
   password: string,
   passwordRepeat?: string
-) => Promise<{ error: string }>;
+) => Promise<{ error?: string }>;
 
 export type IAuthNewPasswordValidator = (
   password: string

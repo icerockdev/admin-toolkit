@@ -30,6 +30,11 @@ export class FeatureFilters<
   }
 
   @computed
+  get fieldsList(): FeatureField<F>[] {
+    return Object.values(this.fields);
+  }
+
+  @computed
   get valuesForList(): Record<string, string> {
     return pickBy(
       (_, it) =>

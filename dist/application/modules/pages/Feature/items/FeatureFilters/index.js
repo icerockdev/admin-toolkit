@@ -94,6 +94,13 @@ var FeatureFilters = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(FeatureFilters.prototype, "fieldsList", {
+        get: function () {
+            return Object.values(this.fields);
+        },
+        enumerable: false,
+        configurable: true
+    });
     Object.defineProperty(FeatureFilters.prototype, "valuesForList", {
         get: function () {
             var _this = this;
@@ -150,6 +157,9 @@ var FeatureFilters = /** @class */ (function () {
     __decorate([
         computed
     ], FeatureFilters.prototype, "fields", null);
+    __decorate([
+        computed
+    ], FeatureFilters.prototype, "fieldsList", null);
     __decorate([
         computed
     ], FeatureFilters.prototype, "valuesForList", null);

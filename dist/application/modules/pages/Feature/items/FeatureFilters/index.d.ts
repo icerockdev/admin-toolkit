@@ -14,6 +14,7 @@ export declare class FeatureFilters<F extends Record<string, any> = Record<strin
     sortBy?: string;
     sortDir?: SortDir;
     get fields(): Record<string, FeatureField<F>>;
+    get fieldsList(): FeatureField<F>[];
     get valuesForList(): Record<string, string>;
     get Filters(): JSX.Element;
     /**
