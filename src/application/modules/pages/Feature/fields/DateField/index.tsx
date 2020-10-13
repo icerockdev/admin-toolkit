@@ -20,16 +20,12 @@ export class DateField<
   T extends Record<string, any> = Record<string, any>
 > extends FeatureField<T, string> {
   constructor(
-    name: FeatureField['name'],
-    {
-      parser,
-      format: dateFormat,
-      formatter,
-      filterExact,
-      ...options
-    }: DateFieldOptions<T>
+    public name: FeatureField['name'],
+    public options: DateFieldOptions<T> = {}
   ) {
     super(name, options);
+
+    const { parser, format: dateFormat, formatter, filterExact } = options;
 
     if (parser) this.parser = parser;
     if (dateFormat) this.dateFormat = dateFormat;

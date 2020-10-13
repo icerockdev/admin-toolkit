@@ -5,7 +5,9 @@ export declare type IntegerFieldOptions<T, V> = FeatureField<T, V>['options'] & 
     preserveZero?: boolean;
 };
 export declare class IntegerField<T extends Record<string, any> = Record<string, any>> extends FeatureField<T, number> {
-    constructor(name: FeatureField['name'], { filterExact, accuracy, preserveZero, ...options }: IntegerFieldOptions<T, number>);
+    name: FeatureField['name'];
+    options: IntegerFieldOptions<T, number>;
+    constructor(name: FeatureField['name'], options?: IntegerFieldOptions<T, number>);
     filterExact: boolean;
     accuracy: number;
     preserveZero: boolean;

@@ -5,7 +5,9 @@ export declare type SelectFieldOptions<T, V extends string | number> = FeatureFi
     autocomplete?: boolean;
 };
 export declare class SelectField<T extends Record<string, any> = Record<string, any>, V extends string | number = string> extends FeatureField<T, V> {
-    constructor(name: FeatureField['name'], { options, autocomplete, ...props }: SelectFieldOptions<T, V>);
+    name: FeatureField['name'];
+    options: SelectFieldOptions<T, V>;
+    constructor(name: FeatureField['name'], options?: SelectFieldOptions<T, V>);
     variants: Record<any, any>;
     autocomplete: boolean;
     get listVariants(): Record<any, any>;

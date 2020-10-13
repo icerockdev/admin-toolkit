@@ -18,13 +18,13 @@ export class SelectField<
   V extends string | number = string
 > extends FeatureField<T, V> {
   constructor(
-    name: FeatureField['name'],
-    { options, autocomplete, ...props }: SelectFieldOptions<T, V>
+    public name: FeatureField['name'],
+    public options: SelectFieldOptions<T, V> = {}
   ) {
-    super(name, props);
+    super(name, options);
 
-    if (options) this.variants = options;
-    if (autocomplete) this.autocomplete = true;
+    if (options.options) this.variants = options.options;
+    if (options.autocomplete) this.autocomplete = true;
   }
 
   @observable variants: Record<any, any> = {};

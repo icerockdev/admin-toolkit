@@ -5,7 +5,7 @@ import { FeatureFeature } from '../../types';
 export declare class FeatureField<T extends Record<string, any> = Record<string, any>, V extends any = any> {
     name: string;
     options: FeatureFieldProps<T, V>;
-    constructor(name: string, options: FeatureFieldProps<T, V>);
+    constructor(name: string, options?: FeatureFieldProps<T, V>);
     path: string[];
     protected feature?: Feature<T>;
     roles?: FeatureFieldProps<T, V>['roles'];

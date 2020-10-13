@@ -25,7 +25,10 @@ export class FeatureField<
   T extends Record<string, any> = Record<string, any>,
   V extends any = any
 > {
-  constructor(public name: string, public options: FeatureFieldProps<T, V>) {
+  constructor(
+    public name: string,
+    public options: FeatureFieldProps<T, V> = {}
+  ) {
     extendObservable(this, { name, options });
 
     if (options.features) {

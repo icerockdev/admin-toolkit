@@ -12,15 +12,12 @@ export class IntegerField<
   T extends Record<string, any> = Record<string, any>
 > extends FeatureField<T, number> {
   constructor(
-    name: FeatureField['name'],
-    {
-      filterExact,
-      accuracy,
-      preserveZero,
-      ...options
-    }: IntegerFieldOptions<T, number>
+    public name: FeatureField['name'],
+    public options: IntegerFieldOptions<T, number> = {}
   ) {
     super(name, options);
+
+    const { filterExact, accuracy, preserveZero } = options;
 
     if (filterExact) this.filterExact = filterExact;
     if (accuracy) this.accuracy = accuracy;

@@ -9,7 +9,9 @@ export declare type DateFieldOptions<T> = FeatureField<T, string>['options'] & {
     filterExact?: boolean;
 };
 export declare class DateField<T extends Record<string, any> = Record<string, any>> extends FeatureField<T, string> {
-    constructor(name: FeatureField['name'], { parser, format: dateFormat, formatter, filterExact, ...options }: DateFieldOptions<T>);
+    name: FeatureField['name'];
+    options: DateFieldOptions<T>;
+    constructor(name: FeatureField['name'], options?: DateFieldOptions<T>);
     filterExact: boolean;
     dateFormat: string;
     parser: DateFieldParser;

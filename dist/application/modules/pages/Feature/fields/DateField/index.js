@@ -17,17 +17,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
 import React from 'react';
 import { FeatureField } from '../FeatureField';
 import { computed, observable } from 'mobx';
@@ -37,9 +26,11 @@ import { DateInput } from '../../components/inputs/DateInput';
 import { observer } from 'mobx-react';
 var DateField = /** @class */ (function (_super) {
     __extends(DateField, _super);
-    function DateField(name, _a) {
-        var parser = _a.parser, dateFormat = _a.format, formatter = _a.formatter, filterExact = _a.filterExact, options = __rest(_a, ["parser", "format", "formatter", "filterExact"]);
+    function DateField(name, options) {
+        if (options === void 0) { options = {}; }
         var _this = _super.call(this, name, options) || this;
+        _this.name = name;
+        _this.options = options;
         _this.filterExact = false;
         _this.dateFormat = 'dd.MM.yyyy';
         _this.parser = function (val) { return parseISO(val); };
@@ -54,6 +45,7 @@ var DateField = /** @class */ (function (_super) {
             var inline = _a.inline;
             return (React.createElement(DateFilter, { label: _this.label, name: _this.name, value: _this.filterValue, onChange: _this.onFilterChange, onReset: _this.onFilterReset, isRange: !_this.filterExact, inline: inline }));
         });
+        var parser = options.parser, dateFormat = options.format, formatter = options.formatter, filterExact = options.filterExact;
         if (parser)
             _this.parser = parser;
         if (dateFormat)

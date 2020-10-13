@@ -32,6 +32,7 @@ import { observer } from 'mobx-react';
 var FeatureField = /** @class */ (function () {
     function FeatureField(name, options) {
         var _this = this;
+        if (options === void 0) { options = {}; }
         this.name = name;
         this.options = options;
         this.path = [];

@@ -17,25 +17,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
 import { FeatureField } from '../FeatureField';
 import { observable } from 'mobx';
 import React from 'react';
 var IntegerField = /** @class */ (function (_super) {
     __extends(IntegerField, _super);
-    function IntegerField(name, _a) {
-        var filterExact = _a.filterExact, accuracy = _a.accuracy, preserveZero = _a.preserveZero, options = __rest(_a, ["filterExact", "accuracy", "preserveZero"]);
+    function IntegerField(name, options) {
+        if (options === void 0) { options = {}; }
         var _this = _super.call(this, name, options) || this;
+        _this.name = name;
+        _this.options = options;
         _this.filterExact = false;
         _this.accuracy = 1;
         _this.preserveZero = false;
@@ -44,6 +35,7 @@ var IntegerField = /** @class */ (function (_super) {
             var value = _a.value;
             return (React.createElement("div", null, (value && _this.formatValue(value)) || ''));
         };
+        var filterExact = options.filterExact, accuracy = options.accuracy, preserveZero = options.preserveZero;
         if (filterExact)
             _this.filterExact = filterExact;
         if (accuracy)
