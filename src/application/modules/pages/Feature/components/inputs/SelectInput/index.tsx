@@ -95,6 +95,7 @@ const SelectInput: FC<IProps> = observer(
               }
               options={options}
               onChange={onAutocompleteChange}
+              disabled={disabled}
               renderInput={(params: TextFieldProps) => (
                 <TextField
                   {...params}
