@@ -9,26 +9,23 @@ export declare type FeatureApiProps<T> = {
     methods?: FeatureApiMethods<T>;
     references?: FeatureApiReferences<T>;
 };
-export declare type FeatureGetListProps = {
+export declare type FeatureApiMethodProps = {
     feature: Feature;
     url: string;
+    token: string;
+};
+export declare type FeatureGetListProps = FeatureApiMethodProps & {
     filters: Record<string, string>;
     sortBy: string;
     sortDir: string;
     limit: number;
     offset: number;
 };
-export declare type FeatureGetReadProps = {
-    feature: Feature;
-    url: string;
+export declare type FeatureGetReadProps = FeatureApiMethodProps & {
     id: any;
-    token?: string;
 };
-export declare type FeaturePostCreateProps<Fields> = {
-    feature: Feature;
-    url: string;
+export declare type FeaturePostCreateProps<Fields> = FeatureApiMethodProps & {
     data: Fields;
-    token?: string;
 };
 export declare type FeaturePostUpdateProps<Fields> = FeaturePostCreateProps<Fields> & {
     id: any;

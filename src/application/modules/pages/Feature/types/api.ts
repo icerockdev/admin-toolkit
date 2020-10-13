@@ -16,9 +16,13 @@ export type FeatureApiProps<T> = {
   references?: FeatureApiReferences<T>;
 };
 
-export type FeatureGetListProps = {
+export type FeatureApiMethodProps = {
   feature: Feature;
   url: string;
+  token: string;
+};
+
+export type FeatureGetListProps = FeatureApiMethodProps & {
   filters: Record<string, string>;
   sortBy: string;
   sortDir: string;
@@ -26,18 +30,12 @@ export type FeatureGetListProps = {
   offset: number;
 };
 
-export type FeatureGetReadProps = {
-  feature: Feature;
-  url: string;
+export type FeatureGetReadProps = FeatureApiMethodProps & {
   id: any;
-  token?: string;
 };
 
-export type FeaturePostCreateProps<Fields> = {
-  feature: Feature;
-  url: string;
+export type FeaturePostCreateProps<Fields> = FeatureApiMethodProps & {
   data: Fields;
-  token?: string;
 };
 
 export type FeaturePostUpdateProps<Fields> = FeaturePostCreateProps<Fields> & {
