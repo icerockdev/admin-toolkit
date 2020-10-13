@@ -98,10 +98,14 @@ export class FeatureField<
   };
 
   @observable
-  public List: FC<FeatureFieldListProps> = ({ value }) => <div>{value}</div>;
+  get List(): FC<FeatureFieldListProps> {
+    return ({ value }) => <div>{value}</div>;
+  }
 
   @observable
-  public ListHead: FC = () => <div>{this.label}</div>;
+  get ListHead(): FC {
+    return () => <div>{this.label}</div>;
+  }
 
   @computed
   public get Read() {

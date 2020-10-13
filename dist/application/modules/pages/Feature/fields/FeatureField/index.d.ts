@@ -19,8 +19,8 @@ export declare class FeatureField<T extends Record<string, any> = Record<string,
     get key(): string;
     useFeature(feature: Feature<T>): void;
     onChange: (val: any) => void;
-    List: FC<FeatureFieldListProps>;
-    ListHead: FC;
+    get List(): FC<FeatureFieldListProps>;
+    get ListHead(): FC;
     get Read(): JSX.Element;
     get Update(): JSX.Element;
     get Create(): JSX.Element;

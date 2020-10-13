@@ -52,11 +52,6 @@ var FeatureField = /** @class */ (function () {
             _this.resetErrorIfAny();
             _this.feature.data.editor = assocPath(_this.fieldPath, val)(_this.feature.data.editor);
         };
-        this.List = function (_a) {
-            var value = _a.value;
-            return React.createElement("div", null, value);
-        };
-        this.ListHead = function () { return React.createElement("div", null, _this.label); };
         this.Filter = observer(function (_a) {
             var inline = _a.inline;
             return (React.createElement(StringFilter, { value: _this.filterValue, name: _this.name, label: _this.label, onChange: _this.onFilterChange, onReset: _this.onFilterReset, inline: inline }));
@@ -109,6 +104,24 @@ var FeatureField = /** @class */ (function () {
     FeatureField.prototype.useFeature = function (feature) {
         this.feature = feature;
     };
+    Object.defineProperty(FeatureField.prototype, "List", {
+        get: function () {
+            return function (_a) {
+                var value = _a.value;
+                return React.createElement("div", null, value);
+            };
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(FeatureField.prototype, "ListHead", {
+        get: function () {
+            var _this = this;
+            return function () { return React.createElement("div", null, _this.label); };
+        },
+        enumerable: false,
+        configurable: true
+    });
     Object.defineProperty(FeatureField.prototype, "Read", {
         get: function () {
             return React.createElement(this.List, { value: this.readValue });
@@ -240,10 +253,10 @@ var FeatureField = /** @class */ (function () {
     ], FeatureField.prototype, "onChange", void 0);
     __decorate([
         observable
-    ], FeatureField.prototype, "List", void 0);
+    ], FeatureField.prototype, "List", null);
     __decorate([
         observable
-    ], FeatureField.prototype, "ListHead", void 0);
+    ], FeatureField.prototype, "ListHead", null);
     __decorate([
         computed
     ], FeatureField.prototype, "Read", null);

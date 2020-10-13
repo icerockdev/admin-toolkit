@@ -4,5 +4,8 @@ export declare class ReferenceField<T extends Record<string, any> = Record<strin
     autocomplete: boolean;
     get isLoading(): boolean;
     get listVariants(): Record<any, any>;
+    get List(): ({ value }: {
+        value: any;
+    }) => JSX.Element;
     get Update(): JSX.Element;
 }
