@@ -20,8 +20,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import React from 'react';
 import { SelectField } from '../SelectField';
 import { computed, observable } from 'mobx';
-import { Placeholder } from '../../components/common/Placeholder';
-import { observer } from 'mobx-react';
 import { SelectInput } from '../../components/inputs/SelectInput';
 var ReferenceField = /** @class */ (function (_super) {
     __extends(ReferenceField, _super);
@@ -46,19 +44,15 @@ var ReferenceField = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(ReferenceField.prototype, "List", {
-        get: function () {
-            var _this = this;
-            return observer(function (_a) {
-                var value = _a.value;
-                return (React.createElement(Placeholder, { isLoading: _this.isLoading },
-                    React.createElement("div", null, _this.formatValue(value))));
-            });
-        },
-        enumerable: false,
-        configurable: true
-    });
     Object.defineProperty(ReferenceField.prototype, "Update", {
+        // @computed
+        // get List() {
+        //   return observer(({ value }: { value: any }) => (
+        //     <Placeholder isLoading={this.isLoading}>
+        //       <div>{this.formatValue(value)}</div>
+        //     </Placeholder>
+        //   ));
+        // }
         get: function () {
             var _a;
             return (React.createElement(SelectInput, { label: this.label, onChange: this.onChange, variants: this.filterVariants, value: this.editValue, autocomplete: this.autocomplete, isLoadingReference: this.isLoading, isLoading: (_a = this.feature) === null || _a === void 0 ? void 0 : _a.data.isLoading, error: this.editError }));
@@ -75,9 +69,6 @@ var ReferenceField = /** @class */ (function (_super) {
     __decorate([
         computed
     ], ReferenceField.prototype, "listVariants", null);
-    __decorate([
-        computed
-    ], ReferenceField.prototype, "List", null);
     __decorate([
         computed
     ], ReferenceField.prototype, "Update", null);

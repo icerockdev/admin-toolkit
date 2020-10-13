@@ -21,14 +21,14 @@ export class ReferenceField<
     return this.feature?.data.references[this.name].all || {};
   }
 
-  @computed
-  get List() {
-    return observer(({ value }: { value: any }) => (
-      <Placeholder isLoading={this.isLoading}>
-        <div>{this.formatValue(value)}</div>
-      </Placeholder>
-    ));
-  }
+  // @computed
+  // get List() {
+  //   return observer(({ value }: { value: any }) => (
+  //     <Placeholder isLoading={this.isLoading}>
+  //       <div>{this.formatValue(value)}</div>
+  //     </Placeholder>
+  //   ));
+  // }
 
   @computed
   get Update() {
