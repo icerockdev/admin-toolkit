@@ -13,7 +13,7 @@ export declare const ENTITY_FIELD_RENDERS: {
     richtext: FC<IEntityFieldProps>;
     base64image: import("react").ComponentType<Pick<IEntityFieldProps & {
         classes: Record<"label" | "image" | "formControl" | "outlinedInput" | "preview", string>;
-    }, "mask" | "data" | "label" | "error" | "placeholder" | "onClick" | "name" | "value" | "options" | "fields" | "isEditing" | "withToken" | "handler" | "entity" | "isFiltering"> & import("@material-ui/styles").StyledComponentProps<"label" | "image" | "formControl" | "outlinedInput" | "preview">>;
+    }, "mask" | "data" | "label" | "name" | "onClick" | "placeholder" | "value" | "error" | "options" | "fields" | "isEditing" | "withToken" | "handler" | "entity" | "isFiltering"> & import("@material-ui/styles").StyledComponentProps<"label" | "image" | "formControl" | "outlinedInput" | "preview">>;
     number: FC<IEntityFieldProps>;
     referenceSelect: FC<IEntityFieldProps>;
 };
