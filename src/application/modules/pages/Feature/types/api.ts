@@ -35,7 +35,7 @@ export type FeatureGetReadProps = {
 export type FeaturePostCreateProps<Fields> = {
   feature: Feature;
   url: string;
-  data: Record<keyof Fields, Fields[keyof Fields]>;
+  data: Fields;
 };
 
 export type FeaturePostUpdateProps<Fields> = FeaturePostCreateProps<Fields> & {

@@ -26,7 +26,7 @@ export declare type FeatureGetReadProps = {
 export declare type FeaturePostCreateProps<Fields> = {
     feature: Feature;
     url: string;
-    data: Record<keyof Fields, Fields[keyof Fields]>;
+    data: Fields;
 };
 export declare type FeaturePostUpdateProps<Fields> = FeaturePostCreateProps<Fields> & {
     id: any;
