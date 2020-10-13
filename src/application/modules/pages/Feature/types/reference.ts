@@ -9,7 +9,7 @@ export interface FeatureReferenceProps {
 export type FeatureReferenceFetchAll = (props: {
   feature: Feature;
   url: string;
-  token: string;
+  authorization: string;
   name: string;
 }) => Promise<Record<any, any>>;
 

@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import { has } from 'ramda';
 export var getReferenceAll = function (_a) {
-    var feature = _a.feature, host = _a.host, token = _a.token, name = _a.name;
+    var feature = _a.feature, host = _a.host, authorization = _a.authorization, name = _a.name;
     return __awaiter(void 0, void 0, void 0, function () {
         var _b, all, url;
         return __generator(this, function (_c) {
@@ -50,7 +50,7 @@ export var getReferenceAll = function (_a) {
                     return [4 /*yield*/, all({
                             feature: feature,
                             url: new URL(url, host).href,
-                            token: token,
+                            authorization: authorization,
                             name: name,
                         })];
                 case 1: return [2 /*return*/, _c.sent()];

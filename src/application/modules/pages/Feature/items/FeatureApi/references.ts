@@ -5,7 +5,7 @@ import { FeatureReferenceProps } from '~/application/modules/pages/Feature/types
 export type GetReferenceAllProps = {
   feature: Feature;
   host: string;
-  token: string;
+  authorization: string;
   name: string;
 };
 
@@ -14,7 +14,7 @@ export type GetReferenceAll = (props: GetReferenceAllProps) => Promise<any>;
 export const getReferenceAll: GetReferenceAll = async ({
   feature,
   host,
-  token,
+  authorization,
   name,
 }): Promise<Record<any, any>> => {
   if (!feature.api.references || !has(name, feature.api.references)) return {};
@@ -26,7 +26,7 @@ export const getReferenceAll: GetReferenceAll = async ({
   return await all({
     feature,
     url: new URL(url, host).href,
-    token,
+    authorization,
     name,
   });
 };

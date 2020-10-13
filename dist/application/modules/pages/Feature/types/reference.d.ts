@@ -6,7 +6,7 @@ export interface FeatureReferenceProps {
 export declare type FeatureReferenceFetchAll = (props: {
     feature: Feature;
     url: string;
-    token: string;
+    authorization: string;
     name: string;
 }) => Promise<Record<any, any>>;
 export declare class FeatureDataReference {
