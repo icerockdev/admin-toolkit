@@ -44,6 +44,7 @@ export class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
   @observable persist?: AuthProviderOptions['persist'] = true;
   @observable passwordValidator?: AuthProviderOptions['passwordValidator'];
   @observable router: FC = AuthRouter;
+  @observable loginLabel: AuthProviderOptions['loginLabel'] = 'Логин';
 
   @observable getUserName: AuthProviderOptions['getUserName'] = () =>
     this.user?.username || '';

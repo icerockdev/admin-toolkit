@@ -24,10 +24,13 @@ var SignIn = function () {
         setEmail,
     ]);
     var onPasswordChange = useCallback(function (event) { return setPassword(event.target.value); }, [setPassword]);
+    var loginLabel = useMemo(function () { var _a; return ((_a = config.auth) === null || _a === void 0 ? void 0 : _a.loginLabel) || 'Логин'; }, [
+        config.auth,
+    ]);
     return (React.createElement("div", { className: styles.wrap },
         React.createElement("form", { noValidate: true, onSubmit: onSubmitCapture, className: styles.form },
             React.createElement("h3", { className: styles.header }, "\u0410\u0432\u0442\u043E\u0440\u0438\u0437\u0430\u0446\u0438\u044F"),
-            React.createElement(TextField, { variant: "filled", margin: "normal", required: true, fullWidth: true, id: "email", label: "\u041B\u043E\u0433\u0438\u043D", name: "email", autoComplete: "email", defaultValue: email, onChange: onEmailChange, autoFocus: true }),
+            React.createElement(TextField, { variant: "filled", margin: "normal", required: true, fullWidth: true, id: "email", label: loginLabel, name: "email", autoComplete: "email", defaultValue: email, onChange: onEmailChange, autoFocus: true }),
             React.createElement(TextField, { variant: "filled", margin: "normal", required: true, fullWidth: true, name: "password", label: "\u041F\u0430\u0440\u043E\u043B\u044C", type: "password", id: "password", defaultValue: password, onChange: onPasswordChange, autoComplete: "current-password", InputProps: {
                     endAdornment: onForgotPassword ? (React.createElement(InputAdornment, { position: "end", onClick: onForgotPassword, className: styles.forgot }, "\u0417\u0430\u0431\u044B\u043B\u0438 \u043F\u0430\u0440\u043E\u043B\u044C?")) : null,
                 } }),

@@ -66,6 +66,7 @@ var AuthProvider = /** @class */ (function () {
         this.user = EMPTY_USER;
         this.persist = true;
         this.router = AuthRouter;
+        this.loginLabel = 'Логин';
         this.getUserName = function () { var _a; return ((_a = _this.user) === null || _a === void 0 ? void 0 : _a.username) || ''; };
         this.getUserRoleTitle = function () {
             var role = _this.user.role;
@@ -343,6 +344,9 @@ var AuthProvider = /** @class */ (function () {
     __decorate([
         observable
     ], AuthProvider.prototype, "router", void 0);
+    __decorate([
+        observable
+    ], AuthProvider.prototype, "loginLabel", void 0);
     __decorate([
         observable
     ], AuthProvider.prototype, "getUserName", void 0);

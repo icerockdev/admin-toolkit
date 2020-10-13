@@ -81,19 +81,19 @@ var JWTAuthProvider = /** @class */ (function (_super) {
             _this.sendAuthRequestCancel();
             _this.sendAuthRequestInstance = flow(function sendAuthRequest() {
                 var response, e_1;
-                var _a, _b;
-                return __generator(this, function (_c) {
-                    switch (_c.label) {
+                var _a, _b, _c;
+                return __generator(this, function (_d) {
+                    switch (_d.label) {
                         case 0:
                             if (!this.authRequestFn)
                                 return [2 /*return*/];
                             this.isLoading = true;
-                            _c.label = 1;
+                            _d.label = 1;
                         case 1:
-                            _c.trys.push([1, 3, 4, 5]);
+                            _d.trys.push([1, 3, 4, 5]);
                             return [4 /*yield*/, this.authRequestFn(email, password)];
                         case 2:
-                            response = _c.sent();
+                            response = _d.sent();
                             if (!response || response.error) {
                                 (_a = this.parent) === null || _a === void 0 ? void 0 : _a.notifications.showError((response === null || response === void 0 ? void 0 : response.error) || AUTH_ERRORS.CANT_LOGIN);
                                 throw new Error(response === null || response === void 0 ? void 0 : response.error);
@@ -103,8 +103,9 @@ var JWTAuthProvider = /** @class */ (function (_super) {
                             this.tokens = response.tokens;
                             return [3 /*break*/, 5];
                         case 3:
-                            e_1 = _c.sent();
+                            e_1 = _d.sent();
                             this.error = e_1;
+                            (_c = this.parent) === null || _c === void 0 ? void 0 : _c.notifications.showError(e_1.toString());
                             return [3 /*break*/, 5];
                         case 4:
                             this.isLoading = false;

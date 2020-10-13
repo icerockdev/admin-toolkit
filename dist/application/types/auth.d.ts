@@ -29,6 +29,7 @@ export interface AuthProviderOptions {
     authPasswRestoreFn?: IAuthPasswRestoreFn;
     authPasswUpdateFn?: IAuthPasswUpdateFn;
     passwordValidator?: IAuthNewPasswordValidator;
+    loginLabel?: string;
 }
 export interface AuthProviderUser extends Record<string, any> {
     id?: number;

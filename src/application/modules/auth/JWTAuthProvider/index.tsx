@@ -71,6 +71,7 @@ export class JWTAuthProvider extends AuthProvider {
         this.tokens = response.tokens;
       } catch (e) {
         this.error = e;
+        this.parent?.notifications.showError(e.toString());
       } finally {
         this.isLoading = false;
       }

@@ -45,6 +45,10 @@ const SignIn: FC = () => {
     [setPassword]
   );
 
+  const loginLabel = useMemo(() => config.auth?.loginLabel || 'Логин', [
+    config.auth,
+  ]);
+
   return (
     <div className={styles.wrap}>
       <form noValidate onSubmit={onSubmitCapture} className={styles.form}>
@@ -56,7 +60,7 @@ const SignIn: FC = () => {
           required
           fullWidth
           id="email"
-          label="Логин"
+          label={loginLabel}
           name="email"
           autoComplete="email"
           defaultValue={email}

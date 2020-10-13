@@ -15,6 +15,7 @@ export declare class AuthProvider<U extends AuthProviderUser = AuthProviderUser>
     persist?: AuthProviderOptions['persist'];
     passwordValidator?: AuthProviderOptions['passwordValidator'];
     router: FC;
+    loginLabel: AuthProviderOptions['loginLabel'];
     getUserName: AuthProviderOptions['getUserName'];
     getUserRoleTitle: AuthProviderOptions['getUserRoleTitle'];
     getUserRole: AuthProviderOptions['getUserRole'];
