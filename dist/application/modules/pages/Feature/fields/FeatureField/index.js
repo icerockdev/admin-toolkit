@@ -252,10 +252,10 @@ var FeatureField = /** @class */ (function () {
         action
     ], FeatureField.prototype, "onChange", void 0);
     __decorate([
-        observable
+        computed
     ], FeatureField.prototype, "List", null);
     __decorate([
-        observable
+        computed
     ], FeatureField.prototype, "ListHead", null);
     __decorate([
         computed

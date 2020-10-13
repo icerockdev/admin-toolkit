@@ -97,18 +97,18 @@ export class FeatureField<
     )(this.feature.data.editor) as T;
   };
 
-  @observable
+  @computed
   get List(): FC<FeatureFieldListProps> {
     return ({ value }) => <div>{value}</div>;
   }
 
-  @observable
+  @computed
   get ListHead(): FC {
     return () => <div>{this.label}</div>;
   }
 
   @computed
-  public get Read() {
+  get Read() {
     return <this.List value={this.readValue} />;
   }
 
