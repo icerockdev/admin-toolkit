@@ -30,8 +30,6 @@ const FeatureReadButtons: FC<IProps> = observer(() => {
     feature.goToUpdate(feature.controller.getIdFromUrl());
   }, [feature]);
 
-  console.log(toJS(feature.api.availableApiFeatures));
-
   return (
     <div className={classNames(styles.buttons, 'feature-read__buttons')}>
       {canBeDeleted && (

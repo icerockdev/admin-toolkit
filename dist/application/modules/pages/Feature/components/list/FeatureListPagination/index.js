@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { Fragment, useCallback } from 'react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { TablePagination } from '@material-ui/core';
@@ -18,6 +18,8 @@ var FeatureListPagination = observer(function () {
     var onPageChange = useCallback(function (_, val) {
         feature.filters.page = val;
     }, [feature.filters]);
+    if (count === 0)
+        return React.createElement(Fragment, null);
     return (React.createElement("div", { className: classNames(styles.pagination, 'feature-list__pagination_pagination') },
         React.createElement(TablePagination, { rowsPerPageOptions: rowsSelectOptions, component: "div", count: count, labelRowsPerPage: "\u041D\u0430 \u0441\u0442\u0440\u0430\u043D\u0438\u0446\u0435:", rowsPerPage: rows, page: page, onChangePage: onPageChange, onChangeRowsPerPage: onRowsChange, labelDisplayedRows: labelDisplayedRows })));
 });

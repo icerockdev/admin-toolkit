@@ -1,4 +1,4 @@
-import React, { FC, useCallback } from 'react';
+import React, { FC, Fragment, useCallback } from 'react';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { TablePagination } from '@material-ui/core';
@@ -35,6 +35,8 @@ const FeatureListPagination: FC<IProps> = observer(() => {
     },
     [feature.filters]
   );
+
+  if (count === 0) return <Fragment />;
 
   return (
     <div
