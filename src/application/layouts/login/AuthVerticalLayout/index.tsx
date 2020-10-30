@@ -13,14 +13,16 @@ const AuthVerticalLayout: FC<IProps> = observer(({ children }) => {
   return (
     <div className={styles.layout}>
       <div className={styles.left}>
-        <div className={styles.logo}>
-          <Link to="/">
-            <img src={config.logo} alt={config.title} />
-          </Link>
-        </div>
+        <div className={styles.left__wrap}>
+          <div className={styles.logo}>
+            <Link to="/">
+              <img src={config.logo} alt={config.title} />
+            </Link>
+          </div>
 
-        <div className={styles.form}>
-          <div className={styles.content}>{children}</div>
+          <div className={styles.form}>
+            <div className={styles.content}>{children}</div>
+          </div>
         </div>
       </div>
 

@@ -106,7 +106,6 @@ const SignIn: FC = () => {
             fullWidth
             variant="outlined"
             color="primary"
-            disabled={!email.length || !password.length}
             className={styles.button}
             component={Link}
             to="/signup"
