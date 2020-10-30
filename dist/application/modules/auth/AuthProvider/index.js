@@ -57,6 +57,10 @@ import { action, computed, flow, observable, reaction } from 'mobx';
 import { AuthRouter } from '../../../../containers/login/AuthRouter';
 import { AuthVerticalLayout } from '../../../layouts/login/AuthVerticalLayout';
 import { has } from 'ramda';
+import { SignIn } from '../../../../containers/login/SignIn';
+import { ForgotPassword } from '../../../../containers/login/ForgotPassword';
+import { ResetPassword } from '../../../../containers/login/ResetPassword';
+import { SignUp } from '../../../../containers/login/SignUp';
 var AuthProvider = /** @class */ (function () {
     function AuthProvider(options) {
         var _this = this;
@@ -65,9 +69,14 @@ var AuthProvider = /** @class */ (function () {
         this.layout = AuthVerticalLayout;
         this.user = EMPTY_USER;
         this.persist = true;
-        this.router = AuthRouter;
         this.loginLabel = 'Логин';
         this.getUserName = function () { var _a; return ((_a = _this.user) === null || _a === void 0 ? void 0 : _a.username) || ''; };
+        // Components
+        this.router = AuthRouter;
+        this.signIn = SignIn;
+        this.signUp = SignUp;
+        this.forgotPassword = ForgotPassword;
+        this.resetPassword = ResetPassword;
         this.getUserRoleTitle = function () {
             var role = _this.user.role;
             if (!role)
@@ -218,6 +227,38 @@ var AuthProvider = /** @class */ (function () {
                 catch (e) { }
             }
         };
+        this.sendAuthSignup = function (data) {
+            flow(function sendAuthPasswRestore() {
+                var e_4;
+                var _a, _b, _c;
+                return __generator(this, function (_d) {
+                    switch (_d.label) {
+                        case 0:
+                            if (!this.authSignupFn)
+                                return [2 /*return*/];
+                            this.isLoading = true;
+                            _d.label = 1;
+                        case 1:
+                            _d.trys.push([1, 3, 4, 5]);
+                            return [4 /*yield*/, this.authSignupFn(data)];
+                        case 2:
+                            _d.sent();
+                            (_a = this.parent) === null || _a === void 0 ? void 0 : _a.notifications.showSuccess('Now you can log in');
+                            (_b = this.parent) === null || _b === void 0 ? void 0 : _b.history.push('/');
+                            return [3 /*break*/, 5];
+                        case 3:
+                            e_4 = _d.sent();
+                            this.error = e_4;
+                            (_c = this.parent) === null || _c === void 0 ? void 0 : _c.notifications.showError(e_4.toString());
+                            return [3 /*break*/, 5];
+                        case 4:
+                            this.isLoading = false;
+                            return [7 /*endfinally*/];
+                        case 5: return [2 /*return*/];
+                    }
+                });
+            }).bind(_this)();
+        };
         this.getPersistedCredentials = function () {
             try {
                 var user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -241,7 +282,7 @@ var AuthProvider = /** @class */ (function () {
          * @param args - args object, that'll be extended with token
          */
         this.withToken = function (req, args) { return __awaiter(_this, void 0, void 0, function () {
-            var result, e_4;
+            var result, e_5;
             var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
@@ -255,11 +296,11 @@ var AuthProvider = /** @class */ (function () {
                         }
                         return [2 /*return*/, result];
                     case 2:
-                        e_4 = _b.sent();
-                        if (e_4.toString() === UNAUTHORIZED) {
+                        e_5 = _b.sent();
+                        if (e_5.toString() === UNAUTHORIZED) {
                             this.user = EMPTY_USER;
                         }
-                        (_a = this.parent) === null || _a === void 0 ? void 0 : _a.notifications.showError(e_4.toString());
+                        (_a = this.parent) === null || _a === void 0 ? void 0 : _a.notifications.showError(e_5.toString());
                         return [2 /*return*/, undefined];
                     case 3: return [2 /*return*/];
                 }
@@ -341,6 +382,9 @@ var AuthProvider = /** @class */ (function () {
     ], AuthProvider.prototype, "authPasswUpdateFn", void 0);
     __decorate([
         observable
+    ], AuthProvider.prototype, "authSignupFn", void 0);
+    __decorate([
+        observable
     ], AuthProvider.prototype, "roleTitles", void 0);
     __decorate([
         observable
@@ -350,13 +394,25 @@ var AuthProvider = /** @class */ (function () {
     ], AuthProvider.prototype, "passwordValidator", void 0);
     __decorate([
         observable
-    ], AuthProvider.prototype, "router", void 0);
-    __decorate([
-        observable
     ], AuthProvider.prototype, "loginLabel", void 0);
     __decorate([
         observable
     ], AuthProvider.prototype, "getUserName", void 0);
+    __decorate([
+        observable
+    ], AuthProvider.prototype, "router", void 0);
+    __decorate([
+        observable
+    ], AuthProvider.prototype, "signIn", void 0);
+    __decorate([
+        observable
+    ], AuthProvider.prototype, "signUp", void 0);
+    __decorate([
+        observable
+    ], AuthProvider.prototype, "forgotPassword", void 0);
+    __decorate([
+        observable
+    ], AuthProvider.prototype, "resetPassword", void 0);
     __decorate([
         observable
     ], AuthProvider.prototype, "getUserRoleTitle", void 0);
@@ -387,6 +443,9 @@ var AuthProvider = /** @class */ (function () {
     __decorate([
         action
     ], AuthProvider.prototype, "sendAuthPasswUpdate", void 0);
+    __decorate([
+        action
+    ], AuthProvider.prototype, "sendAuthSignup", void 0);
     __decorate([
         action
     ], AuthProvider.prototype, "logout", void 0);

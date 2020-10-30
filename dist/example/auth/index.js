@@ -21,4 +21,10 @@ export default new AuthProvider({
             resolve({ error: '' });
         });
     },
+    authSignupFn: function (data) {
+        return new Promise(function (resolve) {
+            console.log('Registering user with data ', data);
+            resolve({ error: '' });
+        });
+    },
 });

@@ -11,12 +11,17 @@ export declare class AuthProvider<U extends AuthProviderUser = AuthProviderUser>
     authRequestFn?: AuthProviderOptions['authRequestFn'];
     authPasswRestoreFn?: AuthProviderOptions['authPasswRestoreFn'];
     authPasswUpdateFn?: AuthProviderOptions['authPasswUpdateFn'];
+    authSignupFn?: AuthProviderOptions['authSignupFn'];
     roleTitles?: Record<any, string>;
     persist?: AuthProviderOptions['persist'];
     passwordValidator?: AuthProviderOptions['passwordValidator'];
-    router: FC;
     loginLabel: AuthProviderOptions['loginLabel'];
     getUserName: AuthProviderOptions['getUserName'];
+    router: FC;
+    signIn: FC;
+    signUp: FC;
+    forgotPassword: FC;
+    resetPassword: FC;
     getUserRoleTitle: AuthProviderOptions['getUserRoleTitle'];
     getUserRole: AuthProviderOptions['getUserRole'];
     isLoading: boolean;
@@ -33,6 +38,7 @@ export declare class AuthProvider<U extends AuthProviderUser = AuthProviderUser>
     sendAuthPasswUpdateInstance?: CancellablePromise<any>;
     sendAuthPasswUpdate: (token: string, password: string) => void;
     sendAuthPasswUpdateCancel: () => void;
+    sendAuthSignup: (data: any) => void;
     getPersistedCredentials: () => AuthProviderUser;
     persistCredentials: () => void;
     logout: () => void;
