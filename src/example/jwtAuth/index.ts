@@ -57,5 +57,11 @@ export default new JWTAuthProvider({
   passwordValidator: (password: string) =>
     password.length > 5 ? '' : 'Password must be at least 6 symbols long',
 
+  authSignupFn: (data: any) =>
+    new Promise((resolve) => {
+      console.log('Registering user with data ', data);
+      resolve({ error: '' });
+    }),
+
   splash,
 });

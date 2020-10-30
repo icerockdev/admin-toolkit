@@ -3,6 +3,12 @@
 // throw this to signalize we're not logged in
 import { FC } from 'react';
 import { AuthProvider } from '~/application';
+import { observable } from 'mobx';
+import { AuthRouter } from '~/containers/login/AuthRouter';
+import { SignIn } from '~/containers/login/SignIn';
+import { SignUp } from '~/containers/login/SignUp';
+import { ForgotPassword } from '~/containers/login/ForgotPassword';
+import { ResetPassword } from '~/containers/login/ResetPassword';
 
 export const UNAUTHORIZED = 'UNAUTHORIZED';
 
@@ -35,6 +41,8 @@ export type IAuthPasswUpdateFn = (
   passwordRepeat?: string
 ) => Promise<{ error?: string }>;
 
+export type IAuthSignupFn = (data: Record<any, any>) => Promise<any>;
+
 export type IAuthNewPasswordValidator = (
   password: string
 ) => string | undefined;
@@ -50,8 +58,14 @@ export interface AuthProviderOptions {
   authRequestFn?: IAuthRequestFn;
   authPasswRestoreFn?: IAuthPasswRestoreFn;
   authPasswUpdateFn?: IAuthPasswUpdateFn;
+  authSignupFn?: IAuthSignupFn;
   passwordValidator?: IAuthNewPasswordValidator;
   loginLabel?: string;
+  router?: FC;
+  signIn?: FC;
+  signUp?: FC;
+  forgotPassword?: FC;
+  resetPassword?: FC;
 }
 
 export interface AuthProviderUser extends Record<string, any> {

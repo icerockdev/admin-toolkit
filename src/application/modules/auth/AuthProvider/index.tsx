@@ -14,6 +14,10 @@ import { AuthRouter } from '~/containers/login/AuthRouter';
 import { FC } from 'react';
 import { AuthVerticalLayout } from '~/application/layouts/login/AuthVerticalLayout';
 import { has } from 'ramda';
+import { SignIn } from '~/containers/login/SignIn';
+import { ForgotPassword } from '~/containers/login/ForgotPassword';
+import { ResetPassword } from '~/containers/login/ResetPassword';
+import { SignUp } from '~/containers/login/SignUp';
 
 export class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
   constructor(options?: Partial<AuthProviderOptions>) {
@@ -40,14 +44,20 @@ export class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
   @observable authRequestFn?: AuthProviderOptions['authRequestFn'];
   @observable authPasswRestoreFn?: AuthProviderOptions['authPasswRestoreFn'];
   @observable authPasswUpdateFn?: AuthProviderOptions['authPasswUpdateFn'];
+  @observable authSignupFn?: AuthProviderOptions['authSignupFn'];
   @observable roleTitles?: Record<any, string>;
   @observable persist?: AuthProviderOptions['persist'] = true;
   @observable passwordValidator?: AuthProviderOptions['passwordValidator'];
-  @observable router: FC = AuthRouter;
   @observable loginLabel: AuthProviderOptions['loginLabel'] = 'Логин';
-
   @observable getUserName: AuthProviderOptions['getUserName'] = () =>
     this.user?.username || '';
+
+  // Components
+  @observable router: FC = AuthRouter;
+  @observable signIn: FC = SignIn;
+  @observable signUp: FC = SignUp;
+  @observable forgotPassword: FC = ForgotPassword;
+  @observable resetPassword: FC = ResetPassword;
 
   @observable
   getUserRoleTitle: AuthProviderOptions['getUserRoleTitle'] = () => {
@@ -212,6 +222,26 @@ export class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
         this.sendAuthPasswUpdateInstance.cancel();
       } catch (e) {}
     }
+  };
+
+  @action
+  sendAuthSignup = (data: any) => {
+    flow(function* sendAuthPasswRestore(this: AuthProvider) {
+      if (!this.authSignupFn) return;
+
+      this.isLoading = true;
+
+      try {
+        yield this.authSignupFn(data);
+        this.parent?.notifications.showSuccess('Now you can log in');
+        this.parent?.history.push('/');
+      } catch (e) {
+        this.error = e;
+        this.parent?.notifications.showError(e.toString());
+      } finally {
+        this.isLoading = false;
+      }
+    }).bind(this)();
   };
 
   getPersistedCredentials = (): AuthProviderUser => {

@@ -21,4 +21,9 @@ export default new AuthProvider({
       console.log('Restoring password with: ', { email });
       resolve({ error: '' });
     }),
+  authSignupFn: (data: any) =>
+    new Promise((resolve) => {
+      console.log('Registering user with data ', data);
+      resolve({ error: '' });
+    }),
 });

@@ -1,15 +1,11 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React, { FC, FormEvent, useCallback, useMemo, useState } from 'react';
-import {
-  Button,
-  InputAdornment,
-  TextField,
-  Typography,
-} from '@material-ui/core';
+import { Button, InputAdornment, TextField } from '@material-ui/core';
 
 import { useConfig } from '~/application/utils/hooks';
 import styles from './styles.module.scss';
+import { Link } from 'react-router-dom';
 
 const SignIn: FC = () => {
   const config = useConfig();
@@ -103,6 +99,21 @@ const SignIn: FC = () => {
         >
           Войти
         </Button>
+
+        {!!auth?.authSignupFn && (
+          <Button
+            type="button"
+            fullWidth
+            variant="outlined"
+            color="primary"
+            disabled={!email.length || !password.length}
+            className={styles.button}
+            component={Link}
+            to="/signup"
+          >
+            Регистрация
+          </Button>
+        )}
       </form>
     </div>
   );
