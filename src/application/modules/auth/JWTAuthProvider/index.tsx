@@ -2,11 +2,10 @@
 
 import {
   AUTH_ERRORS,
+  AuthProviderUser,
   EMPTY_USER,
-  AuthProviderOptions,
   UNAUTHORIZED,
   WithTokenFunction,
-  AuthProviderUser,
 } from '~/application/types/auth';
 import { action, computed, flow, observable, reaction } from 'mobx';
 import { AuthProvider } from '../AuthProvider';
@@ -106,39 +105,44 @@ export class JWTAuthProvider extends AuthProvider {
         return result;
       })
       .catch(async (e: Error) => {
-        if (e.message === UNAUTHORIZED && this.tokenRefreshFn) {
-          // If there's other updater, wait for it
-          if (!this.tokenRefreshInstance) {
-            this.tokenRefreshInstance = flow(function* (this: JWTAuthProvider) {
-              if (!this.tokenRefreshFn) return { access: '', refresh: '' };
-
-              return yield this.tokenRefreshFn(this.tokens.refresh);
-            }).bind(this)();
-
-            const tokens = await this.tokenRefreshInstance;
-
-            this.tokens = {
-              access: tokens.access || '',
-              refresh: tokens.refresh,
-            };
-
-            this.tokenRefreshInstance = null;
-          } else {
-            await this.tokenRefreshInstance;
-          }
-
-          if (this.tokens.access && this.tokens.refresh) {
-            return await req({
-              ...args,
-              token: `Bearer ${this.tokens.access}`,
-            });
-          }
-
-          this.user = EMPTY_USER;
-          this.tokens = EMPTY_TOKENS;
-        } else {
-          this.parent?.notifications.showError(e.message);
+        if (e.message !== UNAUTHORIZED) {
+          throw new Error(e.message);
         }
+
+        if (!this.tokenRefreshFn) {
+          console.warn('tokenRefreshFn not specified');
+          throw new Error(e.message);
+        }
+
+        // If there's other updater, wait for it
+        if (!this.tokenRefreshInstance) {
+          this.tokenRefreshInstance = flow(function* (this: JWTAuthProvider) {
+            if (!this.tokenRefreshFn) return { access: '', refresh: '' };
+
+            return yield this.tokenRefreshFn(this.tokens.refresh);
+          }).bind(this)();
+
+          const tokens = await this.tokenRefreshInstance;
+
+          this.tokens = {
+            access: tokens.access || '',
+            refresh: tokens.refresh,
+          };
+
+          this.tokenRefreshInstance = null;
+        } else {
+          await this.tokenRefreshInstance;
+        }
+
+        if (this.tokens.access && this.tokens.refresh) {
+          return await req({
+            ...args,
+            token: `Bearer ${this.tokens.access}`,
+          });
+        }
+
+        this.user = EMPTY_USER;
+        this.tokens = EMPTY_TOKENS;
       });
   };
 

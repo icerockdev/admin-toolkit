@@ -33,7 +33,7 @@ export default new JWTAuthProvider({
         });
     },
     tokenRefreshFn: function (refresh) {
-        console.log('Refreshing JWT tokens');
+        console.log("Refreshing JWT tokens with refresh: " + refresh);
         var seed = Math.random() * 65535;
         return new Promise(function (resolve) {
             return setTimeout(function () {

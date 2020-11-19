@@ -1,3 +1,5 @@
+/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+
 import { FeatureApiHost, FeatureApiMethods, FeatureApiReferences, FeatureApiUrls, FeatureGetListResult, FeatureGetReadResult, FeaturePostCreateResult, FeaturePostUpdateResult } from '../../types/api';
 import { Feature } from '../..';
 import { FeatureData } from '../FeatureData';

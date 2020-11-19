@@ -66,10 +66,10 @@ export const ENTITY_ACTIONS = {
 };
 
 export const ENTITY_ERRORS = {
-  CANT_UPDATE_ITEM: `Can't update item`,
-  CANT_LOAD_ITEMS: `Can't load items`,
-  FIELD_IS_REQUIRED: 'This field is required',
-  INCORRECT_INPUT: 'Check all inputs',
+  CANT_UPDATE_ITEM: `Не удалось обновить`,
+  CANT_LOAD_ITEMS: `Загрузка не удалась`,
+  FIELD_IS_REQUIRED: 'Обязательное поле',
+  INCORRECT_INPUT: 'Проверьте все поля',
 };
 
 export interface IEntityField {

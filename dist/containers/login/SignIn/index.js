@@ -36,6 +36,6 @@ var SignIn = function () {
                     endAdornment: onForgotPassword ? (React.createElement(InputAdornment, { position: "end", onClick: onForgotPassword, className: styles.forgot }, "\u0417\u0430\u0431\u044B\u043B\u0438 \u043F\u0430\u0440\u043E\u043B\u044C?")) : null,
                 } }),
             React.createElement(Button, { type: "submit", fullWidth: true, variant: "contained", color: "primary", disabled: !email.length || !password.length, className: styles.button }, "\u0412\u043E\u0439\u0442\u0438"),
-            !!(auth === null || auth === void 0 ? void 0 : auth.authSignupFn) && (React.createElement(Button, { type: "button", fullWidth: true, variant: "outlined", color: "primary", disabled: !email.length || !password.length, className: styles.button, component: Link, to: "/signup" }, "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F")))));
+            !!(auth === null || auth === void 0 ? void 0 : auth.authSignupFn) && (React.createElement(Button, { type: "button", fullWidth: true, variant: "outlined", color: "primary", className: styles.button, component: Link, to: "/signup" }, "\u0420\u0435\u0433\u0438\u0441\u0442\u0440\u0430\u0446\u0438\u044F")))));
 };
 export { SignIn };

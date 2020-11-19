@@ -1,3 +1,5 @@
+/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+
 import { FC } from 'react';
 export declare const FeatureReadRenderer: FeatureReadRendererComponent;
 export declare type FeatureReadRendererComponent = FC<Partial<FeatureReadRendererProps>>;

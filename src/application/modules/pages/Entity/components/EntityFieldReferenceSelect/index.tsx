@@ -1,21 +1,17 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, {
-  FC,
-  MouseEventHandler,
-  useCallback,
-  useRef,
-  useState,
-  useEffect,
-} from 'react';
-import { Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { observer } from 'mobx-react';
-import { IEntityFieldProps } from '~/application';
+import { IEntityFieldProps, useEntity } from '~/application';
 
 type IProps = IEntityFieldProps & {};
 
 const EntityFieldReferenceSelect: FC<IProps> = observer(
-  ({ label, value, handler, error, isEditing, onClick, options }) => {
+  ({ label, name, value, handler, error, isEditing, onClick }) => {
+    const entity = useEntity();
+    const options = entity.referenceData[name] || {};
+
     const ref = useRef<HTMLLabelElement>(null);
 
     const onChange = useCallback(
@@ -53,10 +49,9 @@ const EntityFieldReferenceSelect: FC<IProps> = observer(
           <MenuItem value="">...</MenuItem>
 
           {options &&
-            options.referenceData &&
-            Object.keys(options.referenceData).map((item) => (
+            Object.keys(options).map((item) => (
               <MenuItem key={item} value={item}>
-                {options.referenceData[item]}
+                {options[item]}
               </MenuItem>
             ))}
         </Select>

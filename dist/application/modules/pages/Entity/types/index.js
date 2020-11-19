@@ -52,8 +52,8 @@ export var ENTITY_ACTIONS = {
     UPDATE: 'update',
 };
 export var ENTITY_ERRORS = {
-    CANT_UPDATE_ITEM: "Can't update item",
-    CANT_LOAD_ITEMS: "Can't load items",
-    FIELD_IS_REQUIRED: 'This field is required',
-    INCORRECT_INPUT: 'Check all inputs',
+    CANT_UPDATE_ITEM: "\u041D\u0435 \u0443\u0434\u0430\u043B\u043E\u0441\u044C \u043E\u0431\u043D\u043E\u0432\u0438\u0442\u044C",
+    CANT_LOAD_ITEMS: "\u0417\u0430\u0433\u0440\u0443\u0437\u043A\u0430 \u043D\u0435 \u0443\u0434\u0430\u043B\u0430\u0441\u044C",
+    FIELD_IS_REQUIRED: 'Обязательное поле',
+    INCORRECT_INPUT: 'Проверьте все поля',
 };

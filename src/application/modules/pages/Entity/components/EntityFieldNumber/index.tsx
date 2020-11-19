@@ -3,6 +3,7 @@
 import React, { FC, useCallback } from 'react';
 import { TextField } from '@material-ui/core';
 import { IEntityFieldProps } from '~/application';
+import { isNil } from 'ramda';
 
 type IProps = IEntityFieldProps & {};
 
@@ -36,7 +37,7 @@ const EntityFieldNumber: FC<IProps> = ({
       <TextField
         type="number"
         label={label}
-        value={value || ''}
+        value={isNil(value) ? '' : value}
         onChange={onChange}
         error={!!error}
         helperText={error}

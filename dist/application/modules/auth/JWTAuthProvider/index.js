@@ -137,11 +137,16 @@ var JWTAuthProvider = /** @class */ (function (_super) {
                         })
                             .catch(function (e) { return __awaiter(_this, void 0, void 0, function () {
                             var tokens;
-                            var _a;
-                            return __generator(this, function (_b) {
-                                switch (_b.label) {
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
                                     case 0:
-                                        if (!(e.message === UNAUTHORIZED && this.tokenRefreshFn)) return [3 /*break*/, 7];
+                                        if (e.message !== UNAUTHORIZED) {
+                                            throw new Error(e.message);
+                                        }
+                                        if (!this.tokenRefreshFn) {
+                                            console.warn('tokenRefreshFn not specified');
+                                            throw new Error(e.message);
+                                        }
                                         if (!!this.tokenRefreshInstance) return [3 /*break*/, 2];
                                         this.tokenRefreshInstance = flow(function () {
                                             return __generator(this, function (_a) {
@@ -156,7 +161,7 @@ var JWTAuthProvider = /** @class */ (function (_super) {
                                         }).bind(this)();
                                         return [4 /*yield*/, this.tokenRefreshInstance];
                                     case 1:
-                                        tokens = _b.sent();
+                                        tokens = _a.sent();
                                         this.tokens = {
                                             access: tokens.access || '',
                                             refresh: tokens.refresh,
@@ -165,20 +170,16 @@ var JWTAuthProvider = /** @class */ (function (_super) {
                                         return [3 /*break*/, 4];
                                     case 2: return [4 /*yield*/, this.tokenRefreshInstance];
                                     case 3:
-                                        _b.sent();
-                                        _b.label = 4;
+                                        _a.sent();
+                                        _a.label = 4;
                                     case 4:
                                         if (!(this.tokens.access && this.tokens.refresh)) return [3 /*break*/, 6];
                                         return [4 /*yield*/, req(__assign(__assign({}, args), { token: "Bearer " + this.tokens.access }))];
-                                    case 5: return [2 /*return*/, _b.sent()];
+                                    case 5: return [2 /*return*/, _a.sent()];
                                     case 6:
                                         this.user = EMPTY_USER;
                                         this.tokens = EMPTY_TOKENS;
-                                        return [3 /*break*/, 8];
-                                    case 7:
-                                        (_a = this.parent) === null || _a === void 0 ? void 0 : _a.notifications.showError(e.message);
-                                        _b.label = 8;
-                                    case 8: return [2 /*return*/];
+                                        return [2 /*return*/];
                                 }
                             });
                         }); })];

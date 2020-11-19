@@ -1,3 +1,5 @@
+/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+
 /**
  * useErrorsWithClearOnInput - required fields validation hook
  *
@@ -15,6 +17,7 @@ import {
   useEffect,
 } from 'react';
 import { has, isEmpty, omit } from 'ramda';
+import { ENTITY_ERRORS } from '~/application';
 
 export const useErrorsWithClearOnInput = <T extends any = any>(
   fields: Record<any, any>,
@@ -42,7 +45,7 @@ export const useErrorsWithClearOnInput = <T extends any = any>(
     setErrors(faulty);
 
     if (Object.values(faulty).length) {
-      throw new Error(validationError || 'This field is required');
+      throw new Error(validationError || ENTITY_ERRORS.FIELD_IS_REQUIRED);
     }
   }, [fields]);
 

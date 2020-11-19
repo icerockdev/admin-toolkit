@@ -1,3 +1,5 @@
+/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+
 import React, { MouseEvent, ReactNode } from 'react';
 import { WithStyles } from '@material-ui/core';
 import { ENTITY_SORT_DIRS, IEntityField } from '../../types';

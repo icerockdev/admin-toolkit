@@ -1,3 +1,5 @@
+/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+
 import React, { FC, useCallback, useEffect, useMemo } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { observer } from 'mobx-react';

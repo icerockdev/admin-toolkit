@@ -1,3 +1,5 @@
+/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+
 import React, { createElement, FC } from 'react';
 import { FeatureListContainer } from '~/application/modules/pages/Feature/components/list/FeatureListContainer';
 import { FeatureListWrapper } from '~/application/modules/pages/Feature/components/list/FeatureListWrapper';

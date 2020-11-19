@@ -40,7 +40,8 @@ const EntityFieldDate: FC<IProps> = ({
             variant="outlined"
             {...props}
             label={label}
-            helperText=""
+            helperText={error}
+            error={!!error}
           />
         )}
         value={parsedValue}

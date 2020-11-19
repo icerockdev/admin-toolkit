@@ -1,3 +1,5 @@
+/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+
 import React, { FC, useCallback, useState } from 'react';
 import { useConfig } from '~/application';
 import styles from './styles.module.scss';
