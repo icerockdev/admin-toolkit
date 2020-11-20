@@ -32,6 +32,9 @@ const config = new Config({
 });
 ```
 
+#### Hooks
+Use `useConfig()` hook inside of components to get current `Config` instance with all data.
+
 ## AuthProvider
 `AuthProvider` is extendable class. You can override its metods for your needs. The app decides user authentication status by checking its token field, but you can override this behaviour in your own class, like this done in `JWTAuthProvider`.
 
@@ -53,8 +56,22 @@ new AuthProvider({
       error: '',
     }),
   persist: true, //store beetween sessions
+  router: FC, // optional
+  signIn: FC, // optional
+  signUp: FC, // optional
+  forgotPassword: FC, // optional
+  resetPassword: FC, // optional
+  layout: FC, // optional
 });
 ```
+
+#### Customization
+Override these components to customize guest user interface:
+- `router` - global router for unauthorized users. Avoid changing it
+- `signIn`, `signUp`, `forgotPassword`, `resetPassword` - specific components for each step of authorization
+- `layout` - wrapper for all components. By default it's `VerticalAuthLayout`.
+
+TIP: use `const config = useConfig()` react hook to get current `config` inside each component. 
 
 ## JWTAuthProvider
 
@@ -94,7 +111,7 @@ new AuthProvider({
 #### Methods and values:
 - `auth.user` - current user info
 - `auth.withToken: (req, args) => Promise<any>` - wrapper for callbacks, which used to add `token` value to function arguments
-- `aurh.logout: () => void` - function to log user out
+- `auth.logout: () => void` - function to log user out
 - `auth.isLogged: boolean` - computed field to decide if user is logged in
 
 ## Page
@@ -123,6 +140,10 @@ new Page({
 - `page.onMount: (page: Page) => void` - method, called on mount
 - `page.onUnmount: (page: Page) => void` - method, called before unmount
 - `page.output: ReactElement` - react component, that renders page content
+
+#### Hooks
+
+Use `const page = usePage()` inside components to get current page
 
 #### Extending:
 
@@ -206,6 +227,9 @@ new Entity({
 - `entity.exportData` - used to export data in preferred format (currently .csv)
 - `entity.setFiltersWindowHash`, `getFiltersFromHash` - syncing filters with page url using url hash
 
+#### Hooks
+Use `const entity = useEntity()` inside components to get current entity
+
 #### Entity fields
 Entity.fields is an array of objects. Every field can has following types: `string`, `date`, `boolean`, `select`, `phone`, `richtext`, `base64image`. `custom` or `referenceSelect`.
 
@@ -226,10 +250,9 @@ Every field is rendered by predefined or custom component, which accepts common 
 - `hideInCreate?: boolean;` - do not render in creator form
 - `hideInExport?: boolean;` - do not export field in CSV
 
-
 #### Custom Fields
 ```typescript
-  {
+  const customField: IEntityField = {
     name: "type", 
     label: "Тип",
     sortable: true,

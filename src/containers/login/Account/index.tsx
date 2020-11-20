@@ -1,11 +1,12 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { FC, useCallback, useMemo, useRef } from 'react';
+import React, { FC, useCallback, useRef } from 'react';
 import styles from './styles.module.scss';
 import { useConfig } from '~/application/utils/hooks';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { observer } from 'mobx-react';
 
-const Account: FC = () => {
+const Account: FC = observer(() => {
   const ref = useRef<HTMLDivElement>(null);
   const config = useConfig();
   const onLogout = useCallback(() => {
@@ -24,6 +25,6 @@ const Account: FC = () => {
       </div>
     </div>
   );
-};
+});
 
 export { Account };

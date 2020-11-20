@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/admin-toolkit/static/css/main.a7ece62f.chunk.css",
-    "main.js": "/admin-toolkit/static/js/main.8456ba29.chunk.js",
-    "main.js.map": "/admin-toolkit/static/js/main.8456ba29.chunk.js.map",
+    "main.js": "/admin-toolkit/static/js/main.edfa0819.chunk.js",
+    "main.js.map": "/admin-toolkit/static/js/main.edfa0819.chunk.js.map",
     "runtime-main.js": "/admin-toolkit/static/js/runtime-main.aad961bc.js",
     "runtime-main.js.map": "/admin-toolkit/static/js/runtime-main.aad961bc.js.map",
     "static/js/2.49a87e6f.chunk.js": "/admin-toolkit/static/js/2.49a87e6f.chunk.js",
     "static/js/2.49a87e6f.chunk.js.map": "/admin-toolkit/static/js/2.49a87e6f.chunk.js.map",
     "index.html": "/admin-toolkit/index.html",
-    "precache-manifest.b84d5558acf1c48f8968300b6d9ea933.js": "/admin-toolkit/precache-manifest.b84d5558acf1c48f8968300b6d9ea933.js",
+    "precache-manifest.fb974c8dbece08f7a20bd4c4f792bd91.js": "/admin-toolkit/precache-manifest.fb974c8dbece08f7a20bd4c4f792bd91.js",
     "service-worker.js": "/admin-toolkit/service-worker.js",
     "static/css/main.a7ece62f.chunk.css.map": "/admin-toolkit/static/css/main.a7ece62f.chunk.css.map",
     "static/js/2.49a87e6f.chunk.js.LICENSE.txt": "/admin-toolkit/static/js/2.49a87e6f.chunk.js.LICENSE.txt"
@@ -17,6 +17,6 @@
     "static/js/runtime-main.aad961bc.js",
     "static/js/2.49a87e6f.chunk.js",
     "static/css/main.a7ece62f.chunk.css",
-    "static/js/main.8456ba29.chunk.js"
+    "static/js/main.edfa0819.chunk.js"
   ]
 }

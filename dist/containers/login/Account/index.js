@@ -3,7 +3,8 @@ import React, { useCallback, useRef } from 'react';
 import styles from './styles.module.scss';
 import { useConfig } from '../../../application/utils/hooks';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-var Account = function () {
+import { observer } from 'mobx-react';
+var Account = observer(function () {
     var _a, _b;
     var ref = useRef(null);
     var config = useConfig();
@@ -19,5 +20,5 @@ var Account = function () {
             React.createElement("div", { className: styles.role }, (_b = config.auth) === null || _b === void 0 ? void 0 : _b.userRoleTitle)),
         React.createElement("div", { className: styles.logout, onClick: onLogout },
             React.createElement(ExitToAppIcon, null))));
-};
+});
 export { Account };
