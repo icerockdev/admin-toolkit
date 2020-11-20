@@ -389,6 +389,86 @@ export default createMuiTheme({
 });
 ```
 
+## Experimental feature
+We've started implementing `Page` type called `Feature` to make more customizable kind of entity
+administration with better typing support for incoming data.
+
+Here's the brief info about it:
+
+```typescript
+const feature = new Feature<Fields>('Feature title', '/feature', options);
+```
+
+### Field types
+Data types for all incoming data should be described:
+```
+export interface Fields {
+    name: string,
+    age: number,
+}
+```
+
+### Feature Options
+```
+const featureOptions: FeatureOptions<Fields> = {
+    fields: FeatureField<Fields>[];
+    features: FeatureFeatures;
+    containers?: FeatureRendererProps['containers'];
+    components?: FeatureRendererProps['components'];
+    api?: FeatureApiProps<Fields>;    
+    permissions?: Partial<Record<FeatureFeature, UserRole[]>>;
+    getItemTitle?: (fields: Fields) => string;    
+}
+```
+
+- `fields` - list of `FeatureField` (see below) 
+- `features` - what kind of views should this feature have
+- `containers` - and `components` - are list of components, what can be overriden (or default ones will be used)
+- `api` - is an api props, describing how to interact with backend
+- `permissions` - is a dictionary of `feature` and list of user roles
+- `getItemTitle` - is a function, that returns each item's title at views, breadcrumbs and etc.
+
+### Hooks 
+Use `const feature = useFeature()` to get current `Feature` instance inside any of components, inputs, etc.
+
+### Customizing views
+You can theme app by overriding `containers` and `components`. 
+
+#### Containers 
+Simply a dictionary of `list`, `read`, `create` and `update` to React Functional Component. Use hooks to access
+current feature data.
+
+#### Components
+All of Feature's containers is separated by zones, you can override each of them. Use just simple Functional Components
+without any props, get current data by using `useFeature` react hook.
+
+##### List components
+React.FC components can be specified for: `wrapper`, `header`, `title`, `buttons`, `filters`, `table`, `pagination`, `footer`, `container`
+  
+##### Read, Update and Create components:
+React.FC components can be specified for: `wrapper`, `header`, `footer`, `title`, `buttons`, `breadcrumbs`, `content`, `submit`, `container`
+
+### Fields
+Unlike in `Entity`, all fields in `Feature` are described by `FeatureField` class and its successors.
+Built-in field types are: `DateField`, `IntegerField`, `ReferenceField`, `SelectField` and `StringField`.
+
+Each of them has it's own options and `FeatureField`'s common ones. Create your own field
+types by overriding any of that field classes.
+
+```
+const age = new IntegerField<Fields>('age', {
+    label: 'Age',
+    accuracy: 2,
+    features: {
+      sort: true,
+      filter: true,
+    },
+    defaultValue: 21,
+});
+```
+
+See [./src/example/feature/fields.ts]() for more examples.
+
 ## Publishing
 
 Use `npm login` or `yarn login` and then `npm publish` or `yarn publish`.
