@@ -1,5 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 import { JWTAuthProvider } from '../../application';
+import splash from '../../assets/logo512.png';
 export default new JWTAuthProvider({
     authRequestFn: function (email, password) {
         return new Promise(function (resolve) {
@@ -32,7 +33,7 @@ export default new JWTAuthProvider({
         });
     },
     tokenRefreshFn: function (refresh) {
-        console.log('Refreshing JWT tokens');
+        console.log("Refreshing JWT tokens with refresh: " + refresh);
         var seed = Math.random() * 65535;
         return new Promise(function (resolve) {
             return setTimeout(function () {
@@ -43,7 +44,14 @@ export default new JWTAuthProvider({
             }, 3000);
         });
     },
-    newPasswordValidator: function (password) {
+    passwordValidator: function (password) {
         return password.length > 5 ? '' : 'Password must be at least 6 symbols long';
     },
+    authSignupFn: function (data) {
+        return new Promise(function (resolve) {
+            console.log('Registering user with data ', data);
+            resolve({ error: '' });
+        });
+    },
+    splash: splash,
 });

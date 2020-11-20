@@ -6,9 +6,11 @@ import entity from './entity';
 import page from './page';
 import jwtAuth from './jwtAuth';
 import custom from './custom';
+import feature from './feature';
 
 export default new Config({
   logo,
+  host: 'https://sample.org',
   auth: jwtAuth,
-  pages: [page, entity, custom],
+  pages: [page, entity, custom, feature],
 });

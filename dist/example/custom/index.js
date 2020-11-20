@@ -39,7 +39,7 @@ var CustomEntity = /** @class */ (function (_super) {
                     _this.data.length,
                     "."))); });
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     __decorate([

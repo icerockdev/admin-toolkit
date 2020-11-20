@@ -1,45 +1,35 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, {
-  FC,
-  MouseEventHandler,
-  FormEvent,
-  useCallback,
-  useState,
-} from 'react';
+import React, { FC, FormEvent, useCallback, useMemo, useState } from 'react';
+import { Button, InputAdornment, TextField } from '@material-ui/core';
 
-import {
-  Paper,
-  Typography,
-  TextField,
-  withStyles,
-  InputAdornment,
-  Button,
-  WithStyles,
-  Container,
-} from '@material-ui/core';
+import { useConfig } from '~/application/utils/hooks';
+import styles from './styles.module.scss';
+import { Link } from 'react-router-dom';
 
-import styles from '../styles';
+const SignIn: FC = () => {
+  const config = useConfig();
+  const auth = config.auth;
 
-type IProps = WithStyles<typeof styles> & {
-  onForgotScreenClick?: MouseEventHandler;
-  onSubmit: ({ email, password }: { email: string; password: string }) => void;
-};
+  const onForgotPassword = useMemo(
+    () =>
+      config.auth?.authPasswRestoreFn
+        ? () => {
+            config.history.push('/restore');
+          }
+        : undefined,
+    [config.history, config.auth, config.auth?.authPasswRestoreFn]
+  );
 
-const SignInUnstyled: FC<IProps> = ({
-  classes,
-  onForgotScreenClick,
-  onSubmit,
-}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const onSubmitCapture = useCallback(
     (event: FormEvent) => {
       event.preventDefault();
-      onSubmit({ email, password });
+      auth!!.sendAuthRequest(email, password);
     },
-    [email, password, onSubmit]
+    [email, password, auth]
   );
 
   const onEmailChange = useCallback((event) => setEmail(event.target.value), [
@@ -51,73 +41,81 @@ const SignInUnstyled: FC<IProps> = ({
     [setPassword]
   );
 
+  const loginLabel = useMemo(() => config.auth?.loginLabel || 'Логин', [
+    config.auth,
+  ]);
+
   return (
-    <div className={classes.wrap}>
-      <Container component="main" maxWidth="sm">
-        <Paper className={classes.paper}>
-          <Typography align="center" component="h3" className={classes.header}>
-            Авторизация
-          </Typography>
+    <div className={styles.wrap}>
+      <form noValidate onSubmit={onSubmitCapture} className={styles.form}>
+        <h3 className={styles.header}>Авторизация</h3>
 
-          <form noValidate onSubmit={onSubmitCapture}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Логин"
-              name="email"
-              className={classes.marginTop}
-              autoComplete="email"
-              defaultValue={email}
-              onChange={onEmailChange}
-              autoFocus
-            />
+        <TextField
+          variant="filled"
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label={loginLabel}
+          name="email"
+          autoComplete="email"
+          defaultValue={email}
+          onChange={onEmailChange}
+          autoFocus
+        />
 
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              name="password"
-              label="Пароль"
-              type="password"
-              id="password"
-              className={classes.marginTop}
-              defaultValue={password}
-              onChange={onPasswordChange}
-              autoComplete="current-password"
-              InputProps={{
-                endAdornment: onForgotScreenClick ? (
-                  <InputAdornment
-                    position="end"
-                    onClick={onForgotScreenClick}
-                    className={classes.forgot}
-                  >
-                    Забыли пароль?
-                  </InputAdornment>
-                ) : null,
-              }}
-            />
+        <TextField
+          variant="filled"
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          label="Пароль"
+          type="password"
+          id="password"
+          defaultValue={password}
+          onChange={onPasswordChange}
+          autoComplete="current-password"
+          InputProps={{
+            endAdornment: onForgotPassword ? (
+              <InputAdornment
+                position="end"
+                onClick={onForgotPassword}
+                className={styles.forgot}
+              >
+                Забыли пароль?
+              </InputAdornment>
+            ) : null,
+          }}
+        />
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.marginTop}
-              disabled={!email.length || !password.length}
-            >
-              Войти
-            </Button>
-          </form>
-        </Paper>
-      </Container>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          disabled={!email.length || !password.length}
+          className={styles.button}
+        >
+          Войти
+        </Button>
+
+        {!!auth?.authSignupFn && (
+          <Button
+            type="button"
+            fullWidth
+            variant="outlined"
+            color="primary"
+            className={styles.button}
+            component={Link}
+            to="/signup"
+          >
+            Регистрация
+          </Button>
+        )}
+      </form>
     </div>
   );
 };
-
-const SignIn = withStyles(styles, { withTheme: true })(SignInUnstyled);
 
 export { SignIn };

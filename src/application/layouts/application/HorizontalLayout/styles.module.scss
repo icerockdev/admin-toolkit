@@ -1,0 +1,22 @@
+.layout {
+  align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  height: 100vh;
+}
+
+.navigation {
+  flex: 0 0 78px;
+}
+
+.wrapper {
+  flex: 1;
+  overflow: auto;
+  padding: 10px;
+
+  & .MuiButton-root,
+  & .MuiOutlinedInput-root {
+    border-radius: 0;
+  }
+}

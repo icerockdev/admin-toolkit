@@ -1,8 +1,9 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import { JWTAuthProvider, IAuthPasswUpdateFn } from '~/application';
+import { JWTAuthProvider } from '~/application';
 import { Unwrap } from '~/application/types/common';
-import { IJWTAuthRequestFn } from '~/application/modules/JWTAuthProvider';
+import { IJWTAuthRequestFn } from '~/application/modules/auth/JWTAuthProvider/types';
+import splash from '~/assets/logo512.png';
 
 export default new JWTAuthProvider({
   authRequestFn: (
@@ -39,7 +40,7 @@ export default new JWTAuthProvider({
     }),
 
   tokenRefreshFn: (refresh: string) => {
-    console.log('Refreshing JWT tokens');
+    console.log(`Refreshing JWT tokens with refresh: ${refresh}`);
     const seed = Math.random() * 65535;
     return new Promise((resolve) =>
       setTimeout(
@@ -53,6 +54,14 @@ export default new JWTAuthProvider({
     );
   },
 
-  newPasswordValidator: (password: string) =>
+  passwordValidator: (password: string) =>
     password.length > 5 ? '' : 'Password must be at least 6 symbols long',
+
+  authSignupFn: (data: any) =>
+    new Promise((resolve) => {
+      console.log('Registering user with data ', data);
+      resolve({ error: '' });
+    }),
+
+  splash,
 });

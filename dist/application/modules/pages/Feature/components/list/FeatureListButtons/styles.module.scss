@@ -1,0 +1,14 @@
+@import '../../../styles/variables';
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+
+  button,
+  :global(a.MuiButton-root) {
+    height: $filter_input_height;
+    margin: 5px;
+    padding: 0 10px !important;
+    min-width: $filter_input_height !important;
+  }
+}

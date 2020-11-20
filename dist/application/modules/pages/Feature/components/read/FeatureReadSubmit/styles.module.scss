@@ -1,0 +1,10 @@
+@import '../../../styles/variables';
+
+.submit {
+  padding: $gap;
+  display: grid;
+  align-items: flex-end;
+  justify-content: flex-end;
+  grid-auto-flow: column;
+  grid-column-gap: $gap;
+}

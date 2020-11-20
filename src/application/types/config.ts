@@ -1,8 +1,9 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import { Page } from '~/application/modules/Page';
-import { AuthProvider } from '~/application/modules/AuthProvider';
-import { Theme } from '@material-ui/core';
+import { Page } from '~/application/modules/pages/Page';
+import { AuthProvider } from '~/application/modules/auth/AuthProvider';
+import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
+import { FC } from 'react';
 
 export interface IConfigProps {
   logo: string;
@@ -10,5 +11,7 @@ export interface IConfigProps {
   name: string;
   pages: Page[];
   auth: AuthProvider;
-  theme?: Theme;
+  theme?: ThemeOptions;
+  layout?: FC;
+  host?: string;
 }

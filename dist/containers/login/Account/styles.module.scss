@@ -1,0 +1,26 @@
+.account {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+  user-select: none;
+}
+
+.left {
+  flex: 1;
+}
+
+.logout {
+  opacity: 0.5;
+  margin-left: 18px;
+
+  &:hover {
+    opacity: 1;
+    cursor: pointer;
+  }
+}
+
+.role {
+  color: #888888;
+  font-size: 14px;
+}

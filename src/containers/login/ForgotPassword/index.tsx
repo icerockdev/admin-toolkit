@@ -1,23 +1,13 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { FC, useCallback, FormEvent, useState } from 'react';
-import {
-  Typography,
-  Paper,
-  TextField,
-  Button,
-  withStyles,
-  WithStyles,
-  Container,
-} from '@material-ui/core';
+import React, { FC, FormEvent, useCallback, useState } from 'react';
+import { Button, TextField, Typography } from '@material-ui/core';
+import { useConfig } from '~/application/utils/hooks';
+import styles from './styles.module.scss';
+import { Link } from 'react-router-dom';
 
-import styles from '../styles';
-
-type IProps = WithStyles<typeof styles> & {
-  onSubmit?: ({ email }: { email: string }) => void;
-};
-
-const ForgotPasswordUnstyled: FC<IProps> = ({ classes, onSubmit }) => {
+const ForgotPassword: FC = () => {
+  const config = useConfig();
   const [email, setEmail] = useState('');
 
   const onEmailChange = useCallback(
@@ -31,56 +21,56 @@ const ForgotPasswordUnstyled: FC<IProps> = ({ classes, onSubmit }) => {
     (event: FormEvent) => {
       event.preventDefault();
 
-      if (!onSubmit) return;
+      if (!config?.auth?.sendAuthPasswRestore) return;
 
-      onSubmit({ email });
+      config.auth.sendAuthPasswRestore(email);
     },
-    [onSubmit, email]
+    [email, config.auth]
   );
 
   return (
-    <div className={classes.wrap}>
-      <Container component="main" maxWidth="sm">
-        <Paper className={classes.paper}>
-          <Typography align="center" component="h3" className={classes.header}>
-            Восстановление пароля
-          </Typography>
+    <div className={styles.wrap}>
+      <form noValidate onSubmit={onSubmitCapture} className={styles.form}>
+        <h3 className={styles.header}>Восстановление пароля</h3>
 
-          <form noValidate onSubmit={onSubmitCapture}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email"
-              name="email"
-              className={classes.marginTop}
-              autoComplete="email"
-              defaultValue={email}
-              onChange={onEmailChange}
-              autoFocus
-            />
+        <TextField
+          variant="filled"
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label="Email"
+          name="email"
+          autoComplete="email"
+          defaultValue={email}
+          onChange={onEmailChange}
+          autoFocus
+        />
 
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.marginTop}
-              disabled={!email.length}
-            >
-              Восстановить
-            </Button>
-          </form>
-        </Paper>
-      </Container>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          disabled={!email.length}
+          className={styles.button}
+        >
+          Восстановить
+        </Button>
+
+        <Button
+          type="button"
+          component={Link}
+          to="/"
+          variant="text"
+          fullWidth
+          className={styles.cancel}
+        >
+          Отмена
+        </Button>
+      </form>
     </div>
   );
 };
-
-const ForgotPassword = withStyles(styles, { withTheme: true })(
-  ForgotPasswordUnstyled
-);
 
 export { ForgotPassword };

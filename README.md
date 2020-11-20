@@ -32,6 +32,9 @@ const config = new Config({
 });
 ```
 
+#### Hooks
+Use `useConfig()` hook inside of components to get current `Config` instance with all data.
+
 ## AuthProvider
 `AuthProvider` is extendable class. You can override its metods for your needs. The app decides user authentication status by checking its token field, but you can override this behaviour in your own class, like this done in `JWTAuthProvider`.
 
@@ -53,8 +56,22 @@ new AuthProvider({
       error: '',
     }),
   persist: true, //store beetween sessions
+  router: FC, // optional
+  signIn: FC, // optional
+  signUp: FC, // optional
+  forgotPassword: FC, // optional
+  resetPassword: FC, // optional
+  layout: FC, // optional
 });
 ```
+
+#### Customization
+Override these components to customize guest user interface:
+- `router` - global router for unauthorized users. Avoid changing it
+- `signIn`, `signUp`, `forgotPassword`, `resetPassword` - specific components for each step of authorization
+- `layout` - wrapper for all components. By default it's `VerticalAuthLayout`.
+
+TIP: use `const config = useConfig()` react hook to get current `config` inside each component. 
 
 ## JWTAuthProvider
 
@@ -94,7 +111,7 @@ new AuthProvider({
 #### Methods and values:
 - `auth.user` - current user info
 - `auth.withToken: (req, args) => Promise<any>` - wrapper for callbacks, which used to add `token` value to function arguments
-- `aurh.logout: () => void` - function to log user out
+- `auth.logout: () => void` - function to log user out
 - `auth.isLogged: boolean` - computed field to decide if user is logged in
 
 ## Page
@@ -123,6 +140,10 @@ new Page({
 - `page.onMount: (page: Page) => void` - method, called on mount
 - `page.onUnmount: (page: Page) => void` - method, called before unmount
 - `page.output: ReactElement` - react component, that renders page content
+
+#### Hooks
+
+Use `const page = usePage()` inside components to get current page
 
 #### Extending:
 
@@ -206,6 +227,9 @@ new Entity({
 - `entity.exportData` - used to export data in preferred format (currently .csv)
 - `entity.setFiltersWindowHash`, `getFiltersFromHash` - syncing filters with page url using url hash
 
+#### Hooks
+Use `const entity = useEntity()` inside components to get current entity
+
 #### Entity fields
 Entity.fields is an array of objects. Every field can has following types: `string`, `date`, `boolean`, `select`, `phone`, `richtext`, `base64image`. `custom` or `referenceSelect`.
 
@@ -226,10 +250,9 @@ Every field is rendered by predefined or custom component, which accepts common 
 - `hideInCreate?: boolean;` - do not render in creator form
 - `hideInExport?: boolean;` - do not export field in CSV
 
-
 #### Custom Fields
 ```typescript
-  {
+  const customField: IEntityField = {
     name: "type", 
     label: "Тип",
     sortable: true,
@@ -365,6 +388,86 @@ export default createMuiTheme({
   },
 });
 ```
+
+## Experimental feature
+We've started implementing `Page` type called `Feature` to make more customizable kind of entity
+administration with better typing support for incoming data.
+
+Here's the brief info about it:
+
+```typescript
+const feature = new Feature<Fields>('Feature title', '/feature', options);
+```
+
+### Field types
+Data types for all incoming data should be described:
+```
+export interface Fields {
+    name: string,
+    age: number,
+}
+```
+
+### Feature Options
+```
+const featureOptions: FeatureOptions<Fields> = {
+    fields: FeatureField<Fields>[];
+    features: FeatureFeatures;
+    containers?: FeatureRendererProps['containers'];
+    components?: FeatureRendererProps['components'];
+    api?: FeatureApiProps<Fields>;    
+    permissions?: Partial<Record<FeatureFeature, UserRole[]>>;
+    getItemTitle?: (fields: Fields) => string;    
+}
+```
+
+- `fields` - list of `FeatureField` (see below) 
+- `features` - what kind of views should this feature have
+- `containers` - and `components` - are list of components, what can be overriden (or default ones will be used)
+- `api` - is an api props, describing how to interact with backend
+- `permissions` - is a dictionary of `feature` and list of user roles
+- `getItemTitle` - is a function, that returns each item's title at views, breadcrumbs and etc.
+
+### Hooks 
+Use `const feature = useFeature()` to get current `Feature` instance inside any of components, inputs, etc.
+
+### Customizing views
+You can theme app by overriding `containers` and `components`. 
+
+#### Containers 
+Simply a dictionary of `list`, `read`, `create` and `update` to React Functional Component. Use hooks to access
+current feature data.
+
+#### Components
+All of Feature's containers is separated by zones, you can override each of them. Use just simple Functional Components
+without any props, get current data by using `useFeature` react hook.
+
+##### List components
+React.FC components can be specified for: `wrapper`, `header`, `title`, `buttons`, `filters`, `table`, `pagination`, `footer`, `container`
+  
+##### Read, Update and Create components:
+React.FC components can be specified for: `wrapper`, `header`, `footer`, `title`, `buttons`, `breadcrumbs`, `content`, `submit`, `container`
+
+### Fields
+Unlike in `Entity`, all fields in `Feature` are described by `FeatureField` class and its successors.
+Built-in field types are: `DateField`, `IntegerField`, `ReferenceField`, `SelectField` and `StringField`.
+
+Each of them has it's own options and `FeatureField`'s common ones. Create your own field
+types by overriding any of that field classes.
+
+```
+const age = new IntegerField<Fields>('age', {
+    label: 'Age',
+    accuracy: 2,
+    features: {
+      sort: true,
+      filter: true,
+    },
+    defaultValue: 21,
+});
+```
+
+See [./src/example/feature/fields.ts]() for more examples.
 
 ## Publishing
 

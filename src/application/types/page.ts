@@ -1,9 +1,10 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import { Config } from '~/application/modules/Config';
+import { Config } from '~/application/modules/config/Config';
+import { UserRole } from '~/application';
 
 export interface IPageProps {
-  roles?: Record<string, string[]>;
+  roles?: UserRole[];
   parent: Config;
   title: string;
   menu: {
