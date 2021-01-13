@@ -2,7 +2,7 @@
   "name": "icerockdev-admin-toolkit",
   "main": "dist/application/index.js",
   "types": "dist/application/index.d.ts",
-  "version": "0.2.0-pre.6",
+  "version": "0.2.0-pre.7",
   "dependencies": {
     "@date-io/date-fns": "1.x",
     "@material-ui/core": "4.10.2",
@@ -81,6 +81,7 @@
     "@types/react-router-dom": "^5.1.5",
     "@types/throttle-debounce": "^2.1.0",
     "babel-preset-mobx": "^2.0.0",
+    "copyfiles": "^2.4.1",
     "copyright-header": "^0.4.6",
     "craco": "^0.0.3",
     "craco-alias": "^2.1.1",
