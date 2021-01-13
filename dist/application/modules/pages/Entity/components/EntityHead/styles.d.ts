@@ -8,6 +8,7 @@ declare const _default: (theme: Theme) => {
         justifyContent: string;
         alignItems: "flex-start";
         flexWrap: "nowrap";
+        minHeight: string;
         '@media(max-width: 640px)': {
             flexDirection: "column";
         };
