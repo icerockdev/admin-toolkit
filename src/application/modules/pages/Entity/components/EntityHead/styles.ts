@@ -9,6 +9,7 @@ export default (theme: Theme) => ({
     justifyContent: 'center',
     alignItems: 'flex-start' as 'flex-start',
     flexWrap: 'nowrap' as 'nowrap',
+    minHeight: '30px',
 
     '@media(max-width: 640px)': {
       flexDirection: 'column' as 'column',
