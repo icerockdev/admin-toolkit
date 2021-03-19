@@ -78,6 +78,19 @@ export const SAMPLE_ENTITY_FIELDS: IEntityField[] = [
     },
   },
   {
+    type: 'number',
+    name: 'number2',
+    label: 'Количество (0-5)',
+    sortable: true,
+    validator: (val: number) => {
+      if (!val) return '';
+      return val < 0 || val > 5 ? 'Должно быть от 0 до 5' : '';
+    },
+    options: {
+      accuracy: 4,
+    },
+  },
+  {
     name: 'requiredInEdit',
     label: 'Обязательное в редакторе',
     type: 'string',

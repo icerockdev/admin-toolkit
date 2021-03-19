@@ -8,6 +8,7 @@ export const SAMPLE_ENTITY_1 = {
   created: '2020-05-27T10:56:56.281+0000',
   createdTime: '2020-05-27T10:56:56.281+0000',
   number: '0.123123123',
+  number2: 3,
   visible: true,
 };
 
@@ -19,5 +20,6 @@ export const SAMPLE_ENTITY_2 = {
   created: '2020-05-27T10:56:56.281+0000',
   createdTime: '2020-05-27T10:56:56.281+0000',
   number: 0.123123123,
+  number2: -1,
   visible: true,
 };
