@@ -1,6 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import { IPageProps } from '../../../../types/page';
+import { FC, MouseEventHandler } from 'react';
+import { Entity, IPageProps, UserRole } from '~/application';
 import { EntityFieldString } from '~/application/modules/pages/Entity/components/EntityFieldString';
 import { EntityFieldBoolean } from '~/application/modules/pages/Entity/components/EntityFieldBoolean';
 import { EntityFieldDate } from '~/application/modules/pages/Entity/components/EntityFieldDate';
@@ -8,16 +9,15 @@ import { EntityFieldSelect } from '~/application/modules/pages/Entity/components
 import { EntityFieldPhone } from '~/application/modules/pages/Entity/components/EntityFieldPhone';
 import { EntityFieldRichText } from '~/application/modules/pages/Entity/components/EntityFieldRichText';
 import { EntityFieldBase64Image } from '~/application/modules/pages/Entity/components/EntityFieldBase64';
-import { FC, MouseEventHandler } from 'react';
 import { EntityFieldNumber } from '~/application/modules/pages/Entity/components/EntityFieldNumber';
 import { EntityFieldDateTime } from '~/application/modules/pages/Entity/components/EntityFieldDatetime';
 import { EntityFieldReferenceSelect } from '~/application/modules/pages/Entity/components/EntityFieldReferenceSelect';
-import { Entity } from '../../../index';
 import { EntityFieldDateRange } from '~/application/modules/pages/Entity/components/EntityFieldDateRange';
-import { UserRole } from '~/application';
+import { EntityFieldTextarea } from "~/application/modules/pages/Entity/components/EntityFieldTextarea";
 
 export const ENTITY_FIELD_RENDERS = {
   string: EntityFieldString,
+  textarea: EntityFieldTextarea,
   date: EntityFieldDate,
   datetime: EntityFieldDateTime,
   daterange: EntityFieldDateRange,
@@ -40,9 +40,7 @@ export const getEntityFieldRenderer = (type: string = 'string'): FC<any> => {
     ? type
     : 'string';
 
-  return ENTITY_FIELD_RENDERS[key as keyof typeof ENTITY_FIELD_RENDERS] as FC<
-    any
-  >;
+  return ENTITY_FIELD_RENDERS[key as keyof typeof ENTITY_FIELD_RENDERS] as FC<any>;
 };
 
 export const ENTITY_SORT_DIRS: Record<string, 'asc' | 'desc'> = {
@@ -50,6 +48,7 @@ export const ENTITY_SORT_DIRS: Record<string, 'asc' | 'desc'> = {
   DESC: 'desc',
 };
 
+// TODO: Check the need for this constant
 export const ENTITY_FILTER_TYPES = {
   TEXT: 'TEXT',
   SELECT: 'SELECT',
@@ -110,10 +109,8 @@ export interface IEntityProps extends IPageProps {
   references: Record<string, IEntityReferenceProps>;
   permissions: Partial<Record<'update' | 'create' | 'list', UserRole[]>>;
 
-  api?: Record<
-    typeof ENTITY_ACTIONS[keyof typeof ENTITY_ACTIONS],
-    { url: string; method: string }
-  >;
+  api?: Record<typeof ENTITY_ACTIONS[keyof typeof ENTITY_ACTIONS],
+    { url: string; method: string }>;
 
   fetchItemsFn?: IEntityFetchFunction;
   updateItemsFn?: IEntityUpdateFunction;
