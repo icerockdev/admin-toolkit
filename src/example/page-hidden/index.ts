@@ -3,10 +3,10 @@
 import { Page } from '~/application';
 
 export default new Page({
-  title: 'Page',
+  title: 'Hidden page',
   menu: {
-    enabled: true,
-    url: '/test',
-    label: 'Sample page',
+    enabled: false,
+    url: '/test-hidden',
+    label: 'Sample hidden page',
   },
 });
