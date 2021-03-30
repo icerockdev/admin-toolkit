@@ -12,7 +12,7 @@ import {
   IEntityProps,
   IEntityUpdateFunctionResult,
   IFilterValue,
-} from './types';
+} from '~/application';
 import { action, computed, flow, observable, reaction, toJS } from 'mobx';
 import { CancellablePromise } from 'mobx/lib/api/flow';
 import { Route, RouteComponentProps, Switch } from 'react-router-dom';
