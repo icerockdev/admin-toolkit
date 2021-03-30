@@ -62,6 +62,7 @@ export class Config {
     return this.pagesForCurrentUser.map((page) => ({
       name: page.menu.label,
       url: page.menu.url,
+      enabled: page.menu.enabled,
     }));
   }
 
