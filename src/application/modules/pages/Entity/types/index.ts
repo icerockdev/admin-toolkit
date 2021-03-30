@@ -48,7 +48,6 @@ export const ENTITY_SORT_DIRS: Record<string, 'asc' | 'desc'> = {
   DESC: 'desc',
 };
 
-// TODO: Check the need for this constant
 export const ENTITY_FILTER_TYPES = {
   TEXT: 'TEXT',
   SELECT: 'SELECT',
