@@ -1,6 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import { IEntityField } from '~/application';
+import { Entity, IEntityField } from '~/application';
 
 export const SAMPLE_ENTITY_FIELDS: IEntityField[] = [
   {
@@ -89,6 +89,21 @@ export const SAMPLE_ENTITY_FIELDS: IEntityField[] = [
     options: {
       accuracy: 4,
     },
+  },
+  {
+    name: 'password',
+    label: 'Пароль',
+    type: 'string',
+    title: true,
+    hideInCreate: true,
+  },
+  {
+    name: 'passwordRepeat',
+    label: 'Повтор пароля',
+    type: 'string',
+    title: true,
+    hideInCreate: true,
+    validator: (val: string, entity: Entity) => (entity.editorData['password'] !== val ? 'Пароли должны совпадать' : ''),
   },
   {
     name: 'requiredInEdit',

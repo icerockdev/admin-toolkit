@@ -11,10 +11,11 @@ interface IProps {}
 
 const VerticalNavigation: FC<IProps> = observer(() => {
   const config = useConfig();
+  const navigation = config.linksForCurrentUser.filter(item => item.enabled)
 
   return (
     <div className={classNames(styles.navigation, 'vertical-navigation')}>
-      {config.linksForCurrentUser.map((link) => (
+      {navigation.map((link) => (
         <NavLink
           to={link.url}
           className={classNames(styles.link, 'vertical-navigation__link')}

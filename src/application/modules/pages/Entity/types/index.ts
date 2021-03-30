@@ -80,7 +80,7 @@ export interface IEntityField {
   sortable?: boolean;
   filterable?: boolean;
   required?: boolean;
-  validator?: (val: any) => string;
+  validator?: (val: any, entity: Entity) => string;
   options?: Record<any, any>;
   component?: FC<any>;
   placeholder?: string;
