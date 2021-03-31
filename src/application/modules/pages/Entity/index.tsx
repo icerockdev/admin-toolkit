@@ -305,7 +305,7 @@ export class Entity extends Page {
   };
 
   isValidField = (field: IEntityField, value: any) =>
-    (!field.required || field.type === 'boolean' || !!`${value}`) && // Dirty hack for make 0 value is valid
+    (!field.required || field.type === 'boolean' || value === 0 || !!value) &&
     (!field.validator || !field.validator(value, this));
 
   @action
