@@ -37,6 +37,15 @@ export const SAMPLE_ENTITY_FIELDS: IEntityField[] = [
     hideInCreate: true,
   },
   {
+    name: 'text',
+    label: 'Текст',
+    sortable: true,
+    type: 'textarea',
+    title: true,
+    hideInCreate: true,
+    hideInList: true,
+  },
+  {
     name: 'created',
     label: 'Дата публикации начало (от)',
     filterable: true,
