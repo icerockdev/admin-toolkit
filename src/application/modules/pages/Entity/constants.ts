@@ -10,11 +10,13 @@ import {
   EntityFieldReferenceSelect,
   EntityFieldRichText,
   EntityFieldSelect,
-  EntityFieldString
+  EntityFieldString,
+  EntityFieldTextarea
 } from "~/application";
 
 export const ENTITY_FIELD_RENDERS = {
   string: EntityFieldString,
+  textarea: EntityFieldTextarea,
   date: EntityFieldDate,
   datetime: EntityFieldDateTime,
   daterange: EntityFieldDateRange,

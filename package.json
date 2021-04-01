@@ -11,7 +11,7 @@
     "@material-ui/pickers": "v4.0.0-alpha.10",
     "@types/file-saver": "^2.0.1",
     "@types/ramda": "^0.27.5",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "classnames": "^2.2.6",
     "date-fns": "^2.x",
     "draftjs-to-html": "^0.9.x",
