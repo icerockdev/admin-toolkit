@@ -19,3 +19,4 @@ export { EntityFieldSelect } from './EntityFieldSelect';
 export { EntityFieldString } from './EntityFieldString';
 export { EntityFilter } from './EntityFilter';
 export { EntityFilterText } from './EntityFilterText';
+export { EntityFieldTextarea } from './EntityFieldTextarea';
