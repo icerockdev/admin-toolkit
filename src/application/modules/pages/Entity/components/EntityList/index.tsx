@@ -23,7 +23,7 @@ import {
   withStyles,
   WithStyles,
 } from '@material-ui/core';
-import { ENTITY_SORT_DIRS, IEntityField } from '../../types';
+import { IEntityField } from '../../types';
 import LaunchIcon from '@material-ui/icons/Launch';
 import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
@@ -36,6 +36,7 @@ import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import omit from 'ramda/es/omit';
 import classnames from 'classnames';
 import { Entity } from '~/application/modules';
+import { ENTITY_SORT_DIRS } from "~/application/modules/pages/Entity/constants";
 
 type IProps = WithStyles<typeof styles> & {
   isLoading: boolean;
