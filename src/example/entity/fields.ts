@@ -87,6 +87,16 @@ export const SAMPLE_ENTITY_FIELDS: IEntityField[] = [
     },
   },
   {
+    type: 'number',
+    name: 'number2',
+    label: 'Количество (0-5)',
+    sortable: true,
+    validator: (val: number) => val < 0 || val > 5 ? 'Должно быть от 0 до 5' : '',
+    options: {
+      accuracy: 4,
+    },
+  },
+  {
     name: 'password',
     label: 'Пароль',
     type: 'string',
