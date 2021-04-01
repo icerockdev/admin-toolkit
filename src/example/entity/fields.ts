@@ -37,6 +37,15 @@ export const SAMPLE_ENTITY_FIELDS: IEntityField[] = [
     hideInCreate: true,
   },
   {
+    name: 'text',
+    label: 'Текст',
+    sortable: true,
+    type: 'textarea',
+    title: true,
+    hideInCreate: true,
+    hideInList: true,
+  },
+  {
     name: 'created',
     label: 'Дата публикации начало (от)',
     filterable: true,
@@ -73,6 +82,16 @@ export const SAMPLE_ENTITY_FIELDS: IEntityField[] = [
     label: 'Количество (1)',
     sortable: true,
     validator: (val: string) => (String(val) === '1' ? '' : 'Должно быть 1'),
+    options: {
+      accuracy: 4,
+    },
+  },
+  {
+    type: 'number',
+    name: 'number2',
+    label: 'Количество (0-5)',
+    sortable: true,
+    validator: (val: number) => val < 0 || val > 5 ? 'Должно быть от 0 до 5' : '',
     options: {
       accuracy: 4,
     },

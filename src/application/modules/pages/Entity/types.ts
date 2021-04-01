@@ -116,10 +116,12 @@ export interface IEntityGetFunctionResult {
 export type IEntityGetFunction = (
   props: IEntityGetFunctionProps
 ) => Promise<IEntityGetFunctionResult>;
+
 export type IEntityReferenceProps = {
   getMany: (entity: Entity) => Promise<Record<string, any>>;
   getOne?: (id: any) => Promise<Record<string, any>>;
 };
+
 export type IEntityFieldProps = {
   name: string;
   fields: IEntityField[];
