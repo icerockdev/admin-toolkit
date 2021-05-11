@@ -4,6 +4,7 @@ import React, { FC, useCallback, useState } from 'react';
 import { useConfig } from '~/application';
 import styles from './styles.module.scss';
 import { Button, InputAdornment, TextField } from '@material-ui/core';
+import { Link } from "react-router-dom";
 
 interface IProps {}
 
@@ -75,6 +76,17 @@ const SignUp: FC<IProps> = () => {
         className={styles.button}
       >
         Зарегистрироваться
+      </Button>
+
+      <Button
+        type="button"
+        component={Link}
+        to="/"
+        variant="text"
+        fullWidth
+        className={styles.cancel}
+      >
+        Отмена
       </Button>
     </form>
   );

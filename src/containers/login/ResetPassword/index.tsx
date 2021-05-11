@@ -6,6 +6,7 @@ import { Button, TextField } from '@material-ui/core';
 import { useRouteMatch } from 'react-router';
 import { useConfig } from '~/application/utils/hooks';
 import styles from './styles.module.scss';
+import { Link } from "react-router-dom";
 
 const ResetPassword: FC = () => {
   const [password, setPassword] = useState('');
@@ -88,6 +89,17 @@ const ResetPassword: FC = () => {
           className={styles.button}
         >
           Восстановить
+        </Button>
+
+        <Button
+          type="button"
+          component={Link}
+          to="/"
+          variant="text"
+          fullWidth
+          className={styles.cancel}
+        >
+          Отмена
         </Button>
       </form>
     </div>
