@@ -1,7 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
-import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { observer } from 'mobx-react';
 import { IEntityFieldProps } from '~/application';
 
@@ -36,14 +36,14 @@ const EntityFieldReferenceSelect: FC<IProps> = observer(
 
     return isEditing ? (
       <FormControl variant="outlined">
-        <InputLabel htmlFor={label} error={!!error} style={{whiteSpace: 'nowrap'}} ref={ref}>
+        <InputLabel htmlFor={name} error={!!error} style={{ whiteSpace: 'nowrap' }} ref={ref}>
           {label}
         </InputLabel>
 
         <Select
           variant="outlined"
           id={label}
-          name={label}
+          name={name}
           label={label}
           value={!value ? '' : value}
           onChange={onChange}
@@ -52,7 +52,7 @@ const EntityFieldReferenceSelect: FC<IProps> = observer(
           labelWidth={labelWidth}
           style={{minWidth: labelWidth + 40}}
         >
-          <MenuItem value="">...</MenuItem>
+          <MenuItem value="">...</MenuItem>u
 
           {options &&
           Object.keys(options).map((item) => (
@@ -61,6 +61,8 @@ const EntityFieldReferenceSelect: FC<IProps> = observer(
             </MenuItem>
           ))}
         </Select>
+
+        <FormHelperText error={!!error}>{error}</FormHelperText>
       </FormControl>
     ) : (
       <div onClick={onClick}>

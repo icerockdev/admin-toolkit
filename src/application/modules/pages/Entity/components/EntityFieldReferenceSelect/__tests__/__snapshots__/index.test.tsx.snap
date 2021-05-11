@@ -7,6 +7,7 @@ exports[`EntityFieldReferenceSelect edit test 1`] = `
   <label
     className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-filled"
     data-shrink={true}
+    htmlFor="testReference"
     style={
       Object {
         "whiteSpace": "nowrap",
@@ -24,7 +25,9 @@ exports[`EntityFieldReferenceSelect edit test 1`] = `
   >
     <div
       aria-haspopup="listbox"
+      aria-labelledby="mui-component-select-testReference"
       className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input select"
+      id="mui-component-select-testReference"
       onBlur={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
@@ -37,6 +40,7 @@ exports[`EntityFieldReferenceSelect edit test 1`] = `
     <input
       aria-hidden={true}
       className="MuiSelect-nativeInput"
+      name="testReference"
       onAnimationStart={[Function]}
       onChange={[Function]}
       required={false}
@@ -80,6 +84,9 @@ exports[`EntityFieldReferenceSelect edit test 1`] = `
       </legend>
     </fieldset>
   </div>
+  <p
+    className="MuiFormHelperText-root MuiFormHelperText-contained MuiFormHelperText-filled"
+  />
 </div>
 `;
 
