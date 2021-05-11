@@ -2,7 +2,7 @@
 
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import { EntityFieldString } from "~/application";
 import { observable } from "mobx";
 
@@ -43,7 +43,7 @@ test('EntityFieldString edit test', () => {
   expect(store.value).toEqual('Some text');
 
   wrapper.find('input').simulate('focus');
-  wrapper.find('input').simulate('change',{target: {value: 'Some text changed'}});
+  wrapper.find('input').simulate('change', {target: {value: 'Some text changed'}});
 
   expect(store.value).toEqual('Some text changed');
 });

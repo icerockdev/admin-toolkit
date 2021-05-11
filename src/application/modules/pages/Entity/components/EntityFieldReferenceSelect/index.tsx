@@ -3,15 +3,21 @@
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { FormControl, InputLabel, MenuItem, Select } from '@material-ui/core';
 import { observer } from 'mobx-react';
-import { IEntityFieldProps, useEntity } from '~/application';
+import { IEntityFieldProps } from '~/application';
 
 type IProps = IEntityFieldProps & {};
 
 const EntityFieldReferenceSelect: FC<IProps> = observer(
-  ({ label, name, value, handler, error, isEditing, onClick }) => {
-    const entity = useEntity();
+  ({label, name, value, handler, error, isEditing, onClick, entity}) => {
+    const emptyNode = (<div>&nbsp;</div>)
+
+    if (!entity) {
+      return emptyNode
+    }
+
     const options = entity.referenceData[name] || {};
 
+    // noinspection TypeScriptValidateTypes
     const ref = useRef<HTMLLabelElement>(null);
 
     const onChange = useCallback(
@@ -19,7 +25,7 @@ const EntityFieldReferenceSelect: FC<IProps> = observer(
         if (!handler) return;
         handler(event.target.value);
       },
-      [value, handler]
+      [handler]
     );
 
     const [labelWidth, setLabelWidth] = useState(0);
@@ -30,7 +36,7 @@ const EntityFieldReferenceSelect: FC<IProps> = observer(
 
     return isEditing ? (
       <FormControl variant="outlined">
-        <InputLabel htmlFor={label} style={{ whiteSpace: 'nowrap' }} ref={ref}>
+        <InputLabel htmlFor={label} error={!!error} style={{whiteSpace: 'nowrap'}} ref={ref}>
           {label}
         </InputLabel>
 
@@ -42,25 +48,23 @@ const EntityFieldReferenceSelect: FC<IProps> = observer(
           value={!value ? '' : value}
           onChange={onChange}
           error={!!error}
-          inputProps={{ className: 'select' }}
+          inputProps={{className: 'select'}}
           labelWidth={labelWidth}
-          style={{ minWidth: labelWidth + 40 }}
+          style={{minWidth: labelWidth + 40}}
         >
           <MenuItem value="">...</MenuItem>
 
           {options &&
-            Object.keys(options).map((item) => (
-              <MenuItem key={item} value={item}>
-                {options[item]}
-              </MenuItem>
-            ))}
+          Object.keys(options).map((item) => (
+            <MenuItem key={item} value={item}>
+              {options[item]}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     ) : (
       <div onClick={onClick}>
-        {(options && options.referenceData && options.referenceData[value]) || (
-          <div>&nbsp;</div>
-        )}
+        {(options && options[value]) || emptyNode}
       </div>
     );
   }
