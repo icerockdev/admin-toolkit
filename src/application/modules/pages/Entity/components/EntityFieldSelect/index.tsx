@@ -1,7 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React, { FC, useCallback, useRef, useEffect, useState } from 'react';
-import { Select, MenuItem, FormControl, InputLabel } from '@material-ui/core';
+import { Select, MenuItem, FormControl, InputLabel, FormHelperText } from '@material-ui/core';
 import { IEntityFieldProps } from '~/application';
 
 type IProps = IEntityFieldProps & {};
@@ -14,8 +14,7 @@ const EntityFieldSelect: FC<IProps> = ({
   error,
   isEditing,
   onClick,
-  options,
-  entity,
+  options
 }) => {
   const onChange = useCallback(
     (event) => {
@@ -26,6 +25,7 @@ const EntityFieldSelect: FC<IProps> = ({
     [value, handler]
   );
 
+  // noinspection TypeScriptValidateTypes
   const ref = useRef<HTMLLabelElement>(null);
   const [labelWidth, setLabelWidth] = useState(0);
 
@@ -35,14 +35,14 @@ const EntityFieldSelect: FC<IProps> = ({
 
   return isEditing ? (
     <FormControl variant="outlined">
-      <InputLabel htmlFor={label} style={{ whiteSpace: 'nowrap' }} ref={ref}>
+      <InputLabel htmlFor={name} error={!!error} style={{ whiteSpace: 'nowrap' }} ref={ref}>
         {label}
       </InputLabel>
 
       <Select
         variant="outlined"
         id={label}
-        name={label}
+        name={name}
         value={!value ? '' : value}
         onChange={onChange}
         error={!!error}
@@ -59,6 +59,8 @@ const EntityFieldSelect: FC<IProps> = ({
             </MenuItem>
           ))}
       </Select>
+
+      <FormHelperText error={!!error}>{error}</FormHelperText>
     </FormControl>
   ) : (
     <div onClick={onClick}>
