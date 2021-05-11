@@ -1,7 +1,14 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
 .form {
-  h3 {
-    margin-bottom: 20px;
-  }
+
 }
 
 button.button,

@@ -3,12 +3,13 @@
 import React, { FC, useEffect } from 'react';
 import { Page } from '~/application/modules/pages/Page';
 import { observer } from 'mobx-react';
+import { Helmet } from "react-helmet";
 
 interface IProps {
   page: Page;
 }
 
-const PageRenderer: FC<IProps> = observer(({ page }) => {
+const PageRenderer: FC<IProps> = observer(({page}) => {
   useEffect(() => {
     if (page.onMount) page.onMount(page);
 
@@ -18,8 +19,11 @@ const PageRenderer: FC<IProps> = observer(({ page }) => {
   }, []);
 
   return (
-    <div className="renderer" style={{ height: '100%' }}>
-      <page.output />
+    <div className="renderer" style={{height: '100%'}}>
+      <Helmet>
+        <title>{page.title}</title>
+      </Helmet>
+      <page.output/>
     </div>
   );
 });

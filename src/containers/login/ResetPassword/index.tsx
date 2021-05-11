@@ -7,6 +7,7 @@ import { useRouteMatch } from 'react-router';
 import { useConfig } from '~/application/utils/hooks';
 import styles from './styles.module.scss';
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const ResetPassword: FC = () => {
   const [password, setPassword] = useState('');
@@ -48,9 +49,13 @@ const ResetPassword: FC = () => {
 
   return (
     <div className={styles.wrap}>
-      <form noValidate onSubmit={onSubmitCapture} className={styles.form}>
-        <h3 className={styles.header}>Введите новый пароль</h3>
+      <Helmet>
+        <title>Восстановление пароля</title>
+      </Helmet>
 
+      <h3 className={styles.header}>Введите новый пароль</h3>
+
+      <form noValidate className={styles.form} onSubmit={onSubmitCapture}>
         <TextField
           variant="filled"
           margin="normal"

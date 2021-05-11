@@ -6,7 +6,7 @@ import { action, computed, observable } from 'mobx';
 import { observer } from 'mobx-react';
 
 export class Page {
-  @observable title: IPageProps['title'] = '';
+  @observable title: IPageProps['title'] = 'Admin Toolkit';
   @observable menu: IPageProps['menu'] = { enabled: true, label: '', url: '' };
   @observable parent?: IPageProps['parent'];
   @observable roles?: IPageProps['roles'];

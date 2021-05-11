@@ -5,6 +5,7 @@ import { Button, TextField, Typography } from '@material-ui/core';
 import { useConfig } from '~/application/utils/hooks';
 import styles from './styles.module.scss';
 import { Link } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 
 const ForgotPassword: FC = () => {
   const config = useConfig();
@@ -30,9 +31,13 @@ const ForgotPassword: FC = () => {
 
   return (
     <div className={styles.wrap}>
-      <form noValidate onSubmit={onSubmitCapture} className={styles.form}>
-        <h3 className={styles.header}>Восстановление пароля</h3>
+      <Helmet>
+        <title>Восстановление пароля</title>
+      </Helmet>
 
+      <h3 className={styles.header}>Восстановление пароля</h3>
+
+      <form noValidate className={styles.form} onSubmit={onSubmitCapture}>
         <TextField
           variant="filled"
           margin="normal"

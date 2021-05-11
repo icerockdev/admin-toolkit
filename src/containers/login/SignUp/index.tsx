@@ -5,6 +5,7 @@ import { useConfig } from '~/application';
 import styles from './styles.module.scss';
 import { Button, InputAdornment, TextField } from '@material-ui/core';
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 interface IProps {}
 
@@ -36,59 +37,65 @@ const SignUp: FC<IProps> = () => {
   );
 
   return (
-    <form className={styles.form} onSubmit={onSubmit}>
+    <div className={styles.wrap}>
+      <Helmet>
+        <title>Регистрация</title>
+      </Helmet>
+
       <h3 className={styles.header}>Регистрация</h3>
 
-      <TextField
-        variant="filled"
-        margin="normal"
-        required
-        fullWidth
-        id="email"
-        label={auth.loginLabel}
-        name="email"
-        autoComplete="email"
-        defaultValue={email}
-        onChange={onEmailChange}
-        autoFocus
-      />
+      <form className={styles.form} onSubmit={onSubmit}>
+        <TextField
+          variant="filled"
+          margin="normal"
+          required
+          fullWidth
+          id="email"
+          label={auth.loginLabel}
+          name="email"
+          autoComplete="email"
+          defaultValue={email}
+          onChange={onEmailChange}
+          autoFocus
+        />
 
-      <TextField
-        variant="filled"
-        margin="normal"
-        required
-        fullWidth
-        name="password"
-        label="Пароль"
-        type="password"
-        id="password"
-        defaultValue={password}
-        onChange={onPasswordChange}
-        autoComplete="current-password"
-      />
+        <TextField
+          variant="filled"
+          margin="normal"
+          required
+          fullWidth
+          name="password"
+          label="Пароль"
+          type="password"
+          id="password"
+          defaultValue={password}
+          onChange={onPasswordChange}
+          autoComplete="current-password"
+        />
 
-      <Button
-        type="submit"
-        fullWidth
-        variant="contained"
-        color="primary"
-        disabled={!email.length || !password.length}
-        className={styles.button}
-      >
-        Зарегистрироваться
-      </Button>
+        <Button
+          type="submit"
+          fullWidth
+          variant="contained"
+          color="primary"
+          disabled={!email.length || !password.length}
+          className={styles.button}
+        >
+          Зарегистрироваться
+        </Button>
 
-      <Button
-        type="button"
-        component={Link}
-        to="/"
-        variant="text"
-        fullWidth
-        className={styles.cancel}
-      >
-        Отмена
-      </Button>
-    </form>
+        <Button
+          type="button"
+          component={Link}
+          to="/"
+          variant="text"
+          fullWidth
+          className={styles.cancel}
+        >
+          Отмена
+        </Button>
+      </form>
+    </div>
   );
 };
 
