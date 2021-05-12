@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`EntityFieldReferenceSelect edit test 1`] = `
+<div
+  className="MuiFormControl-root"
+>
+  <label
+    className="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-outlined MuiFormLabel-filled"
+    data-shrink={true}
+    htmlFor="testReference"
+    style={
+      Object {
+        "whiteSpace": "nowrap",
+      }
+    }
+  />
+  <div
+    className="MuiInputBase-root MuiOutlinedInput-root MuiInputBase-formControl"
+    onClick={[Function]}
+    style={
+      Object {
+        "minWidth": 40,
+      }
+    }
+  >
+    <div
+      aria-haspopup="listbox"
+      aria-labelledby="mui-component-select-testReference"
+      className="MuiSelect-root MuiSelect-select MuiSelect-selectMenu MuiSelect-outlined MuiInputBase-input MuiOutlinedInput-input select"
+      id="mui-component-select-testReference"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onMouseDown={[Function]}
+      role="button"
+      tabIndex={0}
+    >
+      variant 1
+    </div>
+    <input
+      aria-hidden={true}
+      className="MuiSelect-nativeInput"
+      name="testReference"
+      onAnimationStart={[Function]}
+      onChange={[Function]}
+      required={false}
+      tabIndex={-1}
+      value={1}
+    />
+    <svg
+      aria-hidden={true}
+      className="MuiSvgIcon-root MuiSelect-icon MuiSelect-iconOutlined"
+      focusable="false"
+      viewBox="0 0 24 24"
+    >
+      <path
+        d="M7 10l5 5 5-5z"
+      />
+    </svg>
+    <fieldset
+      aria-hidden={true}
+      className="PrivateNotchedOutline-root-1 MuiOutlinedInput-notchedOutline"
+      style={
+        Object {
+          "paddingLeft": 8,
+        }
+      }
+    >
+      <legend
+        className="PrivateNotchedOutline-legend-2"
+        style={
+          Object {
+            "width": 0.01,
+          }
+        }
+      >
+        <span
+          dangerouslySetInnerHTML={
+            Object {
+              "__html": "&#8203;",
+            }
+          }
+        />
+      </legend>
+    </fieldset>
+  </div>
+  <p
+    className="MuiFormHelperText-root MuiFormHelperText-contained MuiFormHelperText-filled"
+  />
+</div>
+`;
+
+exports[`EntityFieldReferenceSelect view test 1`] = `
+<div>
+  variant 1
+</div>
+`;
