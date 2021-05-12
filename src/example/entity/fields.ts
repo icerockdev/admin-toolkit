@@ -20,6 +20,7 @@ export const SAMPLE_ENTITY_FIELDS: IEntityField[] = [
       1: 'asdasdasd adsasd',
       2: 'asdasd asdasdasd',
     },
+    required: true
   },
   {
     name: 'phone',
