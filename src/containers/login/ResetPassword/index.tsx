@@ -55,7 +55,7 @@ const ResetPassword: FC = () => {
 
       <h3 className={styles.header}>Введите новый пароль</h3>
 
-      <form noValidate className={styles.form} onSubmit={onSubmitCapture}>
+      <form noValidate onSubmit={onSubmitCapture}>
         <TextField
           variant="filled"
           margin="normal"

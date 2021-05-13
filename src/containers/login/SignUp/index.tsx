@@ -44,7 +44,7 @@ const SignUp: FC<IProps> = () => {
 
       <h3 className={styles.header}>Регистрация</h3>
 
-      <form className={styles.form} onSubmit={onSubmit}>
+      <form onSubmit={onSubmit}>
         <TextField
           variant="filled"
           margin="normal"
