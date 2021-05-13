@@ -3,10 +3,8 @@
   flex-direction: column;
 }
 
-.form {
-  h3 {
-    margin-bottom: 20px;
-  }
+.header {
+  margin-bottom: 20px;
 }
 
 button.button,
@@ -17,4 +15,5 @@ a.button {
 
 .forgot {
   font-size: 14px;
+  cursor: pointer;
 }

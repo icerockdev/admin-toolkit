@@ -6,6 +6,7 @@ import { Button, InputAdornment, TextField } from '@material-ui/core';
 import { useConfig } from '~/application/utils/hooks';
 import styles from './styles.module.scss';
 import { Link } from 'react-router-dom';
+import { Helmet } from "react-helmet";
 
 const SignIn: FC = () => {
   const config = useConfig();
@@ -47,9 +48,13 @@ const SignIn: FC = () => {
 
   return (
     <div className={styles.wrap}>
-      <form noValidate onSubmit={onSubmitCapture} className={styles.form}>
-        <h3 className={styles.header}>Авторизация</h3>
+      <Helmet>
+        <title>Авторизация</title>
+      </Helmet>
 
+      <h3 className={styles.header}>Авторизация</h3>
+
+      <form noValidate onSubmit={onSubmitCapture}>
         <TextField
           variant="filled"
           margin="normal"

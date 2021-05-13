@@ -6,6 +6,8 @@ import { Button, TextField } from '@material-ui/core';
 import { useRouteMatch } from 'react-router';
 import { useConfig } from '~/application/utils/hooks';
 import styles from './styles.module.scss';
+import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const ResetPassword: FC = () => {
   const [password, setPassword] = useState('');
@@ -47,9 +49,13 @@ const ResetPassword: FC = () => {
 
   return (
     <div className={styles.wrap}>
-      <form noValidate onSubmit={onSubmitCapture} className={styles.form}>
-        <h3 className={styles.header}>Введите новый пароль</h3>
+      <Helmet>
+        <title>Восстановление пароля</title>
+      </Helmet>
 
+      <h3 className={styles.header}>Введите новый пароль</h3>
+
+      <form noValidate onSubmit={onSubmitCapture}>
         <TextField
           variant="filled"
           margin="normal"
@@ -88,6 +94,17 @@ const ResetPassword: FC = () => {
           className={styles.button}
         >
           Восстановить
+        </Button>
+
+        <Button
+          type="button"
+          component={Link}
+          to="/"
+          variant="text"
+          fullWidth
+          className={styles.cancel}
+        >
+          Отмена
         </Button>
       </form>
     </div>

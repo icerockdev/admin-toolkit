@@ -14,6 +14,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import styles from './styles';
 import { IEntityField } from '~/application';
 import { observer } from 'mobx-react';
+import { Helmet } from "react-helmet";
 
 type IProps = WithStyles<typeof styles> & {
   id?: string;
@@ -70,15 +71,30 @@ const EntityBreadcrumbs = withStyles(styles)(
                 )}
 
                 {!isEditing && !isCreating && (
-                  <Typography color="textPrimary">{title}</Typography>
+                  <>
+                    <Helmet>
+                      <title>{title}</title>
+                    </Helmet>
+                    <Typography color="textPrimary">{title}</Typography>
+                  </>
                 )}
 
                 {!!isEditing && !isCreating && (
-                  <Typography color="textPrimary">Редактирование</Typography>
+                  <>
+                    <Helmet>
+                      <title>Редактирование: {title}</title>
+                    </Helmet>
+                    <Typography color="textPrimary">Редактирование</Typography>
+                  </>
                 )}
 
-                {!!isEditing && isCreating && (
-                  <Typography color="textPrimary">Создание</Typography>
+                {!isEditing && !!isCreating && (
+                  <>
+                    <Helmet>
+                      <title>Создание: {name}</title>
+                    </Helmet>
+                    <Typography color="textPrimary">Создание</Typography>
+                  </>
                 )}
               </Breadcrumbs>
             </Grid>
