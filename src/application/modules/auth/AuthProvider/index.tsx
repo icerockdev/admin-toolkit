@@ -9,7 +9,7 @@ import {
 } from '~/application/types/auth';
 import { action, computed, flow, observable, reaction } from 'mobx';
 import { CancellablePromise } from 'mobx/lib/api/flow';
-import { Config } from '../../config/Config';
+import { Config } from '~/application';
 import { AuthRouter } from '~/containers/login/AuthRouter';
 import { FC } from 'react';
 import { AuthVerticalLayout } from '~/application/layouts/login/AuthVerticalLayout';
@@ -18,6 +18,7 @@ import { SignIn } from '~/containers/login/SignIn';
 import { ForgotPassword } from '~/containers/login/ForgotPassword';
 import { ResetPassword } from '~/containers/login/ResetPassword';
 import { SignUp } from '~/containers/login/SignUp';
+import i18n from "i18next";
 
 export class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
   constructor(options?: Partial<AuthProviderOptions>) {
@@ -48,7 +49,7 @@ export class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
   @observable roleTitles?: Record<any, string>;
   @observable persist?: AuthProviderOptions['persist'] = true;
   @observable passwordValidator?: AuthProviderOptions['passwordValidator'];
-  @observable loginLabel: AuthProviderOptions['loginLabel'] = 'Логин';
+  @observable loginLabel: AuthProviderOptions['loginLabel'] = i18n.t('Login');
   @observable getUserName: AuthProviderOptions['getUserName'] = () =>
     this.user?.username || '';
 

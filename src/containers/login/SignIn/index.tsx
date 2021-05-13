@@ -7,9 +7,11 @@ import { useConfig } from '~/application/utils/hooks';
 import styles from './styles.module.scss';
 import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet";
+import { useTranslation } from "react-i18next";
 
 const SignIn: FC = () => {
   const config = useConfig();
+  const { t } = useTranslation();
   const auth = config.auth;
 
   const onForgotPassword = useMemo(
@@ -42,17 +44,17 @@ const SignIn: FC = () => {
     [setPassword]
   );
 
-  const loginLabel = useMemo(() => config.auth?.loginLabel || 'Логин', [
+  const loginLabel = useMemo(() => config.auth?.loginLabel || t('Login'), [
     config.auth,
   ]);
 
   return (
     <div className={styles.wrap}>
       <Helmet>
-        <title>Авторизация</title>
+        <title>{t('Sign In')}</title>
       </Helmet>
 
-      <h3 className={styles.header}>Авторизация</h3>
+      <h3 className={styles.header}>{t('Sign In')}</h3>
 
       <form noValidate onSubmit={onSubmitCapture}>
         <TextField
@@ -75,7 +77,7 @@ const SignIn: FC = () => {
           required
           fullWidth
           name="password"
-          label="Пароль"
+          label={t('Password')}
           type="password"
           id="password"
           defaultValue={password}
