@@ -87,6 +87,7 @@
     "@types/react-router-dom": "^5.1.7",
     "@types/react-test-renderer": "^16.9.5",
     "@types/throttle-debounce": "^2.1.0",
+    "@types/webpack-env": "^1.16.0",
     "babel-preset-mobx": "^2.0.0",
     "copyfiles": "^2.4.1",
     "copyright-header": "^0.4.6",

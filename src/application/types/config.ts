@@ -14,4 +14,8 @@ export interface IConfigProps {
   theme?: ThemeOptions;
   layout?: FC;
   host?: string;
+  i18nDefaultLanguage: string;
+  i18nLanguages: string[];
+  i18nUseBrowserLanguageDetector: boolean;
+  i18nResourcesContext: __WebpackModuleApi.RequireContext;
 }

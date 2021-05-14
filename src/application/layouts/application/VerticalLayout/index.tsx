@@ -19,7 +19,7 @@ const VerticalLayout: FC<IProps> = observer(({ children }) => {
       <div className={classNames(styles.menu, 'vertical-layout__menu')}>
         <div className={classNames(styles.logo, 'vertical-layout__logo')}>
           <Link to={config.fallbackUrl}>
-            <img src={config.logo} />
+            <img src={config.logo}  alt="logo"/>
           </Link>
         </div>
 

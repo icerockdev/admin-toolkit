@@ -11,15 +11,15 @@ import { useTranslation } from "react-i18next";
 
 const SignIn: FC = () => {
   const config = useConfig();
-  const { t } = useTranslation();
+  const {t} = useTranslation();
   const auth = config.auth;
 
   const onForgotPassword = useMemo(
     () =>
       config.auth?.authPasswRestoreFn
         ? () => {
-            config.history.push('/restore');
-          }
+          config.history.push('/restore');
+        }
         : undefined,
     [config.history, config.auth, config.auth?.authPasswRestoreFn]
   );
@@ -44,9 +44,7 @@ const SignIn: FC = () => {
     [setPassword]
   );
 
-  const loginLabel = useMemo(() => config.auth?.loginLabel || t('Login'), [
-    config.auth,
-  ]);
+  const loginLabel = useMemo(() => config.auth?.loginLabel || t('Login'), [config.auth, t]);
 
   return (
     <div className={styles.wrap}>
@@ -90,7 +88,7 @@ const SignIn: FC = () => {
                 onClick={onForgotPassword}
                 className={styles.forgot}
               >
-                Забыли пароль?
+                {t('Forgot password?')}
               </InputAdornment>
             ) : null,
           }}
@@ -104,7 +102,7 @@ const SignIn: FC = () => {
           disabled={!email.length || !password.length}
           className={styles.button}
         >
-          Войти
+          {t('Log In')}
         </Button>
 
         {!!auth?.authSignupFn && (
@@ -117,7 +115,7 @@ const SignIn: FC = () => {
             component={Link}
             to="/signup"
           >
-            Регистрация
+            {t('Sign Up')}
           </Button>
         )}
       </form>

@@ -16,6 +16,7 @@ import { IEntityField } from '~/application';
 import { observer } from 'mobx-react';
 import { EntityField } from '../EntityField';
 import { Entity } from '~/application/modules';
+import { useTranslation } from "react-i18next";
 
 type IProps = WithStyles<typeof styles> & {
   url: string;
@@ -56,6 +57,7 @@ const EntityViewer = withStyles(styles)(
       isEditing,
       entity,
     }: IProps) => {
+      const {t} = useTranslation();
       const isCreating = useMemo(() => typeof id === 'undefined', [id]);
 
       const visibleFields = useMemo(
@@ -77,7 +79,7 @@ const EntityViewer = withStyles(styles)(
 
           setEditorData({ ...data, [f]: value });
         },
-        [data, setEditorData, errors]
+        [errors, setEditorData, data, onResetFieldError]
       );
 
       const onSubmit = useCallback(
@@ -91,7 +93,7 @@ const EntityViewer = withStyles(styles)(
       useEffect(() => {
         getItem(id);
         return () => cancelGetItem();
-      }, [id]);
+      }, [cancelGetItem, getItem, id]);
 
       if (isLoading) {
         return (
@@ -142,7 +144,7 @@ const EntityViewer = withStyles(styles)(
                             variant="outlined"
                             onClick={onCancel}
                           >
-                            Отмена
+                            {t('Cancel')}
                           </Button>
                         </Grid>
 
@@ -152,7 +154,7 @@ const EntityViewer = withStyles(styles)(
                             variant="contained"
                             color="primary"
                           >
-                            Сохранить
+                            {t('Do save')}
                           </Button>
                         </Grid>
                       </Grid>

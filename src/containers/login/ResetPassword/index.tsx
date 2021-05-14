@@ -8,12 +8,14 @@ import { useConfig } from '~/application/utils/hooks';
 import styles from './styles.module.scss';
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { useTranslation } from "react-i18next";
 
 const ResetPassword: FC = () => {
   const [password, setPassword] = useState('');
   const [passwordRepeat, setPasswordRepeat] = useState('');
   const matches = useRouteMatch<{ token: string }>();
   const config = useConfig();
+  const {t} = useTranslation();
 
   const onPasswordChange = useCallback(
     (event) => {
@@ -44,16 +46,16 @@ const ResetPassword: FC = () => {
 
       config.auth.sendAuthPasswUpdate(token, password);
     },
-    [config.auth, matches, passwordRepeat, password]
+    [matches.params.token, config, password, passwordRepeat]
   );
 
   return (
     <div className={styles.wrap}>
       <Helmet>
-        <title>Восстановление пароля</title>
+        <title>{t('Password recovery')}</title>
       </Helmet>
 
-      <h3 className={styles.header}>Введите новый пароль</h3>
+      <h3 className={styles.header}>{t('Enter a new password')}</h3>
 
       <form noValidate onSubmit={onSubmitCapture}>
         <TextField
@@ -62,7 +64,7 @@ const ResetPassword: FC = () => {
           required
           fullWidth
           id="password"
-          label="Password"
+          label={t('Password')}
           name="password"
           defaultValue={password}
           onChange={onPasswordChange}
@@ -75,7 +77,7 @@ const ResetPassword: FC = () => {
           required
           fullWidth
           id="password"
-          label="Password repeat"
+          label={t('Password repeat')}
           name="passwordRepeat"
           defaultValue={passwordRepeat}
           onChange={onPasswordRepeatChange}
@@ -93,7 +95,7 @@ const ResetPassword: FC = () => {
           }
           className={styles.button}
         >
-          Восстановить
+          {t('Restore')}
         </Button>
 
         <Button
@@ -104,7 +106,7 @@ const ResetPassword: FC = () => {
           fullWidth
           className={styles.cancel}
         >
-          Отмена
+          {t('Cancel')}
         </Button>
       </form>
     </div>

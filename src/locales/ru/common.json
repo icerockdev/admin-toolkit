@@ -1,0 +1,21 @@
+{
+  "Sign In": "Авторизация",
+  "Login": "Логин",
+  "Password": "Пароль",
+  "Password repeat": "Повтор пароля",
+  "Log In": "Войти",
+  "Sign Up": "Регистрация",
+  "Forgot password?": "Забыли пароль?",
+  "Register now": "Зарегистрироваться",
+  "Cancel": "Отмена",
+  "Password recovery": "Восстановление пароля",
+  "Email": "Email",
+  "Restore": "Восстановить",
+  "Enter a new password": "Введите новый пароль",
+  "Create": "Создание",
+  "Do create": "Создать",
+  "Edit": "Редактирование",
+  "Do edit": "Редактировать",
+  "Do export": "Экспорт",
+  "Do save": "Сохранить"
+}

@@ -11,7 +11,7 @@ import { LocalizationProvider } from '@material-ui/pickers';
 import ruLocale from 'date-fns/locale/ru';
 import '../../../styles/main.scss';
 import { I18nextProvider } from "react-i18next";
-import i18n from "~/i18n";
+import i18n, { i18nInit } from "~/i18n";
 
 type IProps = WithStyles<typeof styles> & {
   config: Config;
@@ -19,6 +19,8 @@ type IProps = WithStyles<typeof styles> & {
 
 const Application = withStyles(styles)(
   observer(({config}: IProps) => {
+    i18nInit(config)
+
     if (config.auth && !config.auth?.isLogged && config.auth?.sendAuthRequest) {
       return (
         <Provider config={config}>

@@ -18,7 +18,7 @@ import { SignIn } from '~/containers/login/SignIn';
 import { ForgotPassword } from '~/containers/login/ForgotPassword';
 import { ResetPassword } from '~/containers/login/ResetPassword';
 import { SignUp } from '~/containers/login/SignUp';
-import i18n from "i18next";
+import i18n from "~/i18n";
 
 export class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
   constructor(options?: Partial<AuthProviderOptions>) {

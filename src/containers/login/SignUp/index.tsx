@@ -1,19 +1,21 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import { useConfig } from '~/application';
 import styles from './styles.module.scss';
-import { Button, InputAdornment, TextField } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import { useTranslation } from "react-i18next";
 
-interface IProps {}
+interface IProps {
+}
 
 const SignUp: FC<IProps> = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
   const config = useConfig();
+  const {t} = useTranslation();
   const auth = config.auth!!;
 
   const onSubmit = useCallback(
@@ -36,13 +38,15 @@ const SignUp: FC<IProps> = () => {
     [setPassword]
   );
 
+  const loginLabel = useMemo(() => config.auth?.loginLabel || t('Login'), [config.auth, t]);
+
   return (
     <div className={styles.wrap}>
       <Helmet>
-        <title>Регистрация</title>
+        <title>{t('Sign Up')}</title>
       </Helmet>
 
-      <h3 className={styles.header}>Регистрация</h3>
+      <h3 className={styles.header}>{t('Sign Up')}</h3>
 
       <form onSubmit={onSubmit}>
         <TextField
@@ -51,7 +55,7 @@ const SignUp: FC<IProps> = () => {
           required
           fullWidth
           id="email"
-          label={auth.loginLabel}
+          label={loginLabel}
           name="email"
           autoComplete="email"
           defaultValue={email}
@@ -65,7 +69,7 @@ const SignUp: FC<IProps> = () => {
           required
           fullWidth
           name="password"
-          label="Пароль"
+          label={t('Password')}
           type="password"
           id="password"
           defaultValue={password}
@@ -81,7 +85,7 @@ const SignUp: FC<IProps> = () => {
           disabled={!email.length || !password.length}
           className={styles.button}
         >
-          Зарегистрироваться
+          {t('Register now')}
         </Button>
 
         <Button
@@ -92,7 +96,7 @@ const SignUp: FC<IProps> = () => {
           fullWidth
           className={styles.cancel}
         >
-          Отмена
+          {t('Cancel')}
         </Button>
       </form>
     </div>

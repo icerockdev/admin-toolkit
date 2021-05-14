@@ -32,7 +32,7 @@ const EntityFieldReferenceSelect: FC<IProps> = observer(
 
     useEffect(() => {
       setLabelWidth((ref.current && ref.current.clientWidth) || 0);
-    }, [ref.current]);
+    }, []);
 
     return isEditing ? (
       <FormControl variant="outlined">

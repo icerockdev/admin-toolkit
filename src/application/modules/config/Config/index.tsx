@@ -46,6 +46,10 @@ export class Config {
   @observable auth?: IConfigProps['auth'];
   @observable logo?: IConfigProps['logo'];
   @observable title?: IConfigProps['title'];
+  @observable i18nDefaultLanguage: IConfigProps['i18nDefaultLanguage'] = "en";
+  @observable i18nLanguages: IConfigProps['i18nLanguages'] = ["en", "ru"];
+  @observable i18nUseBrowserLanguageDetector: IConfigProps['i18nUseBrowserLanguageDetector'] = true;
+  @observable i18nResourcesContext: IConfigProps['i18nResourcesContext'] = require.context('~/locales', true, /\.json$/);
   @observable theme: ThemeOptions = {};
   @observable history = createBrowserHistory();
   @observable notifications = new Notifications();

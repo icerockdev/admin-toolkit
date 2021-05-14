@@ -26,7 +26,7 @@ export type IFields = {
   };
 };
 
-export default new Feature<IFields>('Feature', '/feature', {
+export default new Feature<IFields>('Experimental: Feature', '/feature', {
   getItemTitle: (data) => data.name,
   fields: FEATURE_FIELDS,
   api: {

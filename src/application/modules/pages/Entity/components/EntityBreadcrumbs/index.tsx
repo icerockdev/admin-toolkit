@@ -15,6 +15,7 @@ import styles from './styles';
 import { IEntityField } from '~/application';
 import { observer } from 'mobx-react';
 import { Helmet } from "react-helmet";
+import { useTranslation } from "react-i18next";
 
 type IProps = WithStyles<typeof styles> & {
   id?: string;
@@ -44,6 +45,7 @@ const EntityBreadcrumbs = withStyles(styles)(
       viewable,
       editable,
     }: IProps) => {
+      const {t} = useTranslation();
       const title = useMemo(() => {
         const field = fields.find((f) => f.title);
         return data && field && field.name ? data[field.name] : id;
@@ -82,18 +84,18 @@ const EntityBreadcrumbs = withStyles(styles)(
                 {!!isEditing && !isCreating && (
                   <>
                     <Helmet>
-                      <title>Редактирование: {title}</title>
+                      <title>{t('Edit')}</title>
                     </Helmet>
-                    <Typography color="textPrimary">Редактирование</Typography>
+                    <Typography color="textPrimary">{t('Edit')}</Typography>
                   </>
                 )}
 
                 {!isEditing && !!isCreating && (
                   <>
                     <Helmet>
-                      <title>Создание: {name}</title>
+                      <title>{t('Create')}</title>
                     </Helmet>
-                    <Typography color="textPrimary">Создание</Typography>
+                    <Typography color="textPrimary">{t('Create')}</Typography>
                   </>
                 )}
               </Breadcrumbs>
@@ -109,7 +111,7 @@ const EntityBreadcrumbs = withStyles(styles)(
                 color="primary"
                 type="button"
               >
-                Редактировать
+                {t('Do edit')}
               </Button>
             )}
           </Grid>
