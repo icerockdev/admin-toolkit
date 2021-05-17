@@ -29,6 +29,10 @@ export default new Entity({
     url: '/entity',
   },
   fields: SAMPLE_ENTITY_FIELDS,
+  permissions: {
+    create: ['admin'],
+    update: ['admin'],
+  },
 
   fetchItemsFn: ({ url, page, count, token, filter, sortBy, sortDir }) =>
     fetchEntityItemsFn({ url, page, count, token, filter, sortBy, sortDir }),

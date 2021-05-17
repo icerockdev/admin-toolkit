@@ -1,3 +1,5 @@
+/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+
 import { Entity, ENTITY_ACTIONS, ENTITY_FIELD_RENDERS, IPageProps, UserRole } from "~/application";
 import { FC, MouseEventHandler } from "react";
 
@@ -37,7 +39,7 @@ export interface IEntityProps extends IPageProps {
   items: number;
   filters: IFilterValue[];
   references: Record<string, IEntityReferenceProps>;
-  permissions: Partial<Record<'update' | 'create' | 'list', UserRole[]>>;
+  permissions: Partial<Record<'update' | 'create' | 'list' | 'view', UserRole[]>>;
 
   api?: Record<typeof ENTITY_ACTIONS[keyof typeof ENTITY_ACTIONS],
     { url: string; method: string }>;
