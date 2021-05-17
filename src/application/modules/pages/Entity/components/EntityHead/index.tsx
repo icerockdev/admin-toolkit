@@ -81,7 +81,7 @@ const EntityHeadUnstyled: FC<IProps> = ({
             onClick={onExport}
             className={classes.export}
           >
-            {t('Do export')}
+            {t('buttons:Export')}
           </Button>
         )}
 
@@ -93,7 +93,7 @@ const EntityHeadUnstyled: FC<IProps> = ({
             component={RouterLink}
             to={`${url}/create`}
           >
-            {t('Do create')}
+            {t('buttons:Create')}
           </Button>
         )}
       </div>

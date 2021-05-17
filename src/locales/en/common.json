@@ -13,13 +13,5 @@
   "Restore": "Restore",
   "Enter a new password": "Enter a new password",
   "Create": "Create",
-  "Edit": "Edit",
-  "Do create": "Create",
-  "Do edit": "Edit",
-  "Do export": "Export",
-  "Do save": "Save",
-  "Failed to update": "Failed to update",
-  "Required field": "Required field",
-  "Items load failed": "Items load failed",
-  "Check all fields": "Check all fields"
+  "Edit": "Edit"
 }

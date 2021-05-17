@@ -73,30 +73,30 @@ const EntityBreadcrumbs = withStyles(styles)(
                 )}
 
                 {!isEditing && !isCreating && (
-                  <>
+                  <Typography color="textPrimary">
                     <Helmet>
                       <title>{title}</title>
                     </Helmet>
-                    <Typography color="textPrimary">{title}</Typography>
-                  </>
+                    {title}
+                  </Typography>
                 )}
 
                 {!!isEditing && !isCreating && (
-                  <>
+                  <Typography color="textPrimary">
                     <Helmet>
-                      <title>{t('Edit')}</title>
+                      <title>{`${t('Edit')}: ${title ?? ''}`}</title>
                     </Helmet>
-                    <Typography color="textPrimary">{t('Edit')}</Typography>
-                  </>
+                    {t('Edit')}
+                  </Typography>
                 )}
 
                 {!isEditing && !!isCreating && (
-                  <>
+                  <Typography color="textPrimary">
                     <Helmet>
-                      <title>{t('Create')}</title>
+                      <title>{`${t('Create')}: ${name ?? ''}`}</title>
                     </Helmet>
-                    <Typography color="textPrimary">{t('Create')}</Typography>
-                  </>
+                    {t('Create')}
+                  </Typography>
                 )}
               </Breadcrumbs>
             </Grid>
@@ -111,7 +111,7 @@ const EntityBreadcrumbs = withStyles(styles)(
                 color="primary"
                 type="button"
               >
-                {t('Do edit')}
+                {t('buttons:Edit')}
               </Button>
             )}
           </Grid>

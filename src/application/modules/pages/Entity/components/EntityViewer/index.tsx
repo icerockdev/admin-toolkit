@@ -144,7 +144,7 @@ const EntityViewer = withStyles(styles)(
                             variant="outlined"
                             onClick={onCancel}
                           >
-                            {t('Cancel')}
+                            {t('buttons:Cancel')}
                           </Button>
                         </Grid>
 
@@ -154,7 +154,7 @@ const EntityViewer = withStyles(styles)(
                             variant="contained"
                             color="primary"
                           >
-                            {t('Do save')}
+                            {t('buttons:Save')}
                           </Button>
                         </Grid>
                       </Grid>

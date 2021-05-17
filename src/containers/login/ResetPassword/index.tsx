@@ -106,7 +106,7 @@ const ResetPassword: FC = () => {
           fullWidth
           className={styles.cancel}
         >
-          {t('Cancel')}
+          {t('buttons:Cancel')}
         </Button>
       </form>
     </div>
