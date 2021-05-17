@@ -18,6 +18,7 @@ import {
 } from 'react';
 import { has, isEmpty, omit } from 'ramda';
 import { ENTITY_ERRORS } from '~/application';
+import i18n from "~/i18n";
 
 export const useErrorsWithClearOnInput = <T extends any = any>(
   fields: Record<any, any>,
@@ -33,7 +34,7 @@ export const useErrorsWithClearOnInput = <T extends any = any>(
   Object.entries(fields).forEach(([key, val]) =>
     useEffect(() => {
       if (has(key, errors)) setErrors(omit([key], errors));
-    }, [val])
+    }, [key, val])
   );
 
   const fieldValidator = useCallback(() => {
@@ -45,9 +46,9 @@ export const useErrorsWithClearOnInput = <T extends any = any>(
     setErrors(faulty);
 
     if (Object.values(faulty).length) {
-      throw new Error(validationError || ENTITY_ERRORS.FIELD_IS_REQUIRED);
+      throw new Error(validationError || i18n.t(ENTITY_ERRORS.FIELD_IS_REQUIRED));
     }
-  }, [fields]);
+  }, [fieldError, fields, validationError]);
 
   return [errors, setErrors, fieldValidator];
 };

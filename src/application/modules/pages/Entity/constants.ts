@@ -57,8 +57,8 @@ export const ENTITY_ACTIONS = {
   UPDATE: 'update',
 };
 export const ENTITY_ERRORS = {
-  CANT_UPDATE_ITEM: `Не удалось обновить`,
-  CANT_LOAD_ITEMS: `Загрузка не удалась`,
-  FIELD_IS_REQUIRED: 'Обязательное поле',
-  INCORRECT_INPUT: 'Проверьте все поля',
+  CANT_UPDATE_ITEM: 'common:Failed to update',
+  CANT_LOAD_ITEMS: 'common:Items load failed',
+  FIELD_IS_REQUIRED: 'common:Required field',
+  INCORRECT_INPUT: 'common:Check all fields',
 };

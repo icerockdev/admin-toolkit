@@ -27,6 +27,7 @@ import { EntityList } from '~/application/modules/pages/Entity/components/Entity
 import { EntityHead } from '~/application/modules/pages/Entity/components/EntityHead';
 import { EntityFooter } from '~/application/modules/pages/Entity/components/EntityFooter';
 import { EntityListWrapper } from '~/application/modules/pages/Entity/components/EntityListWrapper';
+import i18n from "~/i18n";
 
 export class Entity extends Page {
   // Props
@@ -132,7 +133,7 @@ export class Entity extends Page {
       try {
         // loading entity
         if (!this.api?.list?.url || !this.fetchItemsFn) {
-          throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
+          throw new Error(i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
         }
 
         const filter = this.getFilters();
@@ -150,7 +151,7 @@ export class Entity extends Page {
         );
 
         if (!result || result.error)
-          throw new Error(result?.error || ENTITY_ERRORS.CANT_LOAD_ITEMS);
+          throw new Error(result?.error || i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
 
         this.data = result?.data?.list || [];
         this.filterData = result?.filterData || {};
@@ -220,11 +221,11 @@ export class Entity extends Page {
         const data = toJS(this.editorData);
 
         if (!this.validateSubmitFields(data, false)) {
-          throw new Error(ENTITY_ERRORS.INCORRECT_INPUT);
+          throw new Error(i18n.t(ENTITY_ERRORS.INCORRECT_INPUT));
         }
 
         if (!this.api?.update?.url || !this.updateItemsFn) {
-          throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
+          throw new Error(i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
         }
 
         const result: IEntityUpdateFunctionResult = yield this.parent?.auth?.withToken(
@@ -236,7 +237,7 @@ export class Entity extends Page {
         );
 
         if (!result || result.error)
-          throw new Error(result?.error || ENTITY_ERRORS.CANT_LOAD_ITEMS);
+          throw new Error(result?.error || i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
 
         this.fetchItems();
 
@@ -271,11 +272,11 @@ export class Entity extends Page {
         const data = toJS(this.editorData);
 
         if (!this.validateSubmitFields(data, true)) {
-          throw new Error(ENTITY_ERRORS.INCORRECT_INPUT);
+          throw new Error(i18n.t(ENTITY_ERRORS.INCORRECT_INPUT));
         }
 
         if (!this.api?.create?.url || !this.createItemsFn) {
-          throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
+          throw new Error(i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
         }
 
         const result: IEntityCreateFunctionResult = yield this.parent?.auth?.withToken(
@@ -287,7 +288,7 @@ export class Entity extends Page {
         );
 
         if (!result || result.error)
-          throw new Error(result?.error || ENTITY_ERRORS.CANT_LOAD_ITEMS);
+          throw new Error(result?.error || i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
 
         this.fetchItems();
         this.parent?.history.push(this.menu.url);
@@ -327,7 +328,7 @@ export class Entity extends Page {
                 ...obj,
                 [field.name]:
                   (field.validator && field.validator(data[field.name], this)) ||
-                  ENTITY_ERRORS.FIELD_IS_REQUIRED,
+                  i18n.t(ENTITY_ERRORS.FIELD_IS_REQUIRED),
               },
         {}
       );
@@ -350,7 +351,7 @@ export class Entity extends Page {
 
       try {
         if (!this.api?.get?.url || !this.getItemsFn) {
-          throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
+          throw new Error(i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
         }
 
         const result: IEntityGetFunctionResult = yield this.parent?.auth?.withToken(
@@ -362,7 +363,7 @@ export class Entity extends Page {
         );
 
         if (!result || result.error)
-          throw new Error(result?.error || ENTITY_ERRORS.CANT_LOAD_ITEMS);
+          throw new Error(result?.error || i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
 
         this.editorData = result.data;
         this.isLoading = false;
