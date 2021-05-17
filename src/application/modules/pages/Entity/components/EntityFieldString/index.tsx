@@ -29,7 +29,7 @@ const EntityFieldString: FC<IProps> = observer(
 
         handler(event.target.value);
       },
-      [value, handler]
+      [handler]
     );
 
     return isEditing ? (

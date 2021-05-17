@@ -6,11 +6,10 @@ import {
   IEntityFetchFunction,
   IEntityGetFunction,
   IEntityUpdateFunction,
-  UNAUTHORIZED,
 } from '~/application';
 import { SAMPLE_ENTITY_1, SAMPLE_ENTITY_2 } from './mocked_data';
 
-export const fetchEntityItemsFn: IEntityFetchFunction = ({ ...props }) =>
+export const fetchEntityItemsFn: IEntityFetchFunction = ({...props}) =>
   new Promise((resolve) => {
     console.log('Fetching with props:', props);
 
@@ -20,14 +19,14 @@ export const fetchEntityItemsFn: IEntityFetchFunction = ({ ...props }) =>
           ...SAMPLE_ENTITY_1,
           id: index,
         })),
-        totalPages: 100,
+        totalCount: 100,
       },
     });
   });
 
-export const getEntityFn: IEntityGetFunction = ({ id, url, token }) => {
+export const getEntityFn: IEntityGetFunction = ({id, url, token}) => {
   return new Promise((resolve) => {
-    console.log('Getting item:', { id, url, token });
+    console.log('Getting item:', {id, url, token});
     setTimeout(resolve, 500, {
       data: SAMPLE_ENTITY_2,
     });
@@ -35,21 +34,21 @@ export const getEntityFn: IEntityGetFunction = ({ id, url, token }) => {
 };
 
 export const updateEntityFn: IEntityUpdateFunction = ({
-  id,
-  data,
-  url,
-  token,
-}) => {
+                                                        id,
+                                                        data,
+                                                        url,
+                                                        token,
+                                                      }) => {
   return new Promise((resolve) => {
-    console.log('Updating item:', { id, data, url, token });
-    resolve({ error: '', data });
+    console.log('Updating item:', {id, data, url, token});
+    resolve({error: '', data});
   });
 };
 
-export const createEntityFn: IEntityCreateFunction = ({ data, url, token }) => {
+export const createEntityFn: IEntityCreateFunction = ({data, url, token}) => {
   return new Promise((resolve) => {
-    console.log('Creating item:', { data, url, token });
-    resolve({ error: '', data });
+    console.log('Creating item:', {data, url, token});
+    resolve({error: '', data});
   });
 };
 

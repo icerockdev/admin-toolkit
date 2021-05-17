@@ -27,7 +27,7 @@ const EntityFieldDateRange: FC<IProps> = ({
 
       handler(filtered.join(','));
     },
-    [value, handler]
+    [handler]
   );
 
   const parsed = useMemo<[ParsableDate, ParsableDate]>(() => {

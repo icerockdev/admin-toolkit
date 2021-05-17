@@ -21,7 +21,7 @@ const EntityFieldPhone: FC<IProps> = ({
 
       handler(event.target.value.replace(/[^\d]/gim, ''));
     },
-    [value, handler]
+    [handler]
   );
 
   return isEditing ? (

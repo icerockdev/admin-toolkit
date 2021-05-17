@@ -23,7 +23,7 @@ const EntityFieldDateTime: FC<IProps> = ({
       if (!value || !handler || !isValid(value)) return;
       handler(value.toISOString());
     },
-    [value, handler]
+    [handler]
   );
 
   const parsedValue = useMemo(() => {

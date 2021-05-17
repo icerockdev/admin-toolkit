@@ -71,7 +71,7 @@ const EntityFilter = withStyles(styles)(
           setFilters(filters.filter((_, index) => i !== index));
           applyFilter();
         },
-        [filters, setFilters]
+        [applyFilter, filters, setFilters]
       );
 
       const filterableFields = useMemo(
@@ -103,7 +103,7 @@ const EntityFilter = withStyles(styles)(
           setFilters([]);
           applyFilter();
         },
-        [applyFilter]
+        [applyFilter, setFilters]
       );
 
       const onSubmit = useCallback(

@@ -1,20 +1,10 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React, { useCallback, useEffect, useMemo } from 'react';
-
-import {
-  Button,
-  CircularProgress,
-  Grid,
-  Paper,
-  withStyles,
-  WithStyles,
-} from '@material-ui/core';
-
+import { Button, CircularProgress, Grid, Paper, withStyles, WithStyles, } from '@material-ui/core';
 import styles from './styles';
-import { IEntityField } from '~/application';
+import { EntityField, IEntityField } from '~/application';
 import { observer } from 'mobx-react';
-import { EntityField } from '../EntityField';
 import { Entity } from '~/application/modules';
 import { useTranslation } from "react-i18next";
 
@@ -41,22 +31,22 @@ type IProps = WithStyles<typeof styles> & {
 const EntityViewer = withStyles(styles)(
   observer(
     ({
-      classes,
-      id,
-      fields,
-      errors,
-      onSave,
-      onCancel,
-      onResetFieldError,
-      isLoading,
-      data,
-      setEditorData,
-      getItem,
-      cancelGetItem,
-      withToken,
-      isEditing,
-      entity,
-    }: IProps) => {
+       classes,
+       id,
+       fields,
+       errors,
+       onSave,
+       onCancel,
+       onResetFieldError,
+       isLoading,
+       data,
+       setEditorData,
+       getItem,
+       cancelGetItem,
+       withToken,
+       isEditing,
+       entity,
+     }: IProps) => {
       const {t} = useTranslation();
       const isCreating = useMemo(() => typeof id === 'undefined', [id]);
 
@@ -77,7 +67,7 @@ const EntityViewer = withStyles(styles)(
             onResetFieldError(f);
           }
 
-          setEditorData({ ...data, [f]: value });
+          setEditorData({...data, [f]: value});
         },
         [errors, setEditorData, data, onResetFieldError]
       );
@@ -98,7 +88,7 @@ const EntityViewer = withStyles(styles)(
       if (isLoading) {
         return (
           <div className={classes.loader}>
-            <CircularProgress />
+            <CircularProgress/>
           </div>
         );
       }
@@ -108,7 +98,7 @@ const EntityViewer = withStyles(styles)(
           {data && (
             <form onSubmit={onSubmit}>
               <Paper>
-                <div className={classes.grid} style={{ flexWrap: 'wrap' }}>
+                <div className={classes.grid} style={{flexWrap: 'wrap'}}>
                   {visibleFields.map((field) => (
                     <div className={classes.field} key={field.name}>
                       {!isEditing && (
@@ -135,7 +125,7 @@ const EntityViewer = withStyles(styles)(
                   {isEditing && (
                     <div className={`${classes.field} ${classes.buttons}`}>
                       <Grid container spacing={1}>
-                        <Grid item style={{ flex: 1 }} />
+                        <Grid item style={{flex: 1}}/>
 
                         <Grid item>
                           <Button

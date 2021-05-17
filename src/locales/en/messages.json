@@ -2,5 +2,11 @@
   "Failed to update": "Failed to update",
   "Required field": "Required field",
   "Items load failed": "Items load failed",
-  "Check all fields": "Check all fields"
+  "Check all fields": "Check all fields",
+  "Page {{pageNum}} of {{pageCount}}, Results {{from}}-{{to}} of {{count}}": "Page {{pageNum}} of {{pageCount}}, Results {{from}}-{{to}} of {{count}}",
+  "The file is too big!": "The file is too big!",
+  "The file is too small!": "The file is too small!",
+  "The file type is not supported!": "The file type is not supported!",
+  "Image size should not be less than {{width}}x{{height}} pixels": "Image size should not be less than {{width}}x{{height}} pixels",
+  "The size of the picture should not be more than {{width}}x{{height}} pixels": "The size of the picture should not be more than {{width}}x{{height}} pixels"
 }

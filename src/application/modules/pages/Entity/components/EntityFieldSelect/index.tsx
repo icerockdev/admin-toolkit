@@ -22,7 +22,7 @@ const EntityFieldSelect: FC<IProps> = ({
 
       handler(event.target.value);
     },
-    [value, handler]
+    [handler]
   );
 
   // noinspection TypeScriptValidateTypes
@@ -31,7 +31,7 @@ const EntityFieldSelect: FC<IProps> = ({
 
   useEffect(() => {
     setLabelWidth((ref.current && ref.current.clientWidth) || 0);
-  }, [ref.current]);
+  }, [ref]);
 
   return isEditing ? (
     <FormControl variant="outlined">

@@ -2,5 +2,11 @@
   "Failed to update": "Не удалось обновить",
   "Required field": "Обязательное поле",
   "Items load failed": "Не удалось загрузить элементы",
-  "Check all fields": "Проверьте все поля"
+  "Check all fields": "Проверьте все поля",
+  "Page {{pageNum}} of {{pageCount}}, Results {{from}}-{{to}} of {{count}}": "Страница {{pageNum}} из {{pageCount}}, Результаты {{from}}-{{to}} из {{count}}",
+  "The file is too big!": "Файл слишком большой!",
+  "The file is too small!": "Файл слишком маленький!",
+  "The file type is not supported!": "Тип файла не поддерживается!",
+  "Image size should not be less than {{width}}x{{height}} pixels": "Размер картинки не должен быть менее {{width}}x{{height}} пикселей",
+  "The size of the picture should not be more than {{width}}x{{height}} pixels": "Размер картинки не должен быть более {{width}}x{{height}} пикселей"
 }
