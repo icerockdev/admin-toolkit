@@ -1,6 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import { Entity, IEntityField } from '~/application';
+import i18n from "~/i18n";
 
 export const SAMPLE_ENTITY_FIELDS: IEntityField[] = [
   {
@@ -82,7 +83,7 @@ export const SAMPLE_ENTITY_FIELDS: IEntityField[] = [
     name: 'number',
     label: 'Количество (1)',
     sortable: true,
-    validator: (val: string) => (String(val) === '1' ? '' : 'Должно быть 1'),
+    validator: (val: string) => (String(val) === '1' ? '' : i18n.t('custom:Should be 1')),
     options: {
       accuracy: 4,
     },
@@ -92,7 +93,7 @@ export const SAMPLE_ENTITY_FIELDS: IEntityField[] = [
     name: 'number2',
     label: 'Количество (0-5)',
     sortable: true,
-    validator: (val: number) => val < 0 || val > 5 ? 'Должно быть от 0 до 5' : '',
+    validator: (val: number) => val < 0 || val > 5 ? i18n.t('custom:Must be between 0 and 5') : '',
     options: {
       accuracy: 4,
     },
@@ -110,7 +111,7 @@ export const SAMPLE_ENTITY_FIELDS: IEntityField[] = [
     type: 'string',
     title: true,
     hideInCreate: true,
-    validator: (val: string, entity: Entity) => (entity.editorData['password'] !== val ? 'Пароли должны совпадать' : ''),
+    validator: (val: string, entity: Entity) => (entity.editorData['password'] !== val ? i18n.t('custom:Passwords must match') : ''),
   },
   {
     name: 'requiredInEdit',

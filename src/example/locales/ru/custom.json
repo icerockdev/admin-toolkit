@@ -1,4 +1,7 @@
 {
   "Page": "Страница",
-  "Sample page": "Образец страницы"
+  "Sample page": "Образец страницы",
+  "Should be 1": "Должно быть 1",
+  "Must be between 0 and 5": "Должно быть от 0 до 5",
+  "Passwords must match": "Пароли должны совпадать"
 }
