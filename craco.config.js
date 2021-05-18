@@ -4,7 +4,7 @@ const CracoAlias = require("craco-alias");
 module.exports = {
   webpack: {
     alias: {
-      "~": `src`
+      "~": "src",
     },
     output: {
       publicPath: "/"

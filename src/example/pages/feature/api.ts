@@ -1,15 +1,15 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import { IFields } from '~/example/feature/index';
-import { generateBaseData } from '~/example/feature/mock';
+import { IFields } from './index';
+import { generateBaseData } from './mock';
 import {
   FeatureApiMethodCreate,
   FeatureApiMethodDelete,
   FeatureApiMethodGet,
   FeatureApiMethodList,
   FeatureApiMethodUpdate,
-} from '~/application/modules/pages/Feature/types';
-import { FeatureReferenceFetchAll } from '~/application/modules/pages/Feature/types/reference';
+} from '../../../application/modules/pages/Feature/types';
+import { FeatureReferenceFetchAll } from '../../../application/modules/pages/Feature/types/reference';
 
 const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

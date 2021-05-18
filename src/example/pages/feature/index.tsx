@@ -1,7 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React from 'react';
-import { Feature } from '~/application/modules/pages/Feature';
+import { Feature } from '~/application';
 import {
   createFeature,
   deleteFeature,
@@ -9,8 +9,8 @@ import {
   getFeatureList,
   getRolesAll,
   updateFeature,
-} from '~/example/feature/api';
-import { FEATURE_FIELDS } from '~/example/feature/fields';
+} from './api';
+import { FEATURE_FIELDS } from './fields';
 
 export type IFields = {
   id: number;

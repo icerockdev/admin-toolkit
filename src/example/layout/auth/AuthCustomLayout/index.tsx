@@ -3,7 +3,7 @@
 import React, { FC } from 'react';
 import { observer } from 'mobx-react';
 import styles from './styles.module.scss';
-import { useConfig } from '~/application/utils/hooks';
+import { useConfig } from '~/application';
 import { Link } from 'react-router-dom';
 import { FormHelperText } from "@material-ui/core";
 import {
@@ -11,7 +11,7 @@ import {
   ADMIN_USER_PASSWORD,
   COMMON_USER_EMAIL,
   COMMON_USER_PASSWORD
-} from "~/example/auth/__mocks__/authData";
+} from "../../../auth/__mocks__/authData";
 
 interface IProps {}
 

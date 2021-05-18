@@ -7,7 +7,7 @@ import {
   IEntityGetFunction,
   IEntityUpdateFunction,
 } from '~/application';
-import { SAMPLE_ENTITY_1, SAMPLE_ENTITY_2 } from '~/example/entity/__mocks__/sampleData';
+import { SAMPLE_ENTITY_1, SAMPLE_ENTITY_2 } from './__mocks__/sampleData';
 
 export const fetchEntityItemsFn: IEntityFetchFunction = ({...props}) =>
   new Promise((resolve) => {

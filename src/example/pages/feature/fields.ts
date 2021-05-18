@@ -1,12 +1,12 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import { FeatureField } from '~/application/modules/pages/Feature/fields/FeatureField';
-import { IFields } from '~/example/feature/index';
-import { DateField } from '~/application/modules/pages/Feature/fields/DateField';
-import { IntegerField } from '~/application/modules/pages/Feature/fields/IntegerField';
-import { SelectField } from '~/application/modules/pages/Feature/fields/SelectField';
-import { ReferenceField } from '~/application/modules/pages/Feature/fields/ReferenceField';
-import { StringField } from '~/application';
+import { FeatureField } from '../../../application/modules/pages/Feature/fields/FeatureField';
+import { IFields } from './index';
+import { DateField } from '../../../application/modules/pages/Feature/fields/DateField';
+import { IntegerField } from '../../../application/modules/pages/Feature/fields/IntegerField';
+import { SelectField } from '../../../application/modules/pages/Feature/fields/SelectField';
+import { ReferenceField } from '../../../application/modules/pages/Feature/fields/ReferenceField';
+import { StringField } from '../../../application';
 
 export const FEATURE_FIELDS = [
   new FeatureField<IFields, string>('name', {
