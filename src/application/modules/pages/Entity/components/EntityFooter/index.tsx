@@ -1,8 +1,9 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { FC, useCallback, useEffect, useRef } from 'react';
+import React, { FC, useCallback } from 'react';
 import { TablePagination, WithStyles, withStyles } from '@material-ui/core';
 import styles from './styles';
+import { useTranslation } from "react-i18next";
 
 type IProps = WithStyles<typeof styles> & {
   itemsPerPage: number[];
@@ -13,18 +14,11 @@ type IProps = WithStyles<typeof styles> & {
   setPerPage: (count: number) => void;
 };
 
-const labelDisplayedRows = (page: number, items: number) => ({
-  from,
-  to,
-  count,
-}: {
+type PageNumbers = {
   from: number;
   to: number;
   count: number;
-}) =>
-  `Страница ${page + 1} из ${Math.ceil(
-    count / items
-  )}, Результаты ${from}-${to} из ${count}`;
+};
 
 const EntityFooterUnconnected: FC<IProps> = ({
   classes,
@@ -35,12 +29,34 @@ const EntityFooterUnconnected: FC<IProps> = ({
   setPage,
   setPerPage,
 }) => {
+  const {t} = useTranslation()
   const onChangeRowsPerPage = useCallback(
     (event) => setPerPage(parseInt(event.target.value)),
     [setPerPage]
   );
 
   const onChangePage = useCallback((_, newPage) => setPage(newPage), [setPage]);
+
+  const labelDisplayedRows = (page: number, items: number) => ({from, to, count}: PageNumbers) => {
+    const pageNum = page + 1
+    const pageCount = Math.ceil(count / items)
+
+    console.log({
+      pageNum,
+      pageCount,
+      from,
+      to,
+      count
+    })
+
+    return t('Page {{pageNum}} of {{pageCount}}, Results {{from}}-{{to}} of {{count}}', {
+      pageNum,
+      pageCount,
+      from,
+      to,
+      count
+    })
+  };
 
   return (
     <TablePagination

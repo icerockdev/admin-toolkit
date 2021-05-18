@@ -14,4 +14,8 @@ export default new Config({
   host: 'https://sample.org',
   auth: jwtAuth,
   pages: [page, pageHidden, entity, custom, feature],
+  i18nDefaultLanguage: "en",
+  i18nLanguages: ["en", "ru", "es"],
+  i18nUseBrowserLanguageDetector: true,
+  i18nResourcesContext: require.context('~/example/locales', true, /\.json$/)
 });

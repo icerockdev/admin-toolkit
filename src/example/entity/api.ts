@@ -19,7 +19,7 @@ export const fetchEntityItemsFn: IEntityFetchFunction = ({...props}) =>
           ...SAMPLE_ENTITY_1,
           id: index,
         })),
-        totalPages: 100,
+        totalCount: 100,
       },
     });
   });

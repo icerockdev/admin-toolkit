@@ -13,7 +13,6 @@ import {
   Button,
   Checkbox,
   CircularProgress,
-  Paper,
   Table,
   TableBody,
   TableCell,
@@ -29,7 +28,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import { Link as RouterLink, useHistory } from 'react-router-dom';
 import { EntityHeadSortable } from '~/application/modules/pages/Entity/components/EntityHeadSortable';
 import styles from './styles';
-import { EntityField } from '../EntityField';
+import { EntityField } from '~/application';
 import { observer } from 'mobx-react';
 import KeyboardArrowRightIcon from '@material-ui/icons/KeyboardArrowRight';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';

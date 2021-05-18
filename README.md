@@ -35,6 +35,33 @@ const config = new Config({
 #### Hooks
 Use `useConfig()` hook inside of components to get current `Config` instance with all data.
 
+#### i18n
+Config options:
+
+- `i18nDefaultLanguage` - Default language in admin panel
+- `i18nLanguages` - Array of supported languages
+- `i18nUseBrowserLanguageDetector` - Enable automatically detect language by browser 
+- `i18nResourcesContext` - Instance of Webpack's `RequireContext` with specified folder for loading translations
+
+For enable languages support you need create translations files in `~/locales` folder (in sources root).
+
+Folders structure example:
+```text
+locales/
+├── en
+│   ├── buttons.json
+│   ├── common.json
+│   └── messages.json
+└── ru
+    ├── buttons.json
+    ├── common.json
+    └── messages.json
+```
+
+Filename is a namespace of translations. Default namespace is "common". For example you can call `t('common:Sign In')` or is same `t('Sign In')`, other namespaces messages calls only with namespace, example: `t('buttons:Cancel')`.
+
+For mor info check out the [i18next documentation](https://www.i18next.com/) and [react-i18next documentation](https://react.i18next.com/).
+
 ## AuthProvider
 `AuthProvider` is extendable class. You can override its metods for your needs. The app decides user authentication status by checking its token field, but you can override this behaviour in your own class, like this done in `JWTAuthProvider`.
 

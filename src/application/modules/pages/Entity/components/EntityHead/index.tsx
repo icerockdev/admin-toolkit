@@ -7,6 +7,7 @@ import { Link as RouterLink } from 'react-router-dom';
 import { IEntityProps } from '~/application';
 import { EntityFilter } from '~/application/modules/pages/Entity/components/EntityFilter';
 import { Entity } from '~/application/modules';
+import { useTranslation } from "react-i18next";
 
 type IProps = WithStyles<typeof styles> & {
   title: ReactElement;
@@ -42,10 +43,11 @@ const EntityHeadUnstyled: FC<IProps> = ({
   withToken,
   onExport,
 }) => {
+  const {t} = useTranslation();
   const clearFilter = useCallback(() => {
     setFilters([]);
     applyFilter();
-  }, [setFilters, filters, applyFilter]);
+  }, [setFilters, applyFilter]);
 
   return (
     <Grid
@@ -79,7 +81,7 @@ const EntityHeadUnstyled: FC<IProps> = ({
             onClick={onExport}
             className={classes.export}
           >
-            Экспорт
+            {t('buttons:Export')}
           </Button>
         )}
 
@@ -91,7 +93,7 @@ const EntityHeadUnstyled: FC<IProps> = ({
             component={RouterLink}
             to={`${url}/create`}
           >
-            Создать
+            {t('buttons:Create')}
           </Button>
         )}
       </div>
