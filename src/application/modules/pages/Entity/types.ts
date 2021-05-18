@@ -39,7 +39,7 @@ export interface IEntityProps extends IPageProps {
   items: number;
   filters: IFilterValue[];
   references: Record<string, IEntityReferenceProps>;
-  permissions: Partial<Record<'update' | 'create' | 'list' | 'view', UserRole[]>>;
+  permissions: Partial<Record<'update' | 'create' | 'list' | 'view' | 'export', UserRole[]>>;
 
   api?: Record<typeof ENTITY_ACTIONS[keyof typeof ENTITY_ACTIONS],
     { url: string; method: string }>;

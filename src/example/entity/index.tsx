@@ -29,7 +29,9 @@ export default new Entity({
     url: '/entity',
   },
   fields: SAMPLE_ENTITY_FIELDS,
+  roles: ['admin', 'user'],
   permissions: {
+    list: ['admin', 'user'],
     create: ['admin'],
     update: ['admin'],
   },
