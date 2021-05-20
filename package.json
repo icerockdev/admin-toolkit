@@ -38,12 +38,11 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "eject": "craco eject",
     "prebbuild-lib": "npm run copyright",
     "build-lib": "rm -rf ./dist && tsc --project build.tsconfig.json && tscpaths -p build.tsconfig.json -s ./src -o ./dist && copyfiles -V -u 1 ./src/**/*.scss ./dist",
-    "build-docs": "PUBLIC_URL=\"/admin-toolkit/\" npm run build && rm -rf ./docs && mv ./build ./docs",
     "copyright": "copyright-header --fix --copyrightHolder \"IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license.\" -i \"src|dist\"",
-    "prepublishOnly": "yarn build-docs && yarn build-lib && yarn copyright"
+    "prepublishOnly": "yarn build-lib && yarn copyright",
+    "predeploy": "PUBLIC_URL=\"/admin-toolkit/\" yarn build"
   },
   "eslintConfig": {
     "extends": "react-app"

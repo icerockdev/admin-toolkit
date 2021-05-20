@@ -2,8 +2,8 @@
 
 import { JWTAuthProvider } from '~/application';
 import { Unwrap } from '~/application/types/common';
-import { IJWTAuthRequestFn } from '~/application/modules/auth/JWTAuthProvider/types';
-import splash from '~/assets/logo512.png';
+import { IJWTAuthRequestFn } from '~/application';
+import splash from '../../assets/logo512.png';
 import {
   ADMIN_USER_EMAIL,
   ADMIN_USER_PASSWORD,
@@ -11,9 +11,9 @@ import {
   COMMON_USER_EMAIL,
   COMMON_USER_PASSWORD,
   COMMON_USER_RESPONSE_JWT
-} from "~/example/auth/__mocks__/authData";
-import CustomError from "~/example/auth/__mocks__/CustomError";
-import { AuthCustomLayout } from "~/example/layout/auth/AuthCustomLayout";
+} from "../__mocks__/authData";
+import CustomError from "../__mocks__/CustomError";
+import { AuthCustomLayout } from "../../layout/auth/AuthCustomLayout";
 
 export default new JWTAuthProvider({
   layout: AuthCustomLayout,

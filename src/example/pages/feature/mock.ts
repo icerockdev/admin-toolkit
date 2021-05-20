@@ -1,6 +1,6 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import { IFields } from '~/example/feature/index';
+import { IFields } from './index';
 
 export const generateBaseData = (items: number) =>
   [...new Array(items)].map(

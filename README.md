@@ -494,7 +494,7 @@ const age = new IntegerField<Fields>('age', {
 });
 ```
 
-See [src/example/feature/fields.ts](src/example/feature/fields.ts) for more examples.
+See [src/example/feature/fields.ts](src/example/pages/feature/fields.ts) for more examples.
 
 ## Publishing
 

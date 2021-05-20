@@ -2,7 +2,9 @@
   "extends": "./tsconfig",
   "source": "src/application/index.ts",
   "exclude": [
-    "test/**/*.js"
+    "test/**/*.js",
+    "**/*.test.ts",
+    "**/*.test.tsx"
   ],
   "compilerOptions": {
     "declaration": true,

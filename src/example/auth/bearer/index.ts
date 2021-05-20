@@ -8,8 +8,8 @@ import {
   COMMON_USER_EMAIL,
   COMMON_USER_PASSWORD,
   COMMON_USER_RESPONSE
-} from "~/example/auth/__mocks__/authData";
-import CustomError from "~/example/auth/__mocks__/CustomError";
+} from "../__mocks__/authData";
+import CustomError from "../__mocks__/CustomError";
 
 export default new AuthProvider({
   authRequestFn: (email, password) =>
