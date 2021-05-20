@@ -41,14 +41,6 @@ const EntityFooterUnconnected: FC<IProps> = ({
     const pageNum = page + 1
     const pageCount = Math.ceil(count / items)
 
-    console.log({
-      pageNum,
-      pageCount,
-      from,
-      to,
-      count
-    })
-
     return t('Page {{pageNum}} of {{pageCount}}, Results {{from}}-{{to}} of {{count}}', {
       pageNum,
       pageCount,

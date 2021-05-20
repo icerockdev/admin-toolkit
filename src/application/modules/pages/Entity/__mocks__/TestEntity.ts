@@ -1,3 +1,5 @@
+/* Copyright (c) 2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+
 import { Entity, IEntityProps } from "~/application";
 import { TEST_FIELDS } from "~/application/modules/pages/Entity/__mocks__/testFields";
 import { action, reaction } from "mobx";

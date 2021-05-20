@@ -7,7 +7,7 @@ import {
   IEntityGetFunction,
   IEntityUpdateFunction,
 } from '~/application';
-import { SAMPLE_ENTITY_1, SAMPLE_ENTITY_2 } from './mocked_data';
+import { SAMPLE_ENTITY_1, SAMPLE_ENTITY_2 } from '~/example/entity/__mocks__/sampleData';
 
 export const fetchEntityItemsFn: IEntityFetchFunction = ({...props}) =>
   new Promise((resolve) => {
@@ -33,12 +33,7 @@ export const getEntityFn: IEntityGetFunction = ({id, url, token}) => {
   });
 };
 
-export const updateEntityFn: IEntityUpdateFunction = ({
-                                                        id,
-                                                        data,
-                                                        url,
-                                                        token,
-                                                      }) => {
+export const updateEntityFn: IEntityUpdateFunction = ({id, data, url, token}) => {
   return new Promise((resolve) => {
     console.log('Updating item:', {id, data, url, token});
     resolve({error: '', data});

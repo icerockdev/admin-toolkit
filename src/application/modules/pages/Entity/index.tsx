@@ -1,4 +1,4 @@
-/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React, { Fragment, ReactElement } from 'react';
 import {
@@ -394,6 +394,36 @@ export class Entity extends Page {
   };
 
   @computed
+  get canList() {
+    return !!(
+      !this.roles ||
+      !this.permissions.list ||
+      (this.parent?.auth?.user?.role &&
+        this.permissions?.list?.includes(this.parent.auth?.user?.role))
+    );
+  }
+
+  @computed
+  get canView() {
+    return !!(
+      !this.roles ||
+      !this.permissions.view ||
+      (this.parent?.auth?.user?.role &&
+        this.permissions?.view?.includes(this.parent.auth?.user?.role))
+    );
+  }
+
+  @computed
+  get canCreate() {
+    return !!(
+      !this.roles ||
+      !this.permissions.create ||
+      (this.parent?.auth?.user?.role &&
+        this.permissions?.create?.includes(this.parent.auth?.user?.role))
+    );
+  }
+
+  @computed
   get canEdit() {
     return (
       this.editable &&
@@ -407,12 +437,15 @@ export class Entity extends Page {
   }
 
   @computed
-  get canCreate() {
-    return !!(
-      !this.roles ||
-      !this.permissions.create ||
-      (this.parent?.auth?.user?.role &&
-        this.permissions?.create?.includes(this.parent.auth?.user?.role))
+  get canExport() {
+    return (
+      this.editable &&
+      !!(
+        !this.roles ||
+        !this.permissions.export ||
+        (this.parent?.auth?.user?.role &&
+          this.permissions?.export?.includes(this.parent.auth?.user?.role))
+      )
     );
   }
 
@@ -497,7 +530,7 @@ export class Entity extends Page {
         applyFilter={this.applyFilter}
         withToken={this.parent?.auth?.withToken}
         onExport={this.exportData}
-        canExport={this.exportable}
+        canExport={this.exportable && this.canExport}
         canCreate={this.creatable && this.canCreate}
         entity={this}
       />
@@ -529,7 +562,7 @@ export class Entity extends Page {
         selected={this.selected}
         sortBy={this.sortBy}
         sortDir={this.sortDir}
-        canView={this.viewable}
+        canView={this.viewable && this.canView}
         canEdit={this.editable && this.canEdit}
         canSelect={this.selectable}
         setSelected={this.setSelected}
@@ -614,8 +647,10 @@ export class Entity extends Page {
 
   @computed
   get ViewerBody() {
-    return observer(({ id }: { id: string }) => (
-      <EntityViewer
+    return observer(({ id }: { id: string }) => {
+      if (!this.canView) return this.forbiddenPlaceholder
+
+      return <EntityViewer
         id={id}
         fields={this.fields}
         url={this.menu.url}
@@ -633,7 +668,7 @@ export class Entity extends Page {
         viewable={this.viewable}
         entity={this}
       />
-    ));
+    });
   }
 
   @computed
@@ -670,8 +705,10 @@ export class Entity extends Page {
 
   @computed
   get EditorBody() {
-    return observer(({ id }: { id: string }) => (
-      <EntityViewer
+    return observer(({id}: { id: string }) => {
+      if (!this.canEdit) return this.forbiddenPlaceholder
+
+      return <EntityViewer
         id={id}
         fields={this.fields}
         errors={this.editorFieldErrors}
@@ -689,7 +726,7 @@ export class Entity extends Page {
         entity={this}
         isEditing
       />
-    ));
+    });
   }
 
   @computed
@@ -722,8 +759,10 @@ export class Entity extends Page {
 
   @computed
   get CreatorBody() {
-    return observer(() => (
-      <EntityViewer
+    return observer(() => {
+      if (!this.canCreate) return this.forbiddenPlaceholder
+
+      return <EntityViewer
         fields={this.fields}
         errors={this.editorFieldErrors}
         url={this.menu.url}
@@ -740,7 +779,7 @@ export class Entity extends Page {
         withToken={this.parent?.auth?.withToken}
         entity={this}
       />
-    ));
+    });
   }
 
   @computed

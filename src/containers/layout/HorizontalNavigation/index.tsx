@@ -11,7 +11,7 @@ import {
   WithStyles,
 } from '@material-ui/core';
 import { Link, useHistory } from 'react-router-dom';
-import { Account } from '~/containers/login/Account';
+import { Account } from '~/containers/auth/Account';
 import classnames from 'classnames';
 import { useLocation } from 'react-router';
 import { useConfig } from '~/application/utils/hooks';

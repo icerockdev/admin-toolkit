@@ -10,14 +10,14 @@ import {
 import { action, computed, flow, observable, reaction } from 'mobx';
 import { CancellablePromise } from 'mobx/lib/api/flow';
 import { Config } from '~/application';
-import { AuthRouter } from '~/containers/login/AuthRouter';
+import { AuthRouter } from '~/containers/auth/AuthRouter';
 import { FC } from 'react';
 import { AuthVerticalLayout } from '~/application/layouts/login/AuthVerticalLayout';
 import { has } from 'ramda';
-import { SignIn } from '~/containers/login/SignIn';
-import { ForgotPassword } from '~/containers/login/ForgotPassword';
-import { ResetPassword } from '~/containers/login/ResetPassword';
-import { SignUp } from '~/containers/login/SignUp';
+import { SignIn } from '~/containers/auth/SignIn';
+import { ForgotPassword } from '~/containers/auth/ForgotPassword';
+import { ResetPassword } from '~/containers/auth/ResetPassword';
+import { SignUp } from '~/containers/auth/SignUp';
 import i18n from "~/i18n";
 
 export class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {

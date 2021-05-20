@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 import { useConfig } from '~/application/utils/hooks';
 import { Link } from 'react-router-dom';
 import { VerticalNavigation } from '~/containers/layout/VerticalNavigation';
-import { Account } from '~/containers/login/Account';
+import { Account } from '~/containers/auth/Account';
 
 interface IProps {}
 
