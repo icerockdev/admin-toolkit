@@ -41,6 +41,7 @@ export class Config {
     this.host = options?.host;
   }
 
+  @observable debug: boolean = process.env.NODE_ENV !== 'production';
   @observable host?: string;
   @observable name: IConfigProps['name'] = '';
   @observable pages: IConfigProps['pages'] = [];

@@ -51,7 +51,7 @@ export const i18nInit = (config: Config) => {
   i18n.init({
     resources: resources,
     fallbackLng: config.i18nDefaultLanguage,
-    debug: true,
+    debug: config.debug,
     // have a common namespace used around the full app
     ns: DEFAULT_NAMESPACES,
     defaultNS: DEFAULT_NAMESPACE,
