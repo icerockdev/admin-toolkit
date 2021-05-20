@@ -7,17 +7,19 @@ import { useConfig } from '~/application/utils/hooks';
 import styles from './styles.module.scss';
 import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet";
+import { useTranslation } from "react-i18next";
 
 const SignIn: FC = () => {
   const config = useConfig();
+  const {t} = useTranslation();
   const auth = config.auth;
 
   const onForgotPassword = useMemo(
     () =>
       config.auth?.authPasswRestoreFn
         ? () => {
-            config.history.push('/restore');
-          }
+          config.history.push('/restore');
+        }
         : undefined,
     [config.history, config.auth, config.auth?.authPasswRestoreFn]
   );
@@ -42,17 +44,15 @@ const SignIn: FC = () => {
     [setPassword]
   );
 
-  const loginLabel = useMemo(() => config.auth?.loginLabel || 'Логин', [
-    config.auth,
-  ]);
+  const loginLabel = useMemo(() => config.auth?.loginLabel || t('Login'), [config.auth, t]);
 
   return (
     <div className={styles.wrap}>
       <Helmet>
-        <title>Авторизация</title>
+        <title>{t('Sign In')}</title>
       </Helmet>
 
-      <h3 className={styles.header}>Авторизация</h3>
+      <h3 className={styles.header}>{t('Sign In')}</h3>
 
       <form noValidate onSubmit={onSubmitCapture}>
         <TextField
@@ -75,7 +75,7 @@ const SignIn: FC = () => {
           required
           fullWidth
           name="password"
-          label="Пароль"
+          label={t('Password')}
           type="password"
           id="password"
           defaultValue={password}
@@ -88,7 +88,7 @@ const SignIn: FC = () => {
                 onClick={onForgotPassword}
                 className={styles.forgot}
               >
-                Забыли пароль?
+                {t('Forgot password?')}
               </InputAdornment>
             ) : null,
           }}
@@ -102,7 +102,7 @@ const SignIn: FC = () => {
           disabled={!email.length || !password.length}
           className={styles.button}
         >
-          Войти
+          {t('Log In')}
         </Button>
 
         {!!auth?.authSignupFn && (
@@ -115,7 +115,7 @@ const SignIn: FC = () => {
             component={Link}
             to="/signup"
           >
-            Регистрация
+            {t('Sign Up')}
           </Button>
         )}
       </form>

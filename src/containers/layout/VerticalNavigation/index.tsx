@@ -6,11 +6,13 @@ import { useConfig } from '~/application/utils/hooks';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 interface IProps {}
 
 const VerticalNavigation: FC<IProps> = observer(() => {
   const config = useConfig();
+  const {t} = useTranslation();
   const navigation = config.linksForCurrentUser.filter(item => item.enabled)
 
   return (
@@ -21,7 +23,7 @@ const VerticalNavigation: FC<IProps> = observer(() => {
           className={classNames(styles.link, 'vertical-navigation__link')}
           key={link.url}
         >
-          {link.name}
+          {t(link.name)}
         </NavLink>
       ))}
     </div>

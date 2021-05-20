@@ -10,6 +10,7 @@ import { computed, observable } from 'mobx';
 import { DEFAULT_THEME } from '~/utils/theme';
 import { FC } from 'react';
 import { VerticalLayout } from '~/application/layouts/application/VerticalLayout';
+import { DEFAULT_LANGUAGES } from "~/i18n";
 
 export class Config {
   constructor(options?: Partial<IConfigProps>) {
@@ -40,12 +41,17 @@ export class Config {
     this.host = options?.host;
   }
 
+  @observable debug: boolean = process.env.NODE_ENV !== 'production';
   @observable host?: string;
   @observable name: IConfigProps['name'] = '';
   @observable pages: IConfigProps['pages'] = [];
   @observable auth?: IConfigProps['auth'];
   @observable logo?: IConfigProps['logo'];
   @observable title?: IConfigProps['title'];
+  @observable i18nDefaultLanguage: IConfigProps['i18nDefaultLanguage'] = "en";
+  @observable i18nLanguages: IConfigProps['i18nLanguages'] = DEFAULT_LANGUAGES;
+  @observable i18nUseBrowserLanguageDetector: IConfigProps['i18nUseBrowserLanguageDetector'] = true;
+  @observable i18nResourcesContext: IConfigProps['i18nResourcesContext'] = require.context('~/locales', true, /\.json$/);
   @observable theme: ThemeOptions = {};
   @observable history = createBrowserHistory();
   @observable notifications = new Notifications();

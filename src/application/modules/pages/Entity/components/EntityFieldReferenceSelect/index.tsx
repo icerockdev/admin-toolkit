@@ -15,7 +15,7 @@ const EntityFieldReferenceSelect: FC<IProps> = observer(
       return emptyNode
     }
 
-    const options = entity.referenceData[name] || {};
+    const options: Record<string, any> = entity.referenceData[name] ?? {};
 
     // noinspection TypeScriptValidateTypes
     const ref = useRef<HTMLLabelElement>(null);
@@ -32,7 +32,7 @@ const EntityFieldReferenceSelect: FC<IProps> = observer(
 
     useEffect(() => {
       setLabelWidth((ref.current && ref.current.clientWidth) || 0);
-    }, [ref.current]);
+    }, [ref]);
 
     return isEditing ? (
       <FormControl variant="outlined">
@@ -52,7 +52,7 @@ const EntityFieldReferenceSelect: FC<IProps> = observer(
           labelWidth={labelWidth}
           style={{minWidth: labelWidth + 40}}
         >
-          <MenuItem value="">...</MenuItem>u
+          <MenuItem value="">...</MenuItem>
 
           {options &&
           Object.keys(options).map((item) => (

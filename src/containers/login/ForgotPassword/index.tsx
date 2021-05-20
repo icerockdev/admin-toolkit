@@ -1,15 +1,17 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React, { FC, FormEvent, useCallback, useState } from 'react';
-import { Button, TextField, Typography } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { useConfig } from '~/application/utils/hooks';
 import styles from './styles.module.scss';
 import { Link } from 'react-router-dom';
 import { Helmet } from "react-helmet";
+import { useTranslation } from "react-i18next";
 
 const ForgotPassword: FC = () => {
-  const config = useConfig();
   const [email, setEmail] = useState('');
+  const config = useConfig();
+  const {t} = useTranslation();
 
   const onEmailChange = useCallback(
     (event) => {
@@ -26,16 +28,16 @@ const ForgotPassword: FC = () => {
 
       config.auth.sendAuthPasswRestore(email);
     },
-    [email, config.auth]
+    [config, email]
   );
 
   return (
     <div className={styles.wrap}>
       <Helmet>
-        <title>Восстановление пароля</title>
+        <title>{t('Password recovery')}</title>
       </Helmet>
 
-      <h3 className={styles.header}>Восстановление пароля</h3>
+      <h3 className={styles.header}>{t('Password recovery')}</h3>
 
       <form noValidate onSubmit={onSubmitCapture}>
         <TextField
@@ -44,7 +46,7 @@ const ForgotPassword: FC = () => {
           required
           fullWidth
           id="email"
-          label="Email"
+          label={t('Email')}
           name="email"
           autoComplete="email"
           defaultValue={email}
@@ -60,7 +62,7 @@ const ForgotPassword: FC = () => {
           disabled={!email.length}
           className={styles.button}
         >
-          Восстановить
+          {t('Restore')}
         </Button>
 
         <Button
@@ -71,7 +73,7 @@ const ForgotPassword: FC = () => {
           fullWidth
           className={styles.cancel}
         >
-          Отмена
+          {t('buttons:Cancel')}
         </Button>
       </form>
     </div>

@@ -1,38 +1,27 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, {
-  MouseEventHandler,
-  useCallback,
-  useState,
-  ChangeEvent,
-  FC,
-} from 'react';
-import {
-  OutlinedInput,
-  Button,
-  FormControl,
-  withStyles,
-  WithStyles,
-  Box,
-} from '@material-ui/core';
+import React, { ChangeEvent, useCallback, useState, } from 'react';
+import { Box, Button, FormControl, OutlinedInput, WithStyles, withStyles, } from '@material-ui/core';
 import ImageIcon from '@material-ui/icons/Image';
 import styles from './styles';
 import { IEntityFieldProps } from '~/application';
+import { useTranslation } from "react-i18next";
 
 type IProps = IEntityFieldProps & WithStyles<typeof styles> & {};
 
 const EntityFieldBase64Image = withStyles(styles)(
   ({
-    classes,
-    label,
-    value,
-    handler,
-    error,
-    isEditing,
-    onClick,
-    options,
-  }: IProps) => {
+     classes,
+     label,
+     value,
+     handler,
+     error,
+     isEditing,
+     onClick,
+     options,
+   }: IProps) => {
     const [innerError, setInnerError] = useState('');
+    const {t} = useTranslation();
 
     const getBase64 = useCallback((file: File): Promise<string> => {
       return new Promise((resolve, reject) => {
@@ -55,12 +44,12 @@ const EntityFieldBase64Image = withStyles(styles)(
         if (!file) return;
 
         if (options?.maxSize && file.size > options.maxSize) {
-          setInnerError('Файл слишком большой!');
+          setInnerError(t('The file is too big!'));
           return;
         }
 
         if (options?.maxSize && file.size < options.minSize) {
-          setInnerError('Файл слишком маленький!');
+          setInnerError(t('The file is too small!'));
           return;
         }
 
@@ -68,7 +57,7 @@ const EntityFieldBase64Image = withStyles(styles)(
           options?.allowedMimeType &&
           !options.allowedMimeType.includes(file.type)
         ) {
-          setInnerError('Тип файла не поддерживается!');
+          setInnerError(t('The file type is not supported!'));
           return;
         }
 
@@ -78,7 +67,7 @@ const EntityFieldBase64Image = withStyles(styles)(
         img.src = photo;
 
         img.onload = () => {
-          const { naturalWidth, naturalHeight } = img;
+          const {naturalWidth, naturalHeight} = img;
 
           if (options && options.minViewBox) {
             const minWidth = options.minViewBox.width;
@@ -86,7 +75,10 @@ const EntityFieldBase64Image = withStyles(styles)(
 
             if (naturalWidth < minWidth || naturalHeight < minHeight) {
               setInnerError(
-                `Размер картинки не должен быть менее ${minWidth}x${minHeight} пикселей`
+                t('Image size should not be less than {{width}}x{{height}} pixels', {
+                  width: minWidth,
+                  height: minHeight
+                })
               );
               return;
             }
@@ -97,7 +89,10 @@ const EntityFieldBase64Image = withStyles(styles)(
             let maxHeight = options.maxViewBox.height;
             if (naturalWidth > maxWidth || naturalHeight > maxHeight) {
               setInnerError(
-                `Размер картинки не должен быть более ${maxWidth}x${maxHeight} пикселей`
+                t('The size of the picture should not be more than {{width}}x{{height}} pixels', {
+                  width: maxWidth,
+                  height: maxHeight
+                })
               );
               return;
             }
@@ -106,7 +101,7 @@ const EntityFieldBase64Image = withStyles(styles)(
           handler(photo);
         };
       },
-      [setInnerError, handler, getBase64]
+      [handler, options, getBase64, t]
     );
 
     const onChange = useCallback(
@@ -115,7 +110,7 @@ const EntityFieldBase64Image = withStyles(styles)(
 
         handler(event.target.value);
       },
-      [value, handler]
+      [handler]
     );
 
     return isEditing ? (
@@ -123,13 +118,13 @@ const EntityFieldBase64Image = withStyles(styles)(
         <FormControl
           variant="outlined"
           className={classes.formControl}
-          style={{ position: 'relative' }}
+          style={{position: 'relative'}}
         >
           <label htmlFor={label} className={classes.label}>
             {value ? (
               <div
                 className={classes.image}
-                style={{ backgroundImage: `url('${value}')` }}
+                style={{backgroundImage: `url('${value}')`}}
               />
             ) : (
               ''
@@ -145,14 +140,14 @@ const EntityFieldBase64Image = withStyles(styles)(
               inputComponent={() => (
                 <Button
                   name={label}
-                  startIcon={<ImageIcon fontSize={'large'} />}
+                  startIcon={<ImageIcon fontSize={'large'}/>}
                   variant="contained"
                   style={{
                     display: 'flex',
                     width: 150,
                   }}
                 >
-                  <span>Загрузить</span>
+                  <span>{t('Upload')}</span>
                 </Button>
               )}
             />
@@ -161,7 +156,7 @@ const EntityFieldBase64Image = withStyles(styles)(
               name={label}
               type="file"
               onChange={loadImage}
-              style={{ position: 'absolute' }}
+              style={{position: 'absolute'}}
               accept={options && options.mimes ? options.mimes.join(', ') : ''}
             />
           </label>
@@ -174,7 +169,7 @@ const EntityFieldBase64Image = withStyles(styles)(
       </div>
     ) : (
       <div onClick={onClick}>
-        <img src={value ? String(value) : ''} className={classes.preview} />
+        <img alt="base64image" src={value ? String(value) : ''} className={classes.preview}/>
       </div>
     );
   }

@@ -15,26 +15,28 @@ import { Account } from '~/containers/login/Account';
 import classnames from 'classnames';
 import { useLocation } from 'react-router';
 import { useConfig } from '~/application/utils/hooks';
+import { useTranslation } from "react-i18next";
 
 type IProps = WithStyles<typeof styles> & {};
 
 const HorizontalNavigationUnstyled: FC<IProps> = ({ classes }) => {
   const config = useConfig();
-
+  const {t} = useTranslation();
   const history = useHistory();
   const location = useLocation();
   const wrapper = useRef<HTMLDivElement>(null);
   const appbar = useRef<HTMLDivElement>(null);
 
-  const links = useMemo(
+  let links: { name: string; url: string }[];
+  links = useMemo(
     () =>
       config.pages
         .filter((page) => page?.menu?.url && page.canList)
         .map((page) => ({
-          name: page.menu.label,
+          name: t(page.menu.label),
           url: page.menu.url,
         })),
-    [config, config.pages, config.auth?.user?.role]
+    [config.pages, t]
   );
 
   const onTabChange = useCallback((_, tab) => history.push(links[tab].url), [

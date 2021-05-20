@@ -6,6 +6,6 @@ import { Application } from '~/application';
 import example from './example';
 
 ReactDOM.render(
-  <Application config={example} />,
+  <Application config={example}/>,
   document.getElementById('root')
 );

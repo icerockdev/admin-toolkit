@@ -27,7 +27,7 @@ const EntityFieldRichText: FC<IProps> = ({
     );
 
     setVal(JSON.stringify(convertToRaw(state)));
-  }, []);
+  }, [value]);
 
   const onChange = useCallback(
     (data) => {
@@ -35,7 +35,7 @@ const EntityFieldRichText: FC<IProps> = ({
       const text = draftToHtml(convertToRaw(data.getCurrentContent()));
       handler(text || '');
     },
-    [value, handler]
+    [handler]
   );
 
   return isEditing ? (
