@@ -37,6 +37,8 @@ export type IAuthPasswUpdateFn = (
 
 export type IAuthSignupFn = (data: Record<any, any>) => Promise<any>;
 
+export type IAuthLogoutFn = (token: String) => Promise<any>;
+
 export type IAuthNewPasswordValidator = (
   password: string
 ) => string | undefined;
@@ -53,6 +55,7 @@ export interface AuthProviderOptions {
   authPasswRestoreFn?: IAuthPasswRestoreFn;
   authPasswUpdateFn?: IAuthPasswUpdateFn;
   authSignupFn?: IAuthSignupFn;
+  authLogoutFn?: IAuthLogoutFn;
   passwordValidator?: IAuthNewPasswordValidator;
   loginLabel?: string;
   router?: FC;

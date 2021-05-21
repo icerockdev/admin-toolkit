@@ -46,6 +46,7 @@ export class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
   @observable authPasswRestoreFn?: AuthProviderOptions['authPasswRestoreFn'];
   @observable authPasswUpdateFn?: AuthProviderOptions['authPasswUpdateFn'];
   @observable authSignupFn?: AuthProviderOptions['authSignupFn'];
+  @observable authLogoutFn?: AuthProviderOptions['authLogoutFn'];
   @observable roleTitles?: Record<any, string>;
   @observable persist?: AuthProviderOptions['persist'] = true;
   @observable passwordValidator?: AuthProviderOptions['passwordValidator'];
@@ -261,9 +262,45 @@ export class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
     localStorage.setItem('user', JSON.stringify(this.user));
   };
 
+  logoutInstance?: CancellablePromise<any>;
+
   @action
   logout = () => {
-    this.user = EMPTY_USER;
+    this.logoutCancel();
+
+    this.logoutInstance = flow(function* sendAuthRequest(
+      this: AuthProvider
+    ) {
+      if (!this.authLogoutFn) {
+        this.user = EMPTY_USER;
+        return;
+      }
+
+      this.isLoading = true;
+
+      try {
+        const response = yield this.withToken(this.authLogoutFn, {}).catch(
+          () => null
+        );
+
+        if (!response || response.error) {
+          throw new Error(response.error);
+        }
+
+        this.user = EMPTY_USER;
+      } catch (e) {
+        this.error = e;
+        this.parent?.notifications.showError(e.toString());
+      } finally {
+        this.isLoading = false;
+      }
+    }).bind(this)();
+  };
+
+  logoutCancel = () => {
+    if (this.logoutInstance && this.logoutInstance.cancel) {
+      this.logoutInstance.cancel();
+    }
   };
 
   /**

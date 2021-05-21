@@ -85,8 +85,37 @@ export class JWTAuthProvider extends AuthProvider {
 
   @action
   logout = () => {
-    this.user = EMPTY_USER;
-    this.tokens = EMPTY_TOKENS;
+    this.logoutCancel();
+
+    this.logoutInstance = flow(function* sendAuthRequest(
+      this: JWTAuthProvider
+    ) {
+      if (!this.authLogoutFn) {
+        this.user = EMPTY_USER;
+        this.tokens = EMPTY_TOKENS;
+        return;
+      }
+
+      this.isLoading = true;
+
+      try {
+        const response = yield this.withToken(this.authLogoutFn, {token: this.tokens.refresh}).catch(
+          () => null
+        );
+
+        if (!response || response.error) {
+          throw new Error(response.error);
+        }
+
+        this.user = EMPTY_USER;
+        this.tokens = EMPTY_TOKENS;
+      } catch (e) {
+        this.error = e;
+        this.parent?.notifications.showError(e.toString());
+      } finally {
+        this.isLoading = false;
+      }
+    }).bind(this)();
   };
 
   tokenRefreshInstance?: any;
