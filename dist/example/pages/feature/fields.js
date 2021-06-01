@@ -1,4 +1,4 @@
-/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 import { FeatureField } from '../../../application/modules/pages/Feature/fields/FeatureField';
 import { DateField } from '../../../application/modules/pages/Feature/fields/DateField';
 import { IntegerField } from '../../../application/modules/pages/Feature/fields/IntegerField';

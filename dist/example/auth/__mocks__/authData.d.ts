@@ -1,3 +1,5 @@
+/* Copyright (c) 2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+
 export declare const ADMIN_USER_EMAIL = "admin@icerock.dev";
 export declare const ADMIN_USER_PASSWORD = "123456";
 export declare const ADMIN_USER_RESPONSE: {

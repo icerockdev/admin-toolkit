@@ -1,4 +1,4 @@
-/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 import React, { useCallback } from 'react';
 import { withStyles, Grid, Button } from '@material-ui/core';
 import styles from './styles';
