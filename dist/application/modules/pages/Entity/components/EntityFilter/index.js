@@ -40,7 +40,7 @@ var EntityFilter = withStyles(styles)(observer(function (_a) {
     var removeFilter = useCallback(function (i) { return function () {
         setFilters(filters.filter(function (_, index) { return i !== index; }));
         applyFilter();
-    }; }, [filters, setFilters]);
+    }; }, [applyFilter, filters, setFilters]);
     var filterableFields = useMemo(function () { return fields.filter(function (field) { return field.filterable; }); }, [fields]);
     var selectableFields = useMemo(function () {
         return filterableFields.filter(function (field) { return !filters.some(function (filter) { return filter.name === field.name; }); });
@@ -56,7 +56,7 @@ var EntityFilter = withStyles(styles)(observer(function (_a) {
         event.preventDefault();
         setFilters([]);
         applyFilter();
-    }, [applyFilter]);
+    }, [applyFilter, setFilters]);
     var onSubmit = useCallback(function (event) {
         event.preventDefault();
         applyFilter();

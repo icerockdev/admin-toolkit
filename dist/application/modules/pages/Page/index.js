@@ -1,4 +1,4 @@
-/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -8,12 +8,15 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import React from 'react';
 import { action, computed, observable } from 'mobx';
 import { observer } from 'mobx-react';
+import styles from './styles.module.scss';
 var Page = /** @class */ (function () {
     function Page(fields) {
-        this.title = '';
+        this.title = 'Admin Toolkit';
         this.menu = { enabled: true, label: '', url: '' };
-        this.onMount = function () { };
-        this.onUnmount = function () { };
+        this.onMount = function () {
+        };
+        this.onUnmount = function () {
+        };
         if (fields) {
             Object.assign(this, fields);
         }
@@ -33,7 +36,17 @@ var Page = /** @class */ (function () {
             var _this = this;
             return observer(function () { return (React.createElement("div", null,
                 React.createElement("h1", null, _this.title),
-                React.createElement("div", null, "You can override this class to make your own cool entity"))); });
+                React.createElement("p", null, "You can override this class to make your own cool entity"))); });
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Page.prototype, "forbiddenPlaceholder", {
+        get: function () {
+            return React.createElement("div", { className: styles.wrap },
+                React.createElement("div", { className: styles.error },
+                    React.createElement("h1", null, "Forbidden"),
+                    React.createElement("p", null, "You don't have permission to perform that action")));
         },
         enumerable: false,
         configurable: true

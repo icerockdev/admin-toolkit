@@ -22,7 +22,7 @@ var EntityFieldDateRange = function (_a) {
             return;
         var filtered = value.map(function (val) { return (val && val.valueOf() && val.toISOString()) || ''; });
         handler(filtered.join(','));
-    }, [value, handler]);
+    }, [handler]);
     var parsed = useMemo(function () {
         if (!value)
             return [null, null];

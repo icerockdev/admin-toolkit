@@ -19,6 +19,7 @@ export declare type IAuthPasswUpdateFn = (token: string, password: string, passw
     error?: string;
 }>;
 export declare type IAuthSignupFn = (data: Record<any, any>) => Promise<any>;
+export declare type IAuthLogoutFn = (token: String) => Promise<any>;
 export declare type IAuthNewPasswordValidator = (password: string) => string | undefined;
 export interface AuthProviderOptions {
     getUserName: (auth: AuthProvider) => string;
@@ -32,6 +33,7 @@ export interface AuthProviderOptions {
     authPasswRestoreFn?: IAuthPasswRestoreFn;
     authPasswUpdateFn?: IAuthPasswUpdateFn;
     authSignupFn?: IAuthSignupFn;
+    authLogoutFn?: IAuthLogoutFn;
     passwordValidator?: IAuthNewPasswordValidator;
     loginLabel?: string;
     router?: FC;

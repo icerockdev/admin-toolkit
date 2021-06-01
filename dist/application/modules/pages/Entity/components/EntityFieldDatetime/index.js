@@ -22,7 +22,7 @@ var EntityFieldDateTime = function (_a) {
         if (!value || !handler || !isValid(value))
             return;
         handler(value.toISOString());
-    }, [value, handler]);
+    }, [handler]);
     var parsedValue = useMemo(function () {
         var date = parseISO(value);
         return (date && isValid(date) && formatISO(date)) || null;

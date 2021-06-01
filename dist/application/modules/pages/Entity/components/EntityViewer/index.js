@@ -13,10 +13,12 @@ var __assign = (this && this.__assign) || function () {
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { Button, CircularProgress, Grid, Paper, withStyles, } from '@material-ui/core';
 import styles from './styles';
+import { EntityField } from '../../../../..';
 import { observer } from 'mobx-react';
-import { EntityField } from '../EntityField';
+import { useTranslation } from "react-i18next";
 var EntityViewer = withStyles(styles)(observer(function (_a) {
     var classes = _a.classes, id = _a.id, fields = _a.fields, errors = _a.errors, onSave = _a.onSave, onCancel = _a.onCancel, onResetFieldError = _a.onResetFieldError, isLoading = _a.isLoading, data = _a.data, setEditorData = _a.setEditorData, getItem = _a.getItem, cancelGetItem = _a.cancelGetItem, withToken = _a.withToken, isEditing = _a.isEditing, entity = _a.entity;
+    var t = useTranslation().t;
     var isCreating = useMemo(function () { return typeof id === 'undefined'; }, [id]);
     var visibleFields = useMemo(function () {
         return fields.filter(function (field) {
@@ -31,7 +33,7 @@ var EntityViewer = withStyles(styles)(observer(function (_a) {
             onResetFieldError(f);
         }
         setEditorData(__assign(__assign({}, data), (_a = {}, _a[f] = value, _a)));
-    }; }, [data, setEditorData, errors]);
+    }; }, [errors, setEditorData, data, onResetFieldError]);
     var onSubmit = useCallback(function (event) {
         event.preventDefault();
         onSave();
@@ -39,7 +41,7 @@ var EntityViewer = withStyles(styles)(observer(function (_a) {
     useEffect(function () {
         getItem(id);
         return function () { return cancelGetItem(); };
-    }, [id]);
+    }, [cancelGetItem, getItem, id]);
     if (isLoading) {
         return (React.createElement("div", { className: classes.loader },
             React.createElement(CircularProgress, null)));
@@ -57,8 +59,8 @@ var EntityViewer = withStyles(styles)(observer(function (_a) {
                     React.createElement(Grid, { container: true, spacing: 1 },
                         React.createElement(Grid, { item: true, style: { flex: 1 } }),
                         React.createElement(Grid, { item: true },
-                            React.createElement(Button, { type: "button", color: "default", variant: "outlined", onClick: onCancel }, "\u041E\u0442\u043C\u0435\u043D\u0430")),
+                            React.createElement(Button, { type: "button", color: "default", variant: "outlined", onClick: onCancel }, t('buttons:Cancel'))),
                         React.createElement(Grid, { item: true },
-                            React.createElement(Button, { type: "submit", variant: "contained", color: "primary" }, "\u0421\u043E\u0445\u0440\u0430\u043D\u0438\u0442\u044C")))))))))));
+                            React.createElement(Button, { type: "submit", variant: "contained", color: "primary" }, t('buttons:Save'))))))))))));
 }));
 export { EntityViewer };

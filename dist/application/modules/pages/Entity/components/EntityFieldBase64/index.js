@@ -36,12 +36,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 import React, { useCallback, useState, } from 'react';
-import { OutlinedInput, Button, FormControl, withStyles, Box, } from '@material-ui/core';
+import { Box, Button, FormControl, OutlinedInput, withStyles, } from '@material-ui/core';
 import ImageIcon from '@material-ui/icons/Image';
 import styles from './styles';
+import { useTranslation } from "react-i18next";
 var EntityFieldBase64Image = withStyles(styles)(function (_a) {
     var classes = _a.classes, label = _a.label, value = _a.value, handler = _a.handler, error = _a.error, isEditing = _a.isEditing, onClick = _a.onClick, options = _a.options;
     var _b = useState(''), innerError = _b[0], setInnerError = _b[1];
+    var t = useTranslation().t;
     var getBase64 = useCallback(function (file) {
         return new Promise(function (resolve, reject) {
             var reader = new FileReader();
@@ -64,16 +66,16 @@ var EntityFieldBase64Image = withStyles(styles)(function (_a) {
                     if (!file)
                         return [2 /*return*/];
                     if ((options === null || options === void 0 ? void 0 : options.maxSize) && file.size > options.maxSize) {
-                        setInnerError('Файл слишком большой!');
+                        setInnerError(t('The file is too big!'));
                         return [2 /*return*/];
                     }
                     if ((options === null || options === void 0 ? void 0 : options.maxSize) && file.size < options.minSize) {
-                        setInnerError('Файл слишком маленький!');
+                        setInnerError(t('The file is too small!'));
                         return [2 /*return*/];
                     }
                     if ((options === null || options === void 0 ? void 0 : options.allowedMimeType) &&
                         !options.allowedMimeType.includes(file.type)) {
-                        setInnerError('Тип файла не поддерживается!');
+                        setInnerError(t('The file type is not supported!'));
                         return [2 /*return*/];
                     }
                     return [4 /*yield*/, getBase64(file)];
@@ -87,7 +89,10 @@ var EntityFieldBase64Image = withStyles(styles)(function (_a) {
                             var minWidth = options.minViewBox.width;
                             var minHeight = options.minViewBox.height;
                             if (naturalWidth < minWidth || naturalHeight < minHeight) {
-                                setInnerError("\u0420\u0430\u0437\u043C\u0435\u0440 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0438 \u043D\u0435 \u0434\u043E\u043B\u0436\u0435\u043D \u0431\u044B\u0442\u044C \u043C\u0435\u043D\u0435\u0435 " + minWidth + "x" + minHeight + " \u043F\u0438\u043A\u0441\u0435\u043B\u0435\u0439");
+                                setInnerError(t('Image size should not be less than {{width}}x{{height}} pixels', {
+                                    width: minWidth,
+                                    height: minHeight
+                                }));
                                 return;
                             }
                         }
@@ -95,7 +100,10 @@ var EntityFieldBase64Image = withStyles(styles)(function (_a) {
                             var maxWidth = options.maxViewBox.width;
                             var maxHeight = options.maxViewBox.height;
                             if (naturalWidth > maxWidth || naturalHeight > maxHeight) {
-                                setInnerError("\u0420\u0430\u0437\u043C\u0435\u0440 \u043A\u0430\u0440\u0442\u0438\u043D\u043A\u0438 \u043D\u0435 \u0434\u043E\u043B\u0436\u0435\u043D \u0431\u044B\u0442\u044C \u0431\u043E\u043B\u0435\u0435 " + maxWidth + "x" + maxHeight + " \u043F\u0438\u043A\u0441\u0435\u043B\u0435\u0439");
+                                setInnerError(t('The size of the picture should not be more than {{width}}x{{height}} pixels', {
+                                    width: maxWidth,
+                                    height: maxHeight
+                                }));
                                 return;
                             }
                         }
@@ -104,12 +112,12 @@ var EntityFieldBase64Image = withStyles(styles)(function (_a) {
                     return [2 /*return*/];
             }
         });
-    }); }, [setInnerError, handler, getBase64]);
+    }); }, [handler, options, getBase64, t]);
     var onChange = useCallback(function (event) {
         if (!handler)
             return;
         handler(event.target.value);
-    }, [value, handler]);
+    }, [handler]);
     return isEditing ? (React.createElement("div", null,
         React.createElement(FormControl, { variant: "outlined", className: classes.formControl, style: { position: 'relative' } },
             React.createElement("label", { htmlFor: label, className: classes.label },
@@ -120,9 +128,9 @@ var EntityFieldBase64Image = withStyles(styles)(function (_a) {
                             display: 'flex',
                             width: 150,
                         } },
-                        React.createElement("span", null, "\u0417\u0430\u0433\u0440\u0443\u0437\u0438\u0442\u044C"))); } }),
+                        React.createElement("span", null, t('Upload')))); } }),
                 React.createElement("input", { id: label, name: label, type: "file", onChange: loadImage, style: { position: 'absolute' }, accept: options && options.mimes ? options.mimes.join(', ') : '' })),
             (innerError || error) && (React.createElement(Box, { color: "error.main", fontSize: 12 }, innerError || error))))) : (React.createElement("div", { onClick: onClick },
-        React.createElement("img", { src: value ? String(value) : '', className: classes.preview })));
+        React.createElement("img", { alt: "base64image", src: value ? String(value) : '', className: classes.preview })));
 });
 export { EntityFieldBase64Image };

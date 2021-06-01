@@ -11,13 +11,13 @@ var EntityFieldRichText = function (_a) {
         var contentHTML = convertFromHTML(value || '');
         var state = ContentState.createFromBlockArray(contentHTML.contentBlocks, contentHTML.entityMap);
         setVal(JSON.stringify(convertToRaw(state)));
-    }, []);
+    }, [value]);
     var onChange = useCallback(function (data) {
         if (!handler)
             return;
         var text = draftToHtml(convertToRaw(data.getCurrentContent()));
         handler(text || '');
-    }, [value, handler]);
+    }, [handler]);
     return isEditing ? (React.createElement("div", null,
         React.createElement(MUIRichTextEditor, { label: label, value: val || '', onChange: onChange, error: !!error, controls: [
                 'title',

@@ -1,0 +1,14 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  margin-bottom: 20px;
+}
+
+button.button,
+a.cancel {
+  margin-top: 20px;
+  padding: 12px;
+}

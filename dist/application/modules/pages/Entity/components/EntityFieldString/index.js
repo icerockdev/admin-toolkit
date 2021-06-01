@@ -16,7 +16,7 @@ var EntityFieldString = observer(function (_a) {
         if (!handler)
             return;
         handler(event.target.value);
-    }, [value, handler]);
+    }, [handler]);
     return isEditing ? (React.createElement("div", null,
         React.createElement(TextField, { label: label, value: value || '', onChange: onChange, error: !!error, helperText: error, variant: "outlined", placeholder: placeholder || '' }))) : (React.createElement("div", { onClick: onClick, dangerouslySetInnerHTML: { __html: text ? String(text) : '&nbsp;' } }));
 });

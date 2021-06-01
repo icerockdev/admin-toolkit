@@ -1,6 +1,5 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-/// <reference types="react" />
 import { IPageProps } from '../../../types/page';
 export declare class Page {
     title: IPageProps['title'];
@@ -12,4 +11,5 @@ export declare class Page {
     onUnmount: (page: Page) => void;
     get canList(): boolean;
     get output(): () => JSX.Element;
+    get forbiddenPlaceholder(): JSX.Element;
 }

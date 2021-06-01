@@ -16,5 +16,5 @@ declare type IProps = WithStyles<typeof styles> & {
     viewable: boolean;
     editable: boolean;
 };
-declare const EntityBreadcrumbs: React.ComponentType<Pick<IProps, "data" | "id" | "name" | "url" | "fields" | "buttons" | "isEditing" | "editable" | "viewable" | "isCreating"> & import("@material-ui/core").StyledComponentProps<"breadcrumbs">>;
+declare const EntityBreadcrumbs: React.ComponentType<Pick<IProps, "data" | "id" | "name" | "url" | "fields" | "buttons" | "isEditing" | "viewable" | "isCreating" | "editable"> & import("@material-ui/core").StyledComponentProps<"breadcrumbs">>;
 export { EntityBreadcrumbs };

@@ -1,7 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React, { ReactElement } from 'react';
-import { ENTITY_SORT_DIRS, IEntityField, IEntityProps } from './types';
+import { ENTITY_SORT_DIRS, IEntityField, IEntityProps } from '../../..';
 import { CancellablePromise } from 'mobx/lib/api/flow';
 import { Page } from '../Page';
 export declare class Entity extends Page {
@@ -56,8 +56,11 @@ export declare class Entity extends Page {
     getItemsCancel: () => void;
     setEditorData: (data: Record<string, any>) => void;
     createEmptyItem: () => void;
-    get canEdit(): boolean;
+    get canList(): boolean;
+    get canView(): boolean;
     get canCreate(): boolean;
+    get canEdit(): boolean;
+    get canExport(): boolean;
     onMount: () => void;
     onUnmount: () => void;
     exportData: () => Promise<void>;

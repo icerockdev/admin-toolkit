@@ -8,7 +8,7 @@ var EntityFieldPhone = function (_a) {
         if (!handler)
             return;
         handler(event.target.value.replace(/[^\d]/gim, ''));
-    }, [value, handler]);
+    }, [handler]);
     return isEditing ? (React.createElement("div", null,
         React.createElement(InputMask, { mask: "+9 (999) 999-99-99", value: value ? value.toString() : '', onChange: onChange }, function () { return (React.createElement(TextField, { label: label, error: !!error, helperText: error, variant: "outlined" })); }))) : (React.createElement("div", { onClick: onClick }, value ? String(value) : React.createElement("div", null, "\u00A0")));
 };

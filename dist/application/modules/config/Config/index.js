@@ -1,4 +1,4 @@
-/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -22,11 +22,17 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { computed, observable } from 'mobx';
 import { DEFAULT_THEME } from '../../../../utils/theme';
 import { VerticalLayout } from '../../../layouts/application/VerticalLayout';
+import { DEFAULT_LANGUAGES } from "../../../../i18n";
 var Config = /** @class */ (function () {
     function Config(options) {
         var _this = this;
+        this.debug = process.env.NODE_ENV !== 'production';
         this.name = '';
         this.pages = [];
+        this.i18nDefaultLanguage = "en";
+        this.i18nLanguages = DEFAULT_LANGUAGES;
+        this.i18nUseBrowserLanguageDetector = true;
+        this.i18nResourcesContext = require.context('~/locales', true, /\.json$/);
         this.theme = {};
         this.history = createBrowserHistory();
         this.notifications = new Notifications();
@@ -62,6 +68,7 @@ var Config = /** @class */ (function () {
             return this.pagesForCurrentUser.map(function (page) { return ({
                 name: page.menu.label,
                 url: page.menu.url,
+                enabled: page.menu.enabled,
             }); });
         },
         enumerable: false,
@@ -77,6 +84,9 @@ var Config = /** @class */ (function () {
         enumerable: false,
         configurable: true
     });
+    __decorate([
+        observable
+    ], Config.prototype, "debug", void 0);
     __decorate([
         observable
     ], Config.prototype, "host", void 0);
@@ -95,6 +105,18 @@ var Config = /** @class */ (function () {
     __decorate([
         observable
     ], Config.prototype, "title", void 0);
+    __decorate([
+        observable
+    ], Config.prototype, "i18nDefaultLanguage", void 0);
+    __decorate([
+        observable
+    ], Config.prototype, "i18nLanguages", void 0);
+    __decorate([
+        observable
+    ], Config.prototype, "i18nUseBrowserLanguageDetector", void 0);
+    __decorate([
+        observable
+    ], Config.prototype, "i18nResourcesContext", void 0);
     __decorate([
         observable
     ], Config.prototype, "theme", void 0);
