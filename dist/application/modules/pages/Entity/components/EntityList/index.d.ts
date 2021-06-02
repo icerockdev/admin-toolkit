@@ -1,10 +1,11 @@
-/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React, { MouseEvent, ReactNode } from 'react';
 import { WithStyles } from '@material-ui/core';
-import { ENTITY_SORT_DIRS, IEntityField } from '../../types';
+import { IEntityField } from '../../types';
 import styles from './styles';
 import { Entity } from '../../../..';
+import { ENTITY_SORT_DIRS } from "../../constants";
 declare type IProps = WithStyles<typeof styles> & {
     isLoading: boolean;
     fields: IEntityField[];

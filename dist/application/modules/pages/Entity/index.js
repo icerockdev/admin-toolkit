@@ -1,4 +1,4 @@
-/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -73,7 +73,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 import React, { Fragment } from 'react';
-import { ENTITY_ERRORS, ENTITY_REFERENCE_FIELDS, ENTITY_SORT_DIRS, } from './types';
+import { ENTITY_ERRORS, ENTITY_REFERENCE_FIELDS, ENTITY_SORT_DIRS, } from '../../..';
 import { action, computed, flow, observable, reaction, toJS } from 'mobx';
 import { Route, Switch } from 'react-router-dom';
 import { observer, Provider } from 'mobx-react';
@@ -87,6 +87,7 @@ import { EntityList } from './components/EntityList';
 import { EntityHead } from './components/EntityHead';
 import { EntityFooter } from './components/EntityFooter';
 import { EntityListWrapper } from './components/EntityListWrapper';
+import i18n from "../../../../i18n";
 var Entity = /** @class */ (function (_super) {
     __extends(Entity, _super);
     function Entity(fields) {
@@ -172,7 +173,7 @@ var Entity = /** @class */ (function (_super) {
                             _k.trys.push([1, 4, , 5]);
                             // loading entity
                             if (!((_b = (_a = this.api) === null || _a === void 0 ? void 0 : _a.list) === null || _b === void 0 ? void 0 : _b.url) || !this.fetchItemsFn) {
-                                throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
+                                throw new Error(i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
                             }
                             filter = this.getFilters();
                             return [4 /*yield*/, (_d = (_c = this.parent) === null || _c === void 0 ? void 0 : _c.auth) === null || _d === void 0 ? void 0 : _d.withToken(this.fetchItemsFn, {
@@ -186,7 +187,7 @@ var Entity = /** @class */ (function (_super) {
                         case 2:
                             result = _k.sent();
                             if (!result || result.error)
-                                throw new Error((result === null || result === void 0 ? void 0 : result.error) || ENTITY_ERRORS.CANT_LOAD_ITEMS);
+                                throw new Error((result === null || result === void 0 ? void 0 : result.error) || i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
                             this.data = ((_g = result === null || result === void 0 ? void 0 : result.data) === null || _g === void 0 ? void 0 : _g.list) || [];
                             this.filterData = (result === null || result === void 0 ? void 0 : result.filterData) || {};
                             this.totalCount = ((_h = result === null || result === void 0 ? void 0 : result.data) === null || _h === void 0 ? void 0 : _h.totalCount) || 0;
@@ -254,10 +255,10 @@ var Entity = /** @class */ (function (_super) {
                             _q.trys.push([1, 3, , 4]);
                             data = toJS(this.editorData);
                             if (!this.validateSubmitFields(data, false)) {
-                                throw new Error(ENTITY_ERRORS.INCORRECT_INPUT);
+                                throw new Error(i18n.t(ENTITY_ERRORS.INCORRECT_INPUT));
                             }
                             if (!((_b = (_a = this.api) === null || _a === void 0 ? void 0 : _a.update) === null || _b === void 0 ? void 0 : _b.url) || !this.updateItemsFn) {
-                                throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
+                                throw new Error(i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
                             }
                             return [4 /*yield*/, (_d = (_c = this.parent) === null || _c === void 0 ? void 0 : _c.auth) === null || _d === void 0 ? void 0 : _d.withToken(this.updateItemsFn, {
                                     url: ((_f = (_e = this.api) === null || _e === void 0 ? void 0 : _e.update) === null || _f === void 0 ? void 0 : _f.url) || '',
@@ -266,7 +267,7 @@ var Entity = /** @class */ (function (_super) {
                         case 2:
                             result = _q.sent();
                             if (!result || result.error)
-                                throw new Error((result === null || result === void 0 ? void 0 : result.error) || ENTITY_ERRORS.CANT_LOAD_ITEMS);
+                                throw new Error((result === null || result === void 0 ? void 0 : result.error) || i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
                             this.fetchItems();
                             if (((_h = (_g = this.parent) === null || _g === void 0 ? void 0 : _g.history) === null || _h === void 0 ? void 0 : _h.length) && ((_j = this.parent) === null || _j === void 0 ? void 0 : _j.history.goBack)) {
                                 (_k = this.parent) === null || _k === void 0 ? void 0 : _k.history.goBack();
@@ -308,10 +309,10 @@ var Entity = /** @class */ (function (_super) {
                             _j.trys.push([1, 3, , 4]);
                             data = toJS(this.editorData);
                             if (!this.validateSubmitFields(data, true)) {
-                                throw new Error(ENTITY_ERRORS.INCORRECT_INPUT);
+                                throw new Error(i18n.t(ENTITY_ERRORS.INCORRECT_INPUT));
                             }
                             if (!((_b = (_a = this.api) === null || _a === void 0 ? void 0 : _a.create) === null || _b === void 0 ? void 0 : _b.url) || !this.createItemsFn) {
-                                throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
+                                throw new Error(i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
                             }
                             return [4 /*yield*/, (_d = (_c = this.parent) === null || _c === void 0 ? void 0 : _c.auth) === null || _d === void 0 ? void 0 : _d.withToken(this.createItemsFn, {
                                     url: ((_f = (_e = this.api) === null || _e === void 0 ? void 0 : _e.create) === null || _f === void 0 ? void 0 : _f.url) || '',
@@ -320,7 +321,7 @@ var Entity = /** @class */ (function (_super) {
                         case 2:
                             result = _j.sent();
                             if (!result || result.error)
-                                throw new Error((result === null || result === void 0 ? void 0 : result.error) || ENTITY_ERRORS.CANT_LOAD_ITEMS);
+                                throw new Error((result === null || result === void 0 ? void 0 : result.error) || i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
                             this.fetchItems();
                             (_g = this.parent) === null || _g === void 0 ? void 0 : _g.history.push(this.menu.url);
                             return [3 /*break*/, 4];
@@ -339,8 +340,8 @@ var Entity = /** @class */ (function (_super) {
             delete _this.editorFieldErrors[field];
         };
         _this.isValidField = function (field, value) {
-            return (!field.required || field.type === 'boolean' || !!value) &&
-                (!field.validator || !field.validator(value));
+            return (!field.required || field.type === 'boolean' || value === 0 || !!value) &&
+                (!field.validator || !field.validator(value, _this));
         };
         _this.validateSubmitFields = function (data, isCreating) {
             if (isCreating === void 0) { isCreating = false; }
@@ -353,8 +354,8 @@ var Entity = /** @class */ (function (_super) {
                 var _a;
                 return _this.isValidField(field, data[field.name])
                     ? obj
-                    : __assign(__assign({}, obj), (_a = {}, _a[field.name] = (field.validator && field.validator(data[field.name])) ||
-                        ENTITY_ERRORS.FIELD_IS_REQUIRED, _a));
+                    : __assign(__assign({}, obj), (_a = {}, _a[field.name] = (field.validator && field.validator(data[field.name], _this)) ||
+                        i18n.t(ENTITY_ERRORS.FIELD_IS_REQUIRED), _a));
             }, {});
             return Object.keys(_this.editorFieldErrors).length === 0;
         };
@@ -374,7 +375,7 @@ var Entity = /** @class */ (function (_super) {
                         case 1:
                             _j.trys.push([1, 3, , 4]);
                             if (!((_b = (_a = this.api) === null || _a === void 0 ? void 0 : _a.get) === null || _b === void 0 ? void 0 : _b.url) || !this.getItemsFn) {
-                                throw new Error(ENTITY_ERRORS.CANT_LOAD_ITEMS);
+                                throw new Error(i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
                             }
                             return [4 /*yield*/, (_d = (_c = this.parent) === null || _c === void 0 ? void 0 : _c.auth) === null || _d === void 0 ? void 0 : _d.withToken(this.getItemsFn, {
                                     id: id,
@@ -383,7 +384,7 @@ var Entity = /** @class */ (function (_super) {
                         case 2:
                             result = _j.sent();
                             if (!result || result.error)
-                                throw new Error((result === null || result === void 0 ? void 0 : result.error) || ENTITY_ERRORS.CANT_LOAD_ITEMS);
+                                throw new Error((result === null || result === void 0 ? void 0 : result.error) || i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
                             this.editorData = result.data;
                             this.isLoading = false;
                             return [3 /*break*/, 4];
@@ -491,6 +492,36 @@ var Entity = /** @class */ (function (_super) {
         }
         return _this;
     }
+    Object.defineProperty(Entity.prototype, "canList", {
+        get: function () {
+            var _a, _b, _c, _d, _e, _f, _g;
+            return !!(!this.roles ||
+                !this.permissions.list ||
+                (((_c = (_b = (_a = this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.user) === null || _c === void 0 ? void 0 : _c.role) && ((_e = (_d = this.permissions) === null || _d === void 0 ? void 0 : _d.list) === null || _e === void 0 ? void 0 : _e.includes((_g = (_f = this.parent.auth) === null || _f === void 0 ? void 0 : _f.user) === null || _g === void 0 ? void 0 : _g.role))));
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Entity.prototype, "canView", {
+        get: function () {
+            var _a, _b, _c, _d, _e, _f, _g;
+            return !!(!this.roles ||
+                !this.permissions.view ||
+                (((_c = (_b = (_a = this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.user) === null || _c === void 0 ? void 0 : _c.role) && ((_e = (_d = this.permissions) === null || _d === void 0 ? void 0 : _d.view) === null || _e === void 0 ? void 0 : _e.includes((_g = (_f = this.parent.auth) === null || _f === void 0 ? void 0 : _f.user) === null || _g === void 0 ? void 0 : _g.role))));
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(Entity.prototype, "canCreate", {
+        get: function () {
+            var _a, _b, _c, _d, _e, _f, _g;
+            return !!(!this.roles ||
+                !this.permissions.create ||
+                (((_c = (_b = (_a = this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.user) === null || _c === void 0 ? void 0 : _c.role) && ((_e = (_d = this.permissions) === null || _d === void 0 ? void 0 : _d.create) === null || _e === void 0 ? void 0 : _e.includes((_g = (_f = this.parent.auth) === null || _f === void 0 ? void 0 : _f.user) === null || _g === void 0 ? void 0 : _g.role))));
+        },
+        enumerable: false,
+        configurable: true
+    });
     Object.defineProperty(Entity.prototype, "canEdit", {
         get: function () {
             var _a, _b, _c, _d, _e, _f, _g;
@@ -502,12 +533,13 @@ var Entity = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
-    Object.defineProperty(Entity.prototype, "canCreate", {
+    Object.defineProperty(Entity.prototype, "canExport", {
         get: function () {
             var _a, _b, _c, _d, _e, _f, _g;
-            return !!(!this.roles ||
-                !this.permissions.create ||
-                (((_c = (_b = (_a = this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.user) === null || _c === void 0 ? void 0 : _c.role) && ((_e = (_d = this.permissions) === null || _d === void 0 ? void 0 : _d.create) === null || _e === void 0 ? void 0 : _e.includes((_g = (_f = this.parent.auth) === null || _f === void 0 ? void 0 : _f.user) === null || _g === void 0 ? void 0 : _g.role))));
+            return (this.editable &&
+                !!(!this.roles ||
+                    !this.permissions.export ||
+                    (((_c = (_b = (_a = this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.user) === null || _c === void 0 ? void 0 : _c.role) && ((_e = (_d = this.permissions) === null || _d === void 0 ? void 0 : _d.export) === null || _e === void 0 ? void 0 : _e.includes((_g = (_f = this.parent.auth) === null || _f === void 0 ? void 0 : _f.user) === null || _g === void 0 ? void 0 : _g.role)))));
         },
         enumerable: false,
         configurable: true
@@ -532,7 +564,7 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function () {
                 var _a, _b;
-                return (React.createElement(EntityHead, { filterData: _this.filterData, title: React.createElement(_this.ListHeadTitle, null), buttons: React.createElement(_this.ListHeadButtons, null), filters: _this.filters, fields: _this.fields, setFilters: _this.setFilters, url: _this.menu.url, applyFilter: _this.applyFilter, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken, onExport: _this.exportData, canExport: _this.exportable, canCreate: _this.creatable && _this.canCreate, entity: _this }));
+                return (React.createElement(EntityHead, { filterData: _this.filterData, title: React.createElement(_this.ListHeadTitle, null), buttons: React.createElement(_this.ListHeadButtons, null), filters: _this.filters, fields: _this.fields, setFilters: _this.setFilters, url: _this.menu.url, applyFilter: _this.applyFilter, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken, onExport: _this.exportData, canExport: _this.exportable && _this.canExport, canCreate: _this.creatable && _this.canCreate, entity: _this }));
             });
         },
         enumerable: false,
@@ -550,7 +582,7 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function () {
                 var _a, _b;
-                return (React.createElement(EntityList, { fields: _this.fields, data: _this.data, extra: _this.ListExtra, isLoading: _this.isLoading, url: _this.menu.url, selected: _this.selected, sortBy: _this.sortBy, sortDir: _this.sortDir, canView: _this.viewable, canEdit: _this.editable && _this.canEdit, canSelect: _this.selectable, setSelected: _this.setSelected, onSortChange: _this.setSort, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken, entity: _this }));
+                return (React.createElement(EntityList, { fields: _this.fields, data: _this.data, extra: _this.ListExtra, isLoading: _this.isLoading, url: _this.menu.url, selected: _this.selected, sortBy: _this.sortBy, sortDir: _this.sortDir, canView: _this.viewable && _this.canView, canEdit: _this.editable && _this.canEdit, canSelect: _this.selectable, setSelected: _this.setSelected, onSortChange: _this.setSort, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken, entity: _this }));
             });
         },
         enumerable: false,
@@ -623,7 +655,9 @@ var Entity = /** @class */ (function (_super) {
             return observer(function (_a) {
                 var _b, _c;
                 var id = _a.id;
-                return (React.createElement(EntityViewer, { id: id, fields: _this.fields, url: _this.menu.url, errors: _this.editorFieldErrors, onSave: function () { }, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isEditing: false, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, viewable: _this.viewable, entity: _this }));
+                if (!_this.canView)
+                    return _this.forbiddenPlaceholder;
+                return React.createElement(EntityViewer, { id: id, fields: _this.fields, url: _this.menu.url, errors: _this.editorFieldErrors, onSave: function () { }, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isEditing: false, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, viewable: _this.viewable, entity: _this });
             });
         },
         enumerable: false,
@@ -680,7 +714,9 @@ var Entity = /** @class */ (function (_super) {
             return observer(function (_a) {
                 var _b, _c;
                 var id = _a.id;
-                return (React.createElement(EntityViewer, { id: id, fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.updateItem, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, viewable: _this.viewable, entity: _this, isEditing: true }));
+                if (!_this.canEdit)
+                    return _this.forbiddenPlaceholder;
+                return React.createElement(EntityViewer, { id: id, fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.updateItem, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, viewable: _this.viewable, entity: _this, isEditing: true });
             });
         },
         enumerable: false,
@@ -727,7 +763,9 @@ var Entity = /** @class */ (function (_super) {
             var _this = this;
             return observer(function () {
                 var _a, _b;
-                return (React.createElement(EntityViewer, { fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.createItem, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isEditing: true, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.createEmptyItem, cancelGetItem: _this.getItemsCancel, viewable: _this.viewable, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken, entity: _this }));
+                if (!_this.canCreate)
+                    return _this.forbiddenPlaceholder;
+                return React.createElement(EntityViewer, { fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.createItem, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isEditing: true, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.createEmptyItem, cancelGetItem: _this.getItemsCancel, viewable: _this.viewable, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken, entity: _this });
             });
         },
         enumerable: false,
@@ -897,10 +935,19 @@ var Entity = /** @class */ (function (_super) {
     ], Entity.prototype, "createEmptyItem", void 0);
     __decorate([
         computed
-    ], Entity.prototype, "canEdit", null);
+    ], Entity.prototype, "canList", null);
+    __decorate([
+        computed
+    ], Entity.prototype, "canView", null);
     __decorate([
         computed
     ], Entity.prototype, "canCreate", null);
+    __decorate([
+        computed
+    ], Entity.prototype, "canEdit", null);
+    __decorate([
+        computed
+    ], Entity.prototype, "canExport", null);
     __decorate([
         action
     ], Entity.prototype, "onMount", void 0);

@@ -1,4 +1,4 @@
-/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 import React, { useCallback, useMemo } from 'react';
 import { TextField } from '@material-ui/core';
 import { observer } from 'mobx-react';
@@ -16,7 +16,7 @@ var EntityFieldString = observer(function (_a) {
         if (!handler)
             return;
         handler(event.target.value);
-    }, [value, handler]);
+    }, [handler]);
     return isEditing ? (React.createElement("div", null,
         React.createElement(TextField, { label: label, value: value || '', onChange: onChange, error: !!error, helperText: error, variant: "outlined", placeholder: placeholder || '' }))) : (React.createElement("div", { onClick: onClick, dangerouslySetInnerHTML: { __html: text ? String(text) : '&nbsp;' } }));
 });

@@ -1,4 +1,4 @@
-/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -121,8 +121,43 @@ var JWTAuthProvider = /** @class */ (function (_super) {
             }
         };
         _this.logout = function () {
-            _this.user = EMPTY_USER;
-            _this.tokens = EMPTY_TOKENS;
+            _this.logoutCancel();
+            _this.logoutInstance = flow(function sendAuthRequest() {
+                var response, e_2;
+                var _a;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            if (!this.authLogoutFn) {
+                                this.user = EMPTY_USER;
+                                this.tokens = EMPTY_TOKENS;
+                                return [2 /*return*/];
+                            }
+                            this.isLoading = true;
+                            _b.label = 1;
+                        case 1:
+                            _b.trys.push([1, 3, 4, 5]);
+                            return [4 /*yield*/, this.withToken(this.authLogoutFn, { token: this.tokens.refresh }).catch(function () { return null; })];
+                        case 2:
+                            response = _b.sent();
+                            if (!response || response.error) {
+                                throw new Error(response.error);
+                            }
+                            this.user = EMPTY_USER;
+                            this.tokens = EMPTY_TOKENS;
+                            return [3 /*break*/, 5];
+                        case 3:
+                            e_2 = _b.sent();
+                            this.error = e_2;
+                            (_a = this.parent) === null || _a === void 0 ? void 0 : _a.notifications.showError(e_2.toString());
+                            return [3 /*break*/, 5];
+                        case 4:
+                            this.isLoading = false;
+                            return [7 /*endfinally*/];
+                        case 5: return [2 /*return*/];
+                    }
+                });
+            }).bind(_this)();
         };
         _this.withToken = function (req, args) { return __awaiter(_this, void 0, void 0, function () {
             var _this = this;

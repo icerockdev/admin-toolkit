@@ -1,4 +1,4 @@
-/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -22,7 +22,7 @@ var EntityFieldDateRange = function (_a) {
             return;
         var filtered = value.map(function (val) { return (val && val.valueOf() && val.toISOString()) || ''; });
         handler(filtered.join(','));
-    }, [value, handler]);
+    }, [handler]);
     var parsed = useMemo(function () {
         if (!value)
             return [null, null];

@@ -1,4 +1,4 @@
-/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 import React, { useCallback, useState, useEffect } from 'react';
 import MUIRichTextEditor from 'mui-rte';
 import { convertFromHTML } from 'draft-js';
@@ -11,13 +11,13 @@ var EntityFieldRichText = function (_a) {
         var contentHTML = convertFromHTML(value || '');
         var state = ContentState.createFromBlockArray(contentHTML.contentBlocks, contentHTML.entityMap);
         setVal(JSON.stringify(convertToRaw(state)));
-    }, []);
+    }, [value]);
     var onChange = useCallback(function (data) {
         if (!handler)
             return;
         var text = draftToHtml(convertToRaw(data.getCurrentContent()));
         handler(text || '');
-    }, [value, handler]);
+    }, [handler]);
     return isEditing ? (React.createElement("div", null,
         React.createElement(MUIRichTextEditor, { label: label, value: val || '', onChange: onChange, error: !!error, controls: [
                 'title',

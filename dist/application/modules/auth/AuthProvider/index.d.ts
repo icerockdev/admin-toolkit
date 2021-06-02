@@ -1,8 +1,8 @@
-/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import { AuthProviderOptions, AuthProviderUser, WithTokenFunction } from '../../../types/auth';
 import { CancellablePromise } from 'mobx/lib/api/flow';
-import { Config } from '../../config/Config';
+import { Config } from '../../..';
 import { FC } from 'react';
 export declare class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
     constructor(options?: Partial<AuthProviderOptions>);
@@ -14,6 +14,7 @@ export declare class AuthProvider<U extends AuthProviderUser = AuthProviderUser>
     authPasswRestoreFn?: AuthProviderOptions['authPasswRestoreFn'];
     authPasswUpdateFn?: AuthProviderOptions['authPasswUpdateFn'];
     authSignupFn?: AuthProviderOptions['authSignupFn'];
+    authLogoutFn?: AuthProviderOptions['authLogoutFn'];
     roleTitles?: Record<any, string>;
     persist?: AuthProviderOptions['persist'];
     passwordValidator?: AuthProviderOptions['passwordValidator'];
@@ -43,7 +44,9 @@ export declare class AuthProvider<U extends AuthProviderUser = AuthProviderUser>
     sendAuthSignup: (data: any) => void;
     getPersistedCredentials: () => AuthProviderUser;
     persistCredentials: () => void;
+    logoutInstance?: CancellablePromise<any>;
     logout: () => void;
+    logoutCancel: () => void;
     /**
      * Passes token variable to {args}
      * @param req - request function

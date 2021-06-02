@@ -1,28 +1,30 @@
-/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import styles from './styles';
 import { AppBar, Tab, Tabs, Toolbar, withStyles, } from '@material-ui/core';
 import { Link, useHistory } from 'react-router-dom';
-import { Account } from '../../login/Account';
+import { Account } from '../../auth/Account';
 import classnames from 'classnames';
 import { useLocation } from 'react-router';
 import { useConfig } from '../../../application/utils/hooks';
+import { useTranslation } from "react-i18next";
 var HorizontalNavigationUnstyled = function (_a) {
-    var _b, _c;
     var classes = _a.classes;
     var config = useConfig();
+    var t = useTranslation().t;
     var history = useHistory();
     var location = useLocation();
     var wrapper = useRef(null);
     var appbar = useRef(null);
-    var links = useMemo(function () {
+    var links;
+    links = useMemo(function () {
         return config.pages
             .filter(function (page) { var _a; return ((_a = page === null || page === void 0 ? void 0 : page.menu) === null || _a === void 0 ? void 0 : _a.url) && page.canList; })
             .map(function (page) { return ({
-            name: page.menu.label,
+            name: t(page.menu.label),
             url: page.menu.url,
         }); });
-    }, [config, config.pages, (_c = (_b = config.auth) === null || _b === void 0 ? void 0 : _b.user) === null || _c === void 0 ? void 0 : _c.role]);
+    }, [config.pages, t]);
     var onTabChange = useCallback(function (_, tab) { return history.push(links[tab].url); }, [
         history,
     ]);

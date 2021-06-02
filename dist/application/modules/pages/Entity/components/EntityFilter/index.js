@@ -1,4 +1,4 @@
-/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -40,7 +40,7 @@ var EntityFilter = withStyles(styles)(observer(function (_a) {
     var removeFilter = useCallback(function (i) { return function () {
         setFilters(filters.filter(function (_, index) { return i !== index; }));
         applyFilter();
-    }; }, [filters, setFilters]);
+    }; }, [applyFilter, filters, setFilters]);
     var filterableFields = useMemo(function () { return fields.filter(function (field) { return field.filterable; }); }, [fields]);
     var selectableFields = useMemo(function () {
         return filterableFields.filter(function (field) { return !filters.some(function (filter) { return filter.name === field.name; }); });
@@ -56,7 +56,7 @@ var EntityFilter = withStyles(styles)(observer(function (_a) {
         event.preventDefault();
         setFilters([]);
         applyFilter();
-    }, [applyFilter]);
+    }, [applyFilter, setFilters]);
     var onSubmit = useCallback(function (event) {
         event.preventDefault();
         applyFilter();

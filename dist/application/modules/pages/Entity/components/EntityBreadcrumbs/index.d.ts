@@ -1,4 +1,4 @@
-/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React, { ReactElement } from 'react';
 import { WithStyles } from '@material-ui/core';
@@ -16,5 +16,5 @@ declare type IProps = WithStyles<typeof styles> & {
     viewable: boolean;
     editable: boolean;
 };
-declare const EntityBreadcrumbs: React.ComponentType<Pick<IProps, "data" | "id" | "name" | "url" | "fields" | "buttons" | "isEditing" | "editable" | "viewable" | "isCreating"> & import("@material-ui/core").StyledComponentProps<"breadcrumbs">>;
+declare const EntityBreadcrumbs: React.ComponentType<Pick<IProps, "data" | "id" | "name" | "url" | "fields" | "buttons" | "isEditing" | "viewable" | "isCreating" | "editable"> & import("@material-ui/core").StyledComponentProps<"breadcrumbs">>;
 export { EntityBreadcrumbs };

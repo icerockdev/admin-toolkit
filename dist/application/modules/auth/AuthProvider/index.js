@@ -1,4 +1,4 @@
-/* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 var __assign = (this && this.__assign) || function () {
     __assign = Object.assign || function(t) {
         for (var s, i = 1, n = arguments.length; i < n; i++) {
@@ -54,13 +54,14 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 import { EMPTY_USER, UNAUTHORIZED, } from '../../../types/auth';
 import { action, computed, flow, observable, reaction } from 'mobx';
-import { AuthRouter } from '../../../../containers/login/AuthRouter';
+import { AuthRouter } from '../../../../containers/auth/AuthRouter';
 import { AuthVerticalLayout } from '../../../layouts/login/AuthVerticalLayout';
 import { has } from 'ramda';
-import { SignIn } from '../../../../containers/login/SignIn';
-import { ForgotPassword } from '../../../../containers/login/ForgotPassword';
-import { ResetPassword } from '../../../../containers/login/ResetPassword';
-import { SignUp } from '../../../../containers/login/SignUp';
+import { SignIn } from '../../../../containers/auth/SignIn';
+import { ForgotPassword } from '../../../../containers/auth/ForgotPassword';
+import { ResetPassword } from '../../../../containers/auth/ResetPassword';
+import { SignUp } from '../../../../containers/auth/SignUp';
+import i18n from "../../../../i18n";
 var AuthProvider = /** @class */ (function () {
     function AuthProvider(options) {
         var _this = this;
@@ -69,7 +70,7 @@ var AuthProvider = /** @class */ (function () {
         this.layout = AuthVerticalLayout;
         this.user = EMPTY_USER;
         this.persist = true;
-        this.loginLabel = 'Логин';
+        this.loginLabel = i18n.t('Login');
         this.getUserName = function () { var _a; return ((_a = _this.user) === null || _a === void 0 ? void 0 : _a.username) || ''; };
         // Components
         this.router = AuthRouter;
@@ -274,7 +275,46 @@ var AuthProvider = /** @class */ (function () {
             localStorage.setItem('user', JSON.stringify(_this.user));
         };
         this.logout = function () {
-            _this.user = EMPTY_USER;
+            _this.logoutCancel();
+            _this.logoutInstance = flow(function sendAuthRequest() {
+                var response, e_5;
+                var _a;
+                return __generator(this, function (_b) {
+                    switch (_b.label) {
+                        case 0:
+                            if (!this.authLogoutFn) {
+                                this.user = EMPTY_USER;
+                                return [2 /*return*/];
+                            }
+                            this.isLoading = true;
+                            _b.label = 1;
+                        case 1:
+                            _b.trys.push([1, 3, 4, 5]);
+                            return [4 /*yield*/, this.withToken(this.authLogoutFn, {}).catch(function () { return null; })];
+                        case 2:
+                            response = _b.sent();
+                            if (!response || response.error) {
+                                throw new Error(response.error);
+                            }
+                            this.user = EMPTY_USER;
+                            return [3 /*break*/, 5];
+                        case 3:
+                            e_5 = _b.sent();
+                            this.error = e_5;
+                            (_a = this.parent) === null || _a === void 0 ? void 0 : _a.notifications.showError(e_5.toString());
+                            return [3 /*break*/, 5];
+                        case 4:
+                            this.isLoading = false;
+                            return [7 /*endfinally*/];
+                        case 5: return [2 /*return*/];
+                    }
+                });
+            }).bind(_this)();
+        };
+        this.logoutCancel = function () {
+            if (_this.logoutInstance && _this.logoutInstance.cancel) {
+                _this.logoutInstance.cancel();
+            }
         };
         /**
          * Passes token variable to {args}
@@ -282,7 +322,7 @@ var AuthProvider = /** @class */ (function () {
          * @param args - args object, that'll be extended with token
          */
         this.withToken = function (req, args) { return __awaiter(_this, void 0, void 0, function () {
-            var result, e_5;
+            var result, e_6;
             var _a;
             return __generator(this, function (_b) {
                 switch (_b.label) {
@@ -296,11 +336,11 @@ var AuthProvider = /** @class */ (function () {
                         }
                         return [2 /*return*/, result];
                     case 2:
-                        e_5 = _b.sent();
-                        if (e_5.toString() === UNAUTHORIZED) {
+                        e_6 = _b.sent();
+                        if (e_6.toString() === UNAUTHORIZED) {
                             this.user = EMPTY_USER;
                         }
-                        (_a = this.parent) === null || _a === void 0 ? void 0 : _a.notifications.showError(e_5.toString());
+                        (_a = this.parent) === null || _a === void 0 ? void 0 : _a.notifications.showError(e_6.toString());
                         return [2 /*return*/, undefined];
                     case 3: return [2 /*return*/];
                 }
@@ -383,6 +423,9 @@ var AuthProvider = /** @class */ (function () {
     __decorate([
         observable
     ], AuthProvider.prototype, "authSignupFn", void 0);
+    __decorate([
+        observable
+    ], AuthProvider.prototype, "authLogoutFn", void 0);
     __decorate([
         observable
     ], AuthProvider.prototype, "roleTitles", void 0);
