@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { List, Collapse, ListItem, ListItemText } from '@material-ui/core';
+import { List, Collapse, ListItem } from '@material-ui/core';
 import { ExpandLess, ExpandMore } from '@material-ui/icons';
 
 interface IProps {}
@@ -31,15 +31,8 @@ const VerticalNavigation: FC<IProps> = observer(() => {
               component="nav"
               disablePadding={true}
               subheader={
-                <ListItem
-                  onClick={handleClick}
-                  style={{
-                    paddingLeft: '12px',
-                    paddingRight: '0px',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <ListItemText primary={link.name} />
+                <ListItem onClick={handleClick} className={styles.list}>
+                  <h2 className={styles.text}>{link.name}</h2>
                   {openList ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
               }
@@ -47,7 +40,7 @@ const VerticalNavigation: FC<IProps> = observer(() => {
               <Collapse in={openList}>
                 {link.childFields.map((child) => {
                   return (
-                    <ListItem style={{ padding: '0px', paddingLeft: '12px' }}>
+                    <ListItem className={styles.list}>
                       <NavLink
                         to={child.url}
                         className={classNames(
