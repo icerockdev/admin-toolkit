@@ -8,7 +8,12 @@ import styles from './styles.module.scss';
 
 export class Page {
   @observable title: IPageProps['title'] = 'Admin Toolkit';
-  @observable menu: IPageProps['menu'] = {enabled: true, label: '', url: ''};
+  @observable menu: IPageProps['menu'] = {
+    enabled: true,
+    label: '',
+    url: '',
+    childFields: undefined,
+  };
   @observable parent?: IPageProps['parent'];
   @observable roles?: IPageProps['roles'];
 
@@ -19,12 +24,10 @@ export class Page {
   }
 
   @action
-  onMount: (page: Page) => void = () => {
-  };
+  onMount: (page: Page) => void = () => {};
 
   @action
-  onUnmount: (page: Page) => void = () => {
-  };
+  onUnmount: (page: Page) => void = () => {};
 
   @computed
   get canList() {
@@ -47,11 +50,13 @@ export class Page {
   }
 
   get forbiddenPlaceholder() {
-    return <div className={styles.wrap}>
-      <div className={styles.error}>
-        <h1>Forbidden</h1>
-        <p>You don't have permission to perform that action</p>
+    return (
+      <div className={styles.wrap}>
+        <div className={styles.error}>
+          <h1>Forbidden</h1>
+          <p>You don't have permission to perform that action</p>
+        </div>
       </div>
-    </div>;
+    );
   }
 }
