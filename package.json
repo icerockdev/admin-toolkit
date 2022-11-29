@@ -21,20 +21,20 @@
     "mobx": "^5.x",
     "mobx-react": "^6.3.0",
     "mui-rte": "^1.x",
-    "node-sass": "^4.14.1",
     "query-string": "^6.13.2",
     "ramda": "^0.27.0",
     "react-helmet": "^6.1.0",
     "react-i18next": "^11.8.15",
     "react-input-mask": "^2.x",
+    "sass": "^1.56.1",
     "throttle-debounce": "^2.3.0",
     "typelevel-ts": "0.2.0"
   },
   "peerDependencies": {
+    "axios": "^0.26.1",
     "react": "^16.x",
     "react-dom": "^16.x",
-    "react-router-dom": "^5.x",
-    "axios": "^0.21.1"
+    "react-router-dom": "^5.x"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
@@ -65,9 +65,9 @@
     "lint-staged": "^10.0.9",
     "prettier": "^2.0.2",
     "react": "^16.x",
+    "react-docgen-typescript-loader": "^3.7.1",
     "react-dom": "^16.x",
     "react-router-dom": "^5.x",
-    "react-docgen-typescript-loader": "^3.7.1",
     "react-scripts": "3.4.1",
     "react-test-renderer": "^16.14.0",
     "ts-jest": "^25.2.1",
