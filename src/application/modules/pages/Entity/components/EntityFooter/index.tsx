@@ -3,7 +3,7 @@
 import React, { FC, useCallback } from 'react';
 import { TablePagination, WithStyles, withStyles } from '@material-ui/core';
 import styles from './styles';
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
 type IProps = WithStyles<typeof styles> & {
   itemsPerPage: number[];
@@ -29,7 +29,7 @@ const EntityFooterUnconnected: FC<IProps> = ({
   setPage,
   setPerPage,
 }) => {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
   const onChangeRowsPerPage = useCallback(
     (event) => setPerPage(parseInt(event.target.value)),
     [setPerPage]
@@ -37,17 +37,24 @@ const EntityFooterUnconnected: FC<IProps> = ({
 
   const onChangePage = useCallback((_, newPage) => setPage(newPage), [setPage]);
 
-  const labelDisplayedRows = (page: number, items: number) => ({from, to, count}: PageNumbers) => {
-    const pageNum = page + 1
-    const pageCount = Math.ceil(count / items)
+  const labelDisplayedRows = (page: number, items: number) => ({
+    from,
+    to,
+    count,
+  }: PageNumbers) => {
+    const pageNum = page + 1;
+    const pageCount = Math.ceil(count / items);
 
-    return t('Page {{pageNum}} of {{pageCount}}, Results {{from}}-{{to}} of {{count}}', {
-      pageNum,
-      pageCount,
-      from,
-      to,
-      count
-    })
+    return t(
+      'messages:Page {{pageNum}} of {{pageCount}}, Results {{from}}-{{to}} of {{count}}',
+      {
+        pageNum,
+        pageCount,
+        from,
+        to,
+        count,
+      }
+    );
   };
 
   return (
@@ -55,7 +62,7 @@ const EntityFooterUnconnected: FC<IProps> = ({
       rowsPerPageOptions={itemsPerPage}
       component="div"
       count={totalCount}
-      labelRowsPerPage="На странице:"
+      labelRowsPerPage={`${t('common:Per page')}:`}
       rowsPerPage={items}
       page={page}
       onChangePage={onChangePage}
