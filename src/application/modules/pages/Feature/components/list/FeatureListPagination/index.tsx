@@ -1,6 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React, { FC, Fragment, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './styles.module.scss';
 import classNames from 'classnames';
 import { TablePagination } from '@material-ui/core';
@@ -10,16 +11,25 @@ import { observer } from 'mobx-react';
 interface IProps {}
 
 const FeatureListPagination: FC<IProps> = observer(() => {
+  const { t } = useTranslation();
   const feature = useFeature();
   const { rows, page, count, rowsSelectOptions } = feature.filters;
 
   const labelDisplayedRows = useCallback(
     ({ from, to, count }: { from: number; to: number; count: number }) => {
-      const totalPages = Math.ceil(count / rows);
+      const pageNum = page + 1;
+      const pageCount = Math.ceil(count / rows);
 
-      return `Страница ${
-        page + 1
-      } из ${totalPages}, Результаты ${from}-${to} из ${count}`;
+      return t(
+        'messages:Page {{pageNum}} of {{pageCount}}, Results {{from}}-{{to}} of {{count}}',
+        {
+          pageNum,
+          pageCount,
+          from,
+          to,
+          count,
+        }
+      );
     },
     [page, count, rows]
   );
@@ -51,7 +61,7 @@ const FeatureListPagination: FC<IProps> = observer(() => {
         rowsPerPageOptions={rowsSelectOptions}
         component="div"
         count={count}
-        labelRowsPerPage="На странице:"
+        labelRowsPerPage={`${t('common:Per page')}:`}
         rowsPerPage={rows}
         page={page}
         onChangePage={onPageChange}

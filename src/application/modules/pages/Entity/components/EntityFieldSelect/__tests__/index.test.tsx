@@ -2,20 +2,22 @@
 
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { EntityFieldSelect } from "~/application";
-import { observable } from "mobx";
+import { EntityFieldSelect } from '~/application';
+import { observable } from 'mobx';
 
 test('EntityFieldSelect view test', () => {
-  const element = <EntityFieldSelect
-    name="Test select field"
-    value={1}
-    fields={[]}
-    options={{
-      1: 'variant 1',
-      2: 'variant 2',
-      3: 'variant 3',
-    }}
-  />
+  const element = (
+    <EntityFieldSelect
+      name="Test select field"
+      value={1}
+      fields={[]}
+      options={{
+        1: 'variant 1',
+        2: 'variant 2',
+        3: 'variant 3',
+      }}
+    />
+  );
 
   const component = renderer.create(element);
   const tree = component.toJSON();
@@ -23,24 +25,27 @@ test('EntityFieldSelect view test', () => {
 });
 
 test('EntityFieldSelect edit test', () => {
-  const store = new class {
+  const store = new (class {
+    // @ts-ignore
     @observable value = 1;
-  }();
+  })();
 
-  const handler = (value) => store.value = value
+  const handler = (value: number) => (store.value = value);
 
-  const element = <EntityFieldSelect
-    name="Test select field"
-    value={store.value}
-    isEditing={true}
-    handler={handler}
-    fields={[]}
-    options={{
-      1: 'variant 1',
-      2: 'variant 2',
-      3: 'variant 3',
-    }}
-  />
+  const element = (
+    <EntityFieldSelect
+      name="Test select field"
+      value={store.value}
+      isEditing={true}
+      handler={handler}
+      fields={[]}
+      options={{
+        1: 'variant 1',
+        2: 'variant 2',
+        3: 'variant 3',
+      }}
+    />
+  );
 
   const component = renderer.create(element);
   const tree = component.toJSON();
