@@ -1,7 +1,7 @@
 /* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React from 'react';
-import { WithStyles } from '@material-ui/core';
+import React from '../../../../../../../../../admin-toolkit/_node_modules/@types/react';
+import { WithStyles } from '../../../../../../../../../admin-toolkit/_node_modules/@material-ui/core';
 import styles from './styles';
 import { IEntityField } from '../../../../..';
 import { Entity } from '../../../..';
@@ -23,5 +23,5 @@ declare type IProps = WithStyles<typeof styles> & {
     onResetFieldError: (field: string) => void;
     withToken?: (req: any, args: any) => any;
 };
-declare const EntityViewer: React.ComponentType<Pick<IProps, "data" | "id" | "url" | "isLoading" | "fields" | "errors" | "isEditing" | "withToken" | "onSave" | "onCancel" | "onResetFieldError" | "setEditorData" | "getItem" | "cancelGetItem" | "entity" | "viewable"> & import("@material-ui/core").StyledComponentProps<"grid" | "wrap" | "buttons" | "field" | "loader">>;
+declare const EntityViewer: React.ComponentType<Pick<IProps, "data" | "id" | "url" | "isLoading" | "fields" | "errors" | "isEditing" | "withToken" | "onSave" | "onCancel" | "onResetFieldError" | "setEditorData" | "getItem" | "cancelGetItem" | "entity" | "viewable"> & import("../../../../../../../../../admin-toolkit/_node_modules/@material-ui/core").StyledComponentProps<"grid" | "wrap" | "buttons" | "field" | "loader">>;
 export { EntityViewer };

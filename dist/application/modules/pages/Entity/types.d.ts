@@ -1,7 +1,7 @@
-/* Copyright (c) 2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import { Entity, ENTITY_ACTIONS, ENTITY_FIELD_RENDERS, IPageProps, UserRole } from "../../..";
-import { FC, MouseEventHandler } from "react";
+import { FC, MouseEventHandler } from "../../../../../../../admin-toolkit/_node_modules/@types/react";
 export interface IEntityField {
     name: string;
     label?: string;

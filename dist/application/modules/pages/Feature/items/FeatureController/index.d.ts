@@ -1,7 +1,7 @@
 /* Copyright (c) 2020 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import { Feature } from '../..';
-import { CancellablePromise } from 'mobx/lib/api/flow';
+import { CancellablePromise } from '../../../../../../../../../admin-toolkit/_node_modules/mobx/lib/api/flow';
 export declare class FeatureController<T extends Record<string, any> = Record<string, any>> {
     feature: Feature<T>;
     constructor(feature: Feature<T>);

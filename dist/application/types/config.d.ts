@@ -3,8 +3,8 @@
 /// <reference types="webpack-env" />
 import { Page } from '../modules/pages/Page';
 import { AuthProvider } from '../modules/auth/AuthProvider';
-import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
-import { FC } from 'react';
+import { ThemeOptions } from '../../../../../admin-toolkit/_node_modules/@material-ui/core/styles/createMuiTheme';
+import { FC } from '../../../../../admin-toolkit/_node_modules/@types/react';
 export interface IConfigProps {
     logo: string;
     title: string;

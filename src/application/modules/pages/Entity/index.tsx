@@ -27,7 +27,7 @@ import { EntityList } from '~/application/modules/pages/Entity/components/Entity
 import { EntityHead } from '~/application/modules/pages/Entity/components/EntityHead';
 import { EntityFooter } from '~/application/modules/pages/Entity/components/EntityFooter';
 import { EntityListWrapper } from '~/application/modules/pages/Entity/components/EntityListWrapper';
-import i18n from "~/i18n";
+import i18n from '~/i18n';
 
 export class Entity extends Page {
   // Props
@@ -151,7 +151,9 @@ export class Entity extends Page {
         );
 
         if (!result || result.error)
-          throw new Error(result?.error || i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
+          throw new Error(
+            result?.error || i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS)
+          );
 
         this.data = result?.data?.list || [];
         this.filterData = result?.filterData || {};
@@ -237,7 +239,9 @@ export class Entity extends Page {
         );
 
         if (!result || result.error)
-          throw new Error(result?.error || i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
+          throw new Error(
+            result?.error || i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS)
+          );
 
         this.fetchItems();
 
@@ -288,7 +292,9 @@ export class Entity extends Page {
         );
 
         if (!result || result.error)
-          throw new Error(result?.error || i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
+          throw new Error(
+            result?.error || i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS)
+          );
 
         this.fetchItems();
         this.parent?.history.push(this.menu.url);
@@ -327,7 +333,8 @@ export class Entity extends Page {
             : {
                 ...obj,
                 [field.name]:
-                  (field.validator && field.validator(data[field.name], this)) ||
+                  (field.validator &&
+                    field.validator(data[field.name], this)) ||
                   i18n.t(ENTITY_ERRORS.FIELD_IS_REQUIRED),
               },
         {}
@@ -363,7 +370,9 @@ export class Entity extends Page {
         );
 
         if (!result || result.error)
-          throw new Error(result?.error || i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS));
+          throw new Error(
+            result?.error || i18n.t(ENTITY_ERRORS.CANT_LOAD_ITEMS)
+          );
 
         this.editorData = result.data;
         this.isLoading = false;
@@ -506,7 +515,7 @@ export class Entity extends Page {
   get ListHeadTitle() {
     return observer(() => (
       <Typography variant="h4" style={{ flex: 1 }}>
-        {this.title}
+        {i18n.t(this.title)}
       </Typography>
     ));
   }
@@ -648,26 +657,28 @@ export class Entity extends Page {
   @computed
   get ViewerBody() {
     return observer(({ id }: { id: string }) => {
-      if (!this.canView) return this.forbiddenPlaceholder
+      if (!this.canView) return this.forbiddenPlaceholder;
 
-      return <EntityViewer
-        id={id}
-        fields={this.fields}
-        url={this.menu.url}
-        errors={this.editorFieldErrors}
-        onSave={() => {}}
-        onCancel={this.onEditCancel}
-        onResetFieldError={this.resetFieldError}
-        isEditing={false}
-        isLoading={this.isLoading}
-        setEditorData={this.setEditorData}
-        data={this.editorData}
-        getItem={this.getItem}
-        cancelGetItem={this.getItemsCancel}
-        withToken={this.parent?.auth?.withToken}
-        viewable={this.viewable}
-        entity={this}
-      />
+      return (
+        <EntityViewer
+          id={id}
+          fields={this.fields}
+          url={this.menu.url}
+          errors={this.editorFieldErrors}
+          onSave={() => {}}
+          onCancel={this.onEditCancel}
+          onResetFieldError={this.resetFieldError}
+          isEditing={false}
+          isLoading={this.isLoading}
+          setEditorData={this.setEditorData}
+          data={this.editorData}
+          getItem={this.getItem}
+          cancelGetItem={this.getItemsCancel}
+          withToken={this.parent?.auth?.withToken}
+          viewable={this.viewable}
+          entity={this}
+        />
+      );
     });
   }
 
@@ -705,27 +716,29 @@ export class Entity extends Page {
 
   @computed
   get EditorBody() {
-    return observer(({id}: { id: string }) => {
-      if (!this.canEdit) return this.forbiddenPlaceholder
+    return observer(({ id }: { id: string }) => {
+      if (!this.canEdit) return this.forbiddenPlaceholder;
 
-      return <EntityViewer
-        id={id}
-        fields={this.fields}
-        errors={this.editorFieldErrors}
-        url={this.menu.url}
-        onSave={this.updateItem}
-        onCancel={this.onEditCancel}
-        onResetFieldError={this.resetFieldError}
-        isLoading={this.isLoading}
-        setEditorData={this.setEditorData}
-        data={this.editorData}
-        getItem={this.getItem}
-        cancelGetItem={this.getItemsCancel}
-        withToken={this.parent?.auth?.withToken}
-        viewable={this.viewable}
-        entity={this}
-        isEditing
-      />
+      return (
+        <EntityViewer
+          id={id}
+          fields={this.fields}
+          errors={this.editorFieldErrors}
+          url={this.menu.url}
+          onSave={this.updateItem}
+          onCancel={this.onEditCancel}
+          onResetFieldError={this.resetFieldError}
+          isLoading={this.isLoading}
+          setEditorData={this.setEditorData}
+          data={this.editorData}
+          getItem={this.getItem}
+          cancelGetItem={this.getItemsCancel}
+          withToken={this.parent?.auth?.withToken}
+          viewable={this.viewable}
+          entity={this}
+          isEditing
+        />
+      );
     });
   }
 
@@ -760,25 +773,27 @@ export class Entity extends Page {
   @computed
   get CreatorBody() {
     return observer(() => {
-      if (!this.canCreate) return this.forbiddenPlaceholder
+      if (!this.canCreate) return this.forbiddenPlaceholder;
 
-      return <EntityViewer
-        fields={this.fields}
-        errors={this.editorFieldErrors}
-        url={this.menu.url}
-        onSave={this.createItem}
-        onCancel={this.onEditCancel}
-        onResetFieldError={this.resetFieldError}
-        isEditing
-        isLoading={this.isLoading}
-        setEditorData={this.setEditorData}
-        data={this.editorData}
-        getItem={this.createEmptyItem}
-        cancelGetItem={this.getItemsCancel}
-        viewable={this.viewable}
-        withToken={this.parent?.auth?.withToken}
-        entity={this}
-      />
+      return (
+        <EntityViewer
+          fields={this.fields}
+          errors={this.editorFieldErrors}
+          url={this.menu.url}
+          onSave={this.createItem}
+          onCancel={this.onEditCancel}
+          onResetFieldError={this.resetFieldError}
+          isEditing
+          isLoading={this.isLoading}
+          setEditorData={this.setEditorData}
+          data={this.editorData}
+          getItem={this.createEmptyItem}
+          cancelGetItem={this.getItemsCancel}
+          viewable={this.viewable}
+          withToken={this.parent?.auth?.withToken}
+          entity={this}
+        />
+      );
     });
   }
 

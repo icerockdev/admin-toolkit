@@ -6,20 +6,20 @@ import { Button, InputAdornment, TextField } from '@material-ui/core';
 import { useConfig } from '~/application/utils/hooks';
 import styles from './styles.module.scss';
 import { Link } from 'react-router-dom';
-import { Helmet } from "react-helmet";
-import { useTranslation } from "react-i18next";
+import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 
 const SignIn: FC = () => {
   const config = useConfig();
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const auth = config.auth;
 
   const onForgotPassword = useMemo(
     () =>
       config.auth?.authPasswRestoreFn
         ? () => {
-          config.history.push('/restore');
-        }
+            config.history.push('/restore');
+          }
         : undefined,
     [config.history, config.auth, config.auth?.authPasswRestoreFn]
   );
@@ -44,7 +44,10 @@ const SignIn: FC = () => {
     [setPassword]
   );
 
-  const loginLabel = useMemo(() => config.auth?.loginLabel || t('Login'), [config.auth, t]);
+  const loginLabel = useMemo(() => config.auth?.loginLabel || t('Login'), [
+    config.auth,
+    t,
+  ]);
 
   return (
     <div className={styles.wrap}>
@@ -61,7 +64,7 @@ const SignIn: FC = () => {
           required
           fullWidth
           id="email"
-          label={loginLabel}
+          label={t(loginLabel)}
           name="email"
           autoComplete="email"
           defaultValue={email}

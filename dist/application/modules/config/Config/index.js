@@ -22,14 +22,14 @@ import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 import { computed, observable } from 'mobx';
 import { DEFAULT_THEME } from '../../../../utils/theme';
 import { VerticalLayout } from '../../../layouts/application/VerticalLayout';
-import { DEFAULT_LANGUAGES } from "../../../../i18n";
+import { DEFAULT_LANGUAGES } from '../../../../i18n';
 var Config = /** @class */ (function () {
     function Config(options) {
         var _this = this;
         this.debug = process.env.NODE_ENV !== 'production';
         this.name = '';
         this.pages = [];
-        this.i18nDefaultLanguage = "en";
+        this.i18nDefaultLanguage = 'en';
         this.i18nLanguages = DEFAULT_LANGUAGES;
         this.i18nUseBrowserLanguageDetector = true;
         this.i18nResourcesContext = require.context('~/locales', true, /\.json$/);
@@ -69,6 +69,7 @@ var Config = /** @class */ (function () {
                 name: page.menu.label,
                 url: page.menu.url,
                 enabled: page.menu.enabled,
+                childFields: page.menu.childFields,
             }); });
         },
         enumerable: false,

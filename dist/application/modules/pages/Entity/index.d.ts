@@ -1,8 +1,8 @@
 /* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
-import React, { ReactElement } from 'react';
+import React, { ReactElement } from '../../../../../../../admin-toolkit/_node_modules/@types/react';
 import { ENTITY_SORT_DIRS, IEntityField, IEntityProps } from '../../..';
-import { CancellablePromise } from 'mobx/lib/api/flow';
+import { CancellablePromise } from '../../../../../../../admin-toolkit/_node_modules/mobx/lib/api/flow';
 import { Page } from '../Page';
 export declare class Entity extends Page {
     api: IEntityProps['api'];

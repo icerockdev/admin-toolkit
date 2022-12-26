@@ -87,7 +87,7 @@ import { EntityList } from './components/EntityList';
 import { EntityHead } from './components/EntityHead';
 import { EntityFooter } from './components/EntityFooter';
 import { EntityListWrapper } from './components/EntityListWrapper';
-import i18n from "../../../../i18n";
+import i18n from '../../../../i18n';
 var Entity = /** @class */ (function (_super) {
     __extends(Entity, _super);
     function Entity(fields) {
@@ -354,7 +354,8 @@ var Entity = /** @class */ (function (_super) {
                 var _a;
                 return _this.isValidField(field, data[field.name])
                     ? obj
-                    : __assign(__assign({}, obj), (_a = {}, _a[field.name] = (field.validator && field.validator(data[field.name], _this)) ||
+                    : __assign(__assign({}, obj), (_a = {}, _a[field.name] = (field.validator &&
+                        field.validator(data[field.name], _this)) ||
                         i18n.t(ENTITY_ERRORS.FIELD_IS_REQUIRED), _a));
             }, {});
             return Object.keys(_this.editorFieldErrors).length === 0;
@@ -547,7 +548,7 @@ var Entity = /** @class */ (function (_super) {
     Object.defineProperty(Entity.prototype, "ListHeadTitle", {
         get: function () {
             var _this = this;
-            return observer(function () { return (React.createElement(Typography, { variant: "h4", style: { flex: 1 } }, _this.title)); });
+            return observer(function () { return (React.createElement(Typography, { variant: "h4", style: { flex: 1 } }, i18n.t(_this.title))); });
         },
         enumerable: false,
         configurable: true
@@ -657,7 +658,7 @@ var Entity = /** @class */ (function (_super) {
                 var id = _a.id;
                 if (!_this.canView)
                     return _this.forbiddenPlaceholder;
-                return React.createElement(EntityViewer, { id: id, fields: _this.fields, url: _this.menu.url, errors: _this.editorFieldErrors, onSave: function () { }, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isEditing: false, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, viewable: _this.viewable, entity: _this });
+                return (React.createElement(EntityViewer, { id: id, fields: _this.fields, url: _this.menu.url, errors: _this.editorFieldErrors, onSave: function () { }, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isEditing: false, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, viewable: _this.viewable, entity: _this }));
             });
         },
         enumerable: false,
@@ -716,7 +717,7 @@ var Entity = /** @class */ (function (_super) {
                 var id = _a.id;
                 if (!_this.canEdit)
                     return _this.forbiddenPlaceholder;
-                return React.createElement(EntityViewer, { id: id, fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.updateItem, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, viewable: _this.viewable, entity: _this, isEditing: true });
+                return (React.createElement(EntityViewer, { id: id, fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.updateItem, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.getItem, cancelGetItem: _this.getItemsCancel, withToken: (_c = (_b = _this.parent) === null || _b === void 0 ? void 0 : _b.auth) === null || _c === void 0 ? void 0 : _c.withToken, viewable: _this.viewable, entity: _this, isEditing: true }));
             });
         },
         enumerable: false,
@@ -765,7 +766,7 @@ var Entity = /** @class */ (function (_super) {
                 var _a, _b;
                 if (!_this.canCreate)
                     return _this.forbiddenPlaceholder;
-                return React.createElement(EntityViewer, { fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.createItem, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isEditing: true, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.createEmptyItem, cancelGetItem: _this.getItemsCancel, viewable: _this.viewable, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken, entity: _this });
+                return (React.createElement(EntityViewer, { fields: _this.fields, errors: _this.editorFieldErrors, url: _this.menu.url, onSave: _this.createItem, onCancel: _this.onEditCancel, onResetFieldError: _this.resetFieldError, isEditing: true, isLoading: _this.isLoading, setEditorData: _this.setEditorData, data: _this.editorData, getItem: _this.createEmptyItem, cancelGetItem: _this.getItemsCancel, viewable: _this.viewable, withToken: (_b = (_a = _this.parent) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.withToken, entity: _this }));
             });
         },
         enumerable: false,

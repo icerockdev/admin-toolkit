@@ -12,11 +12,14 @@ import styles from './styles.module.scss';
 var Page = /** @class */ (function () {
     function Page(fields) {
         this.title = 'Admin Toolkit';
-        this.menu = { enabled: true, label: '', url: '' };
-        this.onMount = function () {
+        this.menu = {
+            enabled: true,
+            label: '',
+            url: '',
+            childFields: undefined,
         };
-        this.onUnmount = function () {
-        };
+        this.onMount = function () { };
+        this.onUnmount = function () { };
         if (fields) {
             Object.assign(this, fields);
         }
@@ -43,10 +46,10 @@ var Page = /** @class */ (function () {
     });
     Object.defineProperty(Page.prototype, "forbiddenPlaceholder", {
         get: function () {
-            return React.createElement("div", { className: styles.wrap },
+            return (React.createElement("div", { className: styles.wrap },
                 React.createElement("div", { className: styles.error },
                     React.createElement("h1", null, "Forbidden"),
-                    React.createElement("p", null, "You don't have permission to perform that action")));
+                    React.createElement("p", null, "You don't have permission to perform that action"))));
         },
         enumerable: false,
         configurable: true

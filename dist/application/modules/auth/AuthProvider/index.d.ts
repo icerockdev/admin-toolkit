@@ -1,9 +1,9 @@
 /* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import { AuthProviderOptions, AuthProviderUser, WithTokenFunction } from '../../../types/auth';
-import { CancellablePromise } from 'mobx/lib/api/flow';
+import { CancellablePromise } from '../../../../../../../admin-toolkit/_node_modules/mobx/lib/api/flow';
 import { Config } from '../../..';
-import { FC } from 'react';
+import { FC } from '../../../../../../../admin-toolkit/_node_modules/@types/react';
 export declare class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
     constructor(options?: Partial<AuthProviderOptions>);
     splash: string;

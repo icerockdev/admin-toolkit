@@ -1,4 +1,4 @@
-/* Copyright (c) 2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
+/* Copyright (c) 2021-2022 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React from 'react';
 import renderer from 'react-test-renderer';

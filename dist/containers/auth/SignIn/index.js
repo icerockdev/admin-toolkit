@@ -34,7 +34,7 @@ var SignIn = function () {
             React.createElement("title", null, t('Sign In'))),
         React.createElement("h3", { className: styles.header }, t('Sign In')),
         React.createElement("form", { noValidate: true, onSubmit: onSubmitCapture },
-            React.createElement(TextField, { variant: "filled", margin: "normal", required: true, fullWidth: true, id: "email", label: loginLabel, name: "email", autoComplete: "email", defaultValue: email, onChange: onEmailChange, autoFocus: true }),
+            React.createElement(TextField, { variant: "filled", margin: "normal", required: true, fullWidth: true, id: "email", label: t(loginLabel), name: "email", autoComplete: "email", defaultValue: email, onChange: onEmailChange, autoFocus: true }),
             React.createElement(TextField, { variant: "filled", margin: "normal", required: true, fullWidth: true, name: "password", label: t('Password'), type: "password", id: "password", defaultValue: password, onChange: onPasswordChange, autoComplete: "current-password", InputProps: {
                     endAdornment: onForgotPassword ? (React.createElement(InputAdornment, { position: "end", onClick: onForgotPassword, className: styles.forgot }, t('Forgot password?'))) : null,
                 } }),

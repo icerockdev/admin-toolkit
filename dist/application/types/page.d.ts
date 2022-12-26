@@ -8,7 +8,10 @@ export interface IPageProps {
     title: string;
     menu: {
         enabled: boolean;
-        label: string;
-        url: string;
-    };
+        childFields?: Array<MenuItem>;
+    } & MenuItem;
 }
+export declare type MenuItem = {
+    label: string;
+    url: string;
+};
