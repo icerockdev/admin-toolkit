@@ -1,9 +1,7 @@
-/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
-
 import { IConfigProps } from '../../../types/config';
 import { Notifications } from '../../common/Notification';
-import { ThemeOptions } from '../../../../../../../admin-toolkit/_node_modules/@material-ui/core/styles/createMuiTheme';
-import { FC } from '../../../../../../../admin-toolkit/_node_modules/@types/react';
+import { ThemeOptions } from '@material-ui/core/styles/createMuiTheme';
+import { FC } from 'react';
 export declare class Config {
     constructor(options?: Partial<IConfigProps>);
     debug: boolean;
@@ -20,7 +18,7 @@ export declare class Config {
     theme: ThemeOptions;
     history: import("history").History<import("history").History.PoorMansUnknown>;
     notifications: Notifications;
-    themeInstance: import("../../../../../../../admin-toolkit/_node_modules/@material-ui/core/styles/createMuiTheme").Theme;
+    themeInstance: import("@material-ui/core/styles/createMuiTheme").Theme;
     layout: FC;
     get pagesForCurrentUser(): import("../..").Page[];
     get linksForCurrentUser(): {

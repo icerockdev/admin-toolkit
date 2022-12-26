@@ -35,7 +35,13 @@ var getNamespace = function (filePath) {
 export var i18nInit = function (config) {
     i18n.use(initReactI18next);
     if (config.i18nUseBrowserLanguageDetector) {
-        i18n.use(BrowserLanguageDetector);
+        i18n.use(new BrowserLanguageDetector(null, {
+            order: [
+                'querystring',
+                'navigator',
+                'htmlTag'
+            ]
+        }));
     }
     var defaultResources = loadResources(require.context('~/locales', true, /\.json$/), DEFAULT_LANGUAGES);
     var resources = mergeDeepLeft(loadResources(config.i18nResourcesContext, config.i18nLanguages), defaultResources);

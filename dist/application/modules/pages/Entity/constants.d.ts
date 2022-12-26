@@ -1,6 +1,4 @@
-/* Copyright (c) 2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
-
-import { FC } from "../../../../../../../admin-toolkit/_node_modules/@types/react";
+import { FC } from "react";
 export declare const ENTITY_FIELD_RENDERS: {
     string: FC<import("./types").IEntityFieldProps>;
     textarea: FC<import("./types").IEntityFieldProps>;
@@ -11,9 +9,9 @@ export declare const ENTITY_FIELD_RENDERS: {
     select: FC<import("./types").IEntityFieldProps>;
     phone: FC<import("./types").IEntityFieldProps>;
     richtext: FC<import("./types").IEntityFieldProps>;
-    base64image: import("../../../../../../../admin-toolkit/_node_modules/@types/react").ComponentType<Pick<import("./types").IEntityFieldProps & {
+    base64image: import("react").ComponentType<Pick<import("./types").IEntityFieldProps & {
         classes: Record<"label" | "image" | "formControl" | "outlinedInput" | "preview", string>;
-    }, "mask" | "data" | "label" | "name" | "onClick" | "placeholder" | "value" | "error" | "options" | "fields" | "isEditing" | "withToken" | "entity" | "handler" | "isFiltering"> & import("../../../../../../../admin-toolkit/_node_modules/@material-ui/styles").StyledComponentProps<"label" | "image" | "formControl" | "outlinedInput" | "preview">>;
+    }, "mask" | "data" | "label" | "name" | "onClick" | "placeholder" | "value" | "error" | "options" | "fields" | "isEditing" | "withToken" | "entity" | "handler" | "isFiltering"> & import("@material-ui/styles").StyledComponentProps<"label" | "image" | "formControl" | "outlinedInput" | "preview">>;
     number: FC<import("./types").IEntityFieldProps>;
     referenceSelect: FC<import("./types").IEntityFieldProps>;
 };

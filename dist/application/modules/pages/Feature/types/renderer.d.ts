@@ -1,5 +1,3 @@
-/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
-
 import { FeatureMode } from './';
 import { FeatureListRendererComponent, FeatureListRendererProps } from '../components/list/FeatureListRenderer';
 import { FeatureReadRendererComponent, FeatureReadRendererProps } from '../components/read/FeatureReadRenderer';

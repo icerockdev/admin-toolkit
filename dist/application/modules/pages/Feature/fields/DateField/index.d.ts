@@ -1,5 +1,3 @@
-/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
-
 import { FeatureField } from '../FeatureField';
 export declare type DateFieldParser = (val: string) => Date;
 export declare type DateFieldFormatter = (val: Date) => string;

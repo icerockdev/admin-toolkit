@@ -4,8 +4,8 @@ import { Button, InputAdornment, TextField } from '@material-ui/core';
 import { useConfig } from '../../../application/utils/hooks';
 import styles from './styles.module.scss';
 import { Link } from 'react-router-dom';
-import { Helmet } from "react-helmet";
-import { useTranslation } from "react-i18next";
+import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 var SignIn = function () {
     var _a;
     var config = useConfig();
@@ -28,7 +28,10 @@ var SignIn = function () {
         setEmail,
     ]);
     var onPasswordChange = useCallback(function (event) { return setPassword(event.target.value); }, [setPassword]);
-    var loginLabel = useMemo(function () { var _a; return ((_a = config.auth) === null || _a === void 0 ? void 0 : _a.loginLabel) || t('Login'); }, [config.auth, t]);
+    var loginLabel = useMemo(function () { var _a; return ((_a = config.auth) === null || _a === void 0 ? void 0 : _a.loginLabel) || t('Login'); }, [
+        config.auth,
+        t,
+    ]);
     return (React.createElement("div", { className: styles.wrap },
         React.createElement(Helmet, null,
             React.createElement("title", null, t('Sign In'))),

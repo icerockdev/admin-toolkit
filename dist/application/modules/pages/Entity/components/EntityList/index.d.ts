@@ -1,7 +1,5 @@
-/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
-
-import React, { MouseEvent, ReactNode } from '../../../../../../../../../admin-toolkit/_node_modules/@types/react';
-import { WithStyles } from '../../../../../../../../../admin-toolkit/_node_modules/@material-ui/core';
+import React, { MouseEvent, ReactNode } from 'react';
+import { WithStyles } from '@material-ui/core';
 import { IEntityField } from '../../types';
 import styles from './styles';
 import { Entity } from '../../../..';
@@ -32,5 +30,5 @@ declare type IProps = WithStyles<typeof styles> & {
     before?: ReactNode;
     after?: ReactNode;
 };
-declare const EntityList: React.ComponentType<Pick<IProps, "after" | "data" | "url" | "selected" | "isLoading" | "fields" | "sortDir" | "sortBy" | "withToken" | "entity" | "onSortChange" | "before" | "extra" | "canView" | "canEdit" | "canSelect" | "setSelected" | "onRowClick" | "firstRow" | "lastRow" | "tableHead"> & import("../../../../../../../../../admin-toolkit/_node_modules/@material-ui/core").StyledComponentProps<"button" | "table" | "paper" | "loader" | "button_active">>;
+declare const EntityList: React.ComponentType<Pick<IProps, "after" | "data" | "url" | "selected" | "isLoading" | "fields" | "sortDir" | "sortBy" | "withToken" | "entity" | "onSortChange" | "before" | "extra" | "canView" | "canEdit" | "canSelect" | "setSelected" | "onRowClick" | "firstRow" | "lastRow" | "tableHead"> & import("@material-ui/core").StyledComponentProps<"button" | "table" | "paper" | "loader" | "button_active">>;
 export { EntityList };

@@ -1,5 +1,3 @@
-/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
-
 import { Page } from '../Page';
 import { FeatureApi } from './items/FeatureApi';
 import { FeatureRenderer } from './items/FeatureRenderer';

@@ -1,5 +1,3 @@
-/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
-
 import { Feature } from '../..';
 import { FeatureRendererProps } from '../../types/renderer';
 import { FeatureListRendererComponent } from '../../components/list/FeatureListRenderer';

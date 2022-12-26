@@ -1,5 +1,3 @@
-/* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
-
 import { SelectField, SelectFieldOptions } from '../SelectField';
 export declare type ReferenceFieldOptions<T, V extends string | number = string> = SelectFieldOptions<T, V> & {
     dependencies?: Array<string>;
