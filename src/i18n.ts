@@ -41,7 +41,16 @@ export const i18nInit = (config: Config) => {
   i18n.use(initReactI18next)
 
   if (config.i18nUseBrowserLanguageDetector) {
-    i18n.use(BrowserLanguageDetector)
+    i18n.use(new BrowserLanguageDetector(
+        null,
+        {
+          order: [
+            'querystring',
+            'navigator',
+            'htmlTag'
+          ]
+        }
+    ))
   }
 
   const defaultResources = loadResources(require.context('~/locales', true, /\.json$/), DEFAULT_LANGUAGES)
