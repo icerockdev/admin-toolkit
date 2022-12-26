@@ -63,8 +63,12 @@ var EntityFilter = withStyles(styles)(observer(function (_a) {
         event.preventDefault();
         applyFilter();
     }, [applyFilter]);
-    var onMenuOpen = useCallback(function (event) { return setButtonRef(event.target); }, [setButtonRef]);
-    var onMenuClose = useCallback(function (event) { return setButtonRef(null); }, [setButtonRef]);
+    var onMenuOpen = useCallback(function (event) { return setButtonRef(event.target); }, [
+        setButtonRef,
+    ]);
+    var onMenuClose = useCallback(function (event) { return setButtonRef(null); }, [
+        setButtonRef,
+    ]);
     return (React.createElement("form", { className: classes.wrapper, onSubmit: onSubmit },
         selectableFields.length > 0 && (React.createElement(React.Fragment, null,
             React.createElement(Button, { "aria-controls": "customized-menu", "aria-haspopup": "true", variant: "outlined", color: "primary", onClick: onMenuOpen, className: classes.filterButton },

@@ -4,8 +4,8 @@ import { Grid, Breadcrumbs, Link, Typography, Button, withStyles, } from '@mater
 import { Link as RouterLink } from 'react-router-dom';
 import styles from './styles';
 import { observer } from 'mobx-react';
-import { Helmet } from "react-helmet";
-import { useTranslation } from "react-i18next";
+import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 var EntityBreadcrumbs = withStyles(styles)(observer(function (_a) {
     var name = _a.name, url = _a.url, isEditing = _a.isEditing, isCreating = _a.isCreating, classes = _a.classes, id = _a.id, fields = _a.fields, data = _a.data, buttons = _a.buttons, viewable = _a.viewable, editable = _a.editable;
     var t = useTranslation().t;

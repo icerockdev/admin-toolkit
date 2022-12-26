@@ -15,7 +15,7 @@ import { Button, CircularProgress, Grid, Paper, withStyles, } from '@material-ui
 import styles from './styles';
 import { EntityField } from '../../../../..';
 import { observer } from 'mobx-react';
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 var EntityViewer = withStyles(styles)(observer(function (_a) {
     var classes = _a.classes, id = _a.id, fields = _a.fields, errors = _a.errors, onSave = _a.onSave, onCancel = _a.onCancel, onResetFieldError = _a.onResetFieldError, isLoading = _a.isLoading, data = _a.data, setEditorData = _a.setEditorData, getItem = _a.getItem, cancelGetItem = _a.cancelGetItem, withToken = _a.withToken, isEditing = _a.isEditing, entity = _a.entity;
     var t = useTranslation().t;
@@ -51,7 +51,9 @@ var EntityViewer = withStyles(styles)(observer(function (_a) {
             React.createElement("div", { className: classes.grid, style: { flexWrap: 'wrap' } },
                 visibleFields.map(function (field) { return (React.createElement("div", { className: classes.field, key: field.name },
                     !isEditing && (React.createElement("div", { className: "label" },
-                        field.label ? t("fields:" + field.label) : field.name,
+                        field.label
+                            ? t("fields:" + field.label)
+                            : field.name,
                         isEditing && field.required && React.createElement("span", null, " *"))),
                     React.createElement("div", { className: "field" },
                         React.createElement(EntityField, { name: field.name, data: data, fields: fields, isEditing: isEditing, error: errors[field.name], handler: onFieldChange(field.name), withToken: withToken, entity: entity })))); }),
