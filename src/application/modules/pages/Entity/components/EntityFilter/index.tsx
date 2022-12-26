@@ -20,6 +20,7 @@ import FilterIcon from '@material-ui/icons/FilterList';
 import { EntityField } from '~/application/modules/pages/Entity/components/EntityField';
 import { observer } from 'mobx-react';
 import { Entity } from '~/application';
+import { useTranslation } from 'react-i18next';
 
 type IProps = WithStyles<typeof styles> & {
   fields: IEntityProps['fields'];
@@ -45,6 +46,7 @@ const EntityFilter = withStyles(styles)(
       withToken,
       entity,
     }: IProps) => {
+      const { t } = useTranslation();
       const [buttonRef, setButtonRef] = useState<any>(null);
 
       const onSelectField = useCallback(
@@ -159,7 +161,11 @@ const EntityFilter = withStyles(styles)(
                       key={field.name}
                       onClick={() => onSelectField(field.name)}
                     >
-                      <ListItemText primary={field.label || field.name} />
+                      <ListItemText
+                        primary={
+                          field.label ? t(`fields:${field.label}`) : field.name
+                        }
+                      />
                     </MenuItem>
                   ))}
                 </Menu>

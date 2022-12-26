@@ -17,7 +17,7 @@ var EntityBreadcrumbs = withStyles(styles)(observer(function (_a) {
         React.createElement(Grid, { container: true, alignItems: "center" },
             React.createElement(Grid, { style: { flex: 1 } },
                 React.createElement(Breadcrumbs, { "aria-label": "breadcrumb" },
-                    name && (React.createElement(Link, { color: "inherit", to: url, component: RouterLink }, name)),
+                    name && (React.createElement(Link, { color: "inherit", to: url, component: RouterLink }, t(name))),
                     isEditing && !isCreating && !!title && (React.createElement(Link, { color: "inherit", to: viewable ? url + "/" + id : url, component: RouterLink }, title)),
                     !isEditing && !isCreating && (React.createElement(Typography, { color: "textPrimary" },
                         React.createElement(Helmet, null,

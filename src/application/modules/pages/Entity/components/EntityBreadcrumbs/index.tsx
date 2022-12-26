@@ -14,8 +14,8 @@ import { Link as RouterLink } from 'react-router-dom';
 import styles from './styles';
 import { IEntityField } from '~/application';
 import { observer } from 'mobx-react';
-import { Helmet } from "react-helmet";
-import { useTranslation } from "react-i18next";
+import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 
 type IProps = WithStyles<typeof styles> & {
   id?: string;
@@ -45,7 +45,7 @@ const EntityBreadcrumbs = withStyles(styles)(
       viewable,
       editable,
     }: IProps) => {
-      const {t} = useTranslation();
+      const { t } = useTranslation();
       const title = useMemo(() => {
         const field = fields.find((f) => f.title);
         return data && field && field.name ? data[field.name] : id;
@@ -58,7 +58,7 @@ const EntityBreadcrumbs = withStyles(styles)(
               <Breadcrumbs aria-label="breadcrumb">
                 {name && (
                   <Link color="inherit" to={url} component={RouterLink}>
-                    {name}
+                    {t(name)}
                   </Link>
                 )}
 

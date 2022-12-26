@@ -51,7 +51,7 @@ var EntityViewer = withStyles(styles)(observer(function (_a) {
             React.createElement("div", { className: classes.grid, style: { flexWrap: 'wrap' } },
                 visibleFields.map(function (field) { return (React.createElement("div", { className: classes.field, key: field.name },
                     !isEditing && (React.createElement("div", { className: "label" },
-                        field.label || field.name,
+                        field.label ? t("fields:" + field.label) : field.name,
                         isEditing && field.required && React.createElement("span", null, " *"))),
                     React.createElement("div", { className: "field" },
                         React.createElement(EntityField, { name: field.name, data: data, fields: fields, isEditing: isEditing, error: errors[field.name], handler: onFieldChange(field.name), withToken: withToken, entity: entity })))); }),

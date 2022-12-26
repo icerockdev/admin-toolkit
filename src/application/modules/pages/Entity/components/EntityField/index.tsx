@@ -4,6 +4,7 @@ import React, { FC, createElement, useMemo } from 'react';
 import { getEntityFieldRenderer } from '~/application';
 import { IEntityFieldProps } from '~/application/types';
 import { observer } from 'mobx-react';
+import { useTranslation } from 'react-i18next';
 
 interface IProps extends IEntityFieldProps {}
 
@@ -19,6 +20,7 @@ const EntityField: FC<IProps> = observer(
     entity,
     withToken = (cb, args) => cb(args),
   }) => {
+    const { t } = useTranslation();
     const field = useMemo(() => fields.find((field) => field.name === name), [
       fields,
       name,
@@ -36,7 +38,7 @@ const EntityField: FC<IProps> = observer(
         value: Object.prototype.hasOwnProperty.call(data, field.name)
           ? data[field.name]
           : null,
-        label: `${field.label || field.name}${
+        label: `${field.label ? t(`fields:${field.label}`) : field.name}${
           field.required && isEditing ? ' *' : ''
         }`,
         name,

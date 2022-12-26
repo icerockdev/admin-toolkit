@@ -1,8 +1,15 @@
 /* Copyright (c) 2020-2021 IceRock MAG Inc. Use of this source code is governed by the Apache 2.0 license. */
 
 import React, { FC, useCallback, useRef, useEffect, useState } from 'react';
-import { Select, MenuItem, FormControl, InputLabel, FormHelperText } from '@material-ui/core';
+import {
+  Select,
+  MenuItem,
+  FormControl,
+  InputLabel,
+  FormHelperText,
+} from '@material-ui/core';
 import { IEntityFieldProps } from '~/application';
+import { useTranslation } from 'react-i18next';
 
 type IProps = IEntityFieldProps & {};
 
@@ -14,7 +21,7 @@ const EntityFieldSelect: FC<IProps> = ({
   error,
   isEditing,
   onClick,
-  options
+  options,
 }) => {
   const onChange = useCallback(
     (event) => {
@@ -27,6 +34,7 @@ const EntityFieldSelect: FC<IProps> = ({
 
   // noinspection TypeScriptValidateTypes
   const ref = useRef<HTMLLabelElement>(null);
+  const { t } = useTranslation();
   const [labelWidth, setLabelWidth] = useState(0);
 
   useEffect(() => {
@@ -35,7 +43,12 @@ const EntityFieldSelect: FC<IProps> = ({
 
   return isEditing ? (
     <FormControl variant="outlined">
-      <InputLabel htmlFor={name} error={!!error} style={{ whiteSpace: 'nowrap' }} ref={ref}>
+      <InputLabel
+        htmlFor={name}
+        error={!!error}
+        style={{ whiteSpace: 'nowrap' }}
+        ref={ref}
+      >
         {label}
       </InputLabel>
 
@@ -55,7 +68,7 @@ const EntityFieldSelect: FC<IProps> = ({
         {options &&
           Object.keys(options).map((item) => (
             <MenuItem key={item} value={item}>
-              {options[item]}
+              {t(`fields:${options[item]}`)}
             </MenuItem>
           ))}
       </Select>
@@ -64,7 +77,7 @@ const EntityFieldSelect: FC<IProps> = ({
     </FormControl>
   ) : (
     <div onClick={onClick}>
-      {(options && options[value]) || <div>&nbsp;</div>}
+      {(options && t(`fields:${options[value]}`)) || <div>&nbsp;</div>}
     </div>
   );
 };

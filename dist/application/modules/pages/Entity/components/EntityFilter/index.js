@@ -25,8 +25,10 @@ import ClearIcon from '@material-ui/icons/Clear';
 import FilterIcon from '@material-ui/icons/FilterList';
 import { EntityField } from '../EntityField';
 import { observer } from 'mobx-react';
+import { useTranslation } from 'react-i18next';
 var EntityFilter = withStyles(styles)(observer(function (_a) {
     var classes = _a.classes, fields = _a.fields, filters = _a.filters, filterData = _a.filterData, setFilters = _a.setFilters, applyFilter = _a.applyFilter, withToken = _a.withToken, entity = _a.entity;
+    var t = useTranslation().t;
     var _b = useState(null), buttonRef = _b[0], setButtonRef = _b[1];
     var onSelectField = useCallback(function (value) {
         setFilters(__spreadArrays(filters, [{ name: String(value), value: '' }]));
@@ -61,12 +63,8 @@ var EntityFilter = withStyles(styles)(observer(function (_a) {
         event.preventDefault();
         applyFilter();
     }, [applyFilter]);
-    var onMenuOpen = useCallback(function (event) { return setButtonRef(event.target); }, [
-        setButtonRef,
-    ]);
-    var onMenuClose = useCallback(function (event) { return setButtonRef(null); }, [
-        setButtonRef,
-    ]);
+    var onMenuOpen = useCallback(function (event) { return setButtonRef(event.target); }, [setButtonRef]);
+    var onMenuClose = useCallback(function (event) { return setButtonRef(null); }, [setButtonRef]);
     return (React.createElement("form", { className: classes.wrapper, onSubmit: onSubmit },
         selectableFields.length > 0 && (React.createElement(React.Fragment, null,
             React.createElement(Button, { "aria-controls": "customized-menu", "aria-haspopup": "true", variant: "outlined", color: "primary", onClick: onMenuOpen, className: classes.filterButton },
@@ -78,7 +76,7 @@ var EntityFilter = withStyles(styles)(observer(function (_a) {
                     vertical: 'top',
                     horizontal: 'right',
                 }, anchorEl: buttonRef, onClose: onMenuClose, open: !!buttonRef }, selectableFields.map(function (field) { return (React.createElement(MenuItem, { key: field.name, onClick: function () { return onSelectField(field.name); } },
-                React.createElement(ListItemText, { primary: field.label || field.name }))); }))))),
+                React.createElement(ListItemText, { primary: field.label ? t("fields:" + field.label) : field.name }))); }))))),
         currentFilters.length > 0 && (React.createElement(Fragment, null,
             React.createElement(Button, { onClick: applyFilter, tabIndex: 0, color: "primary", variant: "outlined", className: classes.filterButton },
                 React.createElement(CheckIcon, null)))),
