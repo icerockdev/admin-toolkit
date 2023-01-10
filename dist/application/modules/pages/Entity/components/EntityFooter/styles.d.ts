@@ -5,6 +5,7 @@ declare const _default: (theme: Theme) => {
         display: string;
         alignItems: string;
         justifyContent: string;
+        marginTop: string;
     };
 };
 export default _default;

@@ -8,5 +8,6 @@ export default (theme: Theme) => ({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'flex-end',
+    marginTop: 'auto',
   },
 });

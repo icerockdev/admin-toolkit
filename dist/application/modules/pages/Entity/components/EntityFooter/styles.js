@@ -5,5 +5,6 @@ export default (function (theme) { return ({
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'flex-end',
+        marginTop: 'auto',
     },
 }); });
