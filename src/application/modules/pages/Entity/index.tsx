@@ -128,7 +128,6 @@ export class Entity extends Page {
         this.isLoading = true;
         this.error = '';
         this.selected = [];
-
         try {
           // loading entity
           if (!this.api?.list?.url || !this.fetchItemsFn) {

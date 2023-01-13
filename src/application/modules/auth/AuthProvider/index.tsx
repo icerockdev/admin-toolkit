@@ -98,35 +98,37 @@ export class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
 
   @action
   sendAuthRequest = (email: string, password: string) => {
-    this.sendAuthRequestCancel();
+    this.sendAuthRequestCancel().then(() => {
 
-    this.sendAuthRequestInstance = flow(function* sendAuthRequest(
-      this: AuthProvider
-    ) {
-      if (!this.authRequestFn) return;
-
-      this.isLoading = true;
-
-      try {
-        const response = yield this.authRequestFn(email, password).catch(
-          () => null
-        );
-
-        if (!response || response.error) {
-          throw new Error(response.error);
+      this.sendAuthRequestInstance = flow(function* sendAuthRequest(
+        this: AuthProvider
+      ) {
+        if (!this.authRequestFn) return;
+  
+        this.isLoading = true;
+  
+        try {
+          const response = yield this.authRequestFn(email, password).catch(
+            () => null
+          );
+  
+          if (!response || response.error) {
+            throw new Error(response.error);
+          }
+  
+          this.user = response.user;
+        } catch (e) {
+          this.error = e;
+          this.parent?.notifications.showError(e.toString());
+        } finally {
+          this.isLoading = false;
         }
+      }).bind(this)();
+    })
 
-        this.user = response.user;
-      } catch (e) {
-        this.error = e;
-        this.parent?.notifications.showError(e.toString());
-      } finally {
-        this.isLoading = false;
-      }
-    }).bind(this)();
   };
 
-  sendAuthRequestCancel = () => {
+  sendAuthRequestCancel = async() => {
     if (this.sendAuthRequestInstance && this.sendAuthRequestInstance.cancel) {
       this.sendAuthRequestInstance.cancel();
     }
@@ -136,34 +138,36 @@ export class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
 
   @action
   sendAuthPasswRestore = (email: string) => {
-    this.sendAuthPasswRestoreCancel();
-
-    this.sendAuthPasswRestoreInstance = flow(function* sendAuthPasswRestore(
-      this: AuthProvider
-    ) {
-      if (!this.authPasswRestoreFn) return;
-
-      this.isLoading = true;
-
-      try {
-        const response = yield this.authPasswRestoreFn(email).catch(() => null);
-
-        if (!response || response.error) {
-          throw new Error(response.error);
+    this.sendAuthPasswRestoreCancel().then(() => {
+      
+      this.sendAuthPasswRestoreInstance = flow(function* sendAuthPasswRestore(
+        this: AuthProvider
+      ) {
+        if (!this.authPasswRestoreFn) return;
+  
+        this.isLoading = true;
+  
+        try {
+          const response = yield this.authPasswRestoreFn(email).catch(() => null);
+  
+          if (!response || response.error) {
+            throw new Error(response.error);
+          }
+  
+          this.parent?.notifications.showSuccess('Check your email');
+          this.parent?.history.push('/');
+        } catch (e) {
+          this.error = e;
+          this.parent?.notifications.showError(e.toString());
+        } finally {
+          this.isLoading = false;
         }
+      }).bind(this)();
+    })
 
-        this.parent?.notifications.showSuccess('Check your email');
-        this.parent?.history.push('/');
-      } catch (e) {
-        this.error = e;
-        this.parent?.notifications.showError(e.toString());
-      } finally {
-        this.isLoading = false;
-      }
-    }).bind(this)();
   };
 
-  sendAuthPasswRestoreCancel = () => {
+  sendAuthPasswRestoreCancel = async() => {
     if (
       this.sendAuthPasswRestoreInstance &&
       this.sendAuthPasswRestoreInstance.cancel
@@ -178,41 +182,43 @@ export class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
 
   @action
   sendAuthPasswUpdate = (token: string, password: string) => {
-    this.sendAuthPasswRestoreCancel();
+    this.sendAuthPasswRestoreCancel().then(() => {
 
-    this.sendAuthPasswUpdateInstance = flow(function* sendAuthPasswUpdate(
-      this: AuthProvider
-    ) {
-      if (!this.authPasswUpdateFn) return;
-
-      this.isLoading = true;
-
-      try {
-        if (!token.trim()) {
-          throw new Error(`Token is empty`);
+      this.sendAuthPasswUpdateInstance = flow(function* sendAuthPasswUpdate(
+        this: AuthProvider
+      ) {
+        if (!this.authPasswUpdateFn) return;
+  
+        this.isLoading = true;
+  
+        try {
+          if (!token.trim()) {
+            throw new Error(`Token is empty`);
+          }
+  
+          if (this.passwordValidator && this.passwordValidator(password)) {
+            throw new Error(this.passwordValidator(password));
+          }
+  
+          const response = yield this.authPasswUpdateFn(token, password).catch(
+            () => null
+          );
+  
+          if (!response || response.error) {
+            throw new Error(response.error);
+          }
+  
+          this.parent?.notifications.showSuccess('You can now log in');
+          this.parent?.history.push('/');
+        } catch (e) {
+          this.error = e;
+          this.parent?.notifications.showError(e.toString());
+        } finally {
+          this.isLoading = false;
         }
+      }).bind(this)();
+    })
 
-        if (this.passwordValidator && this.passwordValidator(password)) {
-          throw new Error(this.passwordValidator(password));
-        }
-
-        const response = yield this.authPasswUpdateFn(token, password).catch(
-          () => null
-        );
-
-        if (!response || response.error) {
-          throw new Error(response.error);
-        }
-
-        this.parent?.notifications.showSuccess('You can now log in');
-        this.parent?.history.push('/');
-      } catch (e) {
-        this.error = e;
-        this.parent?.notifications.showError(e.toString());
-      } finally {
-        this.isLoading = false;
-      }
-    }).bind(this)();
   };
 
   sendAuthPasswUpdateCancel = () => {
@@ -266,38 +272,40 @@ export class AuthProvider<U extends AuthProviderUser = AuthProviderUser> {
 
   @action
   logout = () => {
-    this.logoutCancel();
+    this.logoutCancel().then(() => {
 
-    this.logoutInstance = flow(function* sendAuthRequest(
-      this: AuthProvider
-    ) {
-      if (!this.authLogoutFn) {
-        this.user = EMPTY_USER;
-        return;
-      }
-
-      this.isLoading = true;
-
-      try {
-        const response = yield this.withToken(this.authLogoutFn, {}).catch(
-          () => null
-        );
-
-        if (!response || response.error) {
-          throw new Error(response.error);
+      this.logoutInstance = flow(function* sendAuthRequest(
+        this: AuthProvider
+      ) {
+        if (!this.authLogoutFn) {
+          this.user = EMPTY_USER;
+          return;
         }
+  
+        this.isLoading = true;
+  
+        try {
+          const response = yield this.withToken(this.authLogoutFn, {}).catch(
+            () => null
+          );
+  
+          if (!response || response.error) {
+            throw new Error(response.error);
+          }
+  
+          this.user = EMPTY_USER;
+        } catch (e) {
+          this.error = e;
+          this.parent?.notifications.showError(e.toString());
+        } finally {
+          this.isLoading = false;
+        }
+      }).bind(this)();
+    })
 
-        this.user = EMPTY_USER;
-      } catch (e) {
-        this.error = e;
-        this.parent?.notifications.showError(e.toString());
-      } finally {
-        this.isLoading = false;
-      }
-    }).bind(this)();
   };
 
-  logoutCancel = () => {
+  logoutCancel = async() => {
     if (this.logoutInstance && this.logoutInstance.cancel) {
       this.logoutInstance.cancel();
     }
