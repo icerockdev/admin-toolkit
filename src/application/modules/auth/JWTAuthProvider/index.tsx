@@ -43,41 +43,43 @@ export class JWTAuthProvider extends AuthProvider {
 
   @action
   sendAuthRequest = (email: string, password: string) => {
-    this.sendAuthRequestCancel();
+    this.sendAuthRequestCancel().then(() => {
 
-    this.sendAuthRequestInstance = flow(function* sendAuthRequest(
-      this: JWTAuthProvider
-    ) {
-      if (!this.authRequestFn) return;
-
-      this.isLoading = true;
-
-      try {
-        const response: Unwrap<typeof this.authRequestFn> = yield this.authRequestFn(
-          email,
-          password
-        );
-
-        if (!response || response.error) {
-          this.parent?.notifications.showError(
-            response?.error || AUTH_ERRORS.CANT_LOGIN
+      this.sendAuthRequestInstance = flow(function* sendAuthRequest(
+        this: JWTAuthProvider
+      ) {
+        if (!this.authRequestFn) return;
+  
+        this.isLoading = true;
+  
+        try {
+          const response: Unwrap<typeof this.authRequestFn> = yield this.authRequestFn(
+            email,
+            password
           );
-          throw new Error(response?.error);
+  
+          if (!response || response.error) {
+            this.parent?.notifications.showError(
+              response?.error || AUTH_ERRORS.CANT_LOGIN
+            );
+            throw new Error(response?.error);
+          }
+  
+          this.parent?.notifications.hideNotification();
+          this.user = response.user;
+          this.tokens = response.tokens;
+        } catch (e) {
+          this.error = e;
+          this.parent?.notifications.showError(e.toString());
+        } finally {
+          this.isLoading = false;
         }
+      }).bind(this)();
+    }) 
 
-        this.parent?.notifications.hideNotification();
-        this.user = response.user;
-        this.tokens = response.tokens;
-      } catch (e) {
-        this.error = e;
-        this.parent?.notifications.showError(e.toString());
-      } finally {
-        this.isLoading = false;
-      }
-    }).bind(this)();
   };
 
-  sendAuthRequestCancel = () => {
+  sendAuthRequestCancel = async() => {
     if (this.sendAuthRequestInstance && this.sendAuthRequestInstance.cancel) {
       this.sendAuthRequestInstance.cancel();
     }
